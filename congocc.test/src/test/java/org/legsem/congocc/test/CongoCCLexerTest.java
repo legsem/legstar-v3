@@ -1,0 +1,65 @@
+package org.legsem.congocc.test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.legstar.copybook.parser.CopybookLexer;
+import org.legstar.copybook.parser.Token;
+
+public class CongoCCLexerTest {
+
+	@Test
+	public void t0() {
+		assertEquals("[LEVEL_NUMBER:01]", //
+				lex("01."));
+	}
+
+	@Test
+	public void t1() {
+		assertEquals("[LEVEL_NUMBER:01, DATA_NAME:MYVAR]", //
+				lex("01 MYVAR."));
+	}
+
+	@Test
+	public void t2() {
+		assertEquals("[LEVEL_NUMBER:01, DATA_NAME:MYVAR, PICTURE_IS:****.**]", // 
+				lex("01 MYVAR PIC ****.**."));
+	}
+
+	@Test
+	public void t3() {
+		assertEquals("[LEVEL_NUMBER:01, DATA_NAME:MYVAR, PICTURE_IS:Z,ZZZ.ZZ+]", // 
+				lex("01 MYVAR PIC Z,ZZZ.ZZ+"));
+	}
+
+	@Test
+	public void t4() {
+		assertEquals("[LEVEL_NUMBER:01, DATA_NAME:MYVAR, DATA_NAME:OTHERVAR]", // 
+				lex("01 MYVAR REDEFINES OTHERVAR"));
+	}
+
+	private String lex(String s) {
+		List<String> res = new ArrayList<>();
+		CopybookLexer lexer = new CopybookLexer(s);
+		Token t = null;
+		while ((t = lexer.getNextToken(t)) != null) {
+			if (t.getType().isEOF()) {
+				break;
+			}
+			switch (t.getType()) {
+			case WHITESPACE:
+			case PERIOD:
+			case PICTURE:
+			case REDEFINES:
+				break;
+			default:
+				res.add(t.getType() + ":" + t.toString());
+			}
+		}
+		return res.toString();
+	}
+
+}

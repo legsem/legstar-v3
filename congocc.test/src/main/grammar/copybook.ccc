@@ -1,0 +1,77 @@
+PARSER_PACKAGE=org.legstar.copybook.parser;
+NODE_PACKAGE="org.legstar.copybook.parser.ast";
+ENSURE_FINAL_EOL;
+
+<DEFAULT,PICTURE_STATE> UNPARSED : 
+    < #LINE_TERMINATOR: ( [ "\n", "\r" ] | "\r\n" ) >
+|   < #INLINE_WHITESPACE: ( [ " ", "\t", "\f" ] )+ > 
+|   < WHITESPACE: <INLINE_WHITESPACE> | <LINE_TERMINATOR> > 
+;
+
+<PICTURE_STATE> TOKEN [IGNORE_CASE]:
+    < #CONSECUTIVE_OCCURS: "(" (["0"-"9"])+ ")" >
+|	< #PICTURE_PART: (["a", "b", "g", "n", "p", "x", "u", "z", "9", "0", "/", ",", "+", "-", "*", "e", "s", "v", "c", "r", "d", "$"])+ | <CONSECUTIVE_OCCURS> >
+|   < PICTURE_IS: (<PICTURE_PART>)+ ("." (<PICTURE_PART>)+ )? > : DEFAULT
+;
+
+TOKEN [IGNORE_CASE]:
+    < LEVEL_66: "66" >
+|   < LEVEL_77: "77" >
+|   < LEVEL_88: "88" >
+|   < LEVEL_NUMBER: ( (("0")? ["1"-"9"]) | (["1"-"4"]["0"-"9"]) | "78" ) >
+|   < PICTURE: "picture" | "pic" > : PICTURE_STATE
+|   < REDEFINES: "redefines" >
+;
+
+TOKEN [IGNORE_CASE]:
+    < #LETTER: [ "a"-"z" ] >
+|   < #DIGIT: [ "0"-"9" ] >
+|   < #OF: "of">
+|   < #IN: "in"> 
+|   < IS: "is"> 
+|   < PERIOD: "." >
+|   < #DATA_NAME_PART: <LETTER> ( <DIGIT> | <LETTER> | <SPECIAL_NAME_CHARS> )* >
+|   < #SPECIAL_NAME_CHARS: "_" | "-" | "$" >
+|   < DATA_NAME: 
+        <DATA_NAME_PART> ( <WHITESPACE> (<OF> | <IN>) <WHITESPACE> <DATA_NAME_PART> )* 
+        ( "(" <DATA_NAME_PART> ")" )?
+        >
+;
+
+DataLevel :
+	<LEVEL_66> 
+|   <LEVEL_77> 
+|   <LEVEL_88> 
+|   <LEVEL_NUMBER>
+;
+
+DataEntry :
+	DataLevel
+	[ <DATA_NAME> ]
+	( DataEntryClauses )*
+	<PERIOD>
+;
+
+DataEntryClauses :
+	RedefinesClause
+|	PictureClause
+;
+
+RedefinesClause :
+	<REDEFINES>
+	<DATA_NAME>
+;
+
+PictureClause :
+	<PICTURE> [ <IS> ] PictureString
+;
+
+PictureString :
+	<PICTURE_IS>
+;
+
+Copybook :
+	( DataEntry )*
+	<EOF> 
+;
+
