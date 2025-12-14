@@ -1,6 +1,7 @@
 PARSER_PACKAGE=org.legstar.copybook.parser;
 NODE_PACKAGE="org.legstar.copybook.parser.ast";
 ENSURE_FINAL_EOL;
+SMART_NODE_CREATION=false;
 
 <DEFAULT,PICTURE_STATE> UNPARSED : 
     < #LINE_TERMINATOR: ( [ "\n", "\r" ] | "\r\n" ) >
@@ -19,7 +20,10 @@ TOKEN [IGNORE_CASE]:
 |   < LEVEL_77: "77" >
 |   < LEVEL_88: "88" >
 |   < LEVEL_NUMBER: ( (("0")? ["1"-"9"]) | (["1"-"4"]["0"-"9"]) | "78" ) >
-|   < PICTURE: "picture" | "pic" > : PICTURE_STATE
+;
+
+TOKEN [IGNORE_CASE]:
+    < PICTURE: "picture" | "pic" > : PICTURE_STATE
 |   < REDEFINES: "redefines" >
 ;
 
@@ -39,11 +43,11 @@ TOKEN [IGNORE_CASE]:
 ;
 
 DataLevel :
-	<LEVEL_66> 
-|   <LEVEL_77> 
-|   <LEVEL_88> 
-|   <LEVEL_NUMBER>
-;
+	<LEVEL_66 >
+|   <LEVEL_77 >
+|   <LEVEL_88 >
+|   <LEVEL_NUMBER >
+;	
 
 DataEntry :
 	DataLevel

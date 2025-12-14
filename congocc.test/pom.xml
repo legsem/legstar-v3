@@ -57,6 +57,7 @@
 				<version>${congocc.version}</version>
 				<executions>
 					<execution>
+					    <phase>generate-sources</phase>
 						<goals>
 							<goal>ccc-generate</goal>
 						</goals>

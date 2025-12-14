@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.legstar.copybook.parser.CopybookParser;
 import org.legstar.copybook.parser.Node;
 import org.legstar.copybook.parser.ParseException;
-import org.legstar.copybook.parser.Token;
 import org.legstar.copybook.parser.ast.Copybook;
 import org.legstar.copybook.parser.ast.DataEntry;
 import org.legstar.copybook.parser.ast.DataLevel;
@@ -16,14 +15,15 @@ public class CongoCCParseTest {
 
 	@Test
 	public void oneEmpty() {
-		assertEquals(null, parse(""));
+		Copybook copybook = parse("");
+		assertEquals("", copybook.toString());
 	}
 
 	@Test
 	public void noDataName() {
 		Copybook copybook = parse("01.");
 		DataEntry dataEntry = (DataEntry) copybook.get(0);
-		Node levelNumber = (Node) dataEntry.getFirstChild();
+		DataLevel levelNumber = (DataLevel) dataEntry.getFirstChild();
 		assertEquals("01", levelNumber.toString());
 	}
 
