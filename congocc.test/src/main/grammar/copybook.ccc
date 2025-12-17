@@ -3,7 +3,7 @@ NODE_PACKAGE="org.legstar.copybook.parser.ast";
 ENSURE_FINAL_EOL;
 SMART_NODE_CREATION=false;
 
-<DEFAULT,PICTURE_STATE> UNPARSED : 
+<DEFAULT,LEVEL_STATE,PICTURE_STATE> UNPARSED : 
     < #LINE_TERMINATOR: ( [ "\n", "\r" ] | "\r\n" ) >
 |   < #INLINE_WHITESPACE: ( [ " ", "\t", "\f" ] )+ > 
 |   < WHITESPACE: <INLINE_WHITESPACE> | <LINE_TERMINATOR> > 
@@ -15,16 +15,55 @@ SMART_NODE_CREATION=false;
 |   < PICTURE_IS: (<PICTURE_PART>)+ ("." (<PICTURE_PART>)+ )? > : DEFAULT
 ;
 
-TOKEN [IGNORE_CASE]:
+<LEVEL_STATE> TOKEN [IGNORE_CASE]:
     < LEVEL_66: "66" >
 |   < LEVEL_77: "77" >
 |   < LEVEL_88: "88" >
-|   < LEVEL_NUMBER: ( (("0")? ["1"-"9"]) | (["1"-"4"]["0"-"9"]) | "78" ) >
+|   < LEVEL_NUMBER: ( (("0")? ["1"-"9"]) | (["1"-"4"]["0"-"9"]) | "78" ) > : DEFAULT
 ;
 
 TOKEN [IGNORE_CASE]:
     < PICTURE: "picture" | "pic" > : PICTURE_STATE
 |   < REDEFINES: "redefines" >
+|   < BLANK: "blank" >
+|   < WHEN: "when" >
+|   < ZERO: ("zero" | "zeros" | "zeroes") >
+|   < EXTERNAL: "external" >
+|   < GLOBAL: "global" >
+|   < GROUP_USAGE: "group-usage" >
+|   < NATIONAL: "national" >
+|   < UTF_8: "utf-8" >
+|   < JUSTIFIED: ( "justified" | "just" ) >
+|   < LEFT: "left" >
+|   < RIGHT: "right" >
+|   < INDEXED: "indexed" >
+|   < ASCENDING: "ascending" >
+|   < DESCENDING: "descending" >
+|   < KEY: "key" >
+|   < OCCURS: "occurs" >
+|   < TIMES: "times" >
+|   < UNBOUNDED: "unbounded" >
+|   < DEPENDING: "depending" >
+|   < SIGN: "sign" >
+|   < LEADING: "leading" >
+|   < TRAILING: "trailing" >
+|   < SEPARATE: "separate" >
+|   < CHARACTER: "character" >
+|   < SYNCHRONIZED: ( "synchronized" | "sync" ) >
+|   < USAGE: "usage" >
+|   < BINARY: ( "computational" | "comp" | "binary" | "computational-4" | "comp-4") >
+|   < FLOATING_POINT: ( "computational-1" | "comp-1" ) >
+|   < LONG_FLOATING_POINT: ( "computational-2" | "comp-2" ) >
+|   < PACKED_DECIMAL: ( "computational-3" | "comp-3" | "packed-decimal" ) >
+|   < NATIVE_BINARY: ( "computational-5" | "comp-5" ) >
+|   < DISPLAY: "display" >
+|   < DISPLAY_1: "display-1" >
+|   < INDEX: "index" >
+|   < POINTER: "pointer" >
+|   < POINTER_32: "pointer-32" >
+|   < PROCEDURE_POINTER: "procedure-pointer" >
+|   < FUNCTION_POINTER: "function-pointer" >
+|   < NATIVE: "native" >
 ;
 
 TOKEN [IGNORE_CASE]:
@@ -33,6 +72,9 @@ TOKEN [IGNORE_CASE]:
 |   < #OF: "of">
 |   < #IN: "in"> 
 |   < IS: "is"> 
+|   < BY: "by"> 
+|   < TO: "to"> 
+|   < ON: "on"> 
 |   < PERIOD: "." >
 |   < #DATA_NAME_PART: <LETTER> ( <DIGIT> | <LETTER> | <SPECIAL_NAME_CHARS> )* >
 |   < #SPECIAL_NAME_CHARS: "_" | "-" | "$" >
@@ -40,6 +82,7 @@ TOKEN [IGNORE_CASE]:
         <DATA_NAME_PART> ( <WHITESPACE> (<OF> | <IN>) <WHITESPACE> <DATA_NAME_PART> )* 
         ( "(" <DATA_NAME_PART> ")" )?
         >
+|   < INTEGER: ( <DIGIT> )+ >
 ;
 
 DataLevel :
@@ -49,7 +92,7 @@ DataLevel :
 |   <LEVEL_NUMBER >
 ;	
 
-DataEntry :
+DataEntry : LEVEL_STATE :
 	DataLevel
 	[ <DATA_NAME> ]
 	( DataEntryClauses )*
@@ -58,12 +101,94 @@ DataEntry :
 
 DataEntryClauses :
 	RedefinesClause
+|	BlankWhenZeroClause
+|	ExternalClause
+|	GlobalClause
+|   GroupUsageClause
+|   JustifiedClause
+|   OccursClause
 |	PictureClause
+|   SignClause
+|   SynchronizedClause
+|   UsageClause
 ;
 
 RedefinesClause :
 	<REDEFINES>
 	<DATA_NAME>
+;
+
+BlankWhenZeroClause :
+	<BLANK>
+	[ <WHEN> ]
+	<ZERO>
+;
+
+ExternalClause :
+	<EXTERNAL>
+;
+
+GlobalClause :
+	<GLOBAL>
+;
+
+GroupUsageClause :
+	<GROUP_USAGE>
+	[ <IS> ]
+	( <NATIONAL> | <UTF_8> )
+;
+
+JustifiedClause :
+	<JUSTIFIED>
+	[ <RIGHT> ]
+;
+
+OccursClause :
+    VariableLengthOccurs
+|   FixedLengthOccurs
+;
+
+FixedLengthOccurs :
+	<OCCURS>
+	<INTEGER>
+	[ <TIMES> ]
+	( KeyClause )*
+	( IndexedClause )*
+;
+
+KeyClause :
+    ( <ASCENDING> | <DESCENDING> )
+    [ <KEY> ]
+    [ <IS> ]
+    ( <DATA_NAME> )+
+;
+  
+IndexedClause :
+   <INDEXED>
+   [ <BY> ]
+   ( <DATA_NAME> )+
+;
+
+VariableLengthOccurs :
+	<OCCURS>
+	[ LowerBound ]
+	UpperBound
+	[ <TIMES> ]
+	<DEPENDING>	=>||
+	[ <ON> ]
+	<DATA_NAME>
+	( KeyClause )*
+	( IndexedClause )*
+;
+
+LowerBound :
+	<INTEGER>
+	<TO> =>||
+;
+
+UpperBound :
+	<INTEGER>
+|	<UNBOUNDED>
 ;
 
 PictureClause :
@@ -72,6 +197,45 @@ PictureClause :
 
 PictureString :
 	<PICTURE_IS>
+;
+
+SignClause :
+	[ <SIGN> ]
+	[ <IS> ]
+    ( <LEADING> | <TRAILING> )
+    [ SignSeparate ]
+;
+
+SignSeparate :
+	<SEPARATE>
+	[ <CHARACTER> ]
+;
+
+SynchronizedClause :
+    <SYNCHRONIZED>
+    [ <LEFT> | <RIGHT> ]
+;
+
+UsageClause :
+    [ <USAGE> ]
+    [ <IS> ]
+    (
+      <BINARY>
+    | <FLOATING_POINT>
+    | <LONG_FLOATING_POINT>
+    | <PACKED_DECIMAL>
+    | <NATIVE_BINARY>
+    | <DISPLAY>
+    | <DISPLAY_1>
+    | <INDEX>
+    | <NATIONAL>
+    | <UTF_8>
+    | <POINTER>
+    | <POINTER_32>
+    | <PROCEDURE_POINTER>
+    | <FUNCTION_POINTER>
+    ) =>||
+    [ <NATIVE> ]
 ;
 
 Copybook :

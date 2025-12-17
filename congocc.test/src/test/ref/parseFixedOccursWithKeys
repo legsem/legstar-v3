@@ -1,0 +1,58 @@
+<Copybook (1, 1)-(4, 44)>
+  <DataEntry (1, 1)-(1, 34)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 8): MYVAR
+    <DataEntryClauses (1, 10)-(1, 33)>
+      <OccursClause (1, 10)-(1, 33)>
+        <FixedLengthOccurs (1, 10)-(1, 33)>
+          OCCURS: (1, 10) - (1, 15): OCCURS
+          INTEGER: (1, 17) - (1, 17): 3
+          <KeyClause (1, 19)-(1, 33)>
+            ASCENDING: (1, 19) - (1, 27): ASCENDING
+            DATA_NAME: (1, 29) - (1, 33): MYKEY
+    PERIOD: (1, 34) - (1, 34): .
+  <DataEntry (2, 1)-(2, 38)>
+    <DataLevel (2, 1)-(2, 2)>
+      LEVEL_NUMBER: (2, 1) - (2, 2): 01
+    DATA_NAME: (2, 4) - (2, 8): MYVAR
+    <DataEntryClauses (2, 10)-(2, 37)>
+      <OccursClause (2, 10)-(2, 37)>
+        <FixedLengthOccurs (2, 10)-(2, 37)>
+          OCCURS: (2, 10) - (2, 15): OCCURS
+          INTEGER: (2, 17) - (2, 17): 3
+          <KeyClause (2, 19)-(2, 37)>
+            ASCENDING: (2, 19) - (2, 27): ASCENDING
+            KEY: (2, 29) - (2, 31): KEY
+            DATA_NAME: (2, 33) - (2, 37): MYKEY
+    PERIOD: (2, 38) - (2, 38): .
+  <DataEntry (3, 1)-(3, 41)>
+    <DataLevel (3, 1)-(3, 2)>
+      LEVEL_NUMBER: (3, 1) - (3, 2): 01
+    DATA_NAME: (3, 4) - (3, 8): MYVAR
+    <DataEntryClauses (3, 10)-(3, 40)>
+      <OccursClause (3, 10)-(3, 40)>
+        <FixedLengthOccurs (3, 10)-(3, 40)>
+          OCCURS: (3, 10) - (3, 15): OCCURS
+          INTEGER: (3, 17) - (3, 17): 3
+          <KeyClause (3, 19)-(3, 40)>
+            ASCENDING: (3, 19) - (3, 27): ASCENDING
+            KEY: (3, 29) - (3, 31): KEY
+            IS: (3, 33) - (3, 34): IS
+            DATA_NAME: (3, 36) - (3, 40): MYKEY
+    PERIOD: (3, 41) - (3, 41): .
+  <DataEntry (4, 1)-(4, 43)>
+    <DataLevel (4, 1)-(4, 2)>
+      LEVEL_NUMBER: (4, 1) - (4, 2): 01
+    DATA_NAME: (4, 4) - (4, 8): MYVAR
+    <DataEntryClauses (4, 10)-(4, 42)>
+      <OccursClause (4, 10)-(4, 42)>
+        <FixedLengthOccurs (4, 10)-(4, 42)>
+          OCCURS: (4, 10) - (4, 15): OCCURS
+          INTEGER: (4, 17) - (4, 17): 3
+          <KeyClause (4, 19)-(4, 42)>
+            DESCENDING: (4, 19) - (4, 28): DESCENDING
+            DATA_NAME: (4, 30) - (4, 35): MYKEY1
+            DATA_NAME: (4, 37) - (4, 42): MYKEY2
+    PERIOD: (4, 43) - (4, 43): .
+  Token: (5, 1) - (5, 1): EOF

@@ -1,0 +1,41 @@
+<Copybook (1, 1)-(4, 23)>
+  <DataEntry (1, 1)-(1, 25)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 8): MYVAR
+    <DataEntryClauses (1, 10)-(1, 24)>
+      <BlankWhenZeroClause (1, 10)-(1, 24)>
+        BLANK: (1, 10) - (1, 14): BLANK
+        WHEN: (1, 16) - (1, 19): WHEN
+        ZERO: (1, 21) - (1, 24): ZERO
+    PERIOD: (1, 25) - (1, 25): .
+  <DataEntry (2, 1)-(2, 26)>
+    <DataLevel (2, 1)-(2, 2)>
+      LEVEL_NUMBER: (2, 1) - (2, 2): 01
+    DATA_NAME: (2, 4) - (2, 8): MYVAR
+    <DataEntryClauses (2, 10)-(2, 25)>
+      <BlankWhenZeroClause (2, 10)-(2, 25)>
+        BLANK: (2, 10) - (2, 14): BLANK
+        WHEN: (2, 16) - (2, 19): WHEN
+        ZERO: (2, 21) - (2, 25): ZEROS
+    PERIOD: (2, 26) - (2, 26): .
+  <DataEntry (3, 1)-(3, 27)>
+    <DataLevel (3, 1)-(3, 2)>
+      LEVEL_NUMBER: (3, 1) - (3, 2): 01
+    DATA_NAME: (3, 4) - (3, 8): MYVAR
+    <DataEntryClauses (3, 10)-(3, 26)>
+      <BlankWhenZeroClause (3, 10)-(3, 26)>
+        BLANK: (3, 10) - (3, 14): BLANK
+        WHEN: (3, 16) - (3, 19): WHEN
+        ZERO: (3, 21) - (3, 26): ZEROES
+    PERIOD: (3, 27) - (3, 27): .
+  <DataEntry (4, 1)-(4, 22)>
+    <DataLevel (4, 1)-(4, 2)>
+      LEVEL_NUMBER: (4, 1) - (4, 2): 01
+    DATA_NAME: (4, 4) - (4, 8): MYVAR
+    <DataEntryClauses (4, 10)-(4, 21)>
+      <BlankWhenZeroClause (4, 10)-(4, 21)>
+        BLANK: (4, 10) - (4, 14): BLANK
+        ZERO: (4, 16) - (4, 21): ZEROES
+    PERIOD: (4, 22) - (4, 22): .
+  Token: (5, 1) - (5, 1): EOF

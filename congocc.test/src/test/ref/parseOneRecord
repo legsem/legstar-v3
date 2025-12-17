@@ -1,0 +1,7 @@
+<Copybook (1, 1)-(1, 10)>
+  <DataEntry (1, 1)-(1, 9)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 8): MYVAR
+    PERIOD: (1, 9) - (1, 9): .
+  Token: (2, 1) - (2, 1): EOF

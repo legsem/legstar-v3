@@ -1,0 +1,21 @@
+<Copybook (1, 1)-(2, 28)>
+  <DataEntry (1, 1)-(1, 33)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 8): MYVAR
+    <DataEntryClauses (1, 10)-(1, 32)>
+      <GroupUsageClause (1, 10)-(1, 32)>
+        GROUP_USAGE: (1, 10) - (1, 20): GROUP-USAGE
+        IS: (1, 22) - (1, 23): IS
+        NATIONAL: (1, 25) - (1, 32): NATIONAL
+    PERIOD: (1, 33) - (1, 33): .
+  <DataEntry (2, 1)-(2, 27)>
+    <DataLevel (2, 1)-(2, 2)>
+      LEVEL_NUMBER: (2, 1) - (2, 2): 01
+    DATA_NAME: (2, 4) - (2, 8): MYVAR
+    <DataEntryClauses (2, 10)-(2, 26)>
+      <GroupUsageClause (2, 10)-(2, 26)>
+        GROUP_USAGE: (2, 10) - (2, 20): GROUP-USAGE
+        UTF_8: (2, 22) - (2, 26): UTF-8
+    PERIOD: (2, 27) - (2, 27): .
+  Token: (3, 1) - (3, 1): EOF

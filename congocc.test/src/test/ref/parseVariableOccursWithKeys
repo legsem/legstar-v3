@@ -1,0 +1,75 @@
+<Copybook (1, 1)-(4, 60)>
+  <DataEntry (1, 1)-(1, 55)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 8): MYVAR
+    <DataEntryClauses (1, 10)-(1, 54)>
+      <OccursClause (1, 10)-(1, 54)>
+        <VariableLengthOccurs (1, 10)-(1, 54)>
+          OCCURS: (1, 10) - (1, 15): OCCURS
+          <LowerBound (1, 17)-(1, 20)>
+            INTEGER: (1, 17) - (1, 17): 1
+            TO: (1, 19) - (1, 20): TO
+          <UpperBound (1, 22)-(1, 22)>
+            INTEGER: (1, 22) - (1, 22): 3
+          DEPENDING: (1, 24) - (1, 32): DEPENDING
+          DATA_NAME: (1, 34) - (1, 38): MYDEP
+          <KeyClause (1, 40)-(1, 54)>
+            ASCENDING: (1, 40) - (1, 48): ASCENDING
+            DATA_NAME: (1, 50) - (1, 54): MYKEY
+    PERIOD: (1, 55) - (1, 55): .
+  <DataEntry (2, 1)-(2, 57)>
+    <DataLevel (2, 1)-(2, 2)>
+      LEVEL_NUMBER: (2, 1) - (2, 2): 01
+    DATA_NAME: (2, 4) - (2, 8): MYVAR
+    <DataEntryClauses (2, 10)-(2, 56)>
+      <OccursClause (2, 10)-(2, 56)>
+        <VariableLengthOccurs (2, 10)-(2, 56)>
+          OCCURS: (2, 10) - (2, 15): OCCURS
+          <UpperBound (2, 17)-(2, 17)>
+            INTEGER: (2, 17) - (2, 17): 3
+          DEPENDING: (2, 19) - (2, 27): DEPENDING
+          ON: (2, 29) - (2, 30): ON
+          DATA_NAME: (2, 32) - (2, 36): MYDEP
+          <KeyClause (2, 38)-(2, 56)>
+            ASCENDING: (2, 38) - (2, 46): ASCENDING
+            KEY: (2, 48) - (2, 50): KEY
+            DATA_NAME: (2, 52) - (2, 56): MYKEY
+    PERIOD: (2, 57) - (2, 57): .
+  <DataEntry (3, 1)-(3, 60)>
+    <DataLevel (3, 1)-(3, 2)>
+      LEVEL_NUMBER: (3, 1) - (3, 2): 01
+    DATA_NAME: (3, 4) - (3, 8): MYVAR
+    <DataEntryClauses (3, 10)-(3, 59)>
+      <OccursClause (3, 10)-(3, 59)>
+        <VariableLengthOccurs (3, 10)-(3, 59)>
+          OCCURS: (3, 10) - (3, 15): OCCURS
+          <UpperBound (3, 17)-(3, 17)>
+            INTEGER: (3, 17) - (3, 17): 3
+          DEPENDING: (3, 19) - (3, 27): DEPENDING
+          ON: (3, 29) - (3, 30): ON
+          DATA_NAME: (3, 32) - (3, 36): MYDEP
+          <KeyClause (3, 38)-(3, 59)>
+            ASCENDING: (3, 38) - (3, 46): ASCENDING
+            KEY: (3, 48) - (3, 50): KEY
+            IS: (3, 52) - (3, 53): IS
+            DATA_NAME: (3, 55) - (3, 59): MYKEY
+    PERIOD: (3, 60) - (3, 60): .
+  <DataEntry (4, 1)-(4, 59)>
+    <DataLevel (4, 1)-(4, 2)>
+      LEVEL_NUMBER: (4, 1) - (4, 2): 01
+    DATA_NAME: (4, 4) - (4, 8): MYVAR
+    <DataEntryClauses (4, 10)-(4, 58)>
+      <OccursClause (4, 10)-(4, 58)>
+        <VariableLengthOccurs (4, 10)-(4, 58)>
+          OCCURS: (4, 10) - (4, 15): OCCURS
+          <UpperBound (4, 17)-(4, 17)>
+            INTEGER: (4, 17) - (4, 17): 3
+          DEPENDING: (4, 19) - (4, 27): DEPENDING
+          DATA_NAME: (4, 29) - (4, 33): MYDEP
+          <KeyClause (4, 35)-(4, 58)>
+            DESCENDING: (4, 35) - (4, 44): DESCENDING
+            DATA_NAME: (4, 46) - (4, 51): MYKEY1
+            DATA_NAME: (4, 53) - (4, 58): MYKEY2
+    PERIOD: (4, 59) - (4, 59): .
+  Token: (5, 1) - (5, 1): EOF

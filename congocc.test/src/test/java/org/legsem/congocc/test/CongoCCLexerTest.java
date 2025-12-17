@@ -41,6 +41,12 @@ public class CongoCCLexerTest {
 				lex("01 MYVAR REDEFINES OTHERVAR"));
 	}
 
+	@Test
+	public void t5() {
+		assertEquals("[LEVEL_NUMBER:01, DATA_NAME:MYVAR, DATA_NAME:OTHERVAR]", // 
+				lex("01 MYVAR USAGE BINARY"));
+	}
+
 	private String lex(String s) {
 		List<String> res = new ArrayList<>();
 		CopybookLexer lexer = new CopybookLexer(s);

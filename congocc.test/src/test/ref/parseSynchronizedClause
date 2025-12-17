@@ -1,0 +1,43 @@
+<Copybook (1, 1)-(3, 34)>
+  <DataEntry (1, 1)-(1, 28)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 8): MYVAR
+    <DataEntryClauses (1, 10)-(1, 14)>
+      <PictureClause (1, 10)-(1, 14)>
+        PICTURE: (1, 10) - (1, 12): PIC
+        <PictureString (1, 14)-(1, 14)>
+          PICTURE_IS: (1, 14) - (1, 14): 9
+    <DataEntryClauses (1, 16)-(1, 27)>
+      <SynchronizedClause (1, 16)-(1, 27)>
+        SYNCHRONIZED: (1, 16) - (1, 27): SYNCHRONIZED
+    PERIOD: (1, 28) - (1, 28): .
+  <DataEntry (2, 1)-(2, 26)>
+    <DataLevel (2, 1)-(2, 2)>
+      LEVEL_NUMBER: (2, 1) - (2, 2): 01
+    DATA_NAME: (2, 4) - (2, 8): MYVAR
+    <DataEntryClauses (2, 10)-(2, 14)>
+      <PictureClause (2, 10)-(2, 14)>
+        PICTURE: (2, 10) - (2, 12): PIC
+        <PictureString (2, 14)-(2, 14)>
+          PICTURE_IS: (2, 14) - (2, 14): 9
+    <DataEntryClauses (2, 16)-(2, 25)>
+      <SynchronizedClause (2, 16)-(2, 25)>
+        SYNCHRONIZED: (2, 16) - (2, 19): SYNC
+        RIGHT: (2, 21) - (2, 25): RIGHT
+    PERIOD: (2, 26) - (2, 26): .
+  <DataEntry (3, 1)-(3, 33)>
+    <DataLevel (3, 1)-(3, 2)>
+      LEVEL_NUMBER: (3, 1) - (3, 2): 01
+    DATA_NAME: (3, 4) - (3, 8): MYVAR
+    <DataEntryClauses (3, 10)-(3, 14)>
+      <PictureClause (3, 10)-(3, 14)>
+        PICTURE: (3, 10) - (3, 12): PIC
+        <PictureString (3, 14)-(3, 14)>
+          PICTURE_IS: (3, 14) - (3, 14): 9
+    <DataEntryClauses (3, 16)-(3, 32)>
+      <SynchronizedClause (3, 16)-(3, 32)>
+        SYNCHRONIZED: (3, 16) - (3, 27): SYNCHRONIZED
+        LEFT: (3, 29) - (3, 32): LEFT
+    PERIOD: (3, 33) - (3, 33): .
+  Token: (4, 1) - (4, 1): EOF

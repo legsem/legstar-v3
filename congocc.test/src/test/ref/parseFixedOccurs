@@ -1,0 +1,23 @@
+<Copybook (1, 1)-(2, 25)>
+  <DataEntry (1, 1)-(1, 18)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 8): MYVAR
+    <DataEntryClauses (1, 10)-(1, 17)>
+      <OccursClause (1, 10)-(1, 17)>
+        <FixedLengthOccurs (1, 10)-(1, 17)>
+          OCCURS: (1, 10) - (1, 15): OCCURS
+          INTEGER: (1, 17) - (1, 17): 3
+    PERIOD: (1, 18) - (1, 18): .
+  <DataEntry (2, 1)-(2, 24)>
+    <DataLevel (2, 1)-(2, 2)>
+      LEVEL_NUMBER: (2, 1) - (2, 2): 01
+    DATA_NAME: (2, 4) - (2, 8): MYVAR
+    <DataEntryClauses (2, 10)-(2, 23)>
+      <OccursClause (2, 10)-(2, 23)>
+        <FixedLengthOccurs (2, 10)-(2, 23)>
+          OCCURS: (2, 10) - (2, 15): OCCURS
+          INTEGER: (2, 17) - (2, 17): 3
+          TIMES: (2, 19) - (2, 23): TIMES
+    PERIOD: (2, 24) - (2, 24): .
+  Token: (3, 1) - (3, 1): EOF

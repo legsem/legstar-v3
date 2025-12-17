@@ -1,0 +1,22 @@
+<Copybook (1, 1)-(2, 22)>
+  <DataEntry (1, 1)-(1, 23)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 9): MYVAR1
+    <DataEntryClauses (1, 11)-(1, 22)>
+      <PictureClause (1, 11)-(1, 22)>
+        PICTURE: (1, 11) - (1, 13): PIC
+        <PictureString (1, 15)-(1, 22)>
+          PICTURE_IS: (1, 15) - (1, 22): S9(5)V99
+    PERIOD: (1, 23) - (1, 23): .
+  <DataEntry (2, 2)-(2, 21)>
+    <DataLevel (2, 2)-(2, 3)>
+      LEVEL_NUMBER: (2, 2) - (2, 3): 01
+    DATA_NAME: (2, 5) - (2, 10): MYVAR2
+    <DataEntryClauses (2, 12)-(2, 20)>
+      <PictureClause (2, 12)-(2, 20)>
+        PICTURE: (2, 12) - (2, 14): PIC
+        <PictureString (2, 16)-(2, 20)>
+          PICTURE_IS: (2, 16) - (2, 20): X(15)
+    PERIOD: (2, 21) - (2, 21): .
+  Token: (3, 1) - (3, 1): EOF

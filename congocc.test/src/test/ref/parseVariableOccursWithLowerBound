@@ -1,0 +1,34 @@
+<Copybook (1, 1)-(2, 40)>
+  <DataEntry (1, 1)-(1, 39)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 8): MYVAR
+    <DataEntryClauses (1, 10)-(1, 38)>
+      <OccursClause (1, 10)-(1, 38)>
+        <VariableLengthOccurs (1, 10)-(1, 38)>
+          OCCURS: (1, 10) - (1, 15): OCCURS
+          <LowerBound (1, 17)-(1, 20)>
+            INTEGER: (1, 17) - (1, 17): 0
+            TO: (1, 19) - (1, 20): TO
+          <UpperBound (1, 22)-(1, 22)>
+            INTEGER: (1, 22) - (1, 22): 3
+          DEPENDING: (1, 24) - (1, 32): DEPENDING
+          DATA_NAME: (1, 34) - (1, 38): MYDEP
+    PERIOD: (1, 39) - (1, 39): .
+  <DataEntry (2, 1)-(2, 39)>
+    <DataLevel (2, 1)-(2, 2)>
+      LEVEL_NUMBER: (2, 1) - (2, 2): 01
+    DATA_NAME: (2, 4) - (2, 8): MYVAR
+    <DataEntryClauses (2, 10)-(2, 38)>
+      <OccursClause (2, 10)-(2, 38)>
+        <VariableLengthOccurs (2, 10)-(2, 38)>
+          OCCURS: (2, 10) - (2, 15): OCCURS
+          <LowerBound (2, 17)-(2, 20)>
+            INTEGER: (2, 17) - (2, 17): 1
+            TO: (2, 19) - (2, 20): TO
+          <UpperBound (2, 22)-(2, 22)>
+            INTEGER: (2, 22) - (2, 22): 3
+          DEPENDING: (2, 24) - (2, 32): DEPENDING
+          DATA_NAME: (2, 34) - (2, 38): MYDEP
+    PERIOD: (2, 39) - (2, 39): .
+  Token: (3, 1) - (3, 1): EOF

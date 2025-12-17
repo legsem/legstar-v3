@@ -1,0 +1,10 @@
+<Copybook (1, 1)-(1, 18)>
+  <DataEntry (1, 1)-(1, 17)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 9): MYVAR1
+    <DataEntryClauses (1, 11)-(1, 16)>
+      <GlobalClause (1, 11)-(1, 16)>
+        GLOBAL: (1, 11) - (1, 16): GLOBAL
+    PERIOD: (1, 17) - (1, 17): .
+  Token: (2, 1) - (2, 1): EOF

@@ -1,0 +1,12 @@
+<Copybook (1, 1)-(1, 26)>
+  <DataEntry (1, 1)-(1, 25)>
+    <DataLevel (1, 1)-(1, 2)>
+      LEVEL_NUMBER: (1, 1) - (1, 2): 01
+    DATA_NAME: (1, 4) - (1, 8): MYVAR
+    <DataEntryClauses (1, 10)-(1, 24)>
+      <PictureClause (1, 10)-(1, 24)>
+        PICTURE: (1, 10) - (1, 12): PIC
+        <PictureString (1, 14)-(1, 24)>
+          PICTURE_IS: (1, 14) - (1, 24): -9v9(9)E-99
+    PERIOD: (1, 25) - (1, 25): .
+  Token: (2, 1) - (2, 1): EOF
