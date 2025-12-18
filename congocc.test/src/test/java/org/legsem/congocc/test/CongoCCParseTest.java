@@ -242,6 +242,42 @@ public class CongoCCParseTest {
 
 
     @Test
+    public void parseValueClause() {
+		check(parse("""
+				01 MYVAR VALUE 'ab'.
+				01 MYVAR VALUE 'a''b'.
+				01 MYVAR VALUE 'a"b'.
+				01 MYVAR VALUE "ab".
+				01 MYVAR VALUE "a""b".
+				01 MYVAR VALUE "a'b".
+				01 MYVAR VALUE 'ab'.
+				01 MYVAR VALUE 99.
+				01 MYVAR VALUE -99.
+				01 MYVAR VALUE 99.9.
+				01 MYVAR VALUE -99.9.
+				01 MYVAR VALUE -9.9.
+				01 MYVAR VALUE 0.
+				01 MYVAR VALUE  -0.9.
+				01 MYVAR VALUE 0.78E23.
+				01 MYVAR VALUE -0.78E+23.
+				01 MYVAR VALUE X"8182".
+				01 MYVAR VALUE X'8182'.
+				01 MYVAR VALUE N"ab".
+				01 MYVAR VALUE N'ab'.
+				01 MYVAR VALUE NX"8182".
+				01 MYVAR VALUE NX'8182'.
+				01 MYVAR VALUE U"ab".
+				01 MYVAR VALUE U'ab'.
+				01 MYVAR VALUE UX"8182".
+				01 MYVAR VALUE UX'8182'.
+				01 MYVAR VALUE G"ab".
+				01 MYVAR VALUE G'ab'.
+				01 MYVAR VALUE Z"ab".
+				01 MYVAR VALUE Z'ab'.
+								"""));
+    }
+
+    @Test
 	public void parseException1() {
 		try {
 			parse("       01 A PIC.");

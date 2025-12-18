@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.legstar.copybook.parser.CopybookLexer;
+import org.legstar.copybook.parser.CopybookLexer.LexicalState;
 import org.legstar.copybook.parser.Token;
 
 public class CongoCCLexerTest {
@@ -43,13 +44,24 @@ public class CongoCCLexerTest {
 
 	@Test
 	public void t5() {
-		assertEquals("[LEVEL_NUMBER:01, DATA_NAME:MYVAR, DATA_NAME:OTHERVAR]", // 
+		assertEquals("[LEVEL_NUMBER:01, DATA_NAME:MYVAR, USAGE:USAGE, BINARY:BINARY]", // 
 				lex("01 MYVAR USAGE BINARY"));
 	}
 
+	@Test
+	public void t6() {
+		assertEquals("[NUMERIC_LITERAL:0]", // 
+				lex("0", LexicalState.VALUE_STATE));
+	}
+
 	private String lex(String s) {
+		return lex(s, LexicalState.LEVEL_STATE);
+	}
+
+	private String lex(String s, LexicalState state) {
 		List<String> res = new ArrayList<>();
 		CopybookLexer lexer = new CopybookLexer(s);
+		lexer.switchTo(state);
 		Token t = null;
 		while ((t = lexer.getNextToken(t)) != null) {
 			if (t.getType().isEOF()) {
