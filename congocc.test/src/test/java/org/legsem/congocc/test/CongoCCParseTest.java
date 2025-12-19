@@ -274,10 +274,18 @@ public class CongoCCParseTest {
 				01 MYVAR VALUE G'ab'.
 				01 MYVAR VALUE Z"ab".
 				01 MYVAR VALUE Z'ab'.
+				01 MYVAR VALUE ZEROS.
+				01 MYVAR VALUE SPACE.
+				01 MYVAR VALUE HIGH-VALUES.
+				01 MYVAR VALUE LOW-VALUE.
+				01 MYVAR VALUE QUOTES.
+				01 MYVAR VALUE ALL '*'.
+				01 MYVAR VALUE NULLS.
+				01 MYVAR VALUE 'REDEFINES'.
 								"""));
     }
 
-    @Test
+   @Test
 	public void parseException1() {
 		try {
 			parse("       01 A PIC.");

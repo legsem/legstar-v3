@@ -54,6 +54,12 @@ public class CongoCCLexerTest {
 				lex("0", LexicalState.VALUE_STATE));
 	}
 
+	@Test
+	public void t7() {
+		assertEquals("[ZERO_CONSTANT:ZEROS]", // 
+				lex("ZEROS", LexicalState.VALUE_STATE));
+	}
+
 	private String lex(String s) {
 		return lex(s, LexicalState.LEVEL_STATE);
 	}

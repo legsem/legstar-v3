@@ -41,10 +41,17 @@ SMART_NODE_CREATION=false;
 |   < SINGLE_QUOTED_DBCS_LITERAL: "g" <SINGLE_QUOTED_LITERAL> >
 |   < DOUBLE_QUOTED_ZERO_ENDED_LITERAL: "z" <DOUBLE_QUOTED_LITERAL> >
 |   < SINGLE_QUOTED_ZERO_ENDED_LITERAL: "z" <SINGLE_QUOTED_LITERAL> >
-|   < #NON_ZERO : (["1"-"9"])(["0"-"9"])*>
-|   < #FRACTION : "." (["0"-"9"])+>
-|   < #EXPONENT : ["e"](["+","-"])?(["1"-"9"])+>
-|   < NUMERIC_LITERAL : ("-" | "+")?("0"|<NON_ZERO>)(<FRACTION>)?(<EXPONENT>)?>
+|   < #NON_ZERO: (["1"-"9"])(["0"-"9"])*>
+|   < #FRACTION: "." (["0"-"9"])+>
+|   < #EXPONENT: ["e"](["+","-"])?(["1"-"9"])+>
+|   < NUMERIC_LITERAL: ("-" | "+")?("0"|<NON_ZERO>)(<FRACTION>)?(<EXPONENT>)?>
+|   < ZERO_CONSTANT: ("zero" | "zeros" | "zeroes") >
+|   < SPACE_CONSTANT: ("space" | "spaces") >
+|   < HIGH_VALUE_CONSTANT: ("high-value" | "high-values") >
+|   < LOW_VALUE_CONSTANT: ("low-value" | " low-values") >
+|   < QUOTE_CONSTANT: ("quote" | "quotes") >
+|   < ALL_CONSTANT: "all" >
+|   < NULL_CONSTANT: ("null" | "nulls") >
 : DEFAULT
 ;
 
@@ -290,6 +297,33 @@ Literal : VALUE_STATE :
 |   <SINGLE_QUOTED_DBCS_LITERAL>
 |   <DOUBLE_QUOTED_ZERO_ENDED_LITERAL>
 |   <SINGLE_QUOTED_ZERO_ENDED_LITERAL>
+| 	<ZERO_CONSTANT>
+| 	<SPACE_CONSTANT>
+| 	<HIGH_VALUE_CONSTANT> 
+| 	<LOW_VALUE_CONSTANT> 
+| 	<QUOTE_CONSTANT> 
+| 	<NULL_CONSTANT>
+|   AllLiteral
+;
+
+AllLiteral :
+	<ALL_CONSTANT>
+	(
+	  <DOUBLE_QUOTED_STRING_LITERAL>
+	| <SINGLE_QUOTED_STRING_LITERAL>
+	| <DOUBLE_QUOTED_NATIONAL_LITERAL>
+	| <SINGLE_QUOTED_NATIONAL_LITERAL>
+	| <DOUBLE_QUOTED_UTF8_LITERAL>
+	| <SINGLE_QUOTED_UTF8_LITERAL>
+	| <DOUBLE_QUOTED_DBCS_LITERAL>
+	| <SINGLE_QUOTED_DBCS_LITERAL>
+	| <ZERO_CONSTANT>
+	| <SPACE_CONSTANT>
+	| <HIGH_VALUE_CONSTANT> 
+	| <LOW_VALUE_CONSTANT> 
+	| <QUOTE_CONSTANT> 
+	| <NULL_CONSTANT>
+	)
 ;
 
 Copybook :
