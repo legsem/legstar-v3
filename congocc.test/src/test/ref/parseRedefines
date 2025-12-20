@@ -1,11 +1,11 @@
 <Copybook (1, 1)-(1, 29)>
   <DataEntry (1, 1)-(1, 28)>
-    <DataLevel (1, 1)-(1, 2)>
+    <DataEntryFormat1 (1, 1)-(1, 27)>
       LEVEL_NUMBER: (1, 1) - (1, 2): 01
-    DATA_NAME: (1, 4) - (1, 8): MYVAR
-    <DataEntryClauses (1, 10)-(1, 27)>
-      <RedefinesClause (1, 10)-(1, 27)>
-        REDEFINES: (1, 10) - (1, 18): REDEFINES
-        DATA_NAME: (1, 20) - (1, 27): OTHERVAR
+      DATA_NAME: (1, 4) - (1, 8): MYVAR
+      <DataEntryClauses (1, 10)-(1, 27)>
+        <RedefinesClause (1, 10)-(1, 27)>
+          REDEFINES: (1, 10) - (1, 18): REDEFINES
+          DATA_NAME: (1, 20) - (1, 27): OTHERVAR
     PERIOD: (1, 28) - (1, 28): .
   Token: (2, 1) - (2, 1): EOF

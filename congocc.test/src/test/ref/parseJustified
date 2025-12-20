@@ -1,19 +1,19 @@
 <Copybook (1, 1)-(2, 21)>
   <DataEntry (1, 1)-(1, 19)>
-    <DataLevel (1, 1)-(1, 2)>
+    <DataEntryFormat1 (1, 1)-(1, 18)>
       LEVEL_NUMBER: (1, 1) - (1, 2): 01
-    DATA_NAME: (1, 4) - (1, 8): MYVAR
-    <DataEntryClauses (1, 10)-(1, 18)>
-      <JustifiedClause (1, 10)-(1, 18)>
-        JUSTIFIED: (1, 10) - (1, 18): JUSTIFIED
+      DATA_NAME: (1, 4) - (1, 8): MYVAR
+      <DataEntryClauses (1, 10)-(1, 18)>
+        <JustifiedClause (1, 10)-(1, 18)>
+          JUSTIFIED: (1, 10) - (1, 18): JUSTIFIED
     PERIOD: (1, 19) - (1, 19): .
   <DataEntry (2, 1)-(2, 20)>
-    <DataLevel (2, 1)-(2, 2)>
+    <DataEntryFormat1 (2, 1)-(2, 19)>
       LEVEL_NUMBER: (2, 1) - (2, 2): 01
-    DATA_NAME: (2, 4) - (2, 8): MYVAR
-    <DataEntryClauses (2, 10)-(2, 19)>
-      <JustifiedClause (2, 10)-(2, 19)>
-        JUSTIFIED: (2, 10) - (2, 13): JUST
-        RIGHT: (2, 15) - (2, 19): RIGHT
+      DATA_NAME: (2, 4) - (2, 8): MYVAR
+      <DataEntryClauses (2, 10)-(2, 19)>
+        <JustifiedClause (2, 10)-(2, 19)>
+          JUSTIFIED: (2, 10) - (2, 13): JUST
+          RIGHT: (2, 15) - (2, 19): RIGHT
     PERIOD: (2, 20) - (2, 20): .
   Token: (3, 1) - (3, 1): EOF

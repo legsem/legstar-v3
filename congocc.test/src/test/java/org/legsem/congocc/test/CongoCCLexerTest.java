@@ -60,6 +60,18 @@ public class CongoCCLexerTest {
 				lex("ZEROS", LexicalState.VALUE_STATE));
 	}
 
+	@Test
+	public void t8() {
+		assertEquals("[LEVEL_66:66, DATA_NAME:NEWNAME, RENAMES:RENAMES, DATA_NAME:OLDNAME]", // 
+				lex("66 NEWNAME RENAMES OLDNAME"));
+	}
+
+	@Test
+	public void t9() {
+		assertEquals("[LEVEL_88:88, DATA_NAME:CONDITION, VALUE:VALUE, INTEGER:99]", // 
+				lex(" 88 CONDITION VALUE 99"));
+	}
+
 	private String lex(String s) {
 		return lex(s, LexicalState.LEVEL_STATE);
 	}

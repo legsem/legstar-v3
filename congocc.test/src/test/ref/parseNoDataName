@@ -1,6 +1,6 @@
 <Copybook (1, 1)-(1, 4)>
   <DataEntry (1, 1)-(1, 3)>
-    <DataLevel (1, 1)-(1, 2)>
+    <DataEntryFormat1 (1, 1)-(1, 2)>
       LEVEL_NUMBER: (1, 1) - (1, 2): 01
     PERIOD: (1, 3) - (1, 3): .
   Token: (2, 1) - (2, 1): EOF

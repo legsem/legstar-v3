@@ -1,212 +1,212 @@
 <Copybook (1, 1)-(21, 31)>
   <DataEntry (1, 1)-(1, 15)>
-    <DataLevel (1, 1)-(1, 2)>
+    <DataEntryFormat1 (1, 1)-(1, 14)>
       LEVEL_NUMBER: (1, 1) - (1, 2): 01
-    DATA_NAME: (1, 4) - (1, 8): MYVAR
-    <DataEntryClauses (1, 10)-(1, 14)>
-      <PictureClause (1, 10)-(1, 14)>
-        PICTURE: (1, 10) - (1, 12): PIC
-        <PictureString (1, 14)-(1, 14)>
-          PICTURE_IS: (1, 14) - (1, 14): X
+      DATA_NAME: (1, 4) - (1, 8): MYVAR
+      <DataEntryClauses (1, 10)-(1, 14)>
+        <PictureClause (1, 10)-(1, 14)>
+          PICTURE: (1, 10) - (1, 12): PIC
+          <PictureString (1, 14)-(1, 14)>
+            PICTURE_IS: (1, 14) - (1, 14): X
     PERIOD: (1, 15) - (1, 15): .
   <DataEntry (2, 1)-(2, 17)>
-    <DataLevel (2, 1)-(2, 2)>
+    <DataEntryFormat1 (2, 1)-(2, 16)>
       LEVEL_NUMBER: (2, 1) - (2, 2): 01
-    DATA_NAME: (2, 4) - (2, 8): MYVAR
-    <DataEntryClauses (2, 10)-(2, 16)>
-      <PictureClause (2, 10)-(2, 16)>
-        PICTURE: (2, 10) - (2, 12): PIC
-        <PictureString (2, 14)-(2, 16)>
-          PICTURE_IS: (2, 14) - (2, 16): 9.9
+      DATA_NAME: (2, 4) - (2, 8): MYVAR
+      <DataEntryClauses (2, 10)-(2, 16)>
+        <PictureClause (2, 10)-(2, 16)>
+          PICTURE: (2, 10) - (2, 12): PIC
+          <PictureString (2, 14)-(2, 16)>
+            PICTURE_IS: (2, 14) - (2, 16): 9.9
     PERIOD: (2, 17) - (2, 17): .
   <DataEntry (3, 1)-(3, 16)>
-    <DataLevel (3, 1)-(3, 2)>
+    <DataEntryFormat1 (3, 1)-(3, 15)>
       LEVEL_NUMBER: (3, 1) - (3, 2): 01
-    DATA_NAME: (3, 4) - (3, 8): MYVAR
-    <DataEntryClauses (3, 10)-(3, 15)>
-      <PictureClause (3, 10)-(3, 15)>
-        PICTURE: (3, 10) - (3, 12): PIC
-        <PictureString (3, 14)-(3, 15)>
-          PICTURE_IS: (3, 14) - (3, 15): 99
+      DATA_NAME: (3, 4) - (3, 8): MYVAR
+      <DataEntryClauses (3, 10)-(3, 15)>
+        <PictureClause (3, 10)-(3, 15)>
+          PICTURE: (3, 10) - (3, 12): PIC
+          <PictureString (3, 14)-(3, 15)>
+            PICTURE_IS: (3, 14) - (3, 15): 99
     PERIOD: (3, 16) - (3, 16): .
   <DataEntry (4, 1)-(4, 18)>
-    <DataLevel (4, 1)-(4, 2)>
+    <DataEntryFormat1 (4, 1)-(4, 17)>
       LEVEL_NUMBER: (4, 1) - (4, 2): 01
-    DATA_NAME: (4, 4) - (4, 8): MYVAR
-    <DataEntryClauses (4, 10)-(4, 17)>
-      <PictureClause (4, 10)-(4, 17)>
-        PICTURE: (4, 10) - (4, 12): PIC
-        <PictureString (4, 14)-(4, 17)>
-          PICTURE_IS: (4, 14) - (4, 17): 9999
+      DATA_NAME: (4, 4) - (4, 8): MYVAR
+      <DataEntryClauses (4, 10)-(4, 17)>
+        <PictureClause (4, 10)-(4, 17)>
+          PICTURE: (4, 10) - (4, 12): PIC
+          <PictureString (4, 14)-(4, 17)>
+            PICTURE_IS: (4, 14) - (4, 17): 9999
     PERIOD: (4, 18) - (4, 18): .
   <DataEntry (5, 1)-(5, 17)>
-    <DataLevel (5, 1)-(5, 2)>
+    <DataEntryFormat1 (5, 1)-(5, 16)>
       LEVEL_NUMBER: (5, 1) - (5, 2): 01
-    DATA_NAME: (5, 4) - (5, 8): MYVAR
-    <DataEntryClauses (5, 10)-(5, 16)>
-      <PictureClause (5, 10)-(5, 16)>
-        PICTURE: (5, 10) - (5, 12): PIC
-        <PictureString (5, 14)-(5, 16)>
-          PICTURE_IS: (5, 14) - (5, 16): S99
+      DATA_NAME: (5, 4) - (5, 8): MYVAR
+      <DataEntryClauses (5, 10)-(5, 16)>
+        <PictureClause (5, 10)-(5, 16)>
+          PICTURE: (5, 10) - (5, 12): PIC
+          <PictureString (5, 14)-(5, 16)>
+            PICTURE_IS: (5, 14) - (5, 16): S99
     PERIOD: (5, 17) - (5, 17): .
   <DataEntry (6, 1)-(6, 20)>
-    <DataLevel (6, 1)-(6, 2)>
+    <DataEntryFormat1 (6, 1)-(6, 19)>
       LEVEL_NUMBER: (6, 1) - (6, 2): 01
-    DATA_NAME: (6, 4) - (6, 8): MYVAR
-    <DataEntryClauses (6, 10)-(6, 19)>
-      <PictureClause (6, 10)-(6, 19)>
-        PICTURE: (6, 10) - (6, 12): PIC
-        <PictureString (6, 14)-(6, 19)>
-          PICTURE_IS: (6, 14) - (6, 19): S999V9
+      DATA_NAME: (6, 4) - (6, 8): MYVAR
+      <DataEntryClauses (6, 10)-(6, 19)>
+        <PictureClause (6, 10)-(6, 19)>
+          PICTURE: (6, 10) - (6, 12): PIC
+          <PictureString (6, 14)-(6, 19)>
+            PICTURE_IS: (6, 14) - (6, 19): S999V9
     PERIOD: (6, 20) - (6, 20): .
   <DataEntry (7, 1)-(7, 20)>
-    <DataLevel (7, 1)-(7, 2)>
+    <DataEntryFormat1 (7, 1)-(7, 19)>
       LEVEL_NUMBER: (7, 1) - (7, 2): 01
-    DATA_NAME: (7, 4) - (7, 8): MYVAR
-    <DataEntryClauses (7, 10)-(7, 19)>
-      <PictureClause (7, 10)-(7, 19)>
-        PICTURE: (7, 10) - (7, 12): PIC
-        <PictureString (7, 14)-(7, 19)>
-          PICTURE_IS: (7, 14) - (7, 19): PPP999
+      DATA_NAME: (7, 4) - (7, 8): MYVAR
+      <DataEntryClauses (7, 10)-(7, 19)>
+        <PictureClause (7, 10)-(7, 19)>
+          PICTURE: (7, 10) - (7, 12): PIC
+          <PictureString (7, 14)-(7, 19)>
+            PICTURE_IS: (7, 14) - (7, 19): PPP999
     PERIOD: (7, 20) - (7, 20): .
   <DataEntry (8, 1)-(8, 21)>
-    <DataLevel (8, 1)-(8, 2)>
+    <DataEntryFormat1 (8, 1)-(8, 20)>
       LEVEL_NUMBER: (8, 1) - (8, 2): 01
-    DATA_NAME: (8, 4) - (8, 8): MYVAR
-    <DataEntryClauses (8, 10)-(8, 20)>
-      <PictureClause (8, 10)-(8, 20)>
-        PICTURE: (8, 10) - (8, 12): PIC
-        <PictureString (8, 14)-(8, 20)>
-          PICTURE_IS: (8, 14) - (8, 20): S999PPP
+      DATA_NAME: (8, 4) - (8, 8): MYVAR
+      <DataEntryClauses (8, 10)-(8, 20)>
+        <PictureClause (8, 10)-(8, 20)>
+          PICTURE: (8, 10) - (8, 12): PIC
+          <PictureString (8, 14)-(8, 20)>
+            PICTURE_IS: (8, 14) - (8, 20): S999PPP
     PERIOD: (8, 21) - (8, 21): .
   <DataEntry (9, 1)-(9, 25)>
-    <DataLevel (9, 1)-(9, 2)>
+    <DataEntryFormat1 (9, 1)-(9, 24)>
       LEVEL_NUMBER: (9, 1) - (9, 2): 01
-    DATA_NAME: (9, 4) - (9, 8): MYVAR
-    <DataEntryClauses (9, 10)-(9, 24)>
-      <PictureClause (9, 10)-(9, 24)>
-        PICTURE: (9, 10) - (9, 12): PIC
-        <PictureString (9, 14)-(9, 24)>
-          PICTURE_IS: (9, 14) - (9, 24): $99999.99CR
+      DATA_NAME: (9, 4) - (9, 8): MYVAR
+      <DataEntryClauses (9, 10)-(9, 24)>
+        <PictureClause (9, 10)-(9, 24)>
+          PICTURE: (9, 10) - (9, 12): PIC
+          <PictureString (9, 14)-(9, 24)>
+            PICTURE_IS: (9, 14) - (9, 24): $99999.99CR
     PERIOD: (9, 25) - (9, 25): .
   <DataEntry (10, 1)-(10, 26)>
-    <DataLevel (10, 1)-(10, 2)>
+    <DataEntryFormat1 (10, 1)-(10, 25)>
       LEVEL_NUMBER: (10, 1) - (10, 2): 01
-    DATA_NAME: (10, 4) - (10, 8): MYVAR
-    <DataEntryClauses (10, 10)-(10, 25)>
-      <PictureClause (10, 10)-(10, 25)>
-        PICTURE: (10, 10) - (10, 12): PIC
-        <PictureString (10, 14)-(10, 25)>
-          PICTURE_IS: (10, 14) - (10, 25): $9(5).9(2)CR
+      DATA_NAME: (10, 4) - (10, 8): MYVAR
+      <DataEntryClauses (10, 10)-(10, 25)>
+        <PictureClause (10, 10)-(10, 25)>
+          PICTURE: (10, 10) - (10, 12): PIC
+          <PictureString (10, 14)-(10, 25)>
+            PICTURE_IS: (10, 14) - (10, 25): $9(5).9(2)CR
     PERIOD: (10, 26) - (10, 26): .
   <DataEntry (11, 1)-(11, 21)>
-    <DataLevel (11, 1)-(11, 2)>
+    <DataEntryFormat1 (11, 1)-(11, 20)>
       LEVEL_NUMBER: (11, 1) - (11, 2): 01
-    DATA_NAME: (11, 4) - (11, 8): MYVAR
-    <DataEntryClauses (11, 10)-(11, 20)>
-      <PictureClause (11, 10)-(11, 20)>
-        PICTURE: (11, 10) - (11, 12): PIC
-        <PictureString (11, 14)-(11, 20)>
-          PICTURE_IS: (11, 14) - (11, 20): ****.**
+      DATA_NAME: (11, 4) - (11, 8): MYVAR
+      <DataEntryClauses (11, 10)-(11, 20)>
+        <PictureClause (11, 10)-(11, 20)>
+          PICTURE: (11, 10) - (11, 12): PIC
+          <PictureString (11, 14)-(11, 20)>
+            PICTURE_IS: (11, 14) - (11, 20): ****.**
     PERIOD: (11, 21) - (11, 21): .
   <DataEntry (12, 1)-(12, 17)>
-    <DataLevel (12, 1)-(12, 2)>
+    <DataEntryFormat1 (12, 1)-(12, 16)>
       LEVEL_NUMBER: (12, 1) - (12, 2): 01
-    DATA_NAME: (12, 4) - (12, 8): MYVAR
-    <DataEntryClauses (12, 10)-(12, 16)>
-      <PictureClause (12, 10)-(12, 16)>
-        PICTURE: (12, 10) - (12, 12): PIC
-        <PictureString (12, 14)-(12, 16)>
-          PICTURE_IS: (12, 14) - (12, 16): *.*
+      DATA_NAME: (12, 4) - (12, 8): MYVAR
+      <DataEntryClauses (12, 10)-(12, 16)>
+        <PictureClause (12, 10)-(12, 16)>
+          PICTURE: (12, 10) - (12, 12): PIC
+          <PictureString (12, 14)-(12, 16)>
+            PICTURE_IS: (12, 14) - (12, 16): *.*
     PERIOD: (12, 17) - (12, 17): .
   <DataEntry (13, 1)-(13, 21)>
-    <DataLevel (13, 1)-(13, 2)>
+    <DataEntryFormat1 (13, 1)-(13, 20)>
       LEVEL_NUMBER: (13, 1) - (13, 2): 01
-    DATA_NAME: (13, 4) - (13, 8): MYVAR
-    <DataEntryClauses (13, 10)-(13, 20)>
-      <PictureClause (13, 10)-(13, 20)>
-        PICTURE: (13, 10) - (13, 12): PIC
-        <PictureString (13, 14)-(13, 20)>
-          PICTURE_IS: (13, 14) - (13, 20): ZZZZ.99
+      DATA_NAME: (13, 4) - (13, 8): MYVAR
+      <DataEntryClauses (13, 10)-(13, 20)>
+        <PictureClause (13, 10)-(13, 20)>
+          PICTURE: (13, 10) - (13, 12): PIC
+          <PictureString (13, 14)-(13, 20)>
+            PICTURE_IS: (13, 14) - (13, 20): ZZZZ.99
     PERIOD: (13, 21) - (13, 21): .
   <DataEntry (14, 1)-(14, 23)>
-    <DataLevel (14, 1)-(14, 2)>
+    <DataEntryFormat1 (14, 1)-(14, 22)>
       LEVEL_NUMBER: (14, 1) - (14, 2): 01
-    DATA_NAME: (14, 4) - (14, 8): MYVAR
-    <DataEntryClauses (14, 10)-(14, 22)>
-      <PictureClause (14, 10)-(14, 22)>
-        PICTURE: (14, 10) - (14, 12): PIC
-        <PictureString (14, 14)-(14, 22)>
-          PICTURE_IS: (14, 14) - (14, 22): Z,ZZZ.ZZ+
+      DATA_NAME: (14, 4) - (14, 8): MYVAR
+      <DataEntryClauses (14, 10)-(14, 22)>
+        <PictureClause (14, 10)-(14, 22)>
+          PICTURE: (14, 10) - (14, 12): PIC
+          <PictureString (14, 14)-(14, 22)>
+            PICTURE_IS: (14, 14) - (14, 22): Z,ZZZ.ZZ+
     PERIOD: (14, 23) - (14, 23): .
   <DataEntry (15, 1)-(15, 29)>
-    <DataLevel (15, 1)-(15, 2)>
+    <DataEntryFormat1 (15, 1)-(15, 28)>
       LEVEL_NUMBER: (15, 1) - (15, 2): 01
-    DATA_NAME: (15, 4) - (15, 8): MYVAR
-    <DataEntryClauses (15, 10)-(15, 28)>
-      <PictureClause (15, 10)-(15, 28)>
-        PICTURE: (15, 10) - (15, 12): PIC
-        <PictureString (15, 14)-(15, 28)>
-          PICTURE_IS: (15, 14) - (15, 28): $Z,ZZZ,ZZZ.ZZCR
+      DATA_NAME: (15, 4) - (15, 8): MYVAR
+      <DataEntryClauses (15, 10)-(15, 28)>
+        <PictureClause (15, 10)-(15, 28)>
+          PICTURE: (15, 10) - (15, 12): PIC
+          <PictureString (15, 14)-(15, 28)>
+            PICTURE_IS: (15, 14) - (15, 28): $Z,ZZZ,ZZZ.ZZCR
     PERIOD: (15, 29) - (15, 29): .
   <DataEntry (16, 1)-(16, 32)>
-    <DataLevel (16, 1)-(16, 2)>
+    <DataEntryFormat1 (16, 1)-(16, 31)>
       LEVEL_NUMBER: (16, 1) - (16, 2): 01
-    DATA_NAME: (16, 4) - (16, 8): MYVAR
-    <DataEntryClauses (16, 10)-(16, 31)>
-      <PictureClause (16, 10)-(16, 31)>
-        PICTURE: (16, 10) - (16, 12): PIC
-        <PictureString (16, 14)-(16, 31)>
-          PICTURE_IS: (16, 14) - (16, 31): $B*,***,***.**BBDB
+      DATA_NAME: (16, 4) - (16, 8): MYVAR
+      <DataEntryClauses (16, 10)-(16, 31)>
+        <PictureClause (16, 10)-(16, 31)>
+          PICTURE: (16, 10) - (16, 12): PIC
+          <PictureString (16, 14)-(16, 31)>
+            PICTURE_IS: (16, 14) - (16, 31): $B*,***,***.**BBDB
     PERIOD: (16, 32) - (16, 32): .
   <DataEntry (17, 1)-(17, 23)>
-    <DataLevel (17, 1)-(17, 2)>
+    <DataEntryFormat1 (17, 1)-(17, 21)>
       LEVEL_NUMBER: (17, 1) - (17, 2): 01
-    DATA_NAME: (17, 4) - (17, 8): MYVAR
-    <DataEntryClauses (17, 10)-(17, 21)>
-      <PictureClause (17, 10)-(17, 21)>
-        PICTURE: (17, 10) - (17, 12): PIC
-        <PictureString (17, 14)-(17, 21)>
-          PICTURE_IS: (17, 14) - (17, 21): X(10)/XX
+      DATA_NAME: (17, 4) - (17, 8): MYVAR
+      <DataEntryClauses (17, 10)-(17, 21)>
+        <PictureClause (17, 10)-(17, 21)>
+          PICTURE: (17, 10) - (17, 12): PIC
+          <PictureString (17, 14)-(17, 21)>
+            PICTURE_IS: (17, 14) - (17, 21): X(10)/XX
     PERIOD: (17, 23) - (17, 23): .
   <DataEntry (18, 1)-(18, 23)>
-    <DataLevel (18, 1)-(18, 2)>
+    <DataEntryFormat1 (18, 1)-(18, 22)>
       LEVEL_NUMBER: (18, 1) - (18, 2): 01
-    DATA_NAME: (18, 4) - (18, 8): MYVAR
-    <DataEntryClauses (18, 10)-(18, 22)>
-      <PictureClause (18, 10)-(18, 22)>
-        PICTURE: (18, 10) - (18, 12): PIC
-        <PictureString (18, 14)-(18, 22)>
-          PICTURE_IS: (18, 14) - (18, 22): X(5)BX(7)
+      DATA_NAME: (18, 4) - (18, 8): MYVAR
+      <DataEntryClauses (18, 10)-(18, 22)>
+        <PictureClause (18, 10)-(18, 22)>
+          PICTURE: (18, 10) - (18, 12): PIC
+          <PictureString (18, 14)-(18, 22)>
+            PICTURE_IS: (18, 14) - (18, 22): X(5)BX(7)
     PERIOD: (18, 23) - (18, 23): .
   <DataEntry (19, 1)-(19, 21)>
-    <DataLevel (19, 1)-(19, 2)>
+    <DataEntryFormat1 (19, 1)-(19, 19)>
       LEVEL_NUMBER: (19, 1) - (19, 2): 01
-    DATA_NAME: (19, 4) - (19, 8): MYVAR
-    <DataEntryClauses (19, 10)-(19, 19)>
-      <PictureClause (19, 10)-(19, 19)>
-        PICTURE: (19, 10) - (19, 12): PIC
-        <PictureString (19, 14)-(19, 19)>
-          PICTURE_IS: (19, 14) - (19, 19): GGBBGG
+      DATA_NAME: (19, 4) - (19, 8): MYVAR
+      <DataEntryClauses (19, 10)-(19, 19)>
+        <PictureClause (19, 10)-(19, 19)>
+          PICTURE: (19, 10) - (19, 12): PIC
+          <PictureString (19, 14)-(19, 19)>
+            PICTURE_IS: (19, 14) - (19, 19): GGBBGG
     PERIOD: (19, 21) - (19, 21): .
   <DataEntry (20, 1)-(20, 25)>
-    <DataLevel (20, 1)-(20, 2)>
+    <DataEntryFormat1 (20, 1)-(20, 24)>
       LEVEL_NUMBER: (20, 1) - (20, 2): 01
-    DATA_NAME: (20, 4) - (20, 8): MYVAR
-    <DataEntryClauses (20, 10)-(20, 24)>
-      <PictureClause (20, 10)-(20, 24)>
-        PICTURE: (20, 10) - (20, 12): PIC
-        <PictureString (20, 14)-(20, 24)>
-          PICTURE_IS: (20, 14) - (20, 24): +999.99E+99
+      DATA_NAME: (20, 4) - (20, 8): MYVAR
+      <DataEntryClauses (20, 10)-(20, 24)>
+        <PictureClause (20, 10)-(20, 24)>
+          PICTURE: (20, 10) - (20, 12): PIC
+          <PictureString (20, 14)-(20, 24)>
+            PICTURE_IS: (20, 14) - (20, 24): +999.99E+99
     PERIOD: (20, 25) - (20, 25): .
   <DataEntry (21, 1)-(21, 30)>
-    <DataLevel (21, 1)-(21, 2)>
+    <DataEntryFormat1 (21, 1)-(21, 29)>
       LEVEL_NUMBER: (21, 1) - (21, 2): 01
-    DATA_NAME: (21, 4) - (21, 8): MYVAR
-    <DataEntryClauses (21, 10)-(21, 29)>
-      <PictureClause (21, 10)-(21, 29)>
-        PICTURE: (21, 10) - (21, 12): PIC
-        <PictureString (21, 14)-(21, 29)>
-          PICTURE_IS: (21, 14) - (21, 29): -$$,$$$,$$$.99CR
+      DATA_NAME: (21, 4) - (21, 8): MYVAR
+      <DataEntryClauses (21, 10)-(21, 29)>
+        <PictureClause (21, 10)-(21, 29)>
+          PICTURE: (21, 10) - (21, 12): PIC
+          <PictureString (21, 14)-(21, 29)>
+            PICTURE_IS: (21, 14) - (21, 29): -$$,$$$,$$$.99CR
     PERIOD: (21, 30) - (21, 30): .
   Token: (22, 1) - (22, 1): EOF

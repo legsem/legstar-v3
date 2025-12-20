@@ -54,12 +54,17 @@ public class CongoCCParseTest {
 	}
 
 	@Test
+	public void parseOne77Elementary() {
+		check(parse("77 MYVAR PIC X."));
+	}
+
+	@Test
 	public void parseOneExternalFloatingPoint() {
 		check(parse("01 MYVAR PIC -9v9(9)E-99."));
 	}
 
-    @Test
-    public void parsePictureClause() {
+	@Test
+	public void parsePictureClause() {
 		check(parse("""
 				01 MYVAR PIC X.
 				01 MYVAR PIC 9.9.
@@ -83,9 +88,9 @@ public class CongoCCParseTest {
 				01 MYVAR PIC +999.99E+99.
 				01 MYVAR PIC -$$,$$$,$$$.99CR.
 								"""));
-    }
+	}
 
- 	@Test
+	@Test
 	public void parseMultipleElementary() {
 		check(parse("01 MYVAR1 PIC S9(5)V99.\n 01 MYVAR2 PIC X(15)."));
 	}
@@ -153,8 +158,8 @@ public class CongoCCParseTest {
 								"""));
 	}
 
-    @Test
-    public void parseVariableOccurs() {
+	@Test
+	public void parseVariableOccurs() {
 		check(parse("""
 				01 MYVAR OCCURS 3 DEPENDING MYDEP.
 				01 MYVAR OCCURS 3 DEPENDING ON MYDEP.
@@ -163,13 +168,13 @@ public class CongoCCParseTest {
 								"""));
 	}
 
-    @Test
-    public void parseVariableOccursWithLowerBound() {
+	@Test
+	public void parseVariableOccursWithLowerBound() {
 		check(parse("""
 				01 MYVAR OCCURS 0 TO 3 DEPENDING MYDEP.
 				01 MYVAR OCCURS 1 TO 3 DEPENDING MYDEP.
 								"""));
-    }
+	}
 
 	@Test
 	public void parseVariableOccursWithKeys() {
@@ -190,8 +195,8 @@ public class CongoCCParseTest {
 								"""));
 	}
 
-    @Test
-    public void parseSignClause() {
+	@Test
+	public void parseSignClause() {
 		check(parse("""
 				01 MYVAR PIC 9 SIGN IS LEADING SEPARATE CHARACTER.
 				01 MYVAR PIC 9 SIGN IS TRAILING SEPARATE.
@@ -199,19 +204,19 @@ public class CongoCCParseTest {
 				01 MYVAR PIC 9 SIGN TRAILING.
 				01 MYVAR PIC 9 LEADING.
 								"""));
-    }
+	}
 
-    @Test
-    public void parseSynchronizedClause() {
+	@Test
+	public void parseSynchronizedClause() {
 		check(parse("""
 				01 MYVAR PIC 9 SYNCHRONIZED.
 				01 MYVAR PIC 9 SYNC RIGHT.
 				01 MYVAR PIC 9 SYNCHRONIZED LEFT.
 								"""));
-    }
+	}
 
-    @Test
-    public void parseUsageClause() {
+	@Test
+	public void parseUsageClause() {
 		check(parse("""
 				01 MYVAR USAGE BINARY.
 				01 MYVAR COMPUTATIONAL.
@@ -238,11 +243,10 @@ public class CongoCCParseTest {
 				01 MYVAR FUNCTION-POINTER.
 								"""));
 
-    }
+	}
 
-
-    @Test
-    public void parseValueClause() {
+	@Test
+	public void parseValueClause() {
 		check(parse("""
 				01 MYVAR VALUE 'ab'.
 				01 MYVAR VALUE 'a''b'.
@@ -283,9 +287,41 @@ public class CongoCCParseTest {
 				01 MYVAR VALUE NULLS.
 				01 MYVAR VALUE 'REDEFINES'.
 								"""));
-    }
+	}
 
-   @Test
+	@Test
+	public void parseRename() {
+		check(parse("""
+				66 NEWNAME RENAMES OLDNAME.
+				66 NEWNAME RENAMES OLDSTART THROUGH OLDEND.
+				01 RECORD-I.
+				   05 DN-1.
+				   05 DN-2.
+				   05 DN-3.
+				66 DN-6 RENAMES DN-1 THRU DN-3.
+				01 RECORD-II.
+								"""));
+	}
+
+	@Test
+	public void parseCondition() {
+		check(parse("""
+				88 CONDITION VALUE 99.
+				88 A VALUES ARE "1" "2".
+				88 Q VALUE 13 THRU 19.
+				88 A VALUE ALL SPACES.
+				88 A VALUE ALL 'A' THROUGH ALL 'C'.
+				88 A VALUE 1, 2, 3.
+				88 A VALUE 1 THRU 5; 7; 8.
+				88 A VALUE 1 WHEN SET TO FALSE IS 2.
+				88 A VALUE 1 SET TO FALSE IS 2.
+				88 A VALUE 1 TO FALSE IS 2.
+				88 A VALUE 1 FALSE IS 2.
+				88 A VALUE 1 FALSE 2.
+								"""));
+	}
+
+	@Test
 	public void parseException1() {
 		try {
 			parse("       01 A PIC.");

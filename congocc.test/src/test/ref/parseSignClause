@@ -1,79 +1,79 @@
 <Copybook (1, 1)-(5, 24)>
   <DataEntry (1, 1)-(1, 50)>
-    <DataLevel (1, 1)-(1, 2)>
+    <DataEntryFormat1 (1, 1)-(1, 49)>
       LEVEL_NUMBER: (1, 1) - (1, 2): 01
-    DATA_NAME: (1, 4) - (1, 8): MYVAR
-    <DataEntryClauses (1, 10)-(1, 14)>
-      <PictureClause (1, 10)-(1, 14)>
-        PICTURE: (1, 10) - (1, 12): PIC
-        <PictureString (1, 14)-(1, 14)>
-          PICTURE_IS: (1, 14) - (1, 14): 9
-    <DataEntryClauses (1, 16)-(1, 49)>
-      <SignClause (1, 16)-(1, 49)>
-        SIGN: (1, 16) - (1, 19): SIGN
-        IS: (1, 21) - (1, 22): IS
-        LEADING: (1, 24) - (1, 30): LEADING
-        <SignSeparate (1, 32)-(1, 49)>
-          SEPARATE: (1, 32) - (1, 39): SEPARATE
-          CHARACTER: (1, 41) - (1, 49): CHARACTER
+      DATA_NAME: (1, 4) - (1, 8): MYVAR
+      <DataEntryClauses (1, 10)-(1, 14)>
+        <PictureClause (1, 10)-(1, 14)>
+          PICTURE: (1, 10) - (1, 12): PIC
+          <PictureString (1, 14)-(1, 14)>
+            PICTURE_IS: (1, 14) - (1, 14): 9
+      <DataEntryClauses (1, 16)-(1, 49)>
+        <SignClause (1, 16)-(1, 49)>
+          SIGN: (1, 16) - (1, 19): SIGN
+          IS: (1, 21) - (1, 22): IS
+          LEADING: (1, 24) - (1, 30): LEADING
+          <SignSeparate (1, 32)-(1, 49)>
+            SEPARATE: (1, 32) - (1, 39): SEPARATE
+            CHARACTER: (1, 41) - (1, 49): CHARACTER
     PERIOD: (1, 50) - (1, 50): .
   <DataEntry (2, 1)-(2, 41)>
-    <DataLevel (2, 1)-(2, 2)>
+    <DataEntryFormat1 (2, 1)-(2, 40)>
       LEVEL_NUMBER: (2, 1) - (2, 2): 01
-    DATA_NAME: (2, 4) - (2, 8): MYVAR
-    <DataEntryClauses (2, 10)-(2, 14)>
-      <PictureClause (2, 10)-(2, 14)>
-        PICTURE: (2, 10) - (2, 12): PIC
-        <PictureString (2, 14)-(2, 14)>
-          PICTURE_IS: (2, 14) - (2, 14): 9
-    <DataEntryClauses (2, 16)-(2, 40)>
-      <SignClause (2, 16)-(2, 40)>
-        SIGN: (2, 16) - (2, 19): SIGN
-        IS: (2, 21) - (2, 22): IS
-        TRAILING: (2, 24) - (2, 31): TRAILING
-        <SignSeparate (2, 33)-(2, 40)>
-          SEPARATE: (2, 33) - (2, 40): SEPARATE
+      DATA_NAME: (2, 4) - (2, 8): MYVAR
+      <DataEntryClauses (2, 10)-(2, 14)>
+        <PictureClause (2, 10)-(2, 14)>
+          PICTURE: (2, 10) - (2, 12): PIC
+          <PictureString (2, 14)-(2, 14)>
+            PICTURE_IS: (2, 14) - (2, 14): 9
+      <DataEntryClauses (2, 16)-(2, 40)>
+        <SignClause (2, 16)-(2, 40)>
+          SIGN: (2, 16) - (2, 19): SIGN
+          IS: (2, 21) - (2, 22): IS
+          TRAILING: (2, 24) - (2, 31): TRAILING
+          <SignSeparate (2, 33)-(2, 40)>
+            SEPARATE: (2, 33) - (2, 40): SEPARATE
     PERIOD: (2, 41) - (2, 41): .
   <DataEntry (3, 1)-(3, 31)>
-    <DataLevel (3, 1)-(3, 2)>
+    <DataEntryFormat1 (3, 1)-(3, 30)>
       LEVEL_NUMBER: (3, 1) - (3, 2): 01
-    DATA_NAME: (3, 4) - (3, 8): MYVAR
-    <DataEntryClauses (3, 10)-(3, 14)>
-      <PictureClause (3, 10)-(3, 14)>
-        PICTURE: (3, 10) - (3, 12): PIC
-        <PictureString (3, 14)-(3, 14)>
-          PICTURE_IS: (3, 14) - (3, 14): 9
-    <DataEntryClauses (3, 16)-(3, 30)>
-      <SignClause (3, 16)-(3, 30)>
-        SIGN: (3, 16) - (3, 19): SIGN
-        IS: (3, 21) - (3, 22): IS
-        LEADING: (3, 24) - (3, 30): LEADING
+      DATA_NAME: (3, 4) - (3, 8): MYVAR
+      <DataEntryClauses (3, 10)-(3, 14)>
+        <PictureClause (3, 10)-(3, 14)>
+          PICTURE: (3, 10) - (3, 12): PIC
+          <PictureString (3, 14)-(3, 14)>
+            PICTURE_IS: (3, 14) - (3, 14): 9
+      <DataEntryClauses (3, 16)-(3, 30)>
+        <SignClause (3, 16)-(3, 30)>
+          SIGN: (3, 16) - (3, 19): SIGN
+          IS: (3, 21) - (3, 22): IS
+          LEADING: (3, 24) - (3, 30): LEADING
     PERIOD: (3, 31) - (3, 31): .
   <DataEntry (4, 1)-(4, 29)>
-    <DataLevel (4, 1)-(4, 2)>
+    <DataEntryFormat1 (4, 1)-(4, 28)>
       LEVEL_NUMBER: (4, 1) - (4, 2): 01
-    DATA_NAME: (4, 4) - (4, 8): MYVAR
-    <DataEntryClauses (4, 10)-(4, 14)>
-      <PictureClause (4, 10)-(4, 14)>
-        PICTURE: (4, 10) - (4, 12): PIC
-        <PictureString (4, 14)-(4, 14)>
-          PICTURE_IS: (4, 14) - (4, 14): 9
-    <DataEntryClauses (4, 16)-(4, 28)>
-      <SignClause (4, 16)-(4, 28)>
-        SIGN: (4, 16) - (4, 19): SIGN
-        TRAILING: (4, 21) - (4, 28): TRAILING
+      DATA_NAME: (4, 4) - (4, 8): MYVAR
+      <DataEntryClauses (4, 10)-(4, 14)>
+        <PictureClause (4, 10)-(4, 14)>
+          PICTURE: (4, 10) - (4, 12): PIC
+          <PictureString (4, 14)-(4, 14)>
+            PICTURE_IS: (4, 14) - (4, 14): 9
+      <DataEntryClauses (4, 16)-(4, 28)>
+        <SignClause (4, 16)-(4, 28)>
+          SIGN: (4, 16) - (4, 19): SIGN
+          TRAILING: (4, 21) - (4, 28): TRAILING
     PERIOD: (4, 29) - (4, 29): .
   <DataEntry (5, 1)-(5, 23)>
-    <DataLevel (5, 1)-(5, 2)>
+    <DataEntryFormat1 (5, 1)-(5, 22)>
       LEVEL_NUMBER: (5, 1) - (5, 2): 01
-    DATA_NAME: (5, 4) - (5, 8): MYVAR
-    <DataEntryClauses (5, 10)-(5, 14)>
-      <PictureClause (5, 10)-(5, 14)>
-        PICTURE: (5, 10) - (5, 12): PIC
-        <PictureString (5, 14)-(5, 14)>
-          PICTURE_IS: (5, 14) - (5, 14): 9
-    <DataEntryClauses (5, 16)-(5, 22)>
-      <SignClause (5, 16)-(5, 22)>
-        LEADING: (5, 16) - (5, 22): LEADING
+      DATA_NAME: (5, 4) - (5, 8): MYVAR
+      <DataEntryClauses (5, 10)-(5, 14)>
+        <PictureClause (5, 10)-(5, 14)>
+          PICTURE: (5, 10) - (5, 12): PIC
+          <PictureString (5, 14)-(5, 14)>
+            PICTURE_IS: (5, 14) - (5, 14): 9
+      <DataEntryClauses (5, 16)-(5, 22)>
+        <SignClause (5, 16)-(5, 22)>
+          LEADING: (5, 16) - (5, 22): LEADING
     PERIOD: (5, 23) - (5, 23): .
   Token: (6, 1) - (6, 1): EOF

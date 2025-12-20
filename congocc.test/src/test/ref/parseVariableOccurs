@@ -1,58 +1,58 @@
 <Copybook (1, 1)-(4, 46)>
   <DataEntry (1, 1)-(1, 34)>
-    <DataLevel (1, 1)-(1, 2)>
+    <DataEntryFormat1 (1, 1)-(1, 33)>
       LEVEL_NUMBER: (1, 1) - (1, 2): 01
-    DATA_NAME: (1, 4) - (1, 8): MYVAR
-    <DataEntryClauses (1, 10)-(1, 33)>
-      <OccursClause (1, 10)-(1, 33)>
-        <VariableLengthOccurs (1, 10)-(1, 33)>
-          OCCURS: (1, 10) - (1, 15): OCCURS
-          <UpperBound (1, 17)-(1, 17)>
-            INTEGER: (1, 17) - (1, 17): 3
-          DEPENDING: (1, 19) - (1, 27): DEPENDING
-          DATA_NAME: (1, 29) - (1, 33): MYDEP
+      DATA_NAME: (1, 4) - (1, 8): MYVAR
+      <DataEntryClauses (1, 10)-(1, 33)>
+        <OccursClause (1, 10)-(1, 33)>
+          <VariableLengthOccurs (1, 10)-(1, 33)>
+            OCCURS: (1, 10) - (1, 15): OCCURS
+            <UpperBound (1, 17)-(1, 17)>
+              INTEGER: (1, 17) - (1, 17): 3
+            DEPENDING: (1, 19) - (1, 27): DEPENDING
+            DATA_NAME: (1, 29) - (1, 33): MYDEP
     PERIOD: (1, 34) - (1, 34): .
   <DataEntry (2, 1)-(2, 37)>
-    <DataLevel (2, 1)-(2, 2)>
+    <DataEntryFormat1 (2, 1)-(2, 36)>
       LEVEL_NUMBER: (2, 1) - (2, 2): 01
-    DATA_NAME: (2, 4) - (2, 8): MYVAR
-    <DataEntryClauses (2, 10)-(2, 36)>
-      <OccursClause (2, 10)-(2, 36)>
-        <VariableLengthOccurs (2, 10)-(2, 36)>
-          OCCURS: (2, 10) - (2, 15): OCCURS
-          <UpperBound (2, 17)-(2, 17)>
-            INTEGER: (2, 17) - (2, 17): 3
-          DEPENDING: (2, 19) - (2, 27): DEPENDING
-          ON: (2, 29) - (2, 30): ON
-          DATA_NAME: (2, 32) - (2, 36): MYDEP
+      DATA_NAME: (2, 4) - (2, 8): MYVAR
+      <DataEntryClauses (2, 10)-(2, 36)>
+        <OccursClause (2, 10)-(2, 36)>
+          <VariableLengthOccurs (2, 10)-(2, 36)>
+            OCCURS: (2, 10) - (2, 15): OCCURS
+            <UpperBound (2, 17)-(2, 17)>
+              INTEGER: (2, 17) - (2, 17): 3
+            DEPENDING: (2, 19) - (2, 27): DEPENDING
+            ON: (2, 29) - (2, 30): ON
+            DATA_NAME: (2, 32) - (2, 36): MYDEP
     PERIOD: (2, 37) - (2, 37): .
   <DataEntry (3, 1)-(3, 43)>
-    <DataLevel (3, 1)-(3, 2)>
+    <DataEntryFormat1 (3, 1)-(3, 42)>
       LEVEL_NUMBER: (3, 1) - (3, 2): 01
-    DATA_NAME: (3, 4) - (3, 8): MYVAR
-    <DataEntryClauses (3, 10)-(3, 42)>
-      <OccursClause (3, 10)-(3, 42)>
-        <VariableLengthOccurs (3, 10)-(3, 42)>
-          OCCURS: (3, 10) - (3, 15): OCCURS
-          <UpperBound (3, 17)-(3, 17)>
-            INTEGER: (3, 17) - (3, 17): 3
-          TIMES: (3, 19) - (3, 23): TIMES
-          DEPENDING: (3, 25) - (3, 33): DEPENDING
-          ON: (3, 35) - (3, 36): ON
-          DATA_NAME: (3, 38) - (3, 42): MYDEP
+      DATA_NAME: (3, 4) - (3, 8): MYVAR
+      <DataEntryClauses (3, 10)-(3, 42)>
+        <OccursClause (3, 10)-(3, 42)>
+          <VariableLengthOccurs (3, 10)-(3, 42)>
+            OCCURS: (3, 10) - (3, 15): OCCURS
+            <UpperBound (3, 17)-(3, 17)>
+              INTEGER: (3, 17) - (3, 17): 3
+            TIMES: (3, 19) - (3, 23): TIMES
+            DEPENDING: (3, 25) - (3, 33): DEPENDING
+            ON: (3, 35) - (3, 36): ON
+            DATA_NAME: (3, 38) - (3, 42): MYDEP
     PERIOD: (3, 43) - (3, 43): .
   <DataEntry (4, 1)-(4, 45)>
-    <DataLevel (4, 1)-(4, 2)>
+    <DataEntryFormat1 (4, 1)-(4, 44)>
       LEVEL_NUMBER: (4, 1) - (4, 2): 01
-    DATA_NAME: (4, 4) - (4, 8): MYVAR
-    <DataEntryClauses (4, 10)-(4, 44)>
-      <OccursClause (4, 10)-(4, 44)>
-        <VariableLengthOccurs (4, 10)-(4, 44)>
-          OCCURS: (4, 10) - (4, 15): OCCURS
-          <UpperBound (4, 17)-(4, 25)>
-            UNBOUNDED: (4, 17) - (4, 25): UNBOUNDED
-          DEPENDING: (4, 27) - (4, 35): DEPENDING
-          ON: (4, 37) - (4, 38): ON
-          DATA_NAME: (4, 40) - (4, 44): MYDEP
+      DATA_NAME: (4, 4) - (4, 8): MYVAR
+      <DataEntryClauses (4, 10)-(4, 44)>
+        <OccursClause (4, 10)-(4, 44)>
+          <VariableLengthOccurs (4, 10)-(4, 44)>
+            OCCURS: (4, 10) - (4, 15): OCCURS
+            <UpperBound (4, 17)-(4, 25)>
+              UNBOUNDED: (4, 17) - (4, 25): UNBOUNDED
+            DEPENDING: (4, 27) - (4, 35): DEPENDING
+            ON: (4, 37) - (4, 38): ON
+            DATA_NAME: (4, 40) - (4, 44): MYDEP
     PERIOD: (4, 45) - (4, 45): .
   Token: (5, 1) - (5, 1): EOF
