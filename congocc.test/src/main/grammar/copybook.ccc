@@ -1,3 +1,4 @@
+BASE_NAME=CopybookCC;
 PARSER_PACKAGE=org.legstar.copybook.parser;
 NODE_PACKAGE="org.legstar.copybook.parser.ast";
 ENSURE_FINAL_EOL;

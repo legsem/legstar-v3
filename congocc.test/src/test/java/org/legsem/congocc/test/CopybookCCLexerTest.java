@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.legstar.copybook.parser.CopybookLexer;
-import org.legstar.copybook.parser.CopybookLexer.LexicalState;
+import org.legstar.copybook.parser.CopybookCCLexer;
+import org.legstar.copybook.parser.CopybookCCLexer.LexicalState;
 import org.legstar.copybook.parser.Token;
 
-public class CongoCCLexerTest {
+public class CopybookCCLexerTest {
 
 	@Test
 	public void t0() {
@@ -78,7 +78,7 @@ public class CongoCCLexerTest {
 
 	private String lex(String s, LexicalState state) {
 		List<String> res = new ArrayList<>();
-		CopybookLexer lexer = new CopybookLexer(s);
+		CopybookCCLexer lexer = new CopybookCCLexer(s);
 		lexer.switchTo(state);
 		Token t = null;
 		while ((t = lexer.getNextToken(t)) != null) {

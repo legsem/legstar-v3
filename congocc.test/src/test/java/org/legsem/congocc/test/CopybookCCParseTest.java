@@ -14,11 +14,11 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
-import org.legstar.copybook.parser.CopybookParser;
+import org.legstar.copybook.parser.CopybookCCParser;
 import org.legstar.copybook.parser.Node;
 import org.legstar.copybook.parser.ParseException;
 
-public class CongoCCParseTest {
+public class CopybookCCParseTest {
 
 	private String testName;
 
@@ -349,7 +349,7 @@ public class CongoCCParseTest {
 	}
 
 	private String parse(String source) {
-		CopybookParser parser = new CopybookParser(source);
+		CopybookCCParser parser = new CopybookCCParser(source);
 		parser.Copybook();
 		Node node = parser.rootNode();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
