@@ -6,7 +6,8 @@
       <DataEntryClauses (1, 10)-(1, 21)>
         <UsageClause (1, 10)-(1, 21)>
           USAGE: (1, 10) - (1, 14): USAGE
-          BINARY: (1, 16) - (1, 21): BINARY
+          <UsageValue (1, 16)-(1, 21)>
+            BINARY: (1, 16) - (1, 21): BINARY
     PERIOD: (1, 22) - (1, 22): .
   <DataEntry (2, 1)-(2, 23)>
     <DataEntryFormat1 (2, 1)-(2, 22)>
@@ -14,7 +15,8 @@
       DATA_NAME: (2, 4) - (2, 8): MYVAR
       <DataEntryClauses (2, 10)-(2, 22)>
         <UsageClause (2, 10)-(2, 22)>
-          BINARY: (2, 10) - (2, 22): COMPUTATIONAL
+          <UsageValue (2, 10)-(2, 22)>
+            BINARY: (2, 10) - (2, 22): COMPUTATIONAL
     PERIOD: (2, 23) - (2, 23): .
   <DataEntry (3, 1)-(3, 20)>
     <DataEntryFormat1 (3, 1)-(3, 19)>
@@ -23,7 +25,8 @@
       <DataEntryClauses (3, 10)-(3, 19)>
         <UsageClause (3, 10)-(3, 19)>
           USAGE: (3, 10) - (3, 14): USAGE
-          BINARY: (3, 16) - (3, 19): COMP
+          <UsageValue (3, 16)-(3, 19)>
+            BINARY: (3, 16) - (3, 19): COMP
     PERIOD: (3, 20) - (3, 20): .
   <DataEntry (4, 1)-(4, 25)>
     <DataEntryFormat1 (4, 1)-(4, 24)>
@@ -33,7 +36,8 @@
         <UsageClause (4, 10)-(4, 24)>
           USAGE: (4, 10) - (4, 14): USAGE
           IS: (4, 16) - (4, 17): IS
-          BINARY: (4, 19) - (4, 24): BINARY
+          <UsageValue (4, 19)-(4, 24)>
+            BINARY: (4, 19) - (4, 24): BINARY
     PERIOD: (4, 25) - (4, 25): .
   <DataEntry (5, 1)-(5, 32)>
     <DataEntryFormat1 (5, 1)-(5, 31)>
@@ -43,7 +47,8 @@
         <UsageClause (5, 10)-(5, 31)>
           USAGE: (5, 10) - (5, 14): USAGE
           IS: (5, 16) - (5, 17): IS
-          BINARY: (5, 19) - (5, 24): BINARY
+          <UsageValue (5, 19)-(5, 24)>
+            BINARY: (5, 19) - (5, 24): BINARY
           NATIVE: (5, 26) - (5, 31): NATIVE
     PERIOD: (5, 32) - (5, 32): .
   <DataEntry (6, 1)-(6, 25)>
@@ -52,7 +57,8 @@
       DATA_NAME: (6, 4) - (6, 8): MYVAR
       <DataEntryClauses (6, 10)-(6, 24)>
         <UsageClause (6, 10)-(6, 24)>
-          FLOATING_POINT: (6, 10) - (6, 24): COMPUTATIONAL-1
+          <UsageValue (6, 10)-(6, 24)>
+            FLOATING_POINT: (6, 10) - (6, 24): COMPUTATIONAL-1
     PERIOD: (6, 25) - (6, 25): .
   <DataEntry (7, 1)-(7, 25)>
     <DataEntryFormat1 (7, 1)-(7, 24)>
@@ -62,7 +68,8 @@
         <UsageClause (7, 10)-(7, 24)>
           USAGE: (7, 10) - (7, 14): USAGE
           IS: (7, 16) - (7, 17): IS
-          FLOATING_POINT: (7, 19) - (7, 24): COMP-1
+          <UsageValue (7, 19)-(7, 24)>
+            FLOATING_POINT: (7, 19) - (7, 24): COMP-1
     PERIOD: (7, 25) - (7, 25): .
   <DataEntry (8, 1)-(8, 25)>
     <DataEntryFormat1 (8, 1)-(8, 24)>
@@ -70,7 +77,8 @@
       DATA_NAME: (8, 4) - (8, 8): MYVAR
       <DataEntryClauses (8, 10)-(8, 24)>
         <UsageClause (8, 10)-(8, 24)>
-          LONG_FLOATING_POINT: (8, 10) - (8, 24): COMPUTATIONAL-2
+          <UsageValue (8, 10)-(8, 24)>
+            LONG_FLOATING_POINT: (8, 10) - (8, 24): COMPUTATIONAL-2
     PERIOD: (8, 25) - (8, 25): .
   <DataEntry (9, 1)-(9, 23)>
     <DataEntryFormat1 (9, 1)-(9, 22)>
@@ -78,7 +86,8 @@
       DATA_NAME: (9, 4) - (9, 8): MYVAR
       <DataEntryClauses (9, 10)-(9, 22)>
         <UsageClause (9, 10)-(9, 22)>
-          LONG_FLOATING_POINT: (9, 10) - (9, 15): COMP-2
+          <UsageValue (9, 10)-(9, 15)>
+            LONG_FLOATING_POINT: (9, 10) - (9, 15): COMP-2
           NATIVE: (9, 17) - (9, 22): NATIVE
     PERIOD: (9, 23) - (9, 23): .
   <DataEntry (10, 1)-(10, 30)>
@@ -88,7 +97,8 @@
       <DataEntryClauses (10, 10)-(10, 29)>
         <UsageClause (10, 10)-(10, 29)>
           USAGE: (10, 10) - (10, 14): USAGE
-          PACKED_DECIMAL: (10, 16) - (10, 29): PACKED-DECIMAL
+          <UsageValue (10, 16)-(10, 29)>
+            PACKED_DECIMAL: (10, 16) - (10, 29): PACKED-DECIMAL
     PERIOD: (10, 30) - (10, 30): .
   <DataEntry (11, 1)-(11, 31)>
     <DataEntryFormat1 (11, 1)-(11, 30)>
@@ -97,7 +107,8 @@
       <DataEntryClauses (11, 10)-(11, 30)>
         <UsageClause (11, 10)-(11, 30)>
           USAGE: (11, 10) - (11, 14): USAGE
-          PACKED_DECIMAL: (11, 16) - (11, 30): COMPUTATIONAL-3
+          <UsageValue (11, 16)-(11, 30)>
+            PACKED_DECIMAL: (11, 16) - (11, 30): COMPUTATIONAL-3
     PERIOD: (11, 31) - (11, 31): .
   <DataEntry (12, 1)-(12, 23)>
     <DataEntryFormat1 (12, 1)-(12, 22)>
@@ -105,7 +116,8 @@
       DATA_NAME: (12, 4) - (12, 8): MYVAR
       <DataEntryClauses (12, 10)-(12, 22)>
         <UsageClause (12, 10)-(12, 22)>
-          PACKED_DECIMAL: (12, 10) - (12, 15): COMP-3
+          <UsageValue (12, 10)-(12, 15)>
+            PACKED_DECIMAL: (12, 10) - (12, 15): COMP-3
           NATIVE: (12, 17) - (12, 22): NATIVE
     PERIOD: (12, 23) - (12, 23): .
   <DataEntry (13, 1)-(13, 31)>
@@ -115,7 +127,8 @@
       <DataEntryClauses (13, 10)-(13, 30)>
         <UsageClause (13, 10)-(13, 30)>
           USAGE: (13, 10) - (13, 14): USAGE
-          NATIVE_BINARY: (13, 16) - (13, 30): COMPUTATIONAL-5
+          <UsageValue (13, 16)-(13, 30)>
+            NATIVE_BINARY: (13, 16) - (13, 30): COMPUTATIONAL-5
     PERIOD: (13, 31) - (13, 31): .
   <DataEntry (14, 1)-(14, 16)>
     <DataEntryFormat1 (14, 1)-(14, 15)>
@@ -123,7 +136,8 @@
       DATA_NAME: (14, 4) - (14, 8): MYVAR
       <DataEntryClauses (14, 10)-(14, 15)>
         <UsageClause (14, 10)-(14, 15)>
-          NATIVE_BINARY: (14, 10) - (14, 15): COMP-5
+          <UsageValue (14, 10)-(14, 15)>
+            NATIVE_BINARY: (14, 10) - (14, 15): COMP-5
     PERIOD: (14, 16) - (14, 16): .
   <DataEntry (15, 1)-(15, 26)>
     <DataEntryFormat1 (15, 1)-(15, 25)>
@@ -133,7 +147,8 @@
         <UsageClause (15, 10)-(15, 25)>
           USAGE: (15, 10) - (15, 14): USAGE
           IS: (15, 16) - (15, 17): IS
-          DISPLAY: (15, 19) - (15, 25): DISPLAY
+          <UsageValue (15, 19)-(15, 25)>
+            DISPLAY: (15, 19) - (15, 25): DISPLAY
     PERIOD: (15, 26) - (15, 26): .
   <DataEntry (16, 1)-(16, 27)>
     <DataEntryFormat1 (16, 1)-(16, 26)>
@@ -143,7 +158,8 @@
         <UsageClause (16, 10)-(16, 26)>
           USAGE: (16, 10) - (16, 14): USAGE
           IS: (16, 16) - (16, 17): IS
-          NATIONAL: (16, 19) - (16, 26): NATIONAL
+          <UsageValue (16, 19)-(16, 26)>
+            NATIONAL: (16, 19) - (16, 26): NATIONAL
     PERIOD: (16, 27) - (16, 27): .
   <DataEntry (17, 1)-(17, 22)>
     <DataEntryFormat1 (17, 1)-(17, 21)>
@@ -151,7 +167,8 @@
       DATA_NAME: (17, 4) - (17, 8): MYVAR
       <DataEntryClauses (17, 10)-(17, 21)>
         <UsageClause (17, 10)-(17, 21)>
-          UTF_8: (17, 10) - (17, 14): UTF-8
+          <UsageValue (17, 10)-(17, 14)>
+            UTF_8: (17, 10) - (17, 14): UTF-8
           NATIVE: (17, 16) - (17, 21): NATIVE
     PERIOD: (17, 22) - (17, 22): .
   <DataEntry (18, 1)-(18, 19)>
@@ -160,7 +177,8 @@
       DATA_NAME: (18, 4) - (18, 8): MYVAR
       <DataEntryClauses (18, 10)-(18, 18)>
         <UsageClause (18, 10)-(18, 18)>
-          DISPLAY_1: (18, 10) - (18, 18): DISPLAY-1
+          <UsageValue (18, 10)-(18, 18)>
+            DISPLAY_1: (18, 10) - (18, 18): DISPLAY-1
     PERIOD: (18, 19) - (18, 19): .
   <DataEntry (19, 1)-(19, 21)>
     <DataEntryFormat1 (19, 1)-(19, 20)>
@@ -169,7 +187,8 @@
       <DataEntryClauses (19, 10)-(19, 20)>
         <UsageClause (19, 10)-(19, 20)>
           USAGE: (19, 10) - (19, 14): USAGE
-          INDEX: (19, 16) - (19, 20): INDEX
+          <UsageValue (19, 16)-(19, 20)>
+            INDEX: (19, 16) - (19, 20): INDEX
     PERIOD: (19, 21) - (19, 21): .
   <DataEntry (20, 1)-(20, 17)>
     <DataEntryFormat1 (20, 1)-(20, 16)>
@@ -177,7 +196,8 @@
       DATA_NAME: (20, 4) - (20, 8): MYVAR
       <DataEntryClauses (20, 10)-(20, 16)>
         <UsageClause (20, 10)-(20, 16)>
-          POINTER: (20, 10) - (20, 16): POINTER
+          <UsageValue (20, 10)-(20, 16)>
+            POINTER: (20, 10) - (20, 16): POINTER
     PERIOD: (20, 17) - (20, 17): .
   <DataEntry (21, 1)-(21, 26)>
     <DataEntryFormat1 (21, 1)-(21, 25)>
@@ -186,7 +206,8 @@
       <DataEntryClauses (21, 10)-(21, 25)>
         <UsageClause (21, 10)-(21, 25)>
           USAGE: (21, 10) - (21, 14): USAGE
-          POINTER_32: (21, 16) - (21, 25): POINTER-32
+          <UsageValue (21, 16)-(21, 25)>
+            POINTER_32: (21, 16) - (21, 25): POINTER-32
     PERIOD: (21, 26) - (21, 26): .
   <DataEntry (22, 1)-(22, 33)>
     <DataEntryFormat1 (22, 1)-(22, 32)>
@@ -195,7 +216,8 @@
       <DataEntryClauses (22, 10)-(22, 32)>
         <UsageClause (22, 10)-(22, 32)>
           USAGE: (22, 10) - (22, 14): USAGE
-          PROCEDURE_POINTER: (22, 16) - (22, 32): PROCEDURE-POINTER
+          <UsageValue (22, 16)-(22, 32)>
+            PROCEDURE_POINTER: (22, 16) - (22, 32): PROCEDURE-POINTER
     PERIOD: (22, 33) - (22, 33): .
   <DataEntry (23, 1)-(23, 26)>
     <DataEntryFormat1 (23, 1)-(23, 25)>
@@ -203,6 +225,7 @@
       DATA_NAME: (23, 4) - (23, 8): MYVAR
       <DataEntryClauses (23, 10)-(23, 25)>
         <UsageClause (23, 10)-(23, 25)>
-          FUNCTION_POINTER: (23, 10) - (23, 25): FUNCTION-POINTER
+          <UsageValue (23, 10)-(23, 25)>
+            FUNCTION_POINTER: (23, 10) - (23, 25): FUNCTION-POINTER
     PERIOD: (23, 26) - (23, 26): .
   Token: (24, 1) - (24, 1): EOF

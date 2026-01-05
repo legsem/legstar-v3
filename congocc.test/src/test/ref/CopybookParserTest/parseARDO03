@@ -1,0 +1,11 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=ARDO03-RECORD, children=[
+    CobolDataEntry [levelNumber=5, cobolName=ODO-COUNTER, picture=9(5), srceLine=2]
+    CobolDataEntry [levelNumber=5, cobolName=ODO-ARRAY, minOccurs=0, maxOccurs=5, dependingOn=ODO-COUNTER, children=[
+      CobolDataEntry [levelNumber=10, cobolName=ODO-SUB-COUNTER, picture=9(3), srceLine=5]
+      CobolDataEntry [levelNumber=10, cobolName=ODO-SUB-ARRAY, minOccurs=0, maxOccurs=5, dependingOn=ODO-SUB-COUNTER, children=[
+        CobolDataEntry [levelNumber=15, cobolName=FILLER, picture=X(4), srceLine=8]
+      ], srceLine=6]
+    ], srceLine=3]
+  ], srceLine=1]
+]

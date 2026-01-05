@@ -68,6 +68,7 @@ public class CopybookCleaner {
 				}
 				if (IDENTIFICATION_DIVISION.matcher(cl).find()) {
 					dataLine = false;
+					res.clear();
 					continue;
 				}
 				if (PROCEDURE_DIVISION.matcher(cl).find()) {
@@ -187,6 +188,9 @@ public class CopybookCleaner {
 		
 	}
 
+    /**
+     * Holds the result of the cleaning process along with utility methods.
+     */
     class Result {
 
 		final List<String> cleanLines = new ArrayList<>();
@@ -202,6 +206,11 @@ public class CopybookCleaner {
 			cleanLineNumbers.add(lineNumber);
 		}
 
+		public void clear() {
+			cleanLines.clear();
+			cleanLineNumbers.clear();
+		}
+
 		@Override
 		public String toString() {
 			StringBuilder sb = new StringBuilder();
@@ -212,6 +221,14 @@ public class CopybookCleaner {
 				sb.append("\n");
 			}
 			return sb.toString();
+		}
+
+		public CharSequence toCobolSource() {
+			return String.join("\n", cleanLines);
+		}
+		
+		public int realLineNumber(int i) {
+			return cleanLineNumbers.get(i - 1);
 		}
 
 	}

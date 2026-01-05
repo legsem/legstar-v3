@@ -1,0 +1,11 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=STRU01-RECORD, children=[
+    CobolDataEntry [levelNumber=5, cobolName=COM-NUMBER, picture=9(6), srceLine=2]
+    CobolDataEntry [levelNumber=5, cobolName=COM-NAME, picture=X(20), srceLine=3]
+    CobolDataEntry [levelNumber=5, cobolName=COM-AMOUNT, picture=9(5)V99, usage=PACKED_DECIMAL, srceLine=4]
+    CobolDataEntry [levelNumber=5, cobolName=COM-SUB-RECORD, children=[
+      CobolDataEntry [levelNumber=10, cobolName=COM-ITEM1, picture=S9(4), usage=BINARY, srceLine=6]
+      CobolDataEntry [levelNumber=10, cobolName=COM-ITEM2, picture=X(2), srceLine=7]
+    ], srceLine=5]
+  ], srceLine=1]
+]

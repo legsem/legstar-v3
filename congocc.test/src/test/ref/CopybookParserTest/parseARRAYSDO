@@ -1,0 +1,11 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=WS-I, picture=9, value=ZERO, srceLine=18]
+  CobolDataEntry [levelNumber=1, cobolName=WS-ODO, children=[
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(3), value="ODO", srceLine=21]
+    CobolDataEntry [levelNumber=5, cobolName=WS-ODO-A, picture=9(2), srceLine=22]
+  ], srceLine=20]
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=TABLE-SIZE, picture=9(2), srceLine=26]
+    CobolDataEntry [levelNumber=5, cobolName=TABLE-ODO, picture=X(5), minOccurs=1, maxOccurs=100, dependingOn=TABLE-SIZE, srceLine=27]
+  ], srceLine=25]
+]

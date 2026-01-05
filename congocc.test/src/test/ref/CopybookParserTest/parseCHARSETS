@@ -1,0 +1,11 @@
+[
+  CobolDataEntry [levelNumber=77, cobolName=ABEND-INVALID-INPUT, picture=X(4), value='TCII', srceLine=25]
+  CobolDataEntry [levelNumber=1, cobolName=WORK-BUFFER, picture=X(32), value= LOW-VALUES, srceLine=26]
+  CobolDataEntry [levelNumber=1, cobolName=FR-EXPECTED-INPUT, picture=X(20), value=X'e08140837d85a2a340a495409799968293d09485', srceLine=32]
+  CobolDataEntry [levelNumber=1, cobolName=FR-OUTPUT, picture=X(22), value=X'c093c0948595a381899985407c4099c0a296a4849985', srceLine=38]
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=COM-LOCAL, picture=X(32), srceLine=43]
+    CobolDataEntry [levelNumber=5, cobolName=COM-DBCS, picture=G(32), usage=DISPLAY1, srceLine=44]
+    CobolDataEntry [levelNumber=5, cobolName=COM-NATIONAL, picture=N(32), usage=NATIONAL, srceLine=45]
+  ], srceLine=42]
+]

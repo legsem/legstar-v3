@@ -1,0 +1,25 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=CUSTOMER-DATA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=CUSTOMER-ID, picture=9(6), srceLine=2]
+    CobolDataEntry [levelNumber=5, cobolName=PERSONAL-DATA, children=[
+      CobolDataEntry [levelNumber=10, cobolName=CUSTOMER-NAME, picture=X(20), srceLine=4]
+      CobolDataEntry [levelNumber=10, cobolName=CUSTOMER-ADDRESS, picture=X(20), srceLine=5]
+      CobolDataEntry [levelNumber=10, cobolName=CUSTOMER-PHONE, picture=X(8), srceLine=6]
+    ], srceLine=3]
+    CobolDataEntry [levelNumber=5, cobolName=TRANSACTIONS, children=[
+      CobolDataEntry [levelNumber=10, cobolName=TRANSACTION-NBR, picture=9(9), usage=BINARY, srceLine=8]
+      CobolDataEntry [levelNumber=10, cobolName=TRANSACTION, minOccurs=0, maxOccurs=5, dependingOn=TRANSACTION-NBR, children=[
+        CobolDataEntry [levelNumber=15, cobolName=TRANSACTION-DATE, picture=X(8), srceLine=11]
+        CobolDataEntry [levelNumber=15, cobolName=FILLER, redefines=TRANSACTION-DATE, children=[
+          CobolDataEntry [levelNumber=20, cobolName=TRANSACTION-DAY, picture=X(2), srceLine=13]
+          CobolDataEntry [levelNumber=20, cobolName=FILLER, picture=X, srceLine=14]
+          CobolDataEntry [levelNumber=20, cobolName=TRANSACTION-MONTH, picture=X(2), srceLine=15]
+          CobolDataEntry [levelNumber=20, cobolName=FILLER, picture=X, srceLine=16]
+          CobolDataEntry [levelNumber=20, cobolName=TRANSACTION-YEAR, picture=X(2), srceLine=17]
+        ], srceLine=12]
+        CobolDataEntry [levelNumber=15, cobolName=TRANSACTION-AMOUNT, picture=S9(13)V99, usage=PACKED_DECIMAL, srceLine=18]
+        CobolDataEntry [levelNumber=15, cobolName=TRANSACTION-COMMENT, picture=X(9), srceLine=19]
+      ], srceLine=9]
+    ], srceLine=7]
+  ], srceLine=1]
+]

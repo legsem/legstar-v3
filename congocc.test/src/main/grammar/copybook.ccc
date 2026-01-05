@@ -19,7 +19,7 @@ SMART_NODE_CREATION=false;
 
 <PICTURE_STATE> TOKEN [IGNORE_CASE]:
     < #CONSECUTIVE_OCCURS: "(" (["0"-"9"])+ ")" >
-|	< #PICTURE_PART: (["a", "b", "g", "n", "p", "x", "u", "z", "9", "0", "/", ",", "+", "-", "*", "e", "s", "v", "c", "r", "d", "$"])+ | <CONSECUTIVE_OCCURS> >
+|   < #PICTURE_PART: (["a", "b", "g", "n", "p", "x", "u", "z", "9", "0", "/", ",", "+", "-", "*", "e", "s", "v", "c", "r", "d", "$"])+ | <CONSECUTIVE_OCCURS> >
 |   < PICTURE_IS: (<PICTURE_PART>)+ ("." (<PICTURE_PART>)+ )? > : DEFAULT
 ;
 
@@ -129,29 +129,29 @@ TOKEN [IGNORE_CASE]:
 ;
 
 DataEntry : LEVEL_STATE :
-	(
-	   DataEntryFormat1
+    (
+       DataEntryFormat1
     |  DataEntryFormat2
     |  DataEntryFormat3
     )
-	<PERIOD>
+    <PERIOD>
 ;
 
 DataEntryFormat1 :
-	( <LEVEL_NUMBER> | <LEVEL_77> )
-	[ <DATA_NAME> ]
-	( DataEntryClauses )*
+    ( <LEVEL_NUMBER> | <LEVEL_77> )
+    [ <DATA_NAME> ]
+    ( DataEntryClauses )*
 ;
 
 DataEntryClauses :
-	RedefinesClause
-|	BlankWhenZeroClause
-|	ExternalClause
-|	GlobalClause
+    RedefinesClause
+|   BlankWhenZeroClause
+|   ExternalClause
+|   GlobalClause
 |   GroupUsageClause
 |   JustifiedClause
 |   OccursClause
-|	PictureClause
+|   PictureClause
 |   SignClause
 |   SynchronizedClause
 |   UsageClause
@@ -159,33 +159,33 @@ DataEntryClauses :
 ;
 
 RedefinesClause :
-	<REDEFINES>
-	<DATA_NAME>
+    <REDEFINES>
+    <DATA_NAME>
 ;
 
 BlankWhenZeroClause :
-	<BLANK>
-	[ <WHEN> ]
-	<ZERO>
+    <BLANK>
+    [ <WHEN> ]
+    <ZERO>
 ;
 
 ExternalClause :
-	<EXTERNAL>
+    <EXTERNAL>
 ;
 
 GlobalClause :
-	<GLOBAL>
+    <GLOBAL>
 ;
 
 GroupUsageClause :
-	<GROUP_USAGE>
-	[ <IS> ]
-	( <NATIONAL> | <UTF_8> )
+    <GROUP_USAGE>
+    [ <IS> ]
+    ( <NATIONAL> | <UTF_8> )
 ;
 
 JustifiedClause :
-	<JUSTIFIED>
-	[ <RIGHT> ]
+    <JUSTIFIED>
+    [ <RIGHT> ]
 ;
 
 OccursClause :
@@ -194,11 +194,11 @@ OccursClause :
 ;
 
 FixedLengthOccurs :
-	<OCCURS>
-	<INTEGER>
-	[ <TIMES> ]
-	( KeyClause )*
-	( IndexedClause )*
+    <OCCURS>
+    <INTEGER>
+    [ <TIMES> ]
+    ( KeyClause )*
+    ( IndexedClause )*
 ;
 
 KeyClause :
@@ -215,45 +215,45 @@ IndexedClause :
 ;
 
 VariableLengthOccurs :
-	<OCCURS>
-	[ LowerBound ]
-	UpperBound
-	[ <TIMES> ]
-	<DEPENDING>	=>||
-	[ <ON> ]
-	<DATA_NAME>
-	( KeyClause )*
-	( IndexedClause )*
+    <OCCURS>
+    [ LowerBound ]
+    UpperBound
+    [ <TIMES> ]
+    <DEPENDING> =>||
+    [ <ON> ]
+    <DATA_NAME>
+    ( KeyClause )*
+    ( IndexedClause )*
 ;
 
 LowerBound :
-	<INTEGER>
-	<TO> =>||
+    <INTEGER>
+    <TO> =>||
 ;
 
 UpperBound :
-	<INTEGER>
-|	<UNBOUNDED>
+    <INTEGER>
+|   <UNBOUNDED>
 ;
 
 PictureClause :
-	<PICTURE> [ <IS> ] PictureString
+    <PICTURE> [ <IS> ] PictureString
 ;
 
 PictureString :
-	<PICTURE_IS>
+    <PICTURE_IS>
 ;
 
 SignClause :
-	[ <SIGN> ]
-	[ <IS> ]
+    [ <SIGN> ]
+    [ <IS> ]
     ( <LEADING> | <TRAILING> )
     [ SignSeparate ]
 ;
 
 SignSeparate :
-	<SEPARATE>
-	[ <CHARACTER> ]
+    <SEPARATE>
+    [ <CHARACTER> ]
 ;
 
 SynchronizedClause :
@@ -264,8 +264,12 @@ SynchronizedClause :
 UsageClause :
     [ <USAGE> ]
     [ <IS> ]
-    (
-      <BINARY>
+    UsageValue =>||
+    [ <NATIVE> ]
+;
+
+UsageValue :
+    <BINARY>
     | <FLOATING_POINT>
     | <LONG_FLOATING_POINT>
     | <PACKED_DECIMAL>
@@ -279,18 +283,16 @@ UsageClause :
     | <POINTER_32>
     | <PROCEDURE_POINTER>
     | <FUNCTION_POINTER>
-    ) =>||
-    [ <NATIVE> ]
 ;
 
 ValueClause :
-	<VALUE>
-	[ <IS> ]
-	Literal
+    <VALUE>
+    [ <IS> ]
+    Literal
 ;
 
 Literal : VALUE_STATE :
-	<DOUBLE_QUOTED_STRING_LITERAL>
+    <DOUBLE_QUOTED_STRING_LITERAL>
 |   <SINGLE_QUOTED_STRING_LITERAL>
 |   <NUMERIC_LITERAL>
 |   <DOUBLE_QUOTED_HEX_LITERAL>
@@ -307,53 +309,53 @@ Literal : VALUE_STATE :
 |   <SINGLE_QUOTED_DBCS_LITERAL>
 |   <DOUBLE_QUOTED_ZERO_ENDED_LITERAL>
 |   <SINGLE_QUOTED_ZERO_ENDED_LITERAL>
-| 	<ZERO_CONSTANT>
-| 	<SPACE_CONSTANT>
-| 	<HIGH_VALUE_CONSTANT> 
-| 	<LOW_VALUE_CONSTANT> 
-| 	<QUOTE_CONSTANT> 
-| 	<NULL_CONSTANT>
+|   <ZERO_CONSTANT>
+|   <SPACE_CONSTANT>
+|   <HIGH_VALUE_CONSTANT> 
+|   <LOW_VALUE_CONSTANT> 
+|   <QUOTE_CONSTANT> 
+|   <NULL_CONSTANT>
 |   AllLiteral
 ;
 
 AllLiteral :
-	<ALL_CONSTANT>
-	(
-	  <DOUBLE_QUOTED_STRING_LITERAL>
-	| <SINGLE_QUOTED_STRING_LITERAL>
-	| <DOUBLE_QUOTED_NATIONAL_LITERAL>
-	| <SINGLE_QUOTED_NATIONAL_LITERAL>
-	| <DOUBLE_QUOTED_UTF8_LITERAL>
-	| <SINGLE_QUOTED_UTF8_LITERAL>
-	| <DOUBLE_QUOTED_DBCS_LITERAL>
-	| <SINGLE_QUOTED_DBCS_LITERAL>
-	| <ZERO_CONSTANT>
-	| <SPACE_CONSTANT>
-	| <HIGH_VALUE_CONSTANT> 
-	| <LOW_VALUE_CONSTANT> 
-	| <QUOTE_CONSTANT> 
-	| <NULL_CONSTANT>
-	)
+    <ALL_CONSTANT>
+    (
+      <DOUBLE_QUOTED_STRING_LITERAL>
+    | <SINGLE_QUOTED_STRING_LITERAL>
+    | <DOUBLE_QUOTED_NATIONAL_LITERAL>
+    | <SINGLE_QUOTED_NATIONAL_LITERAL>
+    | <DOUBLE_QUOTED_UTF8_LITERAL>
+    | <SINGLE_QUOTED_UTF8_LITERAL>
+    | <DOUBLE_QUOTED_DBCS_LITERAL>
+    | <SINGLE_QUOTED_DBCS_LITERAL>
+    | <ZERO_CONSTANT>
+    | <SPACE_CONSTANT>
+    | <HIGH_VALUE_CONSTANT> 
+    | <LOW_VALUE_CONSTANT> 
+    | <QUOTE_CONSTANT> 
+    | <NULL_CONSTANT>
+    )
 ;
 
 DataEntryFormat2 :
-	<LEVEL_66>
-	<DATA_NAME>
-	<RENAMES>
-	<DATA_NAME>
-	[ <THROUGH> <DATA_NAME>]
+    <LEVEL_66>
+    <DATA_NAME>
+    <RENAMES>
+    <DATA_NAME>
+    [ <THROUGH> <DATA_NAME>]
 ;
 
 DataEntryFormat3 :
-	<LEVEL_88>
-	<DATA_NAME>
-	( <VALUE> [ <IS> ] | <VALUES> [ <ARE> ])
-	( Literal [ <THROUGH> Literal ] ([ <COMMA> | <SEMI_COLON> ] Literal [ <THROUGH> Literal] )* )
-	( [ <WHEN> ] [ <SET> ] [ <TO> ] <FALSE> [ <IS> ] Literal)?
+    <LEVEL_88>
+    <DATA_NAME>
+    ( <VALUE> [ <IS> ] | <VALUES> [ <ARE> ])
+    ( Literal [ <THROUGH> Literal ] ([ <COMMA> | <SEMI_COLON> ] Literal [ <THROUGH> Literal] )* )
+    ( [ <WHEN> ] [ <SET> ] [ <TO> ] <FALSE> [ <IS> ] Literal)?
 ;
 
 Copybook :
-	( DataEntry )*
-	<EOF> 
+    ( DataEntry )*
+    <EOF> 
 ;
 

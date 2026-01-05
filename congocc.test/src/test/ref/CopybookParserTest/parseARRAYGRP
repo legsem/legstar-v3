@@ -1,0 +1,8 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=3, cobolName=ITEMS, minOccurs=4, maxOccurs=4, children=[
+      CobolDataEntry [levelNumber=5, cobolName=ITEM-DESC, picture=X(10), srceLine=9]
+      CobolDataEntry [levelNumber=5, cobolName=ITEM-NUMBER, picture=9(9), srceLine=10]
+    ], srceLine=8]
+  ], srceLine=7]
+]

@@ -1,0 +1,8 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=ARDO01-RECORD, children=[
+    CobolDataEntry [levelNumber=5, cobolName=COM-NUMBER, picture=9(6), srceLine=2]
+    CobolDataEntry [levelNumber=5, cobolName=COM-NAME, picture=X(20), srceLine=3]
+    CobolDataEntry [levelNumber=5, cobolName=COM-NBR, picture=9(4), usage=BINARY, srceLine=4]
+    CobolDataEntry [levelNumber=5, cobolName=COM-ARRAY, picture=S9(13)V99, minOccurs=0, maxOccurs=5, dependingOn=COM-NBR, usage=PACKED_DECIMAL, srceLine=5]
+  ], srceLine=1]
+]

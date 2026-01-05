@@ -1,0 +1,68 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=WS-RESP, picture=S9(8), usage=BINARY, value=ZERO, srceLine=26]
+  CobolDataEntry [levelNumber=1, cobolName=WS-RESP2, picture=S9(8), usage=BINARY, value=ZERO, srceLine=27]
+  CobolDataEntry [levelNumber=1, cobolName=WS-EXPECTED-INCOMING-DATA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=WS-UNSIGNED-NATIVE, children=[
+      CobolDataEntry [levelNumber=10, cobolName=WS-HALFWORDS, children=[
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X4-MIN, picture=S9(4), usage=NATIVE_BINARY, value=-32768, srceLine=32]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X4-LOW, picture=S9(4), usage=NATIVE_BINARY, value=-128, srceLine=33]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X4-HIGH, picture=S9(4), usage=NATIVE_BINARY, value=+1045, srceLine=34]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X4-MAX, picture=S9(4), usage=NATIVE_BINARY, value=+32767, srceLine=35]
+      ], srceLine=31]
+      CobolDataEntry [levelNumber=10, cobolName=WS-FULLWORDS, children=[
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X9-MIN, picture=S9(9), usage=NATIVE_BINARY, value=-2147483648, srceLine=37]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X9-LOW, picture=S9(9), usage=NATIVE_BINARY, value=-128, srceLine=38]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X9-HIGH, picture=S9(9), usage=NATIVE_BINARY, value=+123456789, srceLine=39]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X9-MAX, picture=S9(9), usage=NATIVE_BINARY, value=+2147483647, srceLine=40]
+      ], srceLine=36]
+      CobolDataEntry [levelNumber=10, cobolName=WS-DOUBLEWORDS, children=[
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X18-MIN-B, children=[
+          CobolDataEntry [levelNumber=20, cobolName=FILLER, picture=S9(9), usage=NATIVE_BINARY, value=-2147483648, srceLine=43]
+          CobolDataEntry [levelNumber=20, cobolName=FILLER, picture=9(9), usage=NATIVE_BINARY, value=0, srceLine=44]
+        ], srceLine=42]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X18-MIN, redefines=WS-PS9X18-MIN-B, picture=S9(18), usage=NATIVE_BINARY, srceLine=45]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X18-LOW, picture=S9(18), usage=NATIVE_BINARY, value=-4294967294, srceLine=47]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X18-HIGH-B, children=[
+          CobolDataEntry [levelNumber=20, cobolName=FILLER, picture=9(9), usage=NATIVE_BINARY, value=3, srceLine=49]
+          CobolDataEntry [levelNumber=20, cobolName=FILLER, picture=9(9), usage=NATIVE_BINARY, value=4294967295, srceLine=50]
+        ], srceLine=48]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X18-HIGH, redefines=WS-PS9X18-HIGH-B, picture=S9(18), usage=NATIVE_BINARY, srceLine=51]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X18-MAX-B, children=[
+          CobolDataEntry [levelNumber=20, cobolName=FILLER, picture=9(9), usage=NATIVE_BINARY, value=2147483647, srceLine=54]
+          CobolDataEntry [levelNumber=20, cobolName=FILLER, picture=9(9), usage=NATIVE_BINARY, value=4294967295, srceLine=55]
+        ], srceLine=53]
+        CobolDataEntry [levelNumber=15, cobolName=WS-PS9X18-MAX, redefines=WS-PS9X18-MAX-B, picture=S9(18), usage=NATIVE_BINARY, srceLine=56]
+      ], srceLine=41]
+    ], srceLine=30]
+  ], srceLine=29]
+  CobolDataEntry [levelNumber=1, cobolName=FILLER, children=[
+    CobolDataEntry [levelNumber=5, cobolName=WS-PS9X4-DIS-1, picture=+9(5), srceLine=60]
+    CobolDataEntry [levelNumber=5, cobolName=WS-PS9X9-DIS-1, picture=+9(10), srceLine=61]
+    CobolDataEntry [levelNumber=5, cobolName=WS-PS9X18-DIS-1, picture=+9(20), srceLine=62]
+    CobolDataEntry [levelNumber=5, cobolName=WS-PS9X4-DIS-2, picture=+9(5), srceLine=63]
+    CobolDataEntry [levelNumber=5, cobolName=WS-PS9X9-DIS-2, picture=+9(10), srceLine=64]
+    CobolDataEntry [levelNumber=5, cobolName=WS-PS9X18-DIS-2, picture=+9(20), srceLine=65]
+  ], srceLine=59]
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=LS-UNSIGNED-NATIVE, children=[
+      CobolDataEntry [levelNumber=10, cobolName=LS-HALFWORDS, children=[
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X4-MIN, picture=S9(4), usage=NATIVE_BINARY, srceLine=74]
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X4-LOW, picture=S9(4), usage=NATIVE_BINARY, srceLine=75]
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X4-HIGH, picture=S9(4), usage=NATIVE_BINARY, srceLine=76]
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X4-MAX, picture=S9(4), usage=NATIVE_BINARY, srceLine=77]
+      ], srceLine=73]
+      CobolDataEntry [levelNumber=10, cobolName=LS-FULLWORDS, children=[
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X9-MIN, picture=S9(9), usage=NATIVE_BINARY, srceLine=79]
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X9-LOW, picture=S9(9), usage=NATIVE_BINARY, srceLine=80]
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X9-HIGH, picture=S9(9), usage=NATIVE_BINARY, srceLine=81]
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X9-MAX, picture=S9(9), usage=NATIVE_BINARY, srceLine=82]
+      ], srceLine=78]
+      CobolDataEntry [levelNumber=10, cobolName=LS-DOUBLEWORDS, children=[
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X18-MIN, picture=S9(18), usage=NATIVE_BINARY, srceLine=84]
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X18-LOW, picture=S9(18), usage=NATIVE_BINARY, srceLine=85]
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X18-HIGH, picture=S9(18), usage=NATIVE_BINARY, srceLine=86]
+        CobolDataEntry [levelNumber=15, cobolName=LS-PS9X18-MAX, picture=S9(18), usage=NATIVE_BINARY, srceLine=87]
+      ], srceLine=83]
+    ], srceLine=72]
+  ], srceLine=71]
+]

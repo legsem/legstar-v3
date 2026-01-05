@@ -1,0 +1,40 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=WS-RESP, picture=S9(8), usage=BINARY, value=ZERO, srceLine=26]
+  CobolDataEntry [levelNumber=1, cobolName=WS-RESP2, picture=S9(8), usage=BINARY, value=ZERO, srceLine=27]
+  CobolDataEntry [levelNumber=1, cobolName=WS-EXPECTED-INCOMING-DATA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=WS-UNSIGNED-PACKED-DECIMAL, children=[
+      CobolDataEntry [levelNumber=10, cobolName=WS-COMPAT, children=[
+        CobolDataEntry [levelNumber=15, cobolName=WS-P9X1-NULL, picture=9(1), usage=PACKED_DECIMAL, value=0, srceLine=32]
+        CobolDataEntry [levelNumber=15, cobolName=WS-P9X1, picture=9(1), usage=PACKED_DECIMAL, value=3, srceLine=33]
+        CobolDataEntry [levelNumber=15, cobolName=WS-P9X2, picture=9(2), usage=PACKED_DECIMAL, value=12, srceLine=34]
+        CobolDataEntry [levelNumber=15, cobolName=WS-P9X7, picture=9(7), usage=PACKED_DECIMAL, value=32769, srceLine=35]
+        CobolDataEntry [levelNumber=15, cobolName=WS-P9X18, picture=9(18), usage=PACKED_DECIMAL, value=123456789012345678, srceLine=37]
+      ], srceLine=31]
+      CobolDataEntry [levelNumber=10, cobolName=WS-EXTEND, children=[
+        CobolDataEntry [levelNumber=15, cobolName=WS-P9X19, picture=9(19), usage=PACKED_DECIMAL, value=1234567890123456789, srceLine=40]
+        CobolDataEntry [levelNumber=15, cobolName=WS-P9X31, picture=9(31), usage=PACKED_DECIMAL, value=1234567890123456789012345678901, srceLine=42]
+      ], srceLine=39]
+    ], srceLine=30]
+  ], srceLine=29]
+  CobolDataEntry [levelNumber=1, cobolName=FILLER, children=[
+    CobolDataEntry [levelNumber=5, cobolName=WS-PS9X18-DIS-1, picture=+9(18), srceLine=46]
+    CobolDataEntry [levelNumber=5, cobolName=WS-PS9X18-DIS-2, picture=+9(18), srceLine=47]
+    CobolDataEntry [levelNumber=5, cobolName=WS-PS9X31-DIS-1, picture=+9(31), srceLine=48]
+    CobolDataEntry [levelNumber=5, cobolName=WS-PS9X31-DIS-2, picture=+9(31), srceLine=49]
+  ], srceLine=45]
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=LS-UNSIGNED-PACKED-DECIMAL, children=[
+      CobolDataEntry [levelNumber=10, cobolName=LS-COMPAT, children=[
+        CobolDataEntry [levelNumber=15, cobolName=LS-P9X1-NULL, picture=9(1), usage=PACKED_DECIMAL, srceLine=58]
+        CobolDataEntry [levelNumber=15, cobolName=LS-P9X1, picture=9(1), usage=PACKED_DECIMAL, srceLine=59]
+        CobolDataEntry [levelNumber=15, cobolName=LS-P9X2, picture=9(2), usage=PACKED_DECIMAL, srceLine=60]
+        CobolDataEntry [levelNumber=15, cobolName=LS-P9X7, picture=9(7), usage=PACKED_DECIMAL, srceLine=61]
+        CobolDataEntry [levelNumber=15, cobolName=LS-P9X18, picture=9(18), usage=PACKED_DECIMAL, srceLine=62]
+      ], srceLine=57]
+      CobolDataEntry [levelNumber=10, cobolName=LS-EXTEND, children=[
+        CobolDataEntry [levelNumber=15, cobolName=LS-P9X19, picture=9(19), usage=PACKED_DECIMAL, srceLine=64]
+        CobolDataEntry [levelNumber=15, cobolName=LS-P9X31, picture=9(31), usage=PACKED_DECIMAL, srceLine=65]
+      ], srceLine=63]
+    ], srceLine=56]
+  ], srceLine=55]
+]

@@ -4,29 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
 import org.legstar.copybook.parser.CopybookCCParser;
 import org.legstar.copybook.parser.Node;
 import org.legstar.copybook.parser.ParseException;
 
-public class CopybookCCParseTest {
-
-	private String testName;
-
-	@BeforeEach
-	void setUp(TestInfo testInfo) {
-		String s = testInfo.getDisplayName();
-		testName = s.substring(0, s.indexOf("("));
-	}
+public class CopybookCCParseTest extends TestBase {
 
 	@Test
 	public void parseOneEmpty() {
@@ -349,29 +335,15 @@ public class CopybookCCParseTest {
 	}
 
 	private String parse(String source) {
-		CopybookCCParser parser = new CopybookCCParser(source);
-		parser.Copybook();
-		Node node = parser.rootNode();
+		CopybookCCParser ccParser = new CopybookCCParser(source);
+		ccParser.Copybook();
+		Node node = ccParser.rootNode();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		PrintStream ps = new PrintStream(baos, true, StandardCharsets.UTF_8);
 		node.dump("", ps);
 		String res = new String(baos.toByteArray(), StandardCharsets.UTF_8);
 		res = res.replace("\r", "");
 		return res;
-	}
-
-	private void check(String res) {
-		try {
-			Path refPath = Paths.get("src/test/ref", testName);
-			if (refPath.toFile().exists()) {
-				String ref = Files.readString(refPath);
-				assertEquals(ref, res);
-			} else {
-				Files.writeString(refPath, res);
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 }
