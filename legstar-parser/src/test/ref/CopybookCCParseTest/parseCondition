@@ -1,0 +1,173 @@
+<Copybook (1, 1)-(12, 22)>
+  <DataEntry (1, 1)-(1, 22)>
+    <DataEntryFormat3 (1, 1)-(1, 21)>
+      LEVEL_88: (1, 1) - (1, 2): 88
+      DATA_NAME: (1, 4) - (1, 12): CONDITION
+      VALUE: (1, 14) - (1, 18): VALUE
+      <ConditionValue (1, 20)-(1, 21)>
+        <Literal (1, 20)-(1, 21)>
+          NUMERIC_LITERAL: (1, 20) - (1, 21): 99
+    PERIOD: (1, 22) - (1, 22): .
+  <DataEntry (2, 1)-(2, 24)>
+    <DataEntryFormat3 (2, 1)-(2, 23)>
+      LEVEL_88: (2, 1) - (2, 2): 88
+      DATA_NAME: (2, 4) - (2, 4): A
+      VALUES: (2, 6) - (2, 11): VALUES
+      ARE: (2, 13) - (2, 15): ARE
+      <ConditionValue (2, 17)-(2, 19)>
+        <Literal (2, 17)-(2, 19)>
+          DOUBLE_QUOTED_STRING_LITERAL: (2, 17) - (2, 19): "1"
+      <ConditionValue (2, 21)-(2, 23)>
+        <Literal (2, 21)-(2, 23)>
+          DOUBLE_QUOTED_STRING_LITERAL: (2, 21) - (2, 23): "2"
+    PERIOD: (2, 24) - (2, 24): .
+  <DataEntry (3, 1)-(3, 22)>
+    <DataEntryFormat3 (3, 1)-(3, 21)>
+      LEVEL_88: (3, 1) - (3, 2): 88
+      DATA_NAME: (3, 4) - (3, 4): Q
+      VALUE: (3, 6) - (3, 10): VALUE
+      <ConditionValue (3, 12)-(3, 21)>
+        <LiteralRange (3, 12)-(3, 21)>
+          <Literal (3, 12)-(3, 13)>
+            NUMERIC_LITERAL: (3, 12) - (3, 13): 13
+          THROUGH: (3, 15) - (3, 18): THRU
+          <Literal (3, 20)-(3, 21)>
+            NUMERIC_LITERAL: (3, 20) - (3, 21): 19
+    PERIOD: (3, 22) - (3, 22): .
+  <DataEntry (4, 1)-(4, 22)>
+    <DataEntryFormat3 (4, 1)-(4, 21)>
+      LEVEL_88: (4, 1) - (4, 2): 88
+      DATA_NAME: (4, 4) - (4, 4): A
+      VALUE: (4, 6) - (4, 10): VALUE
+      <ConditionValue (4, 12)-(4, 21)>
+        <Literal (4, 12)-(4, 21)>
+          <AllLiteral (4, 12)-(4, 21)>
+            ALL_CONSTANT: (4, 12) - (4, 14): ALL
+            SPACE_CONSTANT: (4, 16) - (4, 21): SPACES
+    PERIOD: (4, 22) - (4, 22): .
+  <DataEntry (5, 1)-(5, 35)>
+    <DataEntryFormat3 (5, 1)-(5, 34)>
+      LEVEL_88: (5, 1) - (5, 2): 88
+      DATA_NAME: (5, 4) - (5, 4): A
+      VALUE: (5, 6) - (5, 10): VALUE
+      <ConditionValue (5, 12)-(5, 34)>
+        <LiteralRange (5, 12)-(5, 34)>
+          <Literal (5, 12)-(5, 18)>
+            <AllLiteral (5, 12)-(5, 18)>
+              ALL_CONSTANT: (5, 12) - (5, 14): ALL
+              SINGLE_QUOTED_STRING_LITERAL: (5, 16) - (5, 18): 'A'
+          THROUGH: (5, 20) - (5, 26): THROUGH
+          <Literal (5, 28)-(5, 34)>
+            <AllLiteral (5, 28)-(5, 34)>
+              ALL_CONSTANT: (5, 28) - (5, 30): ALL
+              SINGLE_QUOTED_STRING_LITERAL: (5, 32) - (5, 34): 'C'
+    PERIOD: (5, 35) - (5, 35): .
+  <DataEntry (6, 1)-(6, 19)>
+    <DataEntryFormat3 (6, 1)-(6, 18)>
+      LEVEL_88: (6, 1) - (6, 2): 88
+      DATA_NAME: (6, 4) - (6, 4): A
+      VALUE: (6, 6) - (6, 10): VALUE
+      <ConditionValue (6, 12)-(6, 12)>
+        <Literal (6, 12)-(6, 12)>
+          NUMERIC_LITERAL: (6, 12) - (6, 12): 1
+      COMMA: (6, 13) - (6, 13): ,
+      <ConditionValue (6, 15)-(6, 15)>
+        <Literal (6, 15)-(6, 15)>
+          NUMERIC_LITERAL: (6, 15) - (6, 15): 2
+      COMMA: (6, 16) - (6, 16): ,
+      <ConditionValue (6, 18)-(6, 18)>
+        <Literal (6, 18)-(6, 18)>
+          NUMERIC_LITERAL: (6, 18) - (6, 18): 3
+    PERIOD: (6, 19) - (6, 19): .
+  <DataEntry (7, 1)-(7, 26)>
+    <DataEntryFormat3 (7, 1)-(7, 25)>
+      LEVEL_88: (7, 1) - (7, 2): 88
+      DATA_NAME: (7, 4) - (7, 4): A
+      VALUE: (7, 6) - (7, 10): VALUE
+      <ConditionValue (7, 12)-(7, 19)>
+        <LiteralRange (7, 12)-(7, 19)>
+          <Literal (7, 12)-(7, 12)>
+            NUMERIC_LITERAL: (7, 12) - (7, 12): 1
+          THROUGH: (7, 14) - (7, 17): THRU
+          <Literal (7, 19)-(7, 19)>
+            NUMERIC_LITERAL: (7, 19) - (7, 19): 5
+      SEMI_COLON: (7, 20) - (7, 20): ;
+      <ConditionValue (7, 22)-(7, 22)>
+        <Literal (7, 22)-(7, 22)>
+          NUMERIC_LITERAL: (7, 22) - (7, 22): 7
+      SEMI_COLON: (7, 23) - (7, 23): ;
+      <ConditionValue (7, 25)-(7, 25)>
+        <Literal (7, 25)-(7, 25)>
+          NUMERIC_LITERAL: (7, 25) - (7, 25): 8
+    PERIOD: (7, 26) - (7, 26): .
+  <DataEntry (8, 1)-(8, 36)>
+    <DataEntryFormat3 (8, 1)-(8, 35)>
+      LEVEL_88: (8, 1) - (8, 2): 88
+      DATA_NAME: (8, 4) - (8, 4): A
+      VALUE: (8, 6) - (8, 10): VALUE
+      <ConditionValue (8, 12)-(8, 12)>
+        <Literal (8, 12)-(8, 12)>
+          NUMERIC_LITERAL: (8, 12) - (8, 12): 1
+      WHEN: (8, 14) - (8, 17): WHEN
+      SET: (8, 19) - (8, 21): SET
+      TO: (8, 23) - (8, 24): TO
+      FALSE: (8, 26) - (8, 30): FALSE
+      IS: (8, 32) - (8, 33): IS
+      <Literal (8, 35)-(8, 35)>
+        NUMERIC_LITERAL: (8, 35) - (8, 35): 2
+    PERIOD: (8, 36) - (8, 36): .
+  <DataEntry (9, 1)-(9, 31)>
+    <DataEntryFormat3 (9, 1)-(9, 30)>
+      LEVEL_88: (9, 1) - (9, 2): 88
+      DATA_NAME: (9, 4) - (9, 4): A
+      VALUE: (9, 6) - (9, 10): VALUE
+      <ConditionValue (9, 12)-(9, 12)>
+        <Literal (9, 12)-(9, 12)>
+          NUMERIC_LITERAL: (9, 12) - (9, 12): 1
+      SET: (9, 14) - (9, 16): SET
+      TO: (9, 18) - (9, 19): TO
+      FALSE: (9, 21) - (9, 25): FALSE
+      IS: (9, 27) - (9, 28): IS
+      <Literal (9, 30)-(9, 30)>
+        NUMERIC_LITERAL: (9, 30) - (9, 30): 2
+    PERIOD: (9, 31) - (9, 31): .
+  <DataEntry (10, 1)-(10, 27)>
+    <DataEntryFormat3 (10, 1)-(10, 26)>
+      LEVEL_88: (10, 1) - (10, 2): 88
+      DATA_NAME: (10, 4) - (10, 4): A
+      VALUE: (10, 6) - (10, 10): VALUE
+      <ConditionValue (10, 12)-(10, 12)>
+        <Literal (10, 12)-(10, 12)>
+          NUMERIC_LITERAL: (10, 12) - (10, 12): 1
+      TO: (10, 14) - (10, 15): TO
+      FALSE: (10, 17) - (10, 21): FALSE
+      IS: (10, 23) - (10, 24): IS
+      <Literal (10, 26)-(10, 26)>
+        NUMERIC_LITERAL: (10, 26) - (10, 26): 2
+    PERIOD: (10, 27) - (10, 27): .
+  <DataEntry (11, 1)-(11, 24)>
+    <DataEntryFormat3 (11, 1)-(11, 23)>
+      LEVEL_88: (11, 1) - (11, 2): 88
+      DATA_NAME: (11, 4) - (11, 4): A
+      VALUE: (11, 6) - (11, 10): VALUE
+      <ConditionValue (11, 12)-(11, 12)>
+        <Literal (11, 12)-(11, 12)>
+          NUMERIC_LITERAL: (11, 12) - (11, 12): 1
+      FALSE: (11, 14) - (11, 18): FALSE
+      IS: (11, 20) - (11, 21): IS
+      <Literal (11, 23)-(11, 23)>
+        NUMERIC_LITERAL: (11, 23) - (11, 23): 2
+    PERIOD: (11, 24) - (11, 24): .
+  <DataEntry (12, 1)-(12, 21)>
+    <DataEntryFormat3 (12, 1)-(12, 20)>
+      LEVEL_88: (12, 1) - (12, 2): 88
+      DATA_NAME: (12, 4) - (12, 4): A
+      VALUE: (12, 6) - (12, 10): VALUE
+      <ConditionValue (12, 12)-(12, 12)>
+        <Literal (12, 12)-(12, 12)>
+          NUMERIC_LITERAL: (12, 12) - (12, 12): 1
+      FALSE: (12, 14) - (12, 18): FALSE
+      <Literal (12, 20)-(12, 20)>
+        NUMERIC_LITERAL: (12, 20) - (12, 20): 2
+    PERIOD: (12, 21) - (12, 21): .
+  Token: (13, 1) - (13, 1): EOF

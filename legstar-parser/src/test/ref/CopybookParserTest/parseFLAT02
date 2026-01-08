@@ -1,0 +1,8 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=FLAT02-RECORD, children=[
+    CobolDataEntry [levelNumber=5, cobolName=COM-NUMBER, picture=9(6), srceLine=2]
+    CobolDataEntry [levelNumber=5, cobolName=COM-NAME, picture=X(20), srceLine=3]
+    CobolDataEntry [levelNumber=5, cobolName=COM-AMOUNT, picture=9(5)V99, usage=PACKED_DECIMAL, srceLine=4]
+    CobolDataEntry [levelNumber=5, cobolName=COM-ARRAY, picture=S9(4), minOccurs=5, maxOccurs=5, usage=BINARY, srceLine=5]
+  ], srceLine=1]
+]

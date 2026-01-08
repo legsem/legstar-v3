@@ -1,0 +1,8 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=WS-I, picture=9(9), usage=BINARY, value=ZERO, srceLine=18]
+  CobolDataEntry [levelNumber=1, cobolName=WS-J, picture=9, value=ZERO, srceLine=19]
+  CobolDataEntry [levelNumber=1, cobolName=WS-X, picture=X(5), value=SPACES, srceLine=20]
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=C-ARRAY, picture=X(5), minOccurs=3, maxOccurs=3, srceLine=24]
+  ], srceLine=23]
+]

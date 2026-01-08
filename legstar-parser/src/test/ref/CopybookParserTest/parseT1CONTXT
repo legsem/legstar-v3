@@ -1,0 +1,10 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=RESPONSE, picture=S9(8), srceLine=18]
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=COM-USER-ID, picture=X(8), srceLine=22]
+    CobolDataEntry [levelNumber=5, cobolName=COM-TRANSACTION-ID, picture=X(4), srceLine=23]
+    CobolDataEntry [levelNumber=5, cobolName=COM-TASK-ID, picture=S9(7), usage=PACKED_DECIMAL, srceLine=24]
+    CobolDataEntry [levelNumber=5, cobolName=COM-TERM-ID, picture=X(4), srceLine=25]
+    CobolDataEntry [levelNumber=5, cobolName=COM-COMMAREA-SIZE, picture=9(8), usage=BINARY, srceLine=26]
+  ], srceLine=21]
+]

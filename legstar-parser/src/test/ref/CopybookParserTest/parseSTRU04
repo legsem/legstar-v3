@@ -1,0 +1,19 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=STRU04-RECORD, children=[
+    CobolDataEntry [levelNumber=5, cobolName=COM-ITEM1, picture=9(5)V99, usage=PACKED_DECIMAL, srceLine=2]
+    CobolDataEntry [levelNumber=5, cobolName=COM-ARRAY1, minOccurs=3, maxOccurs=3, children=[
+      CobolDataEntry [levelNumber=10, cobolName=COM-ITEM2, picture=S9(4), usage=BINARY, srceLine=4]
+      CobolDataEntry [levelNumber=10, cobolName=COM-GROUP1, children=[
+        CobolDataEntry [levelNumber=15, cobolName=COM-ITEM3, picture=S9(4), usage=BINARY, srceLine=6]
+        CobolDataEntry [levelNumber=15, cobolName=COM-ARRAY2, minOccurs=2, maxOccurs=2, children=[
+          CobolDataEntry [levelNumber=20, cobolName=COM-ITEM4, picture=X, srceLine=8]
+          CobolDataEntry [levelNumber=20, cobolName=COM-ARRAY3, picture=X, minOccurs=5, maxOccurs=5, srceLine=9]
+          CobolDataEntry [levelNumber=20, cobolName=COM-ITEM5, picture=9(5)V99, usage=PACKED_DECIMAL, srceLine=10]
+        ], srceLine=7]
+        CobolDataEntry [levelNumber=15, cobolName=COM-ITEM6, picture=S9(4), usage=BINARY, srceLine=11]
+      ], srceLine=5]
+      CobolDataEntry [levelNumber=10, cobolName=COM-ITEM7, picture=S9(8), usage=BINARY, srceLine=12]
+    ], srceLine=3]
+    CobolDataEntry [levelNumber=5, cobolName=COM-ITEM8, picture=9(5)V99, usage=PACKED_DECIMAL, srceLine=13]
+  ], srceLine=1]
+]

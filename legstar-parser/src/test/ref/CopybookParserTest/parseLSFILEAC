@@ -1,0 +1,72 @@
+[
+  CobolDataEntry [levelNumber=77, cobolName=FILLER, picture=X, value='N', children=[
+    CobolDataEntry [levelNumber=88, cobolName=DEBUG-MODE, conditionLiterals=['Y'], srceLine=26]
+  ], srceLine=25]
+  CobolDataEntry [levelNumber=1, cobolName=W-FILENAME, picture=X(8), value='FILEA', srceLine=29]
+  CobolDataEntry [levelNumber=1, cobolName=W-QUERY-DATA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=W-QUERY-NAME, picture=X(20), value='*', srceLine=32]
+    CobolDataEntry [levelNumber=5, cobolName=W-QUERY-ADDRESS, picture=X(20), value='*', srceLine=33]
+    CobolDataEntry [levelNumber=5, cobolName=W-QUERY-PHONE, picture=X(8), value='*', srceLine=34]
+  ], srceLine=31]
+  CobolDataEntry [levelNumber=1, cobolName=W-QUERY-LIMIT, children=[
+    CobolDataEntry [levelNumber=5, cobolName=W-MAX-ITEMS-READ, picture=9(8), usage=PACKED_DECIMAL, value=200, srceLine=37]
+    CobolDataEntry [levelNumber=5, cobolName=W-MAX-ELAPSE-TIME, picture=9(8), usage=PACKED_DECIMAL, value=10000, srceLine=38]
+  ], srceLine=36]
+  CobolDataEntry [levelNumber=1, cobolName=W-NUMBER, picture=9(6), value=ZERO, srceLine=40]
+  CobolDataEntry [levelNumber=1, cobolName=W-ITEMSCOUNT, picture=9(8), usage=PACKED_DECIMAL, value=ZERO, srceLine=41]
+  CobolDataEntry [levelNumber=1, cobolName=W-VISIT-MODE, picture=9(4), usage=BINARY, value=ZERO, children=[
+    CobolDataEntry [levelNumber=88, cobolName=COUNT-MODE, conditionLiterals=[0], srceLine=43]
+    CobolDataEntry [levelNumber=88, cobolName=LOAD-MODE, conditionLiterals=[1], srceLine=44]
+  ], srceLine=42]
+  CobolDataEntry [levelNumber=1, cobolName=W-NAME-MATCH, picture=9(4), usage=BINARY, value=ZERO, children=[
+    CobolDataEntry [levelNumber=88, cobolName=NO-MATCH, conditionLiterals=[0], srceLine=46]
+    CobolDataEntry [levelNumber=88, cobolName=MATCH, conditionLiterals=[1], srceLine=47]
+  ], srceLine=45]
+  CobolDataEntry [levelNumber=1, cobolName=W-RESP, picture=S9(8), value=ZERO, srceLine=48]
+  CobolDataEntry [levelNumber=1, cobolName=W-RESP2, picture=S9(8), value=ZERO, srceLine=49]
+  CobolDataEntry [levelNumber=1, cobolName=W-I, picture=S9(8), value=ZERO, srceLine=50]
+  CobolDataEntry [levelNumber=1, cobolName=W-L, picture=9(8), usage=BINARY, value=ZERO, srceLine=51]
+  CobolDataEntry [levelNumber=1, cobolName=W-START-TIME, picture=S9(15), usage=PACKED_DECIMAL, value=ZERO, srceLine=52]
+  CobolDataEntry [levelNumber=1, cobolName=W-CURRENT-TIME, picture=S9(15), usage=PACKED_DECIMAL, value=ZERO, srceLine=53]
+  CobolDataEntry [levelNumber=1, cobolName=W-STOP-TIME, picture=S9(15), usage=PACKED_DECIMAL, value=ZERO, srceLine=54]
+  CobolDataEntry [levelNumber=1, cobolName=W-ELAPSE-TIME, picture=S9(15), usage=PACKED_DECIMAL, value=ZERO, srceLine=55]
+  CobolDataEntry [levelNumber=1, cobolName=W-ITEMSREAD, picture=9(8), usage=PACKED_DECIMAL, value=ZERO, srceLine=56]
+  CobolDataEntry [levelNumber=1, cobolName=W-QUERYDATA-CTN-NAME, picture=X(16), value='QueryData', srceLine=58]
+  CobolDataEntry [levelNumber=1, cobolName=W-QUERYLIMIT-CTN-NAME, picture=X(16), value='QueryLimit', srceLine=59]
+  CobolDataEntry [levelNumber=1, cobolName=W-REPLYDATA-CTN-NAME, picture=X(16), value='ReplyData', srceLine=60]
+  CobolDataEntry [levelNumber=1, cobolName=W-REPLYSTATUS-CTN-NAME, picture=X(16), value='ReplyStatus', srceLine=61]
+  CobolDataEntry [levelNumber=1, cobolName=REPLY-DATA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=REPLY-ITEMSCOUNT, picture=9(8), usage=PACKED_DECIMAL, srceLine=64]
+    CobolDataEntry [levelNumber=5, cobolName=REPLY-ITEM, minOccurs=1, maxOccurs=100, dependingOn=REPLY-ITEMSCOUNT, children=[
+      CobolDataEntry [levelNumber=15, cobolName=REPLY-NUMBER, picture=9(6), srceLine=67]
+      CobolDataEntry [levelNumber=15, cobolName=REPLY-PERSONAL, children=[
+        CobolDataEntry [levelNumber=20, cobolName=REPLY-NAME, picture=X(20), srceLine=69]
+        CobolDataEntry [levelNumber=20, cobolName=REPLY-ADDRESS, picture=X(20), srceLine=70]
+        CobolDataEntry [levelNumber=20, cobolName=REPLY-PHONE, picture=X(8), srceLine=71]
+      ], srceLine=68]
+      CobolDataEntry [levelNumber=15, cobolName=REPLY-DATE, picture=X(8), srceLine=72]
+      CobolDataEntry [levelNumber=15, cobolName=REPLY-AMOUNT, picture=X(8), srceLine=73]
+      CobolDataEntry [levelNumber=15, cobolName=REPLY-COMMENT, picture=X(9), srceLine=74]
+    ], srceLine=65]
+  ], srceLine=63]
+  CobolDataEntry [levelNumber=1, cobolName=REPLY-STATUS, children=[
+    CobolDataEntry [levelNumber=5, cobolName=REPLY-TYPE, picture=9(4), usage=BINARY, value=0, children=[
+      CobolDataEntry [levelNumber=88, cobolName=REPLY-SUCCESS, conditionLiterals=[0], srceLine=78]
+      CobolDataEntry [levelNumber=88, cobolName=REPLY-ERROR, conditionLiterals=[1], srceLine=79]
+    ], srceLine=77]
+    CobolDataEntry [levelNumber=5, cobolName=SEARCH-DURATION, picture=X(8), value= LOW-VALUES, srceLine=80]
+    CobolDataEntry [levelNumber=5, cobolName=TOTAL-ITEMS-READ, picture=9(8), usage=PACKED_DECIMAL, value=ZEROES, srceLine=81]
+    CobolDataEntry [levelNumber=5, cobolName=REPLY-RESP, picture=S9(8), usage=BINARY, value=ZERO, srceLine=82]
+    CobolDataEntry [levelNumber=5, cobolName=REPLY-RESP2, picture=S9(8), usage=BINARY, value=ZERO, srceLine=83]
+    CobolDataEntry [levelNumber=5, cobolName=REPLY-MESSAGE, picture=X(128), value=SPACES, srceLine=84]
+  ], srceLine=76]
+  CobolDataEntry [levelNumber=1, cobolName=QUERY-DATA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=QUERY-NAME, picture=X(20), srceLine=92]
+    CobolDataEntry [levelNumber=5, cobolName=QUERY-ADDRESS, picture=X(20), srceLine=93]
+    CobolDataEntry [levelNumber=5, cobolName=QUERY-PHONE, picture=X(8), srceLine=94]
+  ], srceLine=91]
+  CobolDataEntry [levelNumber=1, cobolName=QUERY-LIMIT, children=[
+    CobolDataEntry [levelNumber=5, cobolName=MAX-ITEMS-READ, picture=9(8), usage=PACKED_DECIMAL, srceLine=97]
+    CobolDataEntry [levelNumber=5, cobolName=MAX-ELAPSE-TIME, picture=9(8), usage=PACKED_DECIMAL, srceLine=98]
+  ], srceLine=96]
+]

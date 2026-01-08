@@ -1,0 +1,17 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=C-FUNCTION, picture=X(18), children=[
+      CobolDataEntry [levelNumber=88, cobolName=A-STRING, conditionLiterals=['stringMethod'], srceLine=22]
+      CobolDataEntry [levelNumber=88, cobolName=AN-INTEGER, conditionLiterals=['intMethod'], srceLine=23]
+    ], srceLine=21]
+    CobolDataEntry [levelNumber=3, cobolName=C-DATA, picture=X(200), srceLine=24]
+    CobolDataEntry [levelNumber=3, cobolName=FILLER, redefines=C-DATA, children=[
+      CobolDataEntry [levelNumber=5, cobolName=C-STRING, picture=X(30), srceLine=26]
+      CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(170), srceLine=27]
+    ], srceLine=25]
+    CobolDataEntry [levelNumber=3, cobolName=FILLER, redefines=C-DATA, children=[
+      CobolDataEntry [levelNumber=5, cobolName=C-INTEGER, picture=S9(8), srceLine=29]
+      CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(192), srceLine=30]
+    ], srceLine=28]
+  ], srceLine=20]
+]

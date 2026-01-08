@@ -1,0 +1,6 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=C-DEFINITION-1, picture=X(18), srceLine=21]
+    CobolDataEntry [levelNumber=5, cobolName=C-DEFINITION-2, redefines=C-DEFINITION-1, picture=9(18), srceLine=22]
+  ], srceLine=20]
+]

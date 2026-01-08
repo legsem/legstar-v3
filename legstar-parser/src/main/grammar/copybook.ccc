@@ -1,0 +1,388 @@
+BASE_NAME=CopybookCC;
+PARSER_PACKAGE=com.legsem.legstar.ccparser;
+NODE_PACKAGE="com.legsem.legstar.ccparser.ast";
+ENSURE_FINAL_EOL;
+SMART_NODE_CREATION=false;
+
+<DEFAULT,LEVEL_STATE,PICTURE_STATE,VALUE_STATE,DATE_PATTERN_STATE> UNPARSED : 
+    < #LINE_TERMINATOR: ( [ "\n", "\r" ] | "\r\n" ) >
+|   < #INLINE_WHITESPACE: ( [ " ", "\t", "\f" ] )+ > 
+|   < WHITESPACE: <INLINE_WHITESPACE> | <LINE_TERMINATOR> > 
+;
+
+<LEVEL_STATE> TOKEN [IGNORE_CASE]:
+    < LEVEL_66: "66" > : DEFAULT
+|   < LEVEL_77: "77" > : DEFAULT
+|   < LEVEL_88: "88" > : DEFAULT
+|   < LEVEL_NUMBER: ( (("0")? ["1"-"9"]) | (["1"-"4"]["0"-"9"]) | "78" ) > : DEFAULT
+;
+
+<PICTURE_STATE> TOKEN [IGNORE_CASE]:
+    < #CONSECUTIVE_OCCURS: "(" (["0"-"9"])+ ")" >
+|   < #PICTURE_PART: (["a", "b", "g", "n", "p", "x", "u", "z", "9", "0", "/", ",", "+", "-", "*", "e", "s", "v", "c", "r", "d", "$"])+ | <CONSECUTIVE_OCCURS> >
+|   < PICTURE_IS: (<PICTURE_PART>)+ ("." (<PICTURE_PART>)+ )? > : DEFAULT
+;
+
+<VALUE_STATE> TOKEN [IGNORE_CASE]:
+    < #DOUBLE_QUOTED_LITERAL: "\"" (~["\""] | "\"\"")* "\"" >
+|   < #SINGLE_QUOTED_LITERAL: "'" (~["'"] | "''")* "'" >
+|   < #NON_ZERO: (["1"-"9"])(["0"-"9"])*>
+|   < #FRACTION: "." (["0"-"9"])+>
+|   < #EXPONENT: "e" (["+","-"])?(["0"-"9"])+>
+|   < NUMERIC_LITERAL: ("-" | "+")?("0"|<NON_ZERO>)(<FRACTION>)?(<EXPONENT>)?>
+|   < DOUBLE_QUOTED_STRING_LITERAL: <DOUBLE_QUOTED_LITERAL> >
+|   < SINGLE_QUOTED_STRING_LITERAL: <SINGLE_QUOTED_LITERAL> >
+|   < DOUBLE_QUOTED_HEX_LITERAL: "x" <DOUBLE_QUOTED_LITERAL> >
+|   < SINGLE_QUOTED_HEX_LITERAL: "x" <SINGLE_QUOTED_LITERAL> >
+|   < DOUBLE_QUOTED_NATIONAL_LITERAL: "n" <DOUBLE_QUOTED_LITERAL> >
+|   < SINGLE_QUOTED_NATIONAL_LITERAL: "n" <SINGLE_QUOTED_LITERAL> >
+|   < DOUBLE_QUOTED_NATIONAL_HEX_LITERAL: "nx" <DOUBLE_QUOTED_LITERAL> >
+|   < SINGLE_QUOTED_NATIONAL_HEX_LITERAL: "nx" <SINGLE_QUOTED_LITERAL> >
+|   < DOUBLE_QUOTED_UTF8_LITERAL: "u" <DOUBLE_QUOTED_LITERAL> >
+|   < SINGLE_QUOTED_UTF8_LITERAL: "u" <SINGLE_QUOTED_LITERAL> >
+|   < DOUBLE_QUOTED_UTF8_HEX_LITERAL: "ux" <DOUBLE_QUOTED_LITERAL> >
+|   < SINGLE_QUOTED_UTF8_HEX_LITERAL: "ux" <SINGLE_QUOTED_LITERAL> >
+|   < DOUBLE_QUOTED_DBCS_LITERAL: "g" <DOUBLE_QUOTED_LITERAL> >
+|   < SINGLE_QUOTED_DBCS_LITERAL: "g" <SINGLE_QUOTED_LITERAL> >
+|   < DOUBLE_QUOTED_ZERO_ENDED_LITERAL: "z" <DOUBLE_QUOTED_LITERAL> >
+|   < SINGLE_QUOTED_ZERO_ENDED_LITERAL: "z" <SINGLE_QUOTED_LITERAL> >
+|   < ZERO_CONSTANT: ("zero" | "zeros" | "zeroes") >
+|   < SPACE_CONSTANT: ("space" | "spaces") >
+|   < HIGH_VALUE_CONSTANT: ("high-value" | "high-values") >
+|   < LOW_VALUE_CONSTANT: ("low-value" | " low-values") >
+|   < QUOTE_CONSTANT: ("quote" | "quotes") >
+|   < ALL_CONSTANT: "all" >
+|   < NULL_CONSTANT: ("null" | "nulls") >
+;
+
+<DATE_PATTERN_STATE> TOKEN [IGNORE_CASE]:
+    < DATE_PATTERN: ( ["y","x"] )+ > : DEFAULT
+;
+
+TOKEN [IGNORE_CASE]:
+    < PICTURE: "picture" | "pic" > : PICTURE_STATE
+|   < REDEFINES: "redefines" >
+|   < BLANK: "blank" >
+|   < WHEN: "when" >
+|   < ZERO: ("zero" | "zeros" | "zeroes") >
+|   < EXTERNAL: "external" >
+|   < GLOBAL: "global" >
+|   < GROUP_USAGE: "group-usage" >
+|   < NATIONAL: "national" >
+|   < UTF_8: "utf-8" >
+|   < JUSTIFIED: ( "justified" | "just" ) >
+|   < LEFT: "left" >
+|   < RIGHT: "right" >
+|   < INDEXED: "indexed" >
+|   < ASCENDING: "ascending" >
+|   < DESCENDING: "descending" >
+|   < KEY: "key" >
+|   < OCCURS: "occurs" >
+|   < TIMES: "times" >
+|   < UNBOUNDED: "unbounded" >
+|   < DEPENDING: "depending" >
+|   < SIGN: "sign" >
+|   < LEADING: "leading" >
+|   < TRAILING: "trailing" >
+|   < SEPARATE: "separate" >
+|   < CHARACTER: "character" >
+|   < SYNCHRONIZED: ( "synchronized" | "sync" ) >
+|   < USAGE: "usage" >
+|   < BINARY: ( "computational" | "comp" | "binary" | "computational-4" | "comp-4") >
+|   < FLOATING_POINT: ( "computational-1" | "comp-1" ) >
+|   < LONG_FLOATING_POINT: ( "computational-2" | "comp-2" ) >
+|   < PACKED_DECIMAL: ( "computational-3" | "comp-3" | "packed-decimal" ) >
+|   < NATIVE_BINARY: ( "computational-5" | "comp-5" ) >
+|   < DISPLAY: "display" >
+|   < DISPLAY_1: "display-1" >
+|   < INDEX: "index" >
+|   < POINTER: "pointer" >
+|   < POINTER_32: "pointer-32" >
+|   < PROCEDURE_POINTER: "procedure-pointer" >
+|   < FUNCTION_POINTER: "function-pointer" >
+|   < NATIVE: "native" >
+|   < VALUE: "value" >
+|   < RENAMES: "renames" >
+|   < THROUGH: ("through" | "thru") >
+|   < VALUES: "values" >
+|   < DATE: "date" >
+|   < FORMAT: "format" > : DATE_PATTERN_STATE
+;
+
+TOKEN [IGNORE_CASE]:
+    < #LETTER: [ "a"-"z" ] >
+|   < #DIGIT: [ "0"-"9" ] >
+|   < #OF: "of">
+|   < #IN: "in"> 
+|   < IS: "is"> 
+|   < ARE: "are"> 
+|   < BY: "by"> 
+|   < TO: "to"> 
+|   < ON: "on"> 
+|   < WHEN: "when"> 
+|   < SET: "set"> 
+|   < FALSE: "false"> 
+|   < PERIOD: "." >
+|   < COMMA: "," >
+|   < SEMI_COLON: ";" >
+|   < #DATA_NAME_PART: <LETTER> ( <DIGIT> | <LETTER> | <SPECIAL_NAME_CHARS> )* >
+|   < #SPECIAL_NAME_CHARS: "_" | "-" | "$" >
+|   < DATA_NAME: 
+        <DATA_NAME_PART> ( <WHITESPACE> (<OF> | <IN>) <WHITESPACE> <DATA_NAME_PART> )* 
+        ( "(" <DATA_NAME_PART> ")" )?
+        >
+|   < INTEGER: ( <DIGIT> )+ >
+;
+
+DataEntry : LEVEL_STATE :
+    (
+       DataEntryFormat1
+    |  DataEntryFormat2
+    |  DataEntryFormat3
+    )
+    <PERIOD>
+;
+
+DataEntryFormat1 :
+    ( <LEVEL_NUMBER> | <LEVEL_77> )
+    [ <DATA_NAME> ]
+    ( DataEntryClauses )*
+;
+
+DataEntryClauses :
+    RedefinesClause
+|   BlankWhenZeroClause
+|   DateFormatClause
+|   ExternalClause
+|   GlobalClause
+|   GroupUsageClause
+|   JustifiedClause
+|   OccursClause
+|   PictureClause
+|   SignClause
+|   SynchronizedClause
+|   UsageClause
+|   ValueClause
+;
+
+RedefinesClause :
+    <REDEFINES>
+    <DATA_NAME>
+;
+
+BlankWhenZeroClause :
+    <BLANK>
+    [ <WHEN> ]
+    <ZERO>
+;
+
+DateFormatClause :
+    <DATE>
+    <FORMAT>
+    [ <IS> ]
+    <DATE_PATTERN>
+;
+
+ExternalClause :
+    <EXTERNAL>
+;
+
+GlobalClause :
+    <GLOBAL>
+;
+
+GroupUsageClause :
+    <GROUP_USAGE>
+    [ <IS> ]
+    ( <NATIONAL> | <UTF_8> )
+;
+
+JustifiedClause :
+    <JUSTIFIED>
+    [ <RIGHT> ]
+;
+
+OccursClause :
+    VariableLengthOccurs
+|   FixedLengthOccurs
+;
+
+FixedLengthOccurs :
+    <OCCURS>
+    <INTEGER>
+    [ <TIMES> ]
+    ( KeyClause )*
+    ( IndexedClause )*
+;
+
+KeyClause :
+    ( <ASCENDING> | <DESCENDING> )
+    [ <KEY> ]
+    [ <IS> ]
+    ( <DATA_NAME> )+
+;
+  
+IndexedClause :
+   <INDEXED>
+   [ <BY> ]
+   ( <DATA_NAME> )+
+;
+
+VariableLengthOccurs :
+    <OCCURS>
+    [ LowerBound ]
+    UpperBound
+    [ <TIMES> ]
+    <DEPENDING> =>||
+    [ <ON> ]
+    <DATA_NAME>
+    ( KeyClause )*
+    ( IndexedClause )*
+;
+
+LowerBound :
+    <INTEGER>
+    <TO> =>||
+;
+
+UpperBound :
+    <INTEGER>
+|   <UNBOUNDED>
+;
+
+PictureClause :
+    <PICTURE>
+    [ <IS> ]
+    PictureString
+;
+
+PictureString :
+    <PICTURE_IS>
+;
+
+SignClause :
+    [ <SIGN> ]
+    [ <IS> ]
+    ( <LEADING> | <TRAILING> )
+    [ SignSeparate ]
+;
+
+SignSeparate :
+    <SEPARATE>
+    [ <CHARACTER> ]
+;
+
+SynchronizedClause :
+    <SYNCHRONIZED>
+    [ <LEFT> | <RIGHT> ]
+;
+
+UsageClause :
+    [ <USAGE> ]
+    [ <IS> ]
+    UsageValue =>||
+    [ <NATIVE> ]
+;
+
+UsageValue :
+    <BINARY>
+|   <FLOATING_POINT>
+|   <LONG_FLOATING_POINT>
+|   <PACKED_DECIMAL>
+|   <NATIVE_BINARY>
+|   <DISPLAY>
+|   <DISPLAY_1>
+|   <INDEX>
+|   <NATIONAL>
+|   <UTF_8>
+|   <POINTER>
+|   <POINTER_32>
+|   <PROCEDURE_POINTER>
+|   <FUNCTION_POINTER>
+;
+
+ValueClause :
+    <VALUE>
+    [ <IS> ]
+    Literal
+;
+
+Literal : VALUE_STATE :
+    <DOUBLE_QUOTED_STRING_LITERAL>
+|   <SINGLE_QUOTED_STRING_LITERAL>
+|   <NUMERIC_LITERAL>
+|   <DOUBLE_QUOTED_HEX_LITERAL>
+|   <SINGLE_QUOTED_HEX_LITERAL>
+|   <DOUBLE_QUOTED_NATIONAL_LITERAL>
+|   <SINGLE_QUOTED_NATIONAL_LITERAL>
+|   <DOUBLE_QUOTED_NATIONAL_HEX_LITERAL>
+|   <SINGLE_QUOTED_NATIONAL_HEX_LITERAL>
+|   <DOUBLE_QUOTED_UTF8_LITERAL>
+|   <SINGLE_QUOTED_UTF8_LITERAL>
+|   <DOUBLE_QUOTED_UTF8_HEX_LITERAL>
+|   <SINGLE_QUOTED_UTF8_HEX_LITERAL>
+|   <DOUBLE_QUOTED_DBCS_LITERAL>
+|   <SINGLE_QUOTED_DBCS_LITERAL>
+|   <DOUBLE_QUOTED_ZERO_ENDED_LITERAL>
+|   <SINGLE_QUOTED_ZERO_ENDED_LITERAL>
+|   <ZERO_CONSTANT>
+|   <SPACE_CONSTANT>
+|   <HIGH_VALUE_CONSTANT> 
+|   <LOW_VALUE_CONSTANT> 
+|   <QUOTE_CONSTANT> 
+|   <NULL_CONSTANT>
+|   AllLiteral
+;
+
+AllLiteral :
+    <ALL_CONSTANT>
+(
+    <DOUBLE_QUOTED_STRING_LITERAL>
+|   <SINGLE_QUOTED_STRING_LITERAL>
+|   <DOUBLE_QUOTED_NATIONAL_LITERAL>
+|   <SINGLE_QUOTED_NATIONAL_LITERAL>
+|   <DOUBLE_QUOTED_UTF8_LITERAL>
+|   <SINGLE_QUOTED_UTF8_LITERAL>
+|   <DOUBLE_QUOTED_DBCS_LITERAL>
+|   <SINGLE_QUOTED_DBCS_LITERAL>
+|   <ZERO_CONSTANT>
+|   <SPACE_CONSTANT>
+|   <HIGH_VALUE_CONSTANT> 
+|   <LOW_VALUE_CONSTANT> 
+|   <QUOTE_CONSTANT> 
+|   <NULL_CONSTANT>
+)
+;
+
+DataEntryFormat2 :
+    <LEVEL_66>
+    <DATA_NAME>
+    <RENAMES>
+    <DATA_NAME>
+    [ <THROUGH> <DATA_NAME>]
+;
+
+DataEntryFormat3 :
+    <LEVEL_88>
+    <DATA_NAME>
+    ( <VALUE> [ <IS> ] | <VALUES> [ <ARE> ])
+    ( ConditionValue ([ <COMMA> | <SEMI_COLON> ] ConditionValue )* )
+    ( [ <WHEN> ] [ <SET> ] [ <TO> ] <FALSE> [ <IS> ] Literal)?
+;
+
+ConditionValue :
+    LiteralRange
+    | Literal
+;
+
+LiteralRange :
+    Literal
+    <THROUGH> =>||
+    Literal
+;
+
+Copybook :
+    ( DataEntry )*
+    <EOF> 
+;
+

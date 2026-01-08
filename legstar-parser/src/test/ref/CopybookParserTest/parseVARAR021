@@ -1,0 +1,30 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=W-I, picture=S9(8), usage=BINARY, srceLine=22]
+  CobolDataEntry [levelNumber=1, cobolName=FILLER, children=[
+    CobolDataEntry [levelNumber=5, cobolName=W-ALPHA, picture=X(05), srceLine=24]
+    CobolDataEntry [levelNumber=5, cobolName=W-NUM, redefines=W-ALPHA, picture=9(05), srceLine=25]
+  ], srceLine=23]
+  CobolDataEntry [levelNumber=1, cobolName=SEARCH-GRPLST, children=[
+    CobolDataEntry [levelNumber=3, cobolName=PAYLOAD, children=[
+      CobolDataEntry [levelNumber=5, cobolName=WECH-REQUEST-ROWS, picture=9(3), srceLine=33]
+      CobolDataEntry [levelNumber=5, cobolName=WECH-DYNAMIC-RESPONSE-ROWS, picture=9(3), srceLine=34]
+      CobolDataEntry [levelNumber=5, cobolName=WECH-ERROR-ROWS, picture=9(3), srceLine=35]
+      CobolDataEntry [levelNumber=5, cobolName=WECH-ADDITIONAL-PAGE-KEYS, picture=X(1), srceLine=36]
+      CobolDataEntry [levelNumber=5, cobolName=I-STATIC-DATA, minOccurs=0, maxOccurs=1, dependingOn=WECH-REQUEST-ROWS, children=[
+        CobolDataEntry [levelNumber=10, cobolName=LKUP-INFO, minOccurs=2, maxOccurs=2, children=[
+          CobolDataEntry [levelNumber=15, cobolName=LKUP-ID, picture=X(18), srceLine=40]
+          CobolDataEntry [levelNumber=15, cobolName=LKUP-TYP-CD, picture=X(05), srceLine=41]
+        ], srceLine=39]
+      ], srceLine=37]
+      CobolDataEntry [levelNumber=5, cobolName=O-DYNAMIC-DATA, minOccurs=0, maxOccurs=363, dependingOn=WECH-DYNAMIC-RESPONSE-ROWS, children=[
+        CobolDataEntry [levelNumber=10, cobolName=LKUP-INFO, minOccurs=2, maxOccurs=2, children=[
+          CobolDataEntry [levelNumber=15, cobolName=LKUP-ID-CT, picture=X(18), srceLine=45]
+          CobolDataEntry [levelNumber=15, cobolName=LKUP-TYP-CD-CT, picture=X(05), srceLine=46]
+        ], srceLine=44]
+      ], srceLine=42]
+      CobolDataEntry [levelNumber=5, cobolName=WELLPOINT-EAI-EBS-ERROR-ROW, minOccurs=0, maxOccurs=99, dependingOn=WECH-ERROR-ROWS, children=[
+        CobolDataEntry [levelNumber=10, cobolName=WEER-EXCEPTION-UUID, picture=X(32), srceLine=49]
+      ], srceLine=47]
+    ], srceLine=32]
+  ], srceLine=31]
+]

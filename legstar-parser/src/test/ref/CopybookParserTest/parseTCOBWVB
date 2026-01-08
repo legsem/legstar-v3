@@ -1,0 +1,59 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=W-OUTPUT-FILE-STATUS, picture=9(2), srceLine=50]
+  CobolDataEntry [levelNumber=1, cobolName=W-I, picture=9(4), usage=BINARY, srceLine=51]
+  CobolDataEntry [levelNumber=1, cobolName=W-J, picture=9(4), usage=BINARY, srceLine=52]
+  CobolDataEntry [levelNumber=1, cobolName=W-K, picture=9(4), usage=BINARY, srceLine=53]
+  CobolDataEntry [levelNumber=1, cobolName=W-L, picture=9(4), usage=BINARY, srceLine=54]
+  CobolDataEntry [levelNumber=1, cobolName=W-RANDOM-SEED, picture=9(8), srceLine=55]
+  CobolDataEntry [levelNumber=1, cobolName=W-RANDOM, picture=V9(18), srceLine=56]
+  CobolDataEntry [levelNumber=1, cobolName=W-FIRST-NAMES, children=[
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(5), value='JOHN', srceLine=58]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(5), value='BILL', srceLine=59]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(5), value='FRED', srceLine=60]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(5), value='BOB', srceLine=61]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(5), value='RORY', srceLine=62]
+  ], srceLine=57]
+  CobolDataEntry [levelNumber=1, cobolName=FILLER, redefines=W-FIRST-NAMES, children=[
+    CobolDataEntry [levelNumber=5, cobolName=W-FIRST-NAME, picture=X(5), minOccurs=5, maxOccurs=5, srceLine=64]
+  ], srceLine=63]
+  CobolDataEntry [levelNumber=1, cobolName=W-LAST-NAMES, children=[
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(15), value='SMITH', srceLine=66]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(15), value='JOHNSON', srceLine=67]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(15), value='WILLIAMS', srceLine=68]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(15), value='JONES', srceLine=69]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(15), value='BROWN', srceLine=70]
+  ], srceLine=65]
+  CobolDataEntry [levelNumber=1, cobolName=FILLER, redefines=W-LAST-NAMES, children=[
+    CobolDataEntry [levelNumber=5, cobolName=W-LAST-NAME, picture=X(15), minOccurs=5, maxOccurs=5, srceLine=72]
+  ], srceLine=71]
+  CobolDataEntry [levelNumber=1, cobolName=W-ADDRESSES, children=[
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(20), value='CAMBRIDGE', srceLine=74]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(20), value='BOSTON', srceLine=75]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(20), value='NEW YORK', srceLine=76]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(20), value='SAN FRANCISCO', srceLine=77]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(20), value='SEATTLE', srceLine=78]
+  ], srceLine=73]
+  CobolDataEntry [levelNumber=1, cobolName=FILLER, redefines=W-ADDRESSES, children=[
+    CobolDataEntry [levelNumber=5, cobolName=W-ADDRESS, picture=X(20), minOccurs=5, maxOccurs=5, srceLine=80]
+  ], srceLine=79]
+  CobolDataEntry [levelNumber=1, cobolName=W-PHONES, children=[
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(8), value='25663488', srceLine=82]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(8), value='38791206', srceLine=83]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(8), value='67159589', srceLine=84]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(8), value='54845428', srceLine=85]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(8), value='48952235', srceLine=86]
+  ], srceLine=81]
+  CobolDataEntry [levelNumber=1, cobolName=FILLER, redefines=W-PHONES, children=[
+    CobolDataEntry [levelNumber=5, cobolName=W-PHONE, picture=X(8), minOccurs=5, maxOccurs=5, srceLine=88]
+  ], srceLine=87]
+  CobolDataEntry [levelNumber=1, cobolName=W-DATES, children=[
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(8), value='10/04/11', srceLine=90]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(8), value='01/12/09', srceLine=91]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(8), value='30/10/10', srceLine=92]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(8), value='09/03/02', srceLine=93]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, picture=X(8), value='13/02/05', srceLine=94]
+  ], srceLine=89]
+  CobolDataEntry [levelNumber=1, cobolName=FILLER, redefines=W-DATES, children=[
+    CobolDataEntry [levelNumber=5, cobolName=W-DATE, picture=X(8), minOccurs=5, maxOccurs=5, srceLine=96]
+  ], srceLine=95]
+]

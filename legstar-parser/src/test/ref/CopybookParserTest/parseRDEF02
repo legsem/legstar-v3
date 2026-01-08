@@ -1,0 +1,20 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=RDEF02-RECORD, children=[
+    CobolDataEntry [levelNumber=5, cobolName=RDEF02-KEY, children=[
+      CobolDataEntry [levelNumber=7, cobolName=RDEF02-ITEM1, picture=S9(10), usage=PACKED_DECIMAL, srceLine=3]
+      CobolDataEntry [levelNumber=7, cobolName=RDEF02-ITEM2, redefines=RDEF02-ITEM1, picture=X(6), srceLine=4]
+      CobolDataEntry [levelNumber=7, cobolName=COM-SELECT, picture=9(4), usage=BINARY, children=[
+        CobolDataEntry [levelNumber=88, cobolName=DETAIL1, conditionLiterals=[0], srceLine=7]
+        CobolDataEntry [levelNumber=88, cobolName=DETAIL2, conditionLiterals=[1], srceLine=8]
+      ], srceLine=6]
+    ], srceLine=2]
+    CobolDataEntry [levelNumber=5, cobolName=COM-DETAIL1, children=[
+      CobolDataEntry [levelNumber=7, cobolName=COM-NAME, picture=X(10), srceLine=10]
+    ], srceLine=9]
+    CobolDataEntry [levelNumber=5, cobolName=COM-DETAIL2, redefines=COM-DETAIL1, children=[
+      CobolDataEntry [levelNumber=7, cobolName=COM-AMOUNT, picture=9(5)V99, usage=PACKED_DECIMAL, srceLine=12]
+      CobolDataEntry [levelNumber=7, cobolName=FILLER, picture=X(6), srceLine=13]
+    ], srceLine=11]
+    CobolDataEntry [levelNumber=5, cobolName=COM-ITEM3, picture=9(5)V99, usage=PACKED_DECIMAL, srceLine=14]
+  ], srceLine=1]
+]

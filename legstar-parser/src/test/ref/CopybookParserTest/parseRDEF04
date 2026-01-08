@@ -1,0 +1,10 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=RDEF04-RECORD, children=[
+    CobolDataEntry [levelNumber=20, cobolName=FIELD-A, picture=S9(15)V99, usage=PACKED_DECIMAL, srceLine=2]
+    CobolDataEntry [levelNumber=20, cobolName=FIELD-B, picture=S9(15)V99, usage=PACKED_DECIMAL, srceLine=3]
+    CobolDataEntry [levelNumber=20, cobolName=FIELD-C, redefines=FIELD-B, picture=S9(15)V99, usage=PACKED_DECIMAL, srceLine=4]
+    CobolDataEntry [levelNumber=20, cobolName=FIELD-D, picture=S9(15)V99, usage=PACKED_DECIMAL, srceLine=5]
+    CobolDataEntry [levelNumber=20, cobolName=FIELD-E, redefines=FIELD-D, picture=S9(15)V99, usage=PACKED_DECIMAL, srceLine=6]
+    CobolDataEntry [levelNumber=20, cobolName=FIELD-F, picture=S9(15)V99, usage=PACKED_DECIMAL, srceLine=7]
+  ], srceLine=1]
+]

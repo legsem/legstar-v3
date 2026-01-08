@@ -1,0 +1,10 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=C-DOUBLE-1234, usage=DOUBLE_FLOAT, srceLine=21]
+    CobolDataEntry [levelNumber=5, cobolName=C-DOUBLE-0, usage=DOUBLE_FLOAT, srceLine=22]
+    CobolDataEntry [levelNumber=5, cobolName=C-DOUBLE-1, usage=DOUBLE_FLOAT, srceLine=23]
+    CobolDataEntry [levelNumber=5, cobolName=C-DOUBLE-345006p5678, usage=DOUBLE_FLOAT, srceLine=24]
+    CobolDataEntry [levelNumber=5, cobolName=C-DOUBLE-798p20067em16, usage=DOUBLE_FLOAT, srceLine=25]
+    CobolDataEntry [levelNumber=5, cobolName=C-DOUBLE-3p40282347ep38, usage=DOUBLE_FLOAT, srceLine=26]
+  ], srceLine=20]
+]

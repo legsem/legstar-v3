@@ -1,0 +1,54 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=W-FILENAME, picture=X(8), value='FILEA', srceLine=27]
+  CobolDataEntry [levelNumber=1, cobolName=W-REQUEST-NAME, picture=X(20), value=SPACES, srceLine=28]
+  CobolDataEntry [levelNumber=1, cobolName=W-NUMBER, picture=9(6), value=ZERO, srceLine=29]
+  CobolDataEntry [levelNumber=1, cobolName=W-ITEMSCOUNT, picture=9(8), usage=PACKED_DECIMAL, value=ZERO, srceLine=30]
+  CobolDataEntry [levelNumber=1, cobolName=W-VISIT-MODE, picture=9(4), usage=BINARY, value=ZERO, children=[
+    CobolDataEntry [levelNumber=88, cobolName=COUNT-MODE, conditionLiterals=[0], srceLine=32]
+    CobolDataEntry [levelNumber=88, cobolName=LOAD-MODE, conditionLiterals=[1], srceLine=33]
+  ], srceLine=31]
+  CobolDataEntry [levelNumber=1, cobolName=W-NAME-MATCH, picture=9(4), usage=BINARY, value=ZERO, children=[
+    CobolDataEntry [levelNumber=88, cobolName=NO-MATCH, conditionLiterals=[0], srceLine=35]
+    CobolDataEntry [levelNumber=88, cobolName=MATCH, conditionLiterals=[1], srceLine=36]
+  ], srceLine=34]
+  CobolDataEntry [levelNumber=1, cobolName=W-RESP, picture=S9(8), value=ZERO, srceLine=37]
+  CobolDataEntry [levelNumber=1, cobolName=W-RESP2, picture=S9(8), value=ZERO, srceLine=38]
+  CobolDataEntry [levelNumber=1, cobolName=W-I, picture=S9(8), value=ZERO, srceLine=39]
+  CobolDataEntry [levelNumber=1, cobolName=W-START-TIME, picture=S9(15), usage=PACKED_DECIMAL, value=ZERO, srceLine=40]
+  CobolDataEntry [levelNumber=1, cobolName=W-STOP-TIME, picture=S9(15), usage=PACKED_DECIMAL, value=ZERO, srceLine=41]
+  CobolDataEntry [levelNumber=1, cobolName=W-ELAPSE-TIME, picture=S9(15), usage=PACKED_DECIMAL, value=ZERO, srceLine=42]
+  CobolDataEntry [levelNumber=1, cobolName=W-ITEMSREAD, picture=9(8), usage=PACKED_DECIMAL, value=ZERO, srceLine=43]
+  CobolDataEntry [levelNumber=1, cobolName=REQUEST-PARMS, children=[
+    CobolDataEntry [levelNumber=5, cobolName=REQUEST-NAME, picture=X(20), srceLine=51]
+  ], srceLine=50]
+  CobolDataEntry [levelNumber=1, cobolName=REPLY-DATA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=REPLY-TYPE, picture=9(4), usage=BINARY, children=[
+      CobolDataEntry [levelNumber=88, cobolName=REPLY-SUCCESS, conditionLiterals=[0], srceLine=55]
+      CobolDataEntry [levelNumber=88, cobolName=REPLY-ERROR, conditionLiterals=[1], srceLine=56]
+    ], srceLine=54]
+    CobolDataEntry [levelNumber=5, cobolName=REPLY-SUCCESS-HEADER, children=[
+      CobolDataEntry [levelNumber=10, cobolName=SEARCH-DURATION, picture=X(8), srceLine=58]
+      CobolDataEntry [levelNumber=10, cobolName=TOTAL-ITEMS-READ, picture=9(8), usage=PACKED_DECIMAL, srceLine=59]
+      CobolDataEntry [levelNumber=10, cobolName=FILLER, picture=X(123), srceLine=60]
+    ], srceLine=57]
+    CobolDataEntry [levelNumber=5, cobolName=REPLY-ERROR-HEADER, redefines=REPLY-SUCCESS-HEADER, children=[
+      CobolDataEntry [levelNumber=10, cobolName=REPLY-RESP, picture=S9(8), usage=BINARY, srceLine=62]
+      CobolDataEntry [levelNumber=10, cobolName=REPLY-RESP2, picture=S9(8), usage=BINARY, srceLine=63]
+      CobolDataEntry [levelNumber=10, cobolName=REPLY-MESSAGE, picture=X(128), srceLine=64]
+    ], srceLine=61]
+    CobolDataEntry [levelNumber=5, cobolName=FILLER, children=[
+      CobolDataEntry [levelNumber=10, cobolName=REPLY-ITEMSCOUNT, picture=9(8), usage=PACKED_DECIMAL, srceLine=66]
+      CobolDataEntry [levelNumber=10, cobolName=REPLY-ITEM, minOccurs=1, maxOccurs=100, dependingOn=REPLY-ITEMSCOUNT, children=[
+        CobolDataEntry [levelNumber=15, cobolName=REPLY-NUMBER, picture=9(6), srceLine=69]
+        CobolDataEntry [levelNumber=15, cobolName=REPLY-PERSONAL, children=[
+          CobolDataEntry [levelNumber=20, cobolName=REPLY-NAME, picture=X(20), srceLine=71]
+          CobolDataEntry [levelNumber=20, cobolName=REPLY-ADDRESS, picture=X(20), srceLine=72]
+          CobolDataEntry [levelNumber=20, cobolName=REPLY-PHONE, picture=X(8), srceLine=73]
+        ], srceLine=70]
+        CobolDataEntry [levelNumber=15, cobolName=REPLY-DATE, picture=X(8), srceLine=74]
+        CobolDataEntry [levelNumber=15, cobolName=REPLY-AMOUNT, picture=X(8), srceLine=75]
+        CobolDataEntry [levelNumber=15, cobolName=REPLY-COMMENT, picture=X(9), srceLine=76]
+      ], srceLine=67]
+    ], srceLine=65]
+  ], srceLine=53]
+]

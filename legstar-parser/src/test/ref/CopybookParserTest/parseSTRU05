@@ -1,0 +1,15 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=STRU05-RECORD, children=[
+    CobolDataEntry [levelNumber=5, cobolName=COM-ITEM-A, children=[
+      CobolDataEntry [levelNumber=10, cobolName=COM-ITEM-B, picture=9(5)V99, usage=PACKED_DECIMAL, srceLine=3]
+    ], srceLine=2]
+    CobolDataEntry [levelNumber=5, cobolName=COM-ITEM-C, minOccurs=3, maxOccurs=3, children=[
+      CobolDataEntry [levelNumber=10, cobolName=COM-ITEM-B, picture=S9(4), usage=BINARY, srceLine=5]
+    ], srceLine=4]
+    CobolDataEntry [levelNumber=5, cobolName=COM-ITEM-D, children=[
+      CobolDataEntry [levelNumber=10, cobolName=COM-ITEM-E, children=[
+        CobolDataEntry [levelNumber=15, cobolName=COM-ITEM-B, picture=X(4), srceLine=8]
+      ], srceLine=7]
+    ], srceLine=6]
+  ], srceLine=1]
+]

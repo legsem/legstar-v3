@@ -1,0 +1,12 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
+    CobolDataEntry [levelNumber=5, cobolName=C-NUMERIC, picture=9(4), usage=BINARY, srceLine=21]
+    CobolDataEntry [levelNumber=5, cobolName=C-ALPHA, redefines=C-NUMERIC, children=[
+      CobolDataEntry [levelNumber=10, cobolName=C-LEFT-BYTE, picture=X, srceLine=23]
+      CobolDataEntry [levelNumber=10, cobolName=C-RIGHT-BYTE, picture=X, srceLine=24]
+    ], srceLine=22]
+    CobolDataEntry [levelNumber=5, cobolName=C-ALPHA2, redefines=C-ALPHA, children=[
+      CobolDataEntry [levelNumber=10, cobolName=FILLER, picture=X(2), srceLine=26]
+    ], srceLine=25]
+  ], srceLine=20]
+]
