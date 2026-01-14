@@ -1,6 +1,6 @@
 BASE_NAME=CopybookCC;
-PARSER_PACKAGE=com.legsem.legstar.ccparser;
-NODE_PACKAGE="com.legsem.legstar.ccparser.ast";
+PARSER_PACKAGE=org.legstar.cobol.copybook.ccparser;
+NODE_PACKAGE="org.legstar.cobol.copybook.ccparser.ast";
 ENSURE_FINAL_EOL;
 SMART_NODE_CREATION=false;
 
