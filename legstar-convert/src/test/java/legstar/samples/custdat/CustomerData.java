@@ -1,5 +1,6 @@
 package legstar.samples.custdat;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,18 +16,18 @@ import org.legstar.cobol.type.annotations.CobolZonedDecimal;
 public class CustomerData {
 
 	@CobolZonedDecimal(cobolName = "CUSTOMER-ID", totalDigits = 6)
-	private String customerId;
+	private BigDecimal customerId;
 
 	private PersonalData personalData;
 
 	private Transactions transactions;
 
-	public String getCustomerName() {
+	public BigDecimal getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerName(String customerName) {
-		this.customerId = customerName;
+	public void setCustomerId(BigDecimal customerId) {
+		this.customerId = customerId;
 	}
 
 	public PersonalData getPersonalData() {
@@ -46,7 +47,7 @@ public class CustomerData {
 	}
 
 	@CobolGroup(cobolName = "PERSONAL-DATA")
-	public class PersonalData {
+	public static class PersonalData {
 
 		@CobolString(cobolName = "CUSTOMER-NAME", charNum = 20)
 		private String customerName;
@@ -73,7 +74,7 @@ public class CustomerData {
 			this.customerAddress = customerAddress;
 		}
 
-		public String getCustomerPhone() {
+		public String customerPhone() {
 			return customerPhone;
 		}
 
@@ -83,13 +84,13 @@ public class CustomerData {
 	}
 
 	@CobolGroup(cobolName = "TRANSACTIONS")
-	public class Transactions {
+	public static class Transactions {
 		
-		@CobolBinary(cobolName = "TRANSACTION-NBR", totalDigits=9, minInclusive=0l, maxInclusive=5l, odoObject=true)
+		@CobolBinary(cobolName = "TRANSACTION-NBR", totalDigits=9, odoObject=true)
 		private long transactionNbr;
 		
 		@CobolArray(minOccurs=0, maxOccurs=5, dependingOn="transactionNbr")
-		private List<Transaction> trasactionArray;
+		private List<Transaction> transactionArray;
 
 		public long getTransactionNbr() {
 			return transactionNbr;
@@ -100,17 +101,17 @@ public class CustomerData {
 		}
 
 		public List<Transaction> getTrasactionArray() {
-			return trasactionArray;
+			return transactionArray;
 		}
 
 		public void setTrasactionArray(List<Transaction> trasactionArray) {
-			this.trasactionArray = trasactionArray;
+			this.transactionArray = trasactionArray;
 		}
 
 	}
 
 	@CobolGroup(cobolName = "TRANSACTION")
-	public class Transaction {
+	public static class Transaction {
 		
 		private TransactionDateChoice transactionDateChoice;
 
@@ -146,7 +147,7 @@ public class CustomerData {
 	}
 
 	@CobolChoice
-	public class TransactionDateChoice {
+	public static class TransactionDateChoice {
 		
 		@CobolString(cobolName = "TRANSACTION-DATE", charNum = 8)
 		private Optional<String> transactionDate;
@@ -172,7 +173,7 @@ public class CustomerData {
 	}
 
 	@CobolGroup(cobolName = "FILLER")
-	public class Filler_12 {
+	public static class Filler_12 {
 
 		@CobolString(cobolName = "TRANSACTION-DAY", charNum = 2)
 		private String transactionDay;

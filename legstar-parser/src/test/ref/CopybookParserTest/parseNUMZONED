@@ -2,9 +2,9 @@
   CobolDataEntry [levelNumber=1, cobolName=DFHCOMMAREA, children=[
     CobolDataEntry [levelNumber=5, cobolName=L-U, picture=9(1), usage=DISPLAY, srceLine=31]
     CobolDataEntry [levelNumber=5, cobolName=L-S, picture=S9(2), usage=DISPLAY, srceLine=32]
-    CobolDataEntry [levelNumber=5, cobolName=L-S-SIGN-L, picture=S9(3), signed=true, signLeading=true, usage=DISPLAY, srceLine=33]
-    CobolDataEntry [levelNumber=5, cobolName=L-S-SIGN-T, picture=S9(2), signed=true, usage=DISPLAY, srceLine=34]
-    CobolDataEntry [levelNumber=5, cobolName=L-S-SIGN-S-L, picture=S9(1), signed=true, signLeading=true, signSeparate=true, usage=DISPLAY, srceLine=35]
-    CobolDataEntry [levelNumber=5, cobolName=L-S-SIGN-S-T, picture=S9(2), signed=true, signSeparate=true, usage=DISPLAY, srceLine=36]
+    CobolDataEntry [levelNumber=5, cobolName=L-S-SIGN-L, picture=S9(3), signLeading=true, usage=DISPLAY, srceLine=33]
+    CobolDataEntry [levelNumber=5, cobolName=L-S-SIGN-T, picture=S9(2), usage=DISPLAY, srceLine=34]
+    CobolDataEntry [levelNumber=5, cobolName=L-S-SIGN-S-L, picture=S9(1), signLeading=true, signSeparate=true, usage=DISPLAY, srceLine=35]
+    CobolDataEntry [levelNumber=5, cobolName=L-S-SIGN-S-T, picture=S9(2), signSeparate=true, usage=DISPLAY, srceLine=36]
   ], srceLine=30]
 ]

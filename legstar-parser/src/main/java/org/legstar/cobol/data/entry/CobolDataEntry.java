@@ -27,7 +27,6 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 		boolean groupUsageNational, // Group usage national clause
 		boolean justifiedRight, // Data aligned at rightmost character position
 		String picture, // General characteristics and editing requirements
-		boolean signed, // True if COBOL data item has a SIGN clause
 		boolean signLeading, // True if sign in leading byte
 		boolean signSeparate, // Sign is in separate byte (not overpunched)
 		boolean sync, // Synchronized on natural boundary in storage
@@ -58,7 +57,6 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 		private boolean groupUsageNational;
 		private boolean justifiedRight;
 		private String picture;
-		private boolean signed;
 		private boolean signLeading;
 		private boolean signSeparate;
 		private boolean sync;
@@ -120,11 +118,6 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 
 		public Builder picture(String picture) {
 			this.picture = picture;
-			return this;
-		}
-
-		public Builder signed(boolean signed) {
-			this.signed = signed;
 			return this;
 		}
 
@@ -220,7 +213,7 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 
 		public CobolDataEntry build() {
 			return new CobolDataEntry(levelNumber, cobolName, redefines, blankWhenZero, external, global,
-					groupUsageNational, justifiedRight, picture, signed, signLeading, signSeparate, sync, minOccurs,
+					groupUsageNational, justifiedRight, picture, signLeading, signSeparate, sync, minOccurs,
 					maxOccurs, dependingOn, indexes, ascendingKeys, descendingKeys, usage, value, dateFormat,
 					children, renamesSubject, renamesSubjectRange, conditionLiterals, conditionRanges, srceLine);
 		}
@@ -305,11 +298,6 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 		if (picture != null) {
 			sb.append("picture=");
 			sb.append(picture);
-			sb.append(", ");
-		}
-		if (signed) {
-			sb.append("signed=");
-			sb.append(signed);
 			sb.append(", ");
 		}
 		if (signLeading) {

@@ -12,11 +12,9 @@ public @interface CobolBinary {
 
 	String cobolName();
 
+	boolean signed() default false;
+	
 	int totalDigits();
 
-	long minInclusive();
-
-	long maxInclusive();
-
-	boolean odoObject();
+	boolean odoObject() default false;
 }

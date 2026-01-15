@@ -32,9 +32,9 @@ public abstract class TestBase {
 			Path refPath = references.resolve(testName);
 			if (refPath.toFile().exists()) {
 				String ref = Files.readString(refPath);
-				assertEquals(ref, res);
+				assertEquals(normalize(ref), normalize(res));
 			} else {
-				Files.writeString(refPath, res);
+				Files.writeString(refPath, normalize(res));
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -43,6 +43,10 @@ public abstract class TestBase {
 
 	public String getTestName() {
 		return testName;
+	}
+	
+	private String normalize(String s) {
+		return s.replaceAll("\\r\\n?", "\n");
 	}
 
 }

@@ -152,7 +152,6 @@ public class CopybookParserVisitor extends Visitor {
 	}
 
 	public void visit(SignClause node) {
-		pendingEntries.peek().signed(true);
 		LEADING leadingNode = node.firstChildOfType(LEADING.class);
 		pendingEntries.peek().signLeading(leadingNode != null);
 		recurse(node);

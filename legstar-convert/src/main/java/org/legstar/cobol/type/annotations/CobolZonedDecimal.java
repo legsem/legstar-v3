@@ -13,5 +13,11 @@ public @interface CobolZonedDecimal {
 	String cobolName();
 	
 	int totalDigits();
+	
+	int fractionDigits() default 0;
+
+	boolean signLeading() default false;
+	
+	boolean signSeparate() default false;
 
 }
