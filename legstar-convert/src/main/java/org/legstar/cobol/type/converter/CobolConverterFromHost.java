@@ -2,12 +2,20 @@ package org.legstar.cobol.type.converter;
 
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.legstar.cobol.type.annotations.CobolAnnotation;
+import org.legstar.cobol.type.annotations.CobolItemType;
+import org.legstar.cobol.type.annotations.CobolArray;
+import org.legstar.cobol.type.annotations.CobolBinary;
 import org.legstar.cobol.type.annotations.CobolGroup;
 import org.legstar.cobol.type.annotations.CobolString;
 import org.legstar.cobol.type.annotations.CobolZonedDecimal;
@@ -16,16 +24,21 @@ public class CobolConverterFromHost<T> {
 
 	private final CobolConverterString stringConverter;
 
+	private final CobolConverterBinary binaryConverter;
+
 	private final CobolConverterZonedDecimal zonedDecimalConverter;
+	
+	private final Map<String, Integer> odoObjectValues = new HashMap<>();
 
 	public CobolConverterFromHost(CobolConverterConfig config) {
 		this.stringConverter = new CobolConverterString(config);
+		this.binaryConverter = new CobolConverterBinary(config);
 		this.zonedDecimalConverter = new CobolConverterZonedDecimal(config);
 	}
 
 	public T convert(InputStream is, Class<T> outputClass) {
 		try {
-			Annotation annotation = getCobolAnnotation(outputClass);
+			Annotation annotation = getCobolItemType(outputClass);
 			return convert(annotation, is, outputClass);
 		} catch (Exception e) {
 			throw new FromHostException(e);
@@ -37,6 +50,8 @@ public class CobolConverterFromHost<T> {
 			return convertGroup((CobolGroup) annotation, is, objectClass);
 		} else if (annotation instanceof CobolString) {
 			return convertString((CobolString) annotation, is, objectClass);
+		} else if (annotation instanceof CobolBinary) {
+			return convertBinary((CobolBinary) annotation, is, objectClass);
 		} else if (annotation instanceof CobolZonedDecimal) {
 			return convertZonedDecimal((CobolZonedDecimal) annotation, is, objectClass);
 		} else {
@@ -47,46 +62,92 @@ public class CobolConverterFromHost<T> {
 	private <Z> Z convertGroup(CobolGroup cobolGroup, InputStream is, Class<Z> groupClass) {
 		Z group = newInstance(groupClass);
 		Field[] fields = groupClass.getDeclaredFields();
-		for (Field f : fields) {
-			Annotation fieldAnnotation = getCobolAnnotation(f);
-			if (fieldAnnotation == null) {
-				throw new FromHostException(
-						"Field " + f.getName() + " in " + cobolGroup.cobolName() + " does not have Cobol annotations");
+		for (Field field : fields) {
+			Annotation cobolItemType = getCobolItemType(field);
+			if (cobolItemType == null) {
+				throw new FromHostException("Field " + field.getName() + " in " + cobolGroup.cobolName()
+						+ " does not have Cobol annotations");
 			}
-			Object value = convert(fieldAnnotation, is, f.getType());
-			setFieldValue(f, group, value);
+			CobolArray cobolArray = getCobolArray(field);
+			Object value = cobolArray == null //
+					? convert(cobolItemType, is, field.getType()) //
+					: convertArray(cobolArray, cobolItemType, is, field.getType().getComponentType());
+			setFieldValue(field, group, value);
 		}
 		return group;
+	}
+
+	private <Z> Z[] convertArray(CobolArray cobolArray, Annotation cobolItemType, InputStream is, Class<Z> itemClass) {
+		int maxOccurs = cobolArray.dependingOn() == null //
+				? cobolArray.maxOccurs() //
+				: getOdoObjectValue(cobolArray.dependingOn());
+		@SuppressWarnings("unchecked")
+		Z[] array = (Z[]) Array.newInstance(itemClass, maxOccurs);
+		for (int i = 0; i < maxOccurs; i++) {
+			array[i] = convert(cobolItemType, is, itemClass);
+		}
+		return array;
 	}
 
 	private <Z> Z convertString(CobolString cobolString, InputStream is, Class<Z> objectClass) {
 		return (Z) stringConverter.convert(is, cobolString.charNum(), objectClass);
 	}
 
+	private <Z> Z convertBinary(CobolBinary cobolBinary, InputStream is, Class<Z> objectClass) {
+		Z value = (Z) binaryConverter.convert(is, cobolBinary.signed(), cobolBinary.totalDigits(), objectClass);
+		if (cobolBinary.odoObject()) {
+			setOdoObjectValue(cobolBinary.cobolName(), value);
+		}
+		return value;
+	}
+
 	private <Z> Z convertZonedDecimal(CobolZonedDecimal cobolZonedDecimal, InputStream is, Class<Z> objectClass) {
-		return (Z) zonedDecimalConverter.convert(is, cobolZonedDecimal.totalDigits(),
+		Z value = (Z) zonedDecimalConverter.convert(is, cobolZonedDecimal.totalDigits(),
 				cobolZonedDecimal.fractionDigits(), cobolZonedDecimal.signLeading(), cobolZonedDecimal.signSeparate(),
 				objectClass);
+		if (cobolZonedDecimal.odoObject()) {
+			setOdoObjectValue(cobolZonedDecimal.cobolName(), value);
+		}
+		return value;
 	}
 
-	private Annotation getCobolAnnotation(Class<?> clazz) {
-		return getCobolAnnotation(clazz.getDeclaredAnnotations());
+	private Annotation getCobolItemType(Class<?> clazz) {
+		if (clazz.isArray()) {
+			return getCobolItemType(clazz.getComponentType());
+		} else {
+			return getCobolItemType(clazz.getDeclaredAnnotations());
+		}
 	}
 
-	/**
-	 * Primitive type fields are annotated directly. Complex types have type
-	 * annotations instead.
-	 */
-	private Annotation getCobolAnnotation(Field field) {
-		Annotation annotation = getCobolAnnotation(field.getDeclaredAnnotations());
-		return annotation == null ? getCobolAnnotation(field.getType()) : annotation;
+	private Annotation getCobolItemType(Field field) {
+		Annotation annotation = getCobolItemType(field.getDeclaredAnnotations());
+		return annotation == null ? getCobolItemType(field.getType()) : annotation;
 	}
 
-	private Annotation getCobolAnnotation(Annotation[] annotations) {
+	private CobolArray getCobolArray(Field f) {
+		return f.getDeclaredAnnotation(CobolArray.class);
+	}
+
+	private Annotation getCobolItemType(Annotation[] annotations) {
 		return Arrays.stream(annotations) //
-				.filter(a -> a.annotationType().isAnnotationPresent(CobolAnnotation.class)) //
-				.findAny() //
+				.filter(a -> a.annotationType().isAnnotationPresent(CobolItemType.class)) //
+				.findFirst() //
 				.orElse(null);
+	}
+	
+	/**
+	 * @param <Z>
+	 * @param cobolName
+	 * @param value
+	 */
+	private <Z> void setOdoObjectValue(String cobolName, Z value) {
+		if (value instanceof Number) {
+			odoObjectValues.put(cobolName, ((Number) value).intValue());
+		}
+	}
+
+	private int getOdoObjectValue(String dependingOn) {
+		return odoObjectValues.get(dependingOn);
 	}
 
 	/**
@@ -127,6 +188,10 @@ public class CobolConverterFromHost<T> {
 
 	private String setterName(Field field) {
 		return "set" + Capitalize(field.getName());
+	}
+
+	private String adderName(Field field) {
+		return "add" + Capitalize(field.getName());
 	}
 
 	private String Capitalize(String s) {

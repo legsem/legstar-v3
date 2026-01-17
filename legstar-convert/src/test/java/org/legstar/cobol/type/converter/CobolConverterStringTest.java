@@ -30,6 +30,6 @@ public class CobolConverterStringTest extends CobolConverterTestBase {
 
 	@Test
 	public void testRemoveLowAndHighValues() {
-		assertEquals("NM0", converter.toString(inputStreamFrom("D500D4FFF0"), 5));
+		assertEquals("NM0", converter.toString(inputStreamFrom("D500D4FFF0"), 5));
 	}
 }

@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {ElementType.ANNOTATION_TYPE})
-public @interface CobolAnnotation {
+public @interface CobolItemType {
 
 }

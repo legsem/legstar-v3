@@ -7,7 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@CobolAnnotation
 public @interface CobolArray {
 	
 	int minOccurs();

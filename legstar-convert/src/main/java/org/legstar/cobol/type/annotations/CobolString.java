@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@CobolAnnotation
+@CobolItemType
 public @interface CobolString {
 
 	String cobolName();

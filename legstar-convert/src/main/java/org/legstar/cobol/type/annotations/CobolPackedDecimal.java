@@ -7,15 +7,16 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@CobolAnnotation
+@CobolItemType
 public @interface CobolPackedDecimal {
 	
 	String cobolName();
 	
-	boolean signed();
+	boolean signed() default false;
 	
 	int totalDigits();
 	
-	int fractionDigits();
+	int fractionDigits() default 0;
 
+	boolean odoObject() default false;
 }

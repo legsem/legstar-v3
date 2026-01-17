@@ -6,6 +6,11 @@ import java.math.BigDecimal;
 
 /**
  * Converts between a Cobol zoned decimal and a java BigDecimal or String.
+ * <p>
+ * TODO
+ * <ul>
+ * <li>Missing toShort, toInteger, toLong</li>
+ * </ul>
  */
 public class CobolConverterZonedDecimal {
 
@@ -93,8 +98,8 @@ public class CobolConverterZonedDecimal {
 	 */
 	private int overpunchSignum(byte b) {
 		int hn = (b >> 4) & 0x0f;
-		if (hn == 0x0c || hn == 0x0d) {
-			return hn == 0x0d ? -1 : 1;
+		if (hn == config.positiveSignNibbleValue() || hn == config.negativeSignNibbleValue()) {
+			return hn == config.negativeSignNibbleValue() ? -1 : 1;
 		} else {
 			return 0;
 		}

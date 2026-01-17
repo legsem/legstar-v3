@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@CobolAnnotation
+@CobolItemType
 public @interface CobolZonedDecimal {
 	
 	String cobolName();
@@ -20,4 +20,5 @@ public @interface CobolZonedDecimal {
 	
 	boolean signSeparate() default false;
 
+	boolean odoObject() default false;
 }

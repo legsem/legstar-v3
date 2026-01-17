@@ -89,8 +89,8 @@ public class CustomerData {
 		@CobolBinary(cobolName = "TRANSACTION-NBR", totalDigits=9, odoObject=true)
 		private long transactionNbr;
 		
-		@CobolArray(minOccurs=0, maxOccurs=5, dependingOn="transactionNbr")
-		private List<Transaction> transactionArray;
+		@CobolArray(minOccurs=0, maxOccurs=5, dependingOn="TRANSACTION-NBR")
+		private Transaction[] transactionArray;
 
 		public long getTransactionNbr() {
 			return transactionNbr;
@@ -100,14 +100,14 @@ public class CustomerData {
 			this.transactionNbr = transactionNbr;
 		}
 
-		public List<Transaction> getTrasactionArray() {
+		public Transaction[] getTransactionArray() {
 			return transactionArray;
 		}
 
-		public void setTrasactionArray(List<Transaction> trasactionArray) {
-			this.transactionArray = trasactionArray;
+		public void setTransactionArray(Transaction[] transactionArray) {
+			this.transactionArray = transactionArray;
 		}
-
+		
 	}
 
 	@CobolGroup(cobolName = "TRANSACTION")

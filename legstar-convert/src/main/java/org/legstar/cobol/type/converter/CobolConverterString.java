@@ -43,7 +43,7 @@ public class CobolConverterString {
 				int c = is.read();
 				if (c == -1) {
 					break;
-				} else if (c == 0 || c == (byte) 0xFF) {
+				} else if (c == 0 || c == 0xFF) {
 					continue;
 				} else {
 					buffer[j++] = (byte) c;
