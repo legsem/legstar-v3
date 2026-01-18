@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.legstar.cobol.type.annotations.CobolItemType;
+import org.legstar.cobol.type.annotations.CobolPackedDecimal;
 import org.legstar.cobol.type.annotations.CobolArray;
 import org.legstar.cobol.type.annotations.CobolBinary;
 import org.legstar.cobol.type.annotations.CobolGroup;
@@ -28,12 +29,15 @@ public class CobolConverterFromHost<T> {
 
 	private final CobolConverterZonedDecimal zonedDecimalConverter;
 	
+	private final CobolConverterPackedDecimal packedDecimalConverter;
+	
 	private final Map<String, Integer> odoObjectValues = new HashMap<>();
 
 	public CobolConverterFromHost(CobolConverterConfig config) {
-		this.stringConverter = new CobolConverterString(config);
-		this.binaryConverter = new CobolConverterBinary(config);
-		this.zonedDecimalConverter = new CobolConverterZonedDecimal(config);
+		stringConverter = new CobolConverterString(config);
+		binaryConverter = new CobolConverterBinary(config);
+		zonedDecimalConverter = new CobolConverterZonedDecimal(config);
+		packedDecimalConverter = new CobolConverterPackedDecimal(config);
 	}
 
 	public T convert(InputStream is, Class<T> outputClass) {
@@ -41,7 +45,7 @@ public class CobolConverterFromHost<T> {
 			Annotation annotation = getCobolItemType(outputClass);
 			return convert(annotation, is, outputClass);
 		} catch (Exception e) {
-			throw new FromHostException(e);
+			throw new CobolConverterException(e);
 		}
 	}
 
@@ -54,8 +58,10 @@ public class CobolConverterFromHost<T> {
 			return convertBinary((CobolBinary) annotation, is, objectClass);
 		} else if (annotation instanceof CobolZonedDecimal) {
 			return convertZonedDecimal((CobolZonedDecimal) annotation, is, objectClass);
+		} else if (annotation instanceof CobolPackedDecimal) {
+			return convertPackedDecimal((CobolPackedDecimal) annotation, is, objectClass);
 		} else {
-			throw new FromHostException("Unsupported Cobol annotation " + annotation);
+			throw new CobolConverterException("Unsupported Cobol annotation " + annotation);
 		}
 	}
 
@@ -65,7 +71,7 @@ public class CobolConverterFromHost<T> {
 		for (Field field : fields) {
 			Annotation cobolItemType = getCobolItemType(field);
 			if (cobolItemType == null) {
-				throw new FromHostException("Field " + field.getName() + " in " + cobolGroup.cobolName()
+				throw new CobolConverterException("Field " + field.getName() + " in " + cobolGroup.cobolName()
 						+ " does not have Cobol annotations");
 			}
 			CobolArray cobolArray = getCobolArray(field);
@@ -107,6 +113,16 @@ public class CobolConverterFromHost<T> {
 				objectClass);
 		if (cobolZonedDecimal.odoObject()) {
 			setOdoObjectValue(cobolZonedDecimal.cobolName(), value);
+		}
+		return value;
+	}
+
+	private <Z> Z convertPackedDecimal(CobolPackedDecimal cobolPackedDecimal, InputStream is, Class<Z> objectClass) {
+		Z value = (Z) packedDecimalConverter.convert(is, cobolPackedDecimal.signed(), cobolPackedDecimal.totalDigits(),
+				cobolPackedDecimal.fractionDigits(),
+				objectClass);
+		if (cobolPackedDecimal.odoObject()) {
+			setOdoObjectValue(cobolPackedDecimal.cobolName(), value);
 		}
 		return value;
 	}
@@ -160,7 +176,7 @@ public class CobolConverterFromHost<T> {
 			Constructor<Z> constructor = clazz.getConstructor();
 			return constructor.newInstance();
 		} catch (Exception e) {
-			throw new FromHostException(e);
+			throw new CobolConverterException(e);
 		}
 	}
 
@@ -169,7 +185,7 @@ public class CobolConverterFromHost<T> {
 			Method setter = group.getClass().getMethod(setterName(field), field.getType());
 			return setter.invoke(group, value);
 		} catch (Exception e) {
-			throw new FromHostException(e);
+			throw new CobolConverterException(e);
 		}
 	}
 
@@ -178,7 +194,7 @@ public class CobolConverterFromHost<T> {
 			Method getter = group.getClass().getMethod(getterName(field));
 			return getter.invoke(group);
 		} catch (Exception e) {
-			throw new FromHostException(e);
+			throw new CobolConverterException(e);
 		}
 	}
 

@@ -28,7 +28,7 @@ public class CobolConverterZonedDecimal {
 		} else if (targetClass.equals(BigDecimal.class)) {
 			return (T) toBigDecimal(is, totalDigits, fractionDigits, signLeading, signSeparate);
 		} else {
-			throw new FromHostException("Unsupported target class " + targetClass);
+			throw new CobolConverterException("Unsupported target class " + targetClass);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class CobolConverterZonedDecimal {
 						signum = c == config.hostMinusSign() ? -1 : 1;
 						continue;
 					} else {
-						signum = overpunchSignum((byte) c);
+						signum = overpunchedSignum((byte) c);
 					}
 				}
 				int ln = c & 0x0f;
@@ -85,7 +85,7 @@ public class CobolConverterZonedDecimal {
 			sb.insert(0, signum == -1 ? "-" : "");
 			return new BigDecimal(sb.toString()).scaleByPowerOfTen(-fractionDigits);
 		} catch (IOException e) {
-			throw new FromHostException(e);
+			throw new CobolConverterException(e);
 		}
 
 	}
@@ -96,7 +96,7 @@ public class CobolConverterZonedDecimal {
 	 * For example: -1234 is stored as F1F2F3D4 when sign is trailing and not
 	 * separate
 	 */
-	private int overpunchSignum(byte b) {
+	private int overpunchedSignum(byte b) {
 		int hn = (b >> 4) & 0x0f;
 		if (hn == config.positiveSignNibbleValue() || hn == config.negativeSignNibbleValue()) {
 			return hn == config.negativeSignNibbleValue() ? -1 : 1;

@@ -8,19 +8,19 @@ package org.legstar.cobol.type.converter;
  * <li>also report byte position in payload
  * </ul>
  */
-public class FromHostException extends RuntimeException {
+public class CobolConverterException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public FromHostException(Throwable cause) {
+	public CobolConverterException(Throwable cause) {
 		super(cause);
 	}
 
-	public FromHostException(String message) {
+	public CobolConverterException(String message) {
 		super(message);
 	}
 
-	public FromHostException(String message, Throwable cause) {
+	public CobolConverterException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

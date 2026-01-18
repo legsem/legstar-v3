@@ -32,7 +32,7 @@ public class CobolConverterBinary {
 		} else if (targetClass.equals(Long.class) || targetClass.equals(long.class)) {
 			return (T) toLong(is, signed, totalDigits);
 		} else {
-			throw new FromHostException("Unsupported target class " + targetClass);
+			throw new CobolConverterException("Unsupported target class " + targetClass);
 		}
 	}
 
@@ -126,7 +126,7 @@ public class CobolConverterBinary {
 			is.read(buffer);
 			return ByteBuffer.wrap(buffer);
 		} catch (IOException e) {
-			throw new FromHostException(e);
+			throw new CobolConverterException(e);
 		}
 	}
 

@@ -20,7 +20,7 @@ public class CobolConverterString {
 		if (targetClass.equals(String.class)) {
 			return (T) toString(is, bytesLen);
 		} else {
-			throw new FromHostException("Unsupported target class " + targetClass);
+			throw new CobolConverterException("Unsupported target class " + targetClass);
 		}
 	}
 
@@ -52,9 +52,9 @@ public class CobolConverterString {
 			String res = new String(buffer, 0, j, config.hostCharsetName());
 			return config.truncateHostStringsTrailingSpaces() ? res.stripTrailing() : res;
 		} catch (UnsupportedEncodingException e) {
-			throw new FromHostException(e);
+			throw new CobolConverterException(e);
 		} catch (IOException e) {
-			throw new FromHostException(e);
+			throw new CobolConverterException(e);
 		}
 	}
 
