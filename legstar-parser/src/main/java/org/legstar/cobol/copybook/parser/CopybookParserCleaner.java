@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 /**
  * 
  */
-public class CopybookCleaner {
+public class CopybookParserCleaner {
 
 	private static final Pattern IDENTIFICATION_DIVISION = Pattern.compile("IDENTIFICATION\\sDIVISION(\\s)*\\.",
 			Pattern.CASE_INSENSITIVE);
@@ -46,13 +46,13 @@ public class CopybookCleaner {
 	 */
 	public static final List<String> COMPILER_DIRECTIVES = List.of("EJECT", "SKIP", "SKIP1", "SKIP2", "SKIP3");
 
-	private final CopybookConfig config;
+	private final CopybookParserConfig config;
 
-	public CopybookCleaner() {
-		this(new CopybookConfig());
+	public CopybookParserCleaner() {
+		this(new CopybookParserConfig());
 	}
 
-	public CopybookCleaner(CopybookConfig config) {
+	public CopybookParserCleaner(CopybookParserConfig config) {
 		this.config = config;
 	}
 

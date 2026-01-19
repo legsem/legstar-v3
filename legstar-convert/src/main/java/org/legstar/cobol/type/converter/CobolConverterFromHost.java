@@ -6,18 +6,15 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import org.legstar.cobol.type.annotations.CobolItemType;
-import org.legstar.cobol.type.annotations.CobolPackedDecimal;
 import org.legstar.cobol.type.annotations.CobolArray;
 import org.legstar.cobol.type.annotations.CobolBinary;
 import org.legstar.cobol.type.annotations.CobolGroup;
+import org.legstar.cobol.type.annotations.CobolItemType;
+import org.legstar.cobol.type.annotations.CobolPackedDecimal;
 import org.legstar.cobol.type.annotations.CobolString;
 import org.legstar.cobol.type.annotations.CobolZonedDecimal;
 
@@ -204,10 +201,6 @@ public class CobolConverterFromHost<T> {
 
 	private String setterName(Field field) {
 		return "set" + Capitalize(field.getName());
-	}
-
-	private String adderName(Field field) {
-		return "add" + Capitalize(field.getName());
 	}
 
 	private String Capitalize(String s) {

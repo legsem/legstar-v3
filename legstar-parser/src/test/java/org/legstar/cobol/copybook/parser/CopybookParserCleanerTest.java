@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.StringReader;
 
 import org.junit.jupiter.api.Test;
-import org.legstar.cobol.copybook.parser.CopybookCleaner.Result;
+import org.legstar.cobol.copybook.parser.CopybookParserCleaner.Result;
 
-public class CopybookCleanerTest {
+public class CopybookParserCleanerTest {
 
 	@Test
 	public void noBlanksAndComments() {
@@ -16,7 +16,7 @@ public class CopybookCleanerTest {
 				      / Another Comment on col 7
 				                   *> A floating comment
 				""");
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("", res.toString());
 	}
@@ -26,7 +26,7 @@ public class CopybookCleanerTest {
 		StringReader reader = new StringReader("""
 				       01 MYVAR.
 				""");
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("001        01 MYVAR.\n", res.toString());
 	}
@@ -37,7 +37,7 @@ public class CopybookCleanerTest {
 				       IDENTIFICATION DIVISION.
 				       01 MYVAR.
 				""");
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("", res.toString());
 	}
@@ -50,7 +50,7 @@ public class CopybookCleanerTest {
 				       WORKING-STORAGE SECTION.
 				       01 MYVAR.
 				""");
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("004        01 MYVAR.\n", res.toString());
 	}
@@ -63,7 +63,7 @@ public class CopybookCleanerTest {
 				       LOCAL-STORAGE SECTION.
 				       01 MYVAR.
 				""");
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("004        01 MYVAR.\n", res.toString());
 	}
@@ -76,7 +76,7 @@ public class CopybookCleanerTest {
 				       LINKAGE SECTION.
 				       01 MYVAR.
 				""");
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("004        01 MYVAR.\n", res.toString());
 	}
@@ -89,7 +89,7 @@ public class CopybookCleanerTest {
 				       PROCEDURE DIVISION.
 				       01 MYVAR.
 				""");
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("", res.toString());
 	}
@@ -100,7 +100,7 @@ public class CopybookCleanerTest {
 				123456701 MYVAR.                                                         1234567
 				""");
 
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("001       701 MYVAR.\n", res.toString());
 	}
@@ -112,7 +112,7 @@ public class CopybookCleanerTest {
 				123456d01 MYVAR.
 				""");
 
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("", res.toString());
 	}
@@ -127,7 +127,7 @@ public class CopybookCleanerTest {
 				SKIP3
 				""");
 
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("", res.toString());
 	}
@@ -139,7 +139,7 @@ public class CopybookCleanerTest {
 				       01 A  PIC  X(5)  VALUE  'A''B", C'.
 				""");
 
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("001        01 A  PIC  X(5)  VALUE  5.\n002        01 A  PIC  X(5)  VALUE  'A''B\", C'.\n",
 				res.toString());
@@ -154,7 +154,7 @@ public class CopybookCleanerTest {
 				      -    "LLLLLLLLLLMMMMMMMMMM"
 				""");
 
-		CopybookCleaner c = new CopybookCleaner();
+		CopybookParserCleaner c = new CopybookParserCleaner();
 		Result res = c.clean(reader);
 		assertEquals("001        01 MYVAR PIC X(120) VALUE\n"
 				+ "002                      \"AAAAAAAAAABBBBBBBBBBCCCCCCCCCCDDDDDDDDDDEEEEEEEEEEGGGGGGGGGGHHHHHHHHHHIIIIIIIIIIJJJJJJJJJJKKKKKKKKKKLLLLLLLLLLMMMMMMMMMM\"\n",

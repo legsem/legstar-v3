@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import org.legstar.cobol.copybook.parser.CopybookCleaner.Result;
+import org.legstar.cobol.copybook.parser.CopybookParserCleaner.Result;
 import org.legstar.cobol.data.entry.CobolDataEntry;
 
 import org.legstar.cobol.copybook.ccparser.CopybookCCParser;
@@ -18,18 +18,18 @@ import org.legstar.cobol.copybook.ccparser.ParseException;
  */
 public class CopybookParser {
 
-	private CopybookConfig config;
+	private CopybookParserConfig config;
 
 	public CopybookParser() {
-		this(new CopybookConfig());
+		this(new CopybookParserConfig());
 	}
 
-	public CopybookParser(CopybookConfig config) {
+	public CopybookParser(CopybookParserConfig config) {
 		this.config = config;
 	}
 
 	public List<CobolDataEntry> parse(String inputSource, Reader reader) {
-		CopybookCleaner cleaner = new CopybookCleaner(this.config);
+		CopybookParserCleaner cleaner = new CopybookParserCleaner(this.config);
 		Result cleanResult = cleaner.clean(reader);
 		CopybookCCParser ccParser;
 		try {

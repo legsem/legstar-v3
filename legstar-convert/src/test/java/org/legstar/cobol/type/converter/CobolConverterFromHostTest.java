@@ -1,7 +1,5 @@
 package org.legstar.cobol.type.converter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,10 +14,18 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 
 	@Test
 	public void testFlat01() throws JsonProcessingException {
-		CobolConverterFromHost<Flat01Record> fromHost = new CobolConverterFromHost<>(config);
-		Flat01Record output = fromHost.convert(
-				inputStreamFrom("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F"), Flat01Record.class);
-		assertEquals("{\"comNumber\":1043,\"comName\":\"NAME000043          \",\"comAmount\":2150.00}", OBJECT_MAPPER_SINGLETON.writeValueAsString(output));
+		check(convert("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F", Flat01Record.class));
+	}
+	
+	private <T> String convert(String payload, Class<T> clazz) {
+		try {
+			CobolConverterFromHost<T> fromHost = new CobolConverterFromHost<>(config);
+			T output = fromHost.convert(
+					inputStreamFrom(payload), clazz);
+			return OBJECT_MAPPER_SINGLETON.writeValueAsString(output);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

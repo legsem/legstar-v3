@@ -1,6 +1,6 @@
 package org.legstar.cobol.copybook.parser;
 
-public class CopybookConfig {
+public class CopybookParserConfig {
 
 	/** Fixed (false) or Free (true) format COBOL source. */
 	private boolean freeCodeFormat = false;
@@ -35,7 +35,7 @@ public class CopybookConfig {
 		return freeCodeFormat;
 	}
 
-	public CopybookConfig setFreeCodeFormat(boolean freeCodeFormat) {
+	public CopybookParserConfig setFreeCodeFormat(boolean freeCodeFormat) {
 		this.freeCodeFormat = freeCodeFormat;
 		return this;
 	}
@@ -44,7 +44,7 @@ public class CopybookConfig {
 		return startColumn;
 	}
 
-	public CopybookConfig setStartColumn(int startColumn) {
+	public CopybookParserConfig setStartColumn(int startColumn) {
 		this.startColumn = startColumn;
 		return this;
 	}
@@ -53,7 +53,7 @@ public class CopybookConfig {
 		return endColumn;
 	}
 
-	public CopybookConfig setEndColumn(int endColumn) {
+	public CopybookParserConfig setEndColumn(int endColumn) {
 		this.endColumn = endColumn;
 		return this;
 	}
@@ -62,7 +62,7 @@ public class CopybookConfig {
 		return currencySign;
 	}
 
-	public CopybookConfig setCurrencySign(String currencySign) {
+	public CopybookParserConfig setCurrencySign(String currencySign) {
 		this.currencySign = currencySign;
 		return this;
 	}
@@ -71,7 +71,7 @@ public class CopybookConfig {
 		return currencySymbol;
 	}
 
-	public CopybookConfig setCurrencySymbol(String currencySymbol) {
+	public CopybookParserConfig setCurrencySymbol(String currencySymbol) {
 		this.currencySymbol = currencySymbol;
 		return this;
 	}
@@ -80,7 +80,7 @@ public class CopybookConfig {
 		return decimalPointIsComma;
 	}
 
-	public CopybookConfig setDecimalPointIsComma(boolean decimalPointIsComma) {
+	public CopybookParserConfig setDecimalPointIsComma(boolean decimalPointIsComma) {
 		this.decimalPointIsComma = decimalPointIsComma;
 		return this;
 	}
@@ -89,7 +89,7 @@ public class CopybookConfig {
 		return nSymbolDbcs;
 	}
 
-	public CopybookConfig setnSymbolDbcs(boolean nSymbolDbcs) {
+	public CopybookParserConfig setnSymbolDbcs(boolean nSymbolDbcs) {
 		this.nSymbolDbcs = nSymbolDbcs;
 		return this;
 	}
@@ -98,7 +98,7 @@ public class CopybookConfig {
 		return quoteIsQuote;
 	}
 
-	public CopybookConfig setQuoteIsQuote(boolean quoteIsQuote) {
+	public CopybookParserConfig setQuoteIsQuote(boolean quoteIsQuote) {
 		this.quoteIsQuote = quoteIsQuote;
 		return this;
 	}
