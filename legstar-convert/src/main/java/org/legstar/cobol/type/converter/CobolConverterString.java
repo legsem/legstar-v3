@@ -1,7 +1,6 @@
 package org.legstar.cobol.type.converter;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -16,7 +15,7 @@ public class CobolConverterString {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T convert(InputStream is, int bytesLen, Class<T> targetClass) {
+	public <T> T convert(CobolConverterInputStream is, int bytesLen, Class<T> targetClass) {
 		if (targetClass.equals(String.class)) {
 			return (T) toString(is, bytesLen);
 		} else {
@@ -35,7 +34,7 @@ public class CobolConverterString {
 	 * @param is the host bytes
 	 * @param charNum the maximum number of characters for the result string
 	 */
-	public String toString(InputStream is, int charNum) {
+	public String toString(CobolConverterInputStream is, int charNum) {
 		try {
 			byte[] buffer = new byte[charNum];
 			int j = 0;

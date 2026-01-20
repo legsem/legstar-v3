@@ -10,4 +10,5 @@ import java.lang.annotation.Target;
 @CobolItemType
 public @interface CobolChoice {
 
+	int maxBytesLen();
 }

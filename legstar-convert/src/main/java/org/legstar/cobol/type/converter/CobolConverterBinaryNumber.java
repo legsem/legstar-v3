@@ -1,7 +1,6 @@
 package org.legstar.cobol.type.converter;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 /**
@@ -17,14 +16,14 @@ import java.nio.ByteBuffer;
  * toBigInteger method.</li>
  * </ul>
  */
-public class CobolConverterBinary {
+public class CobolConverterBinaryNumber {
 
-	public CobolConverterBinary(CobolConverterConfig config) {
+	public CobolConverterBinaryNumber(CobolConverterConfig config) {
 
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T convert(InputStream is, boolean signed, int totalDigits, Class<T> targetClass) {
+	public <T> T convert(CobolConverterInputStream is, boolean signed, int totalDigits, Class<T> targetClass) {
 		if (targetClass.equals(Short.class) || targetClass.equals(short.class)) {
 			return (T) toShort(is, signed, totalDigits);
 		} else if (targetClass.equals(Integer.class) || targetClass.equals(int.class)) {
@@ -48,7 +47,7 @@ public class CobolConverterBinary {
 	 * @param totalDigits the total number of digits
 	 * @return the host bytes converted to a short
 	 */
-	public Short toShort(InputStream is, boolean signed, int totalDigits) {
+	public Short toShort(CobolConverterInputStream is, boolean signed, int totalDigits) {
 		return toByteBuffer(is, totalDigits).getShort();
 	}
 
@@ -68,7 +67,7 @@ public class CobolConverterBinary {
 	 * @param totalDigits the total number of digits
 	 * @return the host bytes converted to an integer
 	 */
-	public Integer toInteger(InputStream is, boolean signed, int totalDigits) {
+	public Integer toInteger(CobolConverterInputStream is, boolean signed, int totalDigits) {
 		ByteBuffer bb = toByteBuffer(is, totalDigits);
 		if (bb.capacity() < 4) {
 			if (signed) {
@@ -97,7 +96,7 @@ public class CobolConverterBinary {
 	 * @param totalDigits the total number of digits
 	 * @return the host bytes converted to an integer
 	 */
-	public Long toLong(InputStream is, boolean signed, int totalDigits) {
+	public Long toLong(CobolConverterInputStream is, boolean signed, int totalDigits) {
 		ByteBuffer bb = toByteBuffer(is, totalDigits);
 		if (bb.capacity() < 4) {
 			if (signed) {
@@ -119,7 +118,7 @@ public class CobolConverterBinary {
 	/**
 	 * Read the requested number of digits from the input stream.
 	 */
-	private ByteBuffer toByteBuffer(InputStream is, int totalDigits) {
+	private ByteBuffer toByteBuffer(CobolConverterInputStream is, int totalDigits) {
 		try {
 			int byteLen = byteLen(totalDigits);
 			byte[] buffer = new byte[byteLen];

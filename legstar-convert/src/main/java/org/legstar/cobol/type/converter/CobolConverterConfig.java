@@ -49,7 +49,7 @@ public class CobolConverterConfig {
 	 * Should trailing spaces be trimmed from host strings when converted to java
 	 */
 	private boolean truncateHostStringsTrailingSpaces;
-
+	
 	public CobolConverterConfig(String hostCharsetName) {
 		this.hostCharsetName = hostCharsetName;
 		try {

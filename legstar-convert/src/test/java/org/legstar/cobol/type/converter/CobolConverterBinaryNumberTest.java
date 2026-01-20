@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class CobolConverterBinaryTest extends CobolConverterTestBase {
+public class CobolConverterBinaryNumberTest extends CobolConverterTestBase {
 
-	CobolConverterBinary converter = new CobolConverterBinary(config);
+	CobolConverterBinaryNumber converter = new CobolConverterBinaryNumber(config);
 
 	@Test
 	public void testNoHostData() {

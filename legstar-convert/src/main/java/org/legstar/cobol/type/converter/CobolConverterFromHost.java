@@ -1,5 +1,6 @@
 package org.legstar.cobol.type.converter;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
@@ -9,50 +10,73 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 import org.legstar.cobol.type.annotations.CobolArray;
-import org.legstar.cobol.type.annotations.CobolBinary;
+import org.legstar.cobol.type.annotations.CobolBinaryNumber;
+import org.legstar.cobol.type.annotations.CobolChoice;
 import org.legstar.cobol.type.annotations.CobolGroup;
 import org.legstar.cobol.type.annotations.CobolItemType;
 import org.legstar.cobol.type.annotations.CobolPackedDecimal;
 import org.legstar.cobol.type.annotations.CobolString;
 import org.legstar.cobol.type.annotations.CobolZonedDecimal;
 
+/**
+ * Converts host bytes to a java T instance.
+ * <p>
+ * TODO
+ * <ul>
+ * <li>Is there a need to support numeric-edited Decimals?</li>
+ * <li>Missing Float/Double z/os data handling</li>
+ * <li>Missing handling of RDW headers</li>
+ * </ul>
+ */
 public class CobolConverterFromHost<T> {
 
 	private final CobolConverterString stringConverter;
 
-	private final CobolConverterBinary binaryConverter;
+	private final CobolConverterBinaryNumber binaryNumberConverter;
 
 	private final CobolConverterZonedDecimal zonedDecimalConverter;
-	
+
 	private final CobolConverterPackedDecimal packedDecimalConverter;
-	
+
 	private final Map<String, Integer> odoObjectValues = new HashMap<>();
 
+	private final CobolConverterFromHostChoiceStrategy<T> choiceStrategy;
+
+	private final Stack<Object> groupStack = new Stack<>();
+
 	public CobolConverterFromHost(CobolConverterConfig config) {
-		stringConverter = new CobolConverterString(config);
-		binaryConverter = new CobolConverterBinary(config);
-		zonedDecimalConverter = new CobolConverterZonedDecimal(config);
-		packedDecimalConverter = new CobolConverterPackedDecimal(config);
+		this(config, null);
+	}
+
+	public CobolConverterFromHost(CobolConverterConfig config, CobolConverterFromHostChoiceStrategy<T> choiceStrategy) {
+		this.stringConverter = new CobolConverterString(config);
+		this.binaryNumberConverter = new CobolConverterBinaryNumber(config);
+		this.zonedDecimalConverter = new CobolConverterZonedDecimal(config);
+		this.packedDecimalConverter = new CobolConverterPackedDecimal(config);
+		this.choiceStrategy = choiceStrategy == null ? new CobolConverterDefaultChoiceStrategy() : choiceStrategy;
 	}
 
 	public T convert(InputStream is, Class<T> outputClass) {
 		try {
 			Annotation annotation = getCobolItemType(outputClass);
-			return convert(annotation, is, outputClass);
+			return convert(annotation, new CobolConverterInputStream(is), outputClass);
 		} catch (Exception e) {
 			throw new CobolConverterException(e);
 		}
 	}
 
-	private <Z> Z convert(Annotation annotation, InputStream is, Class<Z> objectClass) {
+	private <Z> Z convert(Annotation annotation, CobolConverterInputStream is, Class<Z> objectClass) {
 		if (annotation instanceof CobolGroup) {
 			return convertGroup((CobolGroup) annotation, is, objectClass);
+		} else if (annotation instanceof CobolChoice) {
+			return convertChoice((CobolChoice) annotation, is, objectClass);
 		} else if (annotation instanceof CobolString) {
 			return convertString((CobolString) annotation, is, objectClass);
-		} else if (annotation instanceof CobolBinary) {
-			return convertBinary((CobolBinary) annotation, is, objectClass);
+		} else if (annotation instanceof CobolBinaryNumber) {
+			return convertBinary((CobolBinaryNumber) annotation, is, objectClass);
 		} else if (annotation instanceof CobolZonedDecimal) {
 			return convertZonedDecimal((CobolZonedDecimal) annotation, is, objectClass);
 		} else if (annotation instanceof CobolPackedDecimal) {
@@ -62,25 +86,35 @@ public class CobolConverterFromHost<T> {
 		}
 	}
 
-	private <Z> Z convertGroup(CobolGroup cobolGroup, InputStream is, Class<Z> groupClass) {
+	// -----------------------------------------------------------------------------
+	// Complex types
+	// -----------------------------------------------------------------------------
+	private <Z> Z convertGroup(CobolGroup cobolGroup, CobolConverterInputStream is, Class<Z> groupClass) {
 		Z group = newInstance(groupClass);
+		groupStack.push(group);
 		Field[] fields = groupClass.getDeclaredFields();
 		for (Field field : fields) {
-			Annotation cobolItemType = getCobolItemType(field);
-			if (cobolItemType == null) {
-				throw new CobolConverterException("Field " + field.getName() + " in " + cobolGroup.cobolName()
-						+ " does not have Cobol annotations");
-			}
-			CobolArray cobolArray = getCobolArray(field);
-			Object value = cobolArray == null //
-					? convert(cobolItemType, is, field.getType()) //
-					: convertArray(cobolArray, cobolItemType, is, field.getType().getComponentType());
+			Object value = convertField(is, field);
 			setFieldValue(field, group, value);
 		}
+		groupStack.pop();
 		return group;
 	}
 
-	private <Z> Z[] convertArray(CobolArray cobolArray, Annotation cobolItemType, InputStream is, Class<Z> itemClass) {
+	private Object convertField(CobolConverterInputStream is, Field field) {
+		Annotation cobolItemType = getCobolItemType(field);
+		if (cobolItemType == null) {
+			throw new CobolConverterException("Field " + field.getName() + " in " + currentGroupQualifiedName()
+					+ " does not have Cobol annotations");
+		}
+		CobolArray cobolArray = getCobolArray(field);
+		return cobolArray == null //
+				? convert(cobolItemType, is, field.getType()) //
+				: convertArray(cobolArray, cobolItemType, is, field.getType().getComponentType());
+	}
+
+	private <Z> Z[] convertArray(CobolArray cobolArray, Annotation cobolItemType, CobolConverterInputStream is,
+			Class<Z> itemClass) {
 		int maxOccurs = cobolArray.dependingOn() == null //
 				? cobolArray.maxOccurs() //
 				: getOdoObjectValue(cobolArray.dependingOn());
@@ -92,38 +126,123 @@ public class CobolConverterFromHost<T> {
 		return array;
 	}
 
-	private <Z> Z convertString(CobolString cobolString, InputStream is, Class<Z> objectClass) {
-		return (Z) stringConverter.convert(is, cobolString.charNum(), objectClass);
-	}
-
-	private <Z> Z convertBinary(CobolBinary cobolBinary, InputStream is, Class<Z> objectClass) {
-		Z value = (Z) binaryConverter.convert(is, cobolBinary.signed(), cobolBinary.totalDigits(), objectClass);
-		if (cobolBinary.odoObject()) {
-			setOdoObjectValue(cobolBinary.cobolName(), value);
+	private <Z> Z convertChoice(CobolChoice cobolChoice, CobolConverterInputStream is, Class<Z> choiceClass) {
+		try {
+			Z choice = newInstance(choiceClass);
+			Field[] fields = choiceClass.getDeclaredFields();
+			for (Field alternative : fields) {
+				if (choiceStrategy.choose(getRoot(), alternative)) {
+					is.mark(cobolChoice.maxBytesLen());
+					try {
+						Object value = convertField(is, alternative);
+						setFieldValue(alternative, choice, value);
+						break;
+					} catch (Exception e) {
+						is.reset();
+					}
+				}
+			}
+			return choice;
+		} catch (SecurityException | IOException e) {
+			throw new CobolConverterException(e);
 		}
-		return value;
 	}
 
-	private <Z> Z convertZonedDecimal(CobolZonedDecimal cobolZonedDecimal, InputStream is, Class<Z> objectClass) {
-		Z value = (Z) zonedDecimalConverter.convert(is, cobolZonedDecimal.totalDigits(),
-				cobolZonedDecimal.fractionDigits(), cobolZonedDecimal.signLeading(), cobolZonedDecimal.signSeparate(),
-				objectClass);
-		if (cobolZonedDecimal.odoObject()) {
-			setOdoObjectValue(cobolZonedDecimal.cobolName(), value);
+	// -----------------------------------------------------------------------------
+	// Primitive types
+	// -----------------------------------------------------------------------------
+	private <Z> Z convertString(CobolString cobolString, CobolConverterInputStream is, Class<Z> objectClass) {
+		try {
+			return (Z) stringConverter.convert(is, cobolString.charNum(), objectClass);
+		} catch (CobolConverterException e) {
+			throw qualifiedException(e, is, cobolString.cobolName());
 		}
-		return value;
 	}
 
-	private <Z> Z convertPackedDecimal(CobolPackedDecimal cobolPackedDecimal, InputStream is, Class<Z> objectClass) {
-		Z value = (Z) packedDecimalConverter.convert(is, cobolPackedDecimal.signed(), cobolPackedDecimal.totalDigits(),
-				cobolPackedDecimal.fractionDigits(),
-				objectClass);
-		if (cobolPackedDecimal.odoObject()) {
-			setOdoObjectValue(cobolPackedDecimal.cobolName(), value);
+	private <Z> Z convertBinary(CobolBinaryNumber cobolBinary, CobolConverterInputStream is, Class<Z> objectClass) {
+		try {
+			Z value = (Z) binaryNumberConverter.convert(is, cobolBinary.signed(), cobolBinary.totalDigits(),
+					objectClass);
+			if (cobolBinary.odoObject()) {
+				setOdoObjectValue(cobolBinary.cobolName(), value);
+			}
+			return value;
+		} catch (CobolConverterException e) {
+			throw qualifiedException(e, is, cobolBinary.cobolName());
 		}
-		return value;
 	}
 
+	private <Z> Z convertZonedDecimal(CobolZonedDecimal cobolZonedDecimal, CobolConverterInputStream is,
+			Class<Z> objectClass) {
+		try {
+			Z value = (Z) zonedDecimalConverter.convert(is, cobolZonedDecimal.totalDigits(),
+					cobolZonedDecimal.fractionDigits(), cobolZonedDecimal.signLeading(),
+					cobolZonedDecimal.signSeparate(), objectClass);
+			if (cobolZonedDecimal.odoObject()) {
+				setOdoObjectValue(cobolZonedDecimal.cobolName(), value);
+			}
+			return value;
+		} catch (CobolConverterException e) {
+			throw qualifiedException(e, is, cobolZonedDecimal.cobolName());
+		}
+	}
+
+	private <Z> Z convertPackedDecimal(CobolPackedDecimal cobolPackedDecimal, CobolConverterInputStream is,
+			Class<Z> objectClass) {
+		try {
+			Z value = (Z) packedDecimalConverter.convert(is, cobolPackedDecimal.signed(),
+					cobolPackedDecimal.totalDigits(), cobolPackedDecimal.fractionDigits(), objectClass);
+			if (cobolPackedDecimal.odoObject()) {
+				setOdoObjectValue(cobolPackedDecimal.cobolName(), value);
+			}
+			return value;
+		} catch (CobolConverterException e) {
+			throw qualifiedException(e, is, cobolPackedDecimal.cobolName());
+		}
+	}
+
+	/**
+	 * Improve error reporting by adding cobol item qualified name and bytes
+	 * location in input stream.
+	 */
+	private CobolConverterException qualifiedException(CobolConverterException e, CobolConverterInputStream is,
+			String cobolName) {
+		e.setCobolQualifiedName(cobolQualifiedName(cobolName));
+		e.setBytesCounter(is.getBytesRead());
+		return e;
+	}
+
+	// -----------------------------------------------------------------------------
+	// Occurs depending On
+	// -----------------------------------------------------------------------------
+	private <Z> void setOdoObjectValue(String cobolName, Z value) {
+		if (value instanceof Number) {
+			odoObjectValues.put(cobolName, ((Number) value).intValue());
+		} else {
+			throw new CobolConverterException(
+					"Value " + value + " is not a number and cannot be used for an occurs depending on");
+		}
+	}
+
+	private int getOdoObjectValue(String dependingOn) {
+		return odoObjectValues.get(dependingOn);
+	}
+
+	// -----------------------------------------------------------------------------
+	// Default Choice strategy (all fields are eligible)
+	// -----------------------------------------------------------------------------
+	class CobolConverterDefaultChoiceStrategy implements CobolConverterFromHostChoiceStrategy<T> {
+
+		@Override
+		public boolean choose(T root, Field alternative) {
+			return true;
+		}
+
+	}
+
+	// -----------------------------------------------------------------------------
+	// Annotations
+	// -----------------------------------------------------------------------------
 	private Annotation getCobolItemType(Class<?> clazz) {
 		if (clazz.isArray()) {
 			return getCobolItemType(clazz.getComponentType());
@@ -147,22 +266,10 @@ public class CobolConverterFromHost<T> {
 				.findFirst() //
 				.orElse(null);
 	}
-	
-	/**
-	 * @param <Z>
-	 * @param cobolName
-	 * @param value
-	 */
-	private <Z> void setOdoObjectValue(String cobolName, Z value) {
-		if (value instanceof Number) {
-			odoObjectValues.put(cobolName, ((Number) value).intValue());
-		}
-	}
 
-	private int getOdoObjectValue(String dependingOn) {
-		return odoObjectValues.get(dependingOn);
-	}
-
+	// -----------------------------------------------------------------------------
+	// Bean getters/setters
+	// -----------------------------------------------------------------------------
 	/**
 	 * Create a new instance of a bean.
 	 * <p>
@@ -206,4 +313,39 @@ public class CobolConverterFromHost<T> {
 	private String Capitalize(String s) {
 		return s.length() <= 1 ? s.toUpperCase() : Character.toUpperCase(s.charAt(0)) + s.substring(1);
 	}
+
+	// -----------------------------------------------------------------------------
+	// Group stack. The top group is the upper item in the stack
+	// -----------------------------------------------------------------------------
+	public Stack<Object> getGroupStack() {
+		return groupStack;
+	}
+
+	@SuppressWarnings("unchecked")
+	public T getRoot() {
+		return groupStack.isEmpty() ? null : (T) groupStack.get(0);
+	}
+
+	private String currentGroupQualifiedName() {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < groupStack.size(); i++) {
+			if (i > 0) {
+				sb.append(".");
+			}
+			CobolGroup cobolGroup = groupStack.get(i).getClass().getAnnotation(CobolGroup.class);
+			sb.append(cobolGroup.cobolName());
+		}
+		return sb.toString();
+	}
+
+	private String cobolQualifiedName(String cobolName) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(currentGroupQualifiedName());
+		if (!groupStack.isEmpty()) {
+			sb.append(".");
+		}
+		sb.append(cobolName);
+		return sb.toString();
+	}
+
 }

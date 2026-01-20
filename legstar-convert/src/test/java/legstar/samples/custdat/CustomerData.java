@@ -1,11 +1,9 @@
 package legstar.samples.custdat;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
 
 import org.legstar.cobol.type.annotations.CobolArray;
-import org.legstar.cobol.type.annotations.CobolBinary;
+import org.legstar.cobol.type.annotations.CobolBinaryNumber;
 import org.legstar.cobol.type.annotations.CobolChoice;
 import org.legstar.cobol.type.annotations.CobolGroup;
 import org.legstar.cobol.type.annotations.CobolPackedDecimal;
@@ -74,7 +72,7 @@ public class CustomerData {
 			this.customerAddress = customerAddress;
 		}
 
-		public String customerPhone() {
+		public String getCustomerPhone() {
 			return customerPhone;
 		}
 
@@ -86,7 +84,7 @@ public class CustomerData {
 	@CobolGroup(cobolName = "TRANSACTIONS")
 	public static class Transactions {
 		
-		@CobolBinary(cobolName = "TRANSACTION-NBR", totalDigits=9, odoObject=true)
+		@CobolBinaryNumber(cobolName = "TRANSACTION-NBR", totalDigits=9, odoObject=true)
 		private long transactionNbr;
 		
 		@CobolArray(minOccurs=0, maxOccurs=5, dependingOn="TRANSACTION-NBR")
@@ -146,27 +144,29 @@ public class CustomerData {
 		}
 	}
 
-	@CobolChoice
+	@CobolChoice(maxBytesLen = 8)
 	public static class TransactionDateChoice {
 		
 		@CobolString(cobolName = "TRANSACTION-DATE", charNum = 8)
-		private Optional<String> transactionDate;
+		private String transactionDate;
 		
-		private Optional<Filler_12> filler_12;
+		private Filler_12 filler_12;
 
-		public Optional<String> getTransactionDate() {
+		public String getTransactionDate() {
 			return transactionDate;
 		}
 
-		public void setTransactionDate(Optional<String> transactionDate) {
+		public void setTransactionDate(String transactionDate) {
 			this.transactionDate = transactionDate;
+			this.filler_12 = null;
 		}
 
-		public Optional<Filler_12> getFiller_12() {
+		public Filler_12 getFiller_12() {
 			return filler_12;
 		}
 
-		public void setFiller_12(Optional<Filler_12> filler_12) {
+		public void setFiller_12(Filler_12 filler_12) {
+			this.transactionDate = null;
 			this.filler_12 = filler_12;
 		}
 

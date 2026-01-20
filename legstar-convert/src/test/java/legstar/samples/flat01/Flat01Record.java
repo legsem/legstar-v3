@@ -10,7 +10,7 @@ import org.legstar.cobol.type.annotations.CobolZonedDecimal;
 @CobolGroup(cobolName = "FLAT01-RECORD")
 public class Flat01Record {
 	
-	@CobolZonedDecimal(cobolName = "COM-NUMBE", totalDigits = 6)
+	@CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
 	private BigDecimal comNumber;
 	
 	@CobolString(cobolName = "COM-NAME", charNum = 20)

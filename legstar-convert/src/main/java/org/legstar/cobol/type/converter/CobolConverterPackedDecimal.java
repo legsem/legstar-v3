@@ -1,7 +1,6 @@
 package org.legstar.cobol.type.converter;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 
 /**
@@ -22,8 +21,7 @@ public class CobolConverterPackedDecimal {
 	}
 
 	@SuppressWarnings(value = "unchecked")
-	public <T> T convert(InputStream is, boolean signed, int totalDigits, int fractionDigits,
-			Class<T> targetClass) {
+	public <T> T convert(CobolConverterInputStream is, boolean signed, int totalDigits, int fractionDigits, Class<T> targetClass) {
 		if (targetClass.equals(String.class)) {
 			return (T) toString(is, signed, totalDigits, fractionDigits);
 		} else if (targetClass.equals(BigDecimal.class)) {
@@ -33,11 +31,30 @@ public class CobolConverterPackedDecimal {
 		}
 	}
 
-	public String toString(InputStream is, boolean signed, int totalDigits, int fractionDigits) {
+	public String toString(CobolConverterInputStream is, boolean signed, int totalDigits, int fractionDigits) {
 		return toBigDecimal(is, signed, totalDigits, fractionDigits).toPlainString();
 	}
 
-	public BigDecimal toBigDecimal(InputStream is, boolean signed, int totalDigits, int fractionDigits) {
+	/**
+	 * Packed decimals encode each digit on 4 bits (a nibble). This allows to store
+	 * 2 digits in a byte (one high nibble, one low nibble).
+	 * <p>
+	 * This rule is true apart from the last (rightmost) byte where the low nibble
+	 * holds the sign. This is true even for unsigned decimals.
+	 * <p>
+	 * The storage size is the number of bytes needed to store totalDigits + 1
+	 * nibbles.
+	 * <p>
+	 * Here we allow all spaces and all low values but otherwise throw an exception
+	 * if the packed decimal is malformed.
+	 * 
+	 * @param is             host bytes to convert
+	 * @param signed         a signed decimal
+	 * @param totalDigits    total number of digits (including fraction digits)
+	 * @param fractionDigits scale
+	 * @return a BigDecimal
+	 */
+	public BigDecimal toBigDecimal(CobolConverterInputStream is, boolean signed, int totalDigits, int fractionDigits) {
 
 		try {
 			StringBuilder sb = new StringBuilder();

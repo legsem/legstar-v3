@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,8 +36,8 @@ public class CobolConverterTestBase {
 		return hex.parseHex(s);
 	}
 	
-	public InputStream inputStreamFrom(String hex) {
-		return new ByteArrayInputStream(hexToBytes(hex));
+	public CobolConverterInputStream inputStreamFrom(String hex) {
+		return new CobolConverterInputStream(new ByteArrayInputStream(hexToBytes(hex)));
 	}
  
 	public void check(String res) {

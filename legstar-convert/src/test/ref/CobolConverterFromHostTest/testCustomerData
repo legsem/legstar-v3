@@ -1,0 +1,24 @@
+{
+  "customerId" : 1,
+  "personalData" : {
+    "customerName" : "JOHN SMITH          ",
+    "customerAddress" : "CAMBRIDGE UNIVERSITY",
+    "customerPhone" : "44012565"
+  },
+  "transactions" : {
+    "transactionNbr" : 2,
+    "transactionArray" : [ {
+      "transactionDateChoice" : {
+        "transactionDate" : "10/04/11"
+      },
+      "transactionAmount" : 235.56,
+      "transactionComment" : "*********"
+    }, {
+      "transactionDateChoice" : {
+        "transactionDate" : "10/04/11"
+      },
+      "transactionAmount" : 235.56,
+      "transactionComment" : "*********"
+    } ]
+  }
+}
