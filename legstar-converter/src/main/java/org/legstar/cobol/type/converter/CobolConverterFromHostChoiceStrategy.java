@@ -10,10 +10,12 @@ public interface CobolConverterFromHostChoiceStrategy<T> {
 	 * 
 	 * @param root        Root object. It will hold values converted so far. This is
 	 *                    the top level ancestor of the Choice being converted.
+	 * @param choice      Choice object. The direct parent of the alternative field
+	 *                    to check
 	 * @param alternative the alternative field to check as the chosen alternative
 	 *                    in the choice
 	 * @return true if this field is the right choice
 	 */
-	 boolean choose(T root, Field alternative);
+	boolean choose(T root, Object choice, Field alternative);
 
 }

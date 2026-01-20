@@ -131,7 +131,7 @@ public class CobolConverterFromHost<T> {
 			Z choice = newInstance(choiceClass);
 			Field[] fields = choiceClass.getDeclaredFields();
 			for (Field alternative : fields) {
-				if (choiceStrategy.choose(getRoot(), alternative)) {
+				if (choiceStrategy.choose(getRoot(), choice, alternative)) {
 					is.mark(cobolChoice.maxBytesLen());
 					try {
 						Object value = convertField(is, alternative);
@@ -234,7 +234,7 @@ public class CobolConverterFromHost<T> {
 	class CobolConverterDefaultChoiceStrategy implements CobolConverterFromHostChoiceStrategy<T> {
 
 		@Override
-		public boolean choose(T root, Field alternative) {
+		public boolean choose(T root, Object choice, Field alternative) {
 			return true;
 		}
 

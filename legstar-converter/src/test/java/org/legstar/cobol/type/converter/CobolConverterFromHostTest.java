@@ -9,14 +9,23 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import legstar.samples.custdat.CustomerData;
 import legstar.samples.flat01.Flat01Record;
-import legstar.samples.rdef03.Rdef03ConverterChoiceStrategy;
+import legstar.samples.rdef03.Rdef03RecordChoiceStrategy;
 import legstar.samples.rdef03.Rdef03Record;
 
+/**
+ * TODO
+ * <ul>
+ * <li>Add case choice with an array alternative</li>
+ * <li>Add case array with Choice items</li>
+ * <li>Add case primitive as root</li>
+ * <li>Add case choice as root</li>
+ * <li>Add case array as root</li>
+ * </ul>
+ */
 public class CobolConverterFromHostTest extends CobolConverterTestBase {
 
 	private static final ObjectMapper OBJECT_MAPPER_SINGLETON = new ObjectMapper()
-			.setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
-			.enable(SerializationFeature.INDENT_OUTPUT);;
+			.setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL).enable(SerializationFeature.INDENT_OUTPUT);;
 
 	@Test
 	public void testFlat01() {
@@ -31,17 +40,25 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 	}
 
 	@Test
-	public void testRdef03() {
-		check(convert(
-				"0002F1F2F3F4F50000000000",
-				Rdef03Record.class, new Rdef03ConverterChoiceStrategy()));
+	public void testRdef03Choice1() {
+		check(convert("0000C3C1D4C2D9C9C4C7C540", Rdef03Record.class, new Rdef03RecordChoiceStrategy()));
+	}
+
+	@Test
+	public void testRdef03Choice2() {
+		check(convert("00010250000F", Rdef03Record.class, new Rdef03RecordChoiceStrategy()));
+	}
+
+	@Test
+	public void testRdef03Choice3() {
+		check(convert("0002F1F2F3F4F5", Rdef03Record.class, new Rdef03RecordChoiceStrategy()));
 	}
 
 	private <T> String convert(String payload, Class<T> clazz) {
 		return convert(payload, clazz, null);
 	}
-	
-	private <T> String convert(String payload, Class<T> clazz, CobolConverterFromHostChoiceStrategy choiceStrategy) {
+
+	private <T> String convert(String payload, Class<T> clazz, CobolConverterFromHostChoiceStrategy<T> choiceStrategy) {
 		try {
 			CobolConverterFromHost<T> fromHost = choiceStrategy == null ? new CobolConverterFromHost<>(config)
 					: new CobolConverterFromHost<>(config, choiceStrategy);

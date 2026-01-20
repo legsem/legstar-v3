@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.legsem.legstar</groupId>
-	<artifactId>legstar-convert</artifactId>
+	<artifactId>legstar-converter</artifactId>
 	<version>3.0.1-SNAPSHOT</version>
 
 	<name>legstar-convert</name>
