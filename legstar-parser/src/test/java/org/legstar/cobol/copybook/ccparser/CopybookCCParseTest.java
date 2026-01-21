@@ -8,10 +8,10 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
-import org.legstar.cobol.copybook.parser.TestBase;
+import org.legstar.cobol.copybook.parser.CopybookParserTestBase;
 
 
-public class CopybookCCParseTest extends TestBase {
+public class CopybookCCParseTest extends CopybookParserTestBase {
 
 	@Test
 	public void parseOneEmpty() {

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.legstar.cobol.data.entry.CobolDataEntry;
 
-public class CopybookParserTest extends TestBase {
+public class CopybookParserTest extends CopybookParserTestBase {
 	
 	private static final Path COPYBOOKS = Paths.get("src/test/copybook");
 	

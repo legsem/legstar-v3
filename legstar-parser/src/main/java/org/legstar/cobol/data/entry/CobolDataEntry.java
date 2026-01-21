@@ -248,6 +248,13 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 				&& minOccurs != maxOccurs //
 				&& (dependingOn != null && !dependingOn.isBlank());
 	}
+	
+	/**
+	 * @return true if this is a group data entry
+	 */
+	public boolean isGroup() {
+		return children() != null && !children().isEmpty();
+	}
 
     @Override
 	public String toString() {

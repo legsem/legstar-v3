@@ -5,15 +5,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.legsem.legstar</groupId>
-	<artifactId>legstar-converter</artifactId>
+	<artifactId>legstar-base</artifactId>
 	<version>3.0.1-SNAPSHOT</version>
 
-	<name>legstar-converter</name>
+	<name>legstar-base</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>17</maven.compiler.release>
-		<jackson.version>2.20.1</jackson.version>
 	</properties>
 
 	<dependencyManagement>
@@ -30,19 +29,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.legsem.legstar</groupId>
-			<artifactId>legstar-base</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
