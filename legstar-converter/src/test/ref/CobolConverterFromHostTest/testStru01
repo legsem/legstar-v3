@@ -1,0 +1,9 @@
+{
+  "comNumber" : 62,
+  "comName" : "NAME000062          ",
+  "comAmount" : 3100.00,
+  "comSubRecord" : {
+    "comItem1" : 62,
+    "comItem2" : "AB"
+  }
+}

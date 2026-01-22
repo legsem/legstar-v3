@@ -3,6 +3,9 @@ package org.legstar.cobol.generator.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * TODO CR/DB and N/G probably not handled correctly
+ */
 public class PictureUtils {
 	
 	private static final Pattern COMP_NUMERIC = Pattern.compile("(S?)([0-9\\(\\)]*?)(V([0-9\\(\\)]*?))?",

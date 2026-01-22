@@ -21,6 +21,11 @@ public class CobolBeanGeneratorTest extends CobolGeneratorTestBase {
 		check(generate("FLAT01"));
 	}
 
+	@Test
+	public void testStru01() {
+		check(generate("STRU01"));
+	}
+
 	private String generate(String source) {
 		StringWriter sw = new StringWriter();
 		new CobolBeanGenerator(config).generate(source, getReader(source), sw);

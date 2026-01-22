@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import legstar.samples.custdat.CustomerData;
 import legstar.samples.flat01.Flat01Record;
+import legstar.samples.stru01.Stru01Record;
 import legstar.samples.rdef03.Rdef03RecordChoiceStrategy;
 import legstar.samples.rdef03.Rdef03Record;
 
@@ -30,6 +31,11 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 	@Test
 	public void testFlat01() {
 		check(convert("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F", Flat01Record.class));
+	}
+
+	@Test
+	public void testStru01() {
+		check(convert("F0F0F0F0F6F2D5C1D4C5F0F0F0F0F6F2404040404040404040400310000F003EC1C2", Stru01Record.class));
 	}
 
 	@Test

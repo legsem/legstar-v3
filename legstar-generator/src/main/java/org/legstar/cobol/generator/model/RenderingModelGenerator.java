@@ -6,6 +6,11 @@ import java.util.List;
 import org.legstar.cobol.data.entry.CobolDataEntry;
 import org.legstar.cobol.generator.utils.PictureUtils;
 
+/**
+ * TODO Occurs Depending On not handled
+ * TODO missing Float & Double
+ * TODO National & DBCS (DISPLAY-1) not handled
+ */
 public class RenderingModelGenerator {
 
 	public RenderingModel generate(String source, CobolDataEntry dataEntry, String targetPackagePrefix) {
@@ -58,6 +63,9 @@ public class RenderingModelGenerator {
 		}
 	}
 
+	/**
+	 * A group item.
+	 */
 	private RenderingGroup generateGroup(CobolDataEntry dataEntry) {
 		List<RenderingItem> children = new ArrayList<>();
 		dataEntry.children().stream().map(this::generate).forEach(children::add);
