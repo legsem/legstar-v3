@@ -5,10 +5,10 @@
 
 !{var fieldName = model.fieldName(field_model.cobolName());}
 
-    public BigDecimal ${model.getterName(field_model.cobolName())}() {
+    public BigDecimal@if(field_model.isArray())[]@endif ${model.getterName(field_model.cobolName())}() {
         return ${fieldName};
     }
 
-    public void ${model.setterName(field_model.cobolName())}(BigDecimal ${fieldName}) {
+    public void ${model.setterName(field_model.cobolName())}(BigDecimal@if(field_model.isArray())[]@endif ${fieldName}) {
         this.${fieldName} = ${fieldName};
     }

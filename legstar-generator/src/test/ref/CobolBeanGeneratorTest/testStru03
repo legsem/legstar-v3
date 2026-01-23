@@ -1,11 +1,11 @@
-package legstar.samples.stru01;
+package legstar.samples.stru03;
 
 import java.math.BigDecimal;
 
 import org.legstar.cobol.type.annotations.*;
 
-@CobolGroup(cobolName = "STRU01-RECORD")
-public class Stru01Record {
+@CobolGroup(cobolName = "STRU03-RECORD")
+public class Stru03Record {
 
     @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
     private BigDecimal comNumber;
@@ -16,7 +16,8 @@ public class Stru01Record {
     @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
     private BigDecimal comAmount;
 
-    private ComSubRecord comSubRecord;
+    @CobolArray(minOccurs=5, maxOccurs=5)
+    private ComArray[] comArray;
 
     public BigDecimal getComNumber() {
         return comNumber;
@@ -42,16 +43,16 @@ public class Stru01Record {
         this.comAmount = comAmount;
     }
 
-    public ComSubRecord getComSubRecord() {
-        return comSubRecord;
+    public ComArray[] getComArray() {
+        return comArray;
     }
 
-    public void setComSubRecord(ComSubRecord comSubRecord) {
-        this.comSubRecord = comSubRecord;
+    public void setComArray(ComArray[] comArray) {
+        this.comArray = comArray;
     }
 
-@CobolGroup(cobolName = "COM-SUB-RECORD")
-public static class ComSubRecord {
+@CobolGroup(cobolName = "COM-ARRAY")
+public static class ComArray {
 
     @CobolBinaryNumber(cobolName = "COM-ITEM1", signed = true, totalDigits = 4)
     private Short comItem1;

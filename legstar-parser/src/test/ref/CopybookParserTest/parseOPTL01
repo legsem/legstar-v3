@@ -1,0 +1,11 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=OPTL01-RECORD, children=[
+    CobolDataEntry [levelNumber=5, cobolName=OPTL-STRUCT-IND, picture=9(3), srceLine=8]
+    CobolDataEntry [levelNumber=5, cobolName=OPTL-ITEM-IND, picture=9(3), srceLine=9]
+    CobolDataEntry [levelNumber=5, cobolName=OPTL-STRUCT, minOccurs=0, maxOccurs=1, dependingOn=OPTL-STRUCT-IND, children=[
+      CobolDataEntry [levelNumber=10, cobolName=OPTL-STRUCT-FIELD1, picture=X(18), srceLine=12]
+      CobolDataEntry [levelNumber=10, cobolName=OPTL-STRUCT-FIELD2, picture=X(05), srceLine=13]
+    ], srceLine=10]
+    CobolDataEntry [levelNumber=5, cobolName=OPTL-ITEM, picture=X(32), minOccurs=0, maxOccurs=1, dependingOn=OPTL-ITEM-IND, srceLine=14]
+  ], srceLine=7]
+]

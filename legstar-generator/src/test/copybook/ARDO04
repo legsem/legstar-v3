@@ -1,0 +1,5 @@
+       01 ARDO04-RECORD.
+          05 C-ITEMS-NUMBER PIC S9(4) COMP-5.
+          05 C-ARRAY   OCCURS 1 TO 250 DEPENDING ON C-ITEMS-NUMBER.
+             10 C-ITEM-1  PIC X(5).
+             10 C-ITEM-2  PIC S9(4) BINARY.

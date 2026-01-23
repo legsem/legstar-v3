@@ -54,16 +54,16 @@ public class Stru01Record {
 public static class ComSubRecord {
 
     @CobolBinaryNumber(cobolName = "COM-ITEM1", signed = true, totalDigits = 4)
-    private short comItem1;
+    private Short comItem1;
 
     @CobolString(cobolName = "COM-ITEM2", charNum = 2)
     private String comItem2;
 
-    public short getComItem1() {
+    public Short getComItem1() {
         return comItem1;
     }
 
-    public void setComItem1(short comItem1) {
+    public void setComItem1(Short comItem1) {
         this.comItem1 = comItem1;
     }
 

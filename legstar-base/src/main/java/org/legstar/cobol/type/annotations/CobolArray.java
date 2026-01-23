@@ -13,6 +13,6 @@ public @interface CobolArray {
 	
 	int maxOccurs();
 	
-	String dependingOn();
+	String dependingOn() default "";
 
 }

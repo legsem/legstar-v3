@@ -1,0 +1,13 @@
+{
+  "citemsNumber" : 3,
+  "carray" : [ {
+    "citem1" : "A    ",
+    "citem2" : 1
+  }, {
+    "citem1" : "B    ",
+    "citem2" : 2
+  }, {
+    "citem1" : "C    ",
+    "citem2" : 3
+  } ]
+}

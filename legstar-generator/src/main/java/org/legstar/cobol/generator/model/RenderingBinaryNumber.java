@@ -1,18 +1,18 @@
 package org.legstar.cobol.generator.model;
 
 /**
- * TODO native binaries need more thoughts
+ * TODO unsigned native binaries may require Integer/Long/BigInteger
  */
-public record RenderingBinaryNumber(String cobolName, boolean signed, int totalDigits, boolean odoObject)
-		implements RenderingItem {
-	
+public record RenderingBinaryNumber(String cobolName, boolean signed, int totalDigits, boolean odoObject,
+		RenderingArray array) implements RenderingItem {
+
 	public String typeName() {
 		if (totalDigits <= 4) {
-			return "short";
+			return "Short";
 		} else if (totalDigits <= 9) {
-			return "int";
+			return "Integer";
 		} else {
-			return "long";
+			return "Long";
 		}
 	}
 }

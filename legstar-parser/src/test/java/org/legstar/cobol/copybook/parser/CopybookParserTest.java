@@ -157,6 +157,11 @@ public class CopybookParserTest extends CopybookParserTestBase {
 	}
 	
 	@Test
+	public void parseOPTL01() {
+		check(parse("OPTL01"));
+	}
+	
+	@Test
 	public void parseOSARRAYS() {
 		check(parse("OSARRAYS"));
 	}

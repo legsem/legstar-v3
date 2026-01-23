@@ -22,8 +22,38 @@ public class CobolBeanGeneratorTest extends CobolGeneratorTestBase {
 	}
 
 	@Test
+	public void testFlat02() {
+		check(generate("FLAT02"));
+	}
+
+	@Test
 	public void testStru01() {
 		check(generate("STRU01"));
+	}
+
+	@Test
+	public void testStru03() {
+		check(generate("STRU03"));
+	}
+
+	@Test
+	public void testArdo01() {
+		check(generate("ARDO01"));
+	}
+
+	@Test
+	public void testArdo03() {
+		check(generate("ARDO03"));
+	}
+
+	@Test
+	public void testArdo04() {
+		check(generate("ARDO04"));
+	}
+
+	@Test
+	public void testOptl01() {
+		check(generate("OPTL01"));
 	}
 
 	private String generate(String source) {

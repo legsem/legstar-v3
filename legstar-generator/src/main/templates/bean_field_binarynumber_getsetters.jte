@@ -4,12 +4,12 @@
 @param RenderingBinaryNumber field_model
 
 !{var fieldName = model.fieldName(field_model.cobolName());}
-!{var typeName = model.fieldName(field_model.typeName());}
+!{var typeName = field_model.typeName();}
 
-    public ${typeName} ${model.getterName(field_model.cobolName())}() {
+    public ${typeName}@if(field_model.isArray())[]@endif ${model.getterName(field_model.cobolName())}() {
         return ${fieldName};
     }
 
-    public void ${model.setterName(field_model.cobolName())}(${typeName} ${fieldName}) {
+    public void ${model.setterName(field_model.cobolName())}(${typeName}@if(field_model.isArray())[]@endif ${fieldName}) {
         this.${fieldName} = ${fieldName};
     }

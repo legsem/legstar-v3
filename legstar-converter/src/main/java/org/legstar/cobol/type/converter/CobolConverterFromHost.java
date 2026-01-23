@@ -115,7 +115,7 @@ public class CobolConverterFromHost<T> {
 
 	private <Z> Z[] convertArray(CobolArray cobolArray, Annotation cobolItemType, CobolConverterInputStream is,
 			Class<Z> itemClass) {
-		int maxOccurs = cobolArray.dependingOn() == null //
+		int maxOccurs = cobolArray.dependingOn() == null || cobolArray.dependingOn().isBlank() //
 				? cobolArray.maxOccurs() //
 				: getOdoObjectValue(cobolArray.dependingOn());
 		@SuppressWarnings("unchecked")
@@ -225,7 +225,12 @@ public class CobolConverterFromHost<T> {
 	}
 
 	private int getOdoObjectValue(String dependingOn) {
-		return odoObjectValues.get(dependingOn);
+		if (odoObjectValues.containsKey(dependingOn)) {
+			return odoObjectValues.get(dependingOn);
+		} else {
+			throw new CobolConverterException(
+					"Occurs depending on " + dependingOn + " was not set");
+		}
 	}
 
 	// -----------------------------------------------------------------------------
