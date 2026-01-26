@@ -3,6 +3,8 @@ package org.legstar.cobol.type.converter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import org.legstar.cobol.type.utils.BytesLenUtils;
+
 /**
  * Converts between a Cobol binary number and a java Short, Integer or Long.
  * <p>
@@ -120,7 +122,7 @@ public class CobolConverterBinaryNumber {
 	 */
 	private ByteBuffer toByteBuffer(CobolConverterInputStream is, int totalDigits) {
 		try {
-			int byteLen = byteLen(totalDigits);
+			int byteLen = BytesLenUtils.binaryNumberByteLen(totalDigits);
 			byte[] buffer = new byte[byteLen];
 			is.read(buffer);
 			return ByteBuffer.wrap(buffer);
@@ -138,24 +140,6 @@ public class CobolConverterBinaryNumber {
 		ByteBuffer newbb = ByteBuffer.allocate(initialCapacity + additionalCapacity);
 		newbb.put(additionalCapacity, bb, 0, initialCapacity);
 		return newbb;
-	}
-
-	/**
-	 * A binary number bytes occupation depends on the number of decimal digits:
-	 * <ul>
-	 * <li>4 or less: 2 bytes</li>
-	 * <li>5 to 9: 4 bytes</li>
-	 * <li>10 to 18: 8 bytes</li>
-	 * </ul>
-	 */
-	private int byteLen(int totalDigits) {
-		if (totalDigits <= 4) {
-			return 2;
-		} else if (totalDigits <= 9) {
-			return 4;
-		} else {
-			return 8;
-		}
 	}
 
 }

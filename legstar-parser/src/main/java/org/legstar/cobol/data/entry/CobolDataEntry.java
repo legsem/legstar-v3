@@ -250,10 +250,32 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 	}
 	
 	/**
-	 * @return true if this is a group data entry
+	 * @return true if this is a group data entry (has children and at least one of
+	 *         them is not a condition name or a renames)
 	 */
 	public boolean isGroup() {
-		return children() != null && !children().isEmpty();
+		return children() != null && children().stream().anyMatch(c -> !(c.isRenames() || c.isConditionName()));
+	}
+
+	/**
+	 * @return true if this item redefines another
+	 */
+	public boolean isRedefinition() {
+		return redefines() != null && !redefines().isBlank();
+	}
+
+	/**
+	 * @return true if this item redefines another
+	 */
+	public boolean isConditionName() {
+		return levelNumber() == 88;
+	}
+
+	/**
+	 * @return true if this item renames other items
+	 */
+	public boolean isRenames() {
+		return levelNumber() == 66;
 	}
 
     @Override

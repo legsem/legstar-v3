@@ -51,4 +51,5 @@ public class Flat02Record {
     public void setComArray(Short[] comArray) {
         this.comArray = comArray;
     }
+
 }

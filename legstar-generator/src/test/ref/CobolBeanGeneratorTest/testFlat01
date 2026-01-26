@@ -39,4 +39,5 @@ public class Flat01Record {
     public void setComAmount(BigDecimal comAmount) {
         this.comAmount = comAmount;
     }
+
 }

@@ -56,6 +56,11 @@ public class CobolBeanGeneratorTest extends CobolGeneratorTestBase {
 		check(generate("OPTL01"));
 	}
 
+	@Test
+	public void testRdef01() {
+		check(generate("RDEF01"));
+	}
+
 	private String generate(String source) {
 		StringWriter sw = new StringWriter();
 		new CobolBeanGenerator(config).generate(source, getReader(source), sw);

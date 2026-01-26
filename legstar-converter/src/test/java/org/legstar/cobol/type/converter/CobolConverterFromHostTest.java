@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -16,6 +15,7 @@ import legstar.samples.custdat.CustomerData;
 import legstar.samples.flat01.Flat01Record;
 import legstar.samples.flat02.Flat02Record;
 import legstar.samples.optl01.Optl01Record;
+import legstar.samples.rdef01.Rdef01Record;
 import legstar.samples.rdef03.Rdef03Record;
 import legstar.samples.rdef03.Rdef03RecordChoiceStrategy;
 import legstar.samples.stru01.Stru01Record;
@@ -34,7 +34,6 @@ import legstar.samples.stru03.Stru03Record;
 public class CobolConverterFromHostTest extends CobolConverterTestBase {
 	
 	private static final ObjectMapper OBJECT_MAPPER_SINGLETON = JsonMapper.builder()
-			.configure(MapperFeature.SORT_CREATOR_PROPERTIES_BY_DECLARATION_ORDER, true)
 			.configure(SerializationFeature.INDENT_OUTPUT, true)
 			.defaultPropertyInclusion(JsonInclude.Value.construct(JsonInclude.Include.NON_NULL, JsonInclude.Include.NON_NULL))
 			.build();
@@ -114,6 +113,11 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 		check(convert(
 				"F0F0F0F0F0F1D1D6C8D540E2D4C9E3C840404040404040404040C3C1D4C2D9C9C4C7C540E4D5C9E5C5D9E2C9E3E8F4F4F0F1F2F5F6F500000002F1F061F0F461F1F1000000000023556C5C5C5C5C5C5C5C5C5CF1F061F0F461F1F1000000000023556C5C5C5C5C5C5C5C5C5C",
 				CustomerData.class));
+	}
+
+	@Test
+	public void testRdef01Choice1() {
+		check(convert("0001D1D6C8D540E2D4C9E3C8", Rdef01Record.class));
 	}
 
 	@Test

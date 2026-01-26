@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.legstar.cobol.data.entry.CobolDataEntry;
-import org.legstar.cobol.generator.utils.PictureUtils;
+import org.legstar.cobol.type.utils.PictureUtils;
 
 /**
  * TODO missing Float & Double
@@ -14,6 +14,9 @@ import org.legstar.cobol.generator.utils.PictureUtils;
  * TODO National & DBCS (DISPLAY-1) not handled
  * <p>
  * TODO For occurs depending on relationships, the cobol name could be qualified
+ * - this is not handled
+ * <p>
+ * TODO For redefines relationships, the cobol name could be qualified
  * - this is not handled
  */
 public class RenderingModelGenerator {
@@ -23,8 +26,17 @@ public class RenderingModelGenerator {
 	 */
 	private Set<String> odoObjects;
 
+	/**
+	 * Cobol name of items which are redefined by at least one sibling.
+	 */
+	private Set<String> redefObjects;
+
 	public RenderingModel generate(String source, CobolDataEntry dataEntry, String targetPackagePrefix) {
+		if (dataEntry.isConditionName() || dataEntry.isRenames()) {
+			throw new IllegalArgumentException("This type of entry is not supported: " + dataEntry);
+		}
 		odoObjects = odoObjects(dataEntry);
+		redefObjects = redefObjects(dataEntry);
 		StringBuilder sb = new StringBuilder();
 		if (targetPackagePrefix != null && !targetPackagePrefix.isBlank()) {
 			sb.append(targetPackagePrefix);
@@ -81,10 +93,37 @@ public class RenderingModelGenerator {
 
 	/**
 	 * A group item.
+	 * <p>
+	 * Level 88 and 66 are ignored.
+	 * <p>
+	 * Group children which are redefined along with the definition object are
+	 * grouped in a RenderingChoice item.
 	 */
 	private RenderingGroup generateGroup(CobolDataEntry dataEntry) {
 		List<RenderingItem> children = new ArrayList<>();
-		dataEntry.children().stream().map(this::generate).forEach(children::add);
+		List<RenderingItem> choiceAlternatives = null;
+		RenderingArray choiceArray = null;
+		for (CobolDataEntry child : dataEntry.children()) {
+			if (child.isConditionName() || child.isRenames()) {
+				continue;
+			} else if (isRedefObject(child)) {
+				choiceArray = generateArray(child);
+				choiceAlternatives = new ArrayList<>();
+				choiceAlternatives.add(generate(child));
+			} else if (child.isRedefinition()) {
+				choiceAlternatives.add(generate(child));
+			} else {
+				if (choiceAlternatives != null) {
+					children.add(new RenderingChoice(choiceAlternatives, choiceArray));
+					choiceArray = null;
+					choiceAlternatives = null;
+				}
+				children.add(generate(child));
+			}
+		}
+		if (choiceAlternatives != null) {
+			children.add(new RenderingChoice(choiceAlternatives, choiceArray));
+		}
 		return new RenderingGroup(dataEntry.cobolName(), children, generateArray(dataEntry));
 	}
 
@@ -162,6 +201,35 @@ public class RenderingModelGenerator {
 	 */
 	private boolean isOdoObject(CobolDataEntry dataEntry) {
 		return odoObjects.contains(dataEntry.cobolName());
+	}
+
+	/**
+	 * Identify all cobol names corresponding to items that are redefined by at
+	 * least one sibling.
+	 */
+	private Set<String> redefObjects(CobolDataEntry dataEntry) {
+		Set<String> redefined = new HashSet<>();
+		addRedefined(redefined, dataEntry);
+		return redefined;
+	}
+
+	/**
+	 * Items redefining a sibling form a Choice model.
+	 */
+	private void addRedefined(Set<String> redefined, CobolDataEntry dataEntry) {
+		if (dataEntry.isRedefinition()) {
+			redefined.add(dataEntry.redefines());
+		}
+		if (dataEntry.isGroup()) {
+			dataEntry.children().forEach(child -> addRedefined(redefined, child));
+		}
+	}
+
+	/**
+	 * Is this a redefined data entry
+	 */
+	private boolean isRedefObject(CobolDataEntry dataEntry) {
+		return redefObjects.contains(dataEntry.cobolName());
 	}
 
 }

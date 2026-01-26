@@ -51,4 +51,5 @@ public class Ardo01Record {
     public void setComArray(BigDecimal[] comArray) {
         this.comArray = comArray;
     }
+
 }

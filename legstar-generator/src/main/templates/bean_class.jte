@@ -5,10 +5,11 @@
 @import org.legstar.cobol.generator.model.RenderingPackedDecimal
 @import org.legstar.cobol.generator.model.RenderingItem
 @param RenderingModel model
-!{var renderingGroup = (RenderingGroup) model.cobol_item();}
 @if(model.target_package_name() != null)package ${model.target_package_name()};@endif
 
 import java.math.BigDecimal;
 
 import org.legstar.cobol.type.annotations.*;
+@if(model.cobol_item() instanceof RenderingGroup renderingGroup)
 @template.bean_group(model, renderingGroup)
+@endif

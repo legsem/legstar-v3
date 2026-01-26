@@ -76,6 +76,7 @@ public static class OptlStruct {
     public void setOptlStructField2(String optlStructField2) {
         this.optlStructField2 = optlStructField2;
     }
+
 }
 
 }

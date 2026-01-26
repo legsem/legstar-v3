@@ -1,4 +1,4 @@
-package org.legstar.cobol.generator.utils;
+package org.legstar.cobol.type.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

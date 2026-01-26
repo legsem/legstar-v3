@@ -3,6 +3,8 @@ package org.legstar.cobol.type.converter;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+import org.legstar.cobol.type.utils.BytesLenUtils;
+
 /**
  * Converts between a Cobol packed decimal and a java BigDecimal.
  */
@@ -58,8 +60,7 @@ public class CobolConverterPackedDecimal {
 
 		try {
 			StringBuilder sb = new StringBuilder();
-			int bytesLen = (totalDigits + 2) / 2;
-
+			int bytesLen = BytesLenUtils.packedDecimalByteLen(totalDigits);
 			for (int i = 0; i < bytesLen; i++) {
 				int c = is.read();
 				if (c == -1) {

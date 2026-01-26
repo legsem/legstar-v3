@@ -75,6 +75,7 @@ public static class ComArray {
     public void setComItem2(String comItem2) {
         this.comItem2 = comItem2;
     }
+
 }
 
 }

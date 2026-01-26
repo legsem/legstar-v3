@@ -1,5 +1,7 @@
 package org.legstar.cobol.generator.model;
 
+import org.legstar.cobol.type.utils.BytesLenUtils;
+
 /**
  * TODO unsigned native binaries may require Integer/Long/BigInteger
  */
@@ -14,5 +16,11 @@ public record RenderingBinaryNumber(String cobolName, boolean signed, int totalD
 		} else {
 			return "Long";
 		}
+	}
+
+	@Override
+	public int maxBytesLen() {
+		int maxBytesLen = BytesLenUtils.binaryNumberByteLen(totalDigits);
+		return array == null ? maxBytesLen : array.maxOccurs() * maxBytesLen;
 	}
 }

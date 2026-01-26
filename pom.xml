@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.legsem.legstar</groupId>
+	<artifactId>legstar3</artifactId>
+	<version>3.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>legstar3</name>
+	<description>Translates COBOL structures to a java model. Converts Mainframe
+		data to Java objects.</description>
+	<url>https://github.com/legsem/legstar-sandbox</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+	</properties>
+
+	<issueManagement>
+		<system>Github Issue Tracking</system>
+		<url>https://github.com/legsem/legstar-sandbox/issues</url>
+	</issueManagement>
+
+	<scm>
+		<connection>scm:git:https://legsem@github.com/legsem/legstar-sandbox.git</connection>
+		<developerConnection>
+			scm:git:https://legsem@github.com/legsem/legstar-sandbox.git</developerConnection>
+		<url>https://github.com/legsem/legstar-sandbox.git</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<site>
+			<id>legstar.website</id>
+			<url>file:///${user.home}/${project.artifactId}/site</url>
+		</site>
+	</distributionManagement>
+
+	<developers>
+		<developer>
+			<id>fady</id>
+			<name>Fady Moussallam</name>
+			<email>fady@NOSPAMlegsem.com</email>
+			<organization>Legsem.com</organization>
+			<roles>
+				<role>Project Manager</role>
+				<role>Architect</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>APACHE LICENSE, VERSION 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>LegSem</name>
+		<url>https://www.legsem.com/</url>
+	</organization>
+
+	<modules>
+		<module>legstar-base</module>
+		<module>legstar-converter</module>
+		<module>legstar-generator</module>
+		<module>legstar-parser</module>
+	</modules>
+
+	<dependencyManagement>
+
+		<dependencies>
+
+			<!-- LegStar Base -->
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-base</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- LegStar Converter -->
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-converter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- LegStar Generator -->
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-generator</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- LegStar Parser -->
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-parser</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- Tests -->
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.11.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+	<build>
+
+		<pluginManagement>
+
+			<plugins>
+
+				<!-- Add source folders (for generated code) -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>3.6.1</version>
+				</plugin>
+
+			</plugins>
+
+		</pluginManagement>
+
+	</build>
+
+</project>

@@ -4,29 +4,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.legsem.legstar</groupId>
+	<parent>
+		<groupId>com.legsem.legstar</groupId>
+		<artifactId>legstar3</artifactId>
+		<version>3.0.1-SNAPSHOT</version>
+	</parent>
+
 	<artifactId>legstar-parser</artifactId>
-	<version>3.0.1-SNAPSHOT</version>
 
 	<name>legstar-parser</name>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>17</maven.compiler.release>
 		<congocc.version>2.1.0</congocc.version>
 	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.junit</groupId>
-				<artifactId>junit-bom</artifactId>
-				<version>5.11.0</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -67,7 +57,6 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.6.1</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>

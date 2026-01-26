@@ -15,9 +15,9 @@ public class CobolConverterString {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T convert(CobolConverterInputStream is, int bytesLen, Class<T> targetClass) {
+	public <T> T convert(CobolConverterInputStream is, int charNum, Class<T> targetClass) {
 		if (targetClass.equals(String.class)) {
-			return (T) toString(is, bytesLen);
+			return (T) toString(is, charNum);
 		} else {
 			throw new CobolConverterException("Unsupported target class " + targetClass);
 		}

@@ -1,9 +1,10 @@
-package org.legstar.cobol.generator.utils;
+package org.legstar.cobol.type.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+import org.legstar.cobol.type.utils.PictureUtils;
 
 public class PictureUtilsTest {
 	

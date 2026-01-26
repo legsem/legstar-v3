@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 
+import org.legstar.cobol.type.utils.BytesLenUtils;
+
 /**
  * Converts between a Cobol zoned decimal and a java BigDecimal or String.
  * <p>
@@ -60,7 +62,7 @@ public class CobolConverterZonedDecimal {
 		try {
 			StringBuilder sb = new StringBuilder();
 			int signum = 0;
-			int bytesLen = totalDigits + (signSeparate ? 1 : 0);
+			int bytesLen = BytesLenUtils.zonedDecimalByteLen(totalDigits, signSeparate);
 
 			for (int i = 0; i < bytesLen; i++) {
 				int c = is.read();
