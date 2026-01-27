@@ -1,7 +1,1 @@
-{
-  "odoCounter" : 1,
-  "odoArray" : [ {
-    "odoSubCounter" : 0,
-    "odoSubArray" : [ ]
-  } ]
-}
+{odoCounter=1, odoArray=[{odoSubCounter=0, odoSubArray=[]}]}

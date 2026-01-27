@@ -4,6 +4,6 @@
 @param RenderingChoice renderingChoice
 
 @CobolChoice(maxBytesLen = ${renderingChoice.maxBytesLen()})
-public static class ${model.className(renderingChoice.cobolName())} {
+public static class ${renderingChoice.className()} {
 @template.bean_fields(model, renderingChoice.alternatives())
 }

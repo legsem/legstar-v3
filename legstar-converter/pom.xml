@@ -14,10 +14,6 @@
 
 	<name>legstar-converter</name>
 
-	<properties>
-		<jackson.version>2.20.1</jackson.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.legsem.legstar</groupId>
@@ -26,12 +22,6 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -61,4 +61,5 @@ public class CobolConverterTestBase {
 	private String normalize(String s) {
 		return s.replaceAll("\\r\\n?", "\n");
 	}
+	
 }

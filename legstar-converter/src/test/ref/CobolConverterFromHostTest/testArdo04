@@ -1,13 +1,1 @@
-{
-  "citemsNumber" : 3,
-  "carray" : [ {
-    "citem1" : "A    ",
-    "citem2" : 1
-  }, {
-    "citem1" : "B    ",
-    "citem2" : 2
-  }, {
-    "citem1" : "C    ",
-    "citem2" : 3
-  } ]
-}
+{cItemsNumber=3, cArray=[{cItem1=A    , cItem2=1}, {cItem1=B    , cItem2=2}, {cItem1=C    , cItem2=3}]}

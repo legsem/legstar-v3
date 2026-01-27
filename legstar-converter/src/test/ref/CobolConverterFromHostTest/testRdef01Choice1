@@ -1,8 +1,1 @@
-{
-  "comSelect" : 1,
-  "comDetail1Choice" : {
-    "comDetail1" : {
-      "comName" : "JOHN SMITH"
-    }
-  }
-}
+{comSelect=1, comDetail1Choice={comDetail1={comName=JOHN SMITH}, comDetail2=null}}

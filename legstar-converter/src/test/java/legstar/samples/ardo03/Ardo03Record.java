@@ -1,6 +1,7 @@
 package legstar.samples.ardo03;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.legstar.cobol.type.annotations.*;
 
@@ -67,8 +68,35 @@ public static class OdoSubArray {
     public void setFiller(String filler) {
         this.filler = filler;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("filler=").append(filler)
+            .append("}");
+        return sb.toString();
+    }
 }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("odoSubCounter=").append(odoSubCounter)
+            .append(", odoSubArray=").append(Arrays.toString(odoSubArray))
+            .append("}");
+        return sb.toString();
+    }
 }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("odoCounter=").append(odoCounter)
+            .append(", odoArray=").append(Arrays.toString(odoArray))
+            .append("}");
+        return sb.toString();
+    }
 }

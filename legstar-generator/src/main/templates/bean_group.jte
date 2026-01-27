@@ -5,6 +5,6 @@
 @param boolean subGroup = false
 
 @CobolGroup(cobolName = "${renderingGroup.cobolName()}")
-public@if(subGroup) static@endif class ${model.className(renderingGroup.cobolName())} {
+public@if(subGroup) static@endif class ${renderingGroup.className()} {
 @template.bean_fields(model, renderingGroup.fields())
 }

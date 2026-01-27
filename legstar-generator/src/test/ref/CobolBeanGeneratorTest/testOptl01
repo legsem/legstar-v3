@@ -1,6 +1,7 @@
 package legstar.samples.optl01;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.legstar.cobol.type.annotations.*;
 
@@ -77,6 +78,26 @@ public static class OptlStruct {
         this.optlStructField2 = optlStructField2;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("optlStructField1=").append(optlStructField1)
+            .append(", optlStructField2=").append(optlStructField2)
+            .append("}");
+        return sb.toString();
+    }
 }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("optlStructInd=").append(optlStructInd)
+            .append(", optlItemInd=").append(optlItemInd)
+            .append(", optlStruct=").append(Arrays.toString(optlStruct))
+            .append(", optlItem=").append(Arrays.toString(optlItem))
+            .append("}");
+        return sb.toString();
+    }
 }

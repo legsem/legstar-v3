@@ -61,6 +61,16 @@ public class CobolBeanGeneratorTest extends CobolGeneratorTestBase {
 		check(generate("RDEF01"));
 	}
 
+	@Test
+	public void testRdef03() {
+		check(generate("RDEF03"));
+	}
+
+	@Test
+	public void testCustdat() {
+		check(generate("CUSTDAT"));
+	}
+
 	private String generate(String source) {
 		StringWriter sw = new StringWriter();
 		new CobolBeanGenerator(config).generate(source, getReader(source), sw);

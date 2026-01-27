@@ -1,12 +1,8 @@
 package org.legstar.cobol.type.converter;
 
-import org.junit.jupiter.api.Test;
+import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import org.junit.jupiter.api.Test;
 
 import legstar.samples.ardo01.Ardo01Record;
 import legstar.samples.ardo03.Ardo03Record;
@@ -33,11 +29,6 @@ import legstar.samples.stru03.Stru03Record;
  */
 public class CobolConverterFromHostTest extends CobolConverterTestBase {
 	
-	private static final ObjectMapper OBJECT_MAPPER_SINGLETON = JsonMapper.builder()
-			.configure(SerializationFeature.INDENT_OUTPUT, true)
-			.defaultPropertyInclusion(JsonInclude.Value.construct(JsonInclude.Include.NON_NULL, JsonInclude.Include.NON_NULL))
-			.build();
-
 	@Test
 	public void testFlat01() {
 		check(convert("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F", Flat01Record.class));
@@ -104,8 +95,8 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 	}
 
 	@Test
-	public void testOptl01First() {
-		check(convert("F0F0F1F0F0F0C3C1D4C2D90001", Optl01Record.class));
+	public void testOptl01StructPresentStringAbsent() {
+		check(convert("F0F0F1F0F0F0F1F2F3F4F5F6F7F8F9F0F1F2F3F4F5F6F7F8C1C2C3C4C5", Optl01Record.class));
 	}
 
 	@Test
@@ -144,8 +135,8 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 			CobolConverterFromHost<T> fromHost = choiceStrategy == null ? new CobolConverterFromHost<>(config)
 					: new CobolConverterFromHost<>(config, choiceStrategy);
 			T output = fromHost.convert(inputStreamFrom(payload), clazz);
-			return OBJECT_MAPPER_SINGLETON.writeValueAsString(output);
-		} catch (JsonProcessingException e) {
+			return Objects.toString(output);
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

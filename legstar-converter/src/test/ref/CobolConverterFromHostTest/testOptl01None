@@ -1,6 +1,1 @@
-{
-  "optlStructInd" : 0,
-  "optlItemInd" : 0,
-  "optlStruct" : [ ],
-  "optlItem" : [ ]
-}
+{optlStructInd=0, optlItemInd=0, optlStruct=[], optlItem=[]}

@@ -5,8 +5,8 @@ import org.legstar.cobol.type.utils.BytesLenUtils;
 /**
  * TODO unsigned native binaries may require Integer/Long/BigInteger
  */
-public record RenderingBinaryNumber(String cobolName, boolean signed, int totalDigits, boolean odoObject,
-		RenderingArray array) implements RenderingItem {
+public record RenderingBinaryNumber(String cobolName, boolean signed, int totalDigits,
+		boolean odoObject, RenderingArray array, String fieldName) implements RenderingItem {
 
 	public String typeName() {
 		if (totalDigits <= 4) {

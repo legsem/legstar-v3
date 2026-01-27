@@ -1,6 +1,7 @@
 package legstar.samples.flat01;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.legstar.cobol.type.annotations.*;
 
@@ -38,5 +39,16 @@ public class Flat01Record {
 
     public void setComAmount(BigDecimal comAmount) {
         this.comAmount = comAmount;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("comNumber=").append(comNumber)
+            .append(", comName=").append(comName)
+            .append(", comAmount=").append(comAmount)
+            .append("}");
+        return sb.toString();
     }
 }

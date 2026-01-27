@@ -1,6 +1,7 @@
 package legstar.samples.ardo01;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.legstar.cobol.type.annotations.*;
 
@@ -50,5 +51,17 @@ public class Ardo01Record {
 
     public void setComArray(BigDecimal[] comArray) {
         this.comArray = comArray;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("comNumber=").append(comNumber)
+            .append(", comName=").append(comName)
+            .append(", comNbr=").append(comNbr)
+            .append(", comArray=").append(Arrays.toString(comArray))
+            .append("}");
+        return sb.toString();
     }
 }

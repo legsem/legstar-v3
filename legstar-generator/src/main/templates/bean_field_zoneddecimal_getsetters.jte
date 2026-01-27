@@ -1,14 +1,14 @@
 @import org.legstar.cobol.generator.model.RenderingModel
 @import org.legstar.cobol.generator.model.RenderingZonedDecimal
 @param RenderingModel model
-@param RenderingZonedDecimal field_model
+@param RenderingZonedDecimal field
 
-!{var fieldName = model.fieldName(field_model.cobolName());}
+!{var fieldName = field.fieldName();}
 
-    public BigDecimal@if(field_model.isArray())[]@endif ${model.getterName(field_model.cobolName())}() {
+    public BigDecimal@if(field.isArray())[]@endif ${field.getterName()}() {
         return ${fieldName};
     }
 
-    public void ${model.setterName(field_model.cobolName())}(BigDecimal@if(field_model.isArray())[]@endif ${fieldName}) {
+    public void ${field.setterName()}(BigDecimal@if(field.isArray())[]@endif ${fieldName}) {
         this.${fieldName} = ${fieldName};
     }

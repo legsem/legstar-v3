@@ -1,6 +1,7 @@
 package legstar.samples.ardo04;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.legstar.cobol.type.annotations.*;
 
@@ -53,6 +54,25 @@ public static class CArray {
     public void setCItem2(Short cItem2) {
         this.cItem2 = cItem2;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("cItem1=").append(cItem1)
+            .append(", cItem2=").append(cItem2)
+            .append("}");
+        return sb.toString();
+    }
 }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("cItemsNumber=").append(cItemsNumber)
+            .append(", cArray=").append(Arrays.toString(cArray))
+            .append("}");
+        return sb.toString();
+    }
 }

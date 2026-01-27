@@ -48,3 +48,5 @@
 @template.bean_choice(model, renderingChoice)
 @endif
 @endfor
+<%-- To String --%>
+@template.bean_fields_tostring(model, fields)

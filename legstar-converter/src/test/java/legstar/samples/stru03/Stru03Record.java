@@ -1,6 +1,7 @@
 package legstar.samples.stru03;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.legstar.cobol.type.annotations.*;
 
@@ -75,6 +76,27 @@ public static class ComArray {
     public void setComItem2(String comItem2) {
         this.comItem2 = comItem2;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("comItem1=").append(comItem1)
+            .append(", comItem2=").append(comItem2)
+            .append("}");
+        return sb.toString();
+    }
 }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("comNumber=").append(comNumber)
+            .append(", comName=").append(comName)
+            .append(", comAmount=").append(comAmount)
+            .append(", comArray=").append(Arrays.toString(comArray))
+            .append("}");
+        return sb.toString();
+    }
 }

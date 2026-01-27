@@ -1,6 +1,7 @@
 package legstar.samples.rdef01;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.legstar.cobol.type.annotations.*;
 
@@ -65,6 +66,14 @@ public static class ComDetail1 {
         this.comName = comName;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("comName=").append(comName)
+            .append("}");
+        return sb.toString();
+    }
 }
 
 @CobolGroup(cobolName = "COM-DETAIL2")
@@ -81,8 +90,34 @@ public static class ComDetail2 {
         this.comAmount = comAmount;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("comAmount=").append(comAmount)
+            .append("}");
+        return sb.toString();
+    }
 }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("comDetail1=").append(comDetail1)
+            .append(", comDetail2=").append(comDetail2)
+            .append("}");
+        return sb.toString();
+    }
 }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("comSelect=").append(comSelect)
+            .append(", comDetail1Choice=").append(comDetail1Choice)
+            .append("}");
+        return sb.toString();
+    }
 }

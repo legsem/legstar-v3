@@ -3,7 +3,7 @@ package org.legstar.cobol.generator.model;
 import org.legstar.cobol.type.utils.BytesLenUtils;
 
 public record RenderingPackedDecimal(String cobolName, boolean signed, int totalDigits, int fractionDigits,
-		boolean odoObject, RenderingArray array) implements RenderingItem {
+		boolean odoObject, RenderingArray array, String fieldName) implements RenderingItem {
 
 	@Override
 	public int maxBytesLen() {

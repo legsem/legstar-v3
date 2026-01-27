@@ -1,6 +1,1 @@
-{
-  "comNumber" : 62,
-  "comName" : "NAME000062          ",
-  "comNbr" : 1,
-  "comArray" : [ 235.56 ]
-}
+{comNumber=62, comName=NAME000062          , comNbr=1, comArray=[235.56]}
