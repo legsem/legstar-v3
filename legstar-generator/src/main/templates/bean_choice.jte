@@ -3,7 +3,7 @@
 @param RenderingModel model
 @param RenderingChoice renderingChoice
 
-@CobolChoice(maxBytesLen = ${renderingChoice.maxBytesLen()})
+@CobolChoice(cobolName = "${renderingChoice.cobolName()}", maxBytesLen = ${renderingChoice.maxBytesLen()})
 public static class ${renderingChoice.className()} {
 @template.bean_fields(model, renderingChoice.alternatives())
 }

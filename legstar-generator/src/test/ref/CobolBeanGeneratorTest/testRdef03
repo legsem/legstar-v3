@@ -29,7 +29,7 @@ public class Rdef03Record {
         this.comDetail1Choice = comDetail1Choice;
     }
 
-@CobolChoice(maxBytesLen = 10)
+@CobolChoice(cobolName = "COM-DETAIL1", maxBytesLen = 10)
 public static class ComDetail1Choice {
 
     private ComDetail1 comDetail1;

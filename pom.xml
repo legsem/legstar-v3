@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.legsem.legstar</groupId>
-	<artifactId>legstar3</artifactId>
+	<artifactId>legstar-parent</artifactId>
 	<version>3.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>legstar3</name>
+	<name>legstar-parent</name>
 	<description>Translates COBOL structures to a java model. Converts Mainframe
 		data to Java objects.</description>
 	<url>https://github.com/legsem/legstar-sandbox</url>

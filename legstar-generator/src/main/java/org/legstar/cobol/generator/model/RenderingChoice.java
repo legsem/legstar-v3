@@ -2,7 +2,7 @@ package org.legstar.cobol.generator.model;
 
 import java.util.List;
 
-public record RenderingChoice(List<RenderingItem> alternatives, RenderingArray array, String fieldName) implements RenderingItem {
+public record RenderingChoice(String cobolName, List<RenderingItem> alternatives, RenderingArray array, String fieldName) implements RenderingItem {
 
 	@Override
 	public int maxBytesLen() {
@@ -12,5 +12,5 @@ public record RenderingChoice(List<RenderingItem> alternatives, RenderingArray a
 				.getAsInt();
 		return array == null ? maxBytesLen : array.maxOccurs() * maxBytesLen;
 	}
-
+	
 }

@@ -147,7 +147,7 @@ public static class Transaction {
         this.transactionComment = transactionComment;
     }
 
-@CobolChoice(maxBytesLen = 8)
+@CobolChoice(cobolName = "TRANSACTION-DATE", maxBytesLen = 8)
 public static class TransactionDateChoice {
 
     @CobolString(cobolName = "TRANSACTION-DATE", charNum = 8)

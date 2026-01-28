@@ -55,7 +55,8 @@ public class CobolConverterInputStream extends FilterInputStream {
 
 	@Override
 	public long skip(long n) throws IOException {
-		throw new UnsupportedOperationException();
+		bytesRead += n;
+		return super.skip(n);
 	}
 
 	public long getBytesRead() {

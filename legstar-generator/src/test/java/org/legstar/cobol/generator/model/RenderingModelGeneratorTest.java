@@ -223,7 +223,7 @@ public class RenderingModelGeneratorTest {
 
 		RenderingModelGenerator generator = new RenderingModelGenerator();
 		RenderingModel model = generator.generate("t", entry, "some.package");
-		assertEquals("RenderingGroup[cobolName=GROUP, fields=[" + "RenderingChoice[alternatives=["
+		assertEquals("RenderingGroup[cobolName=GROUP, fields=[" + "RenderingChoice[cobolName=COM-NAME, alternatives=["
 				+ "RenderingString[cobolName=COM-NAME, charNum=10, array=null, fieldName=comName], "
 				+ "RenderingPackedDecimal[cobolName=COM-AMOUNT, signed=false, totalDigits=7, fractionDigits=2, odoObject=false, array=null, fieldName=comAmount]"
 				+ "], array=null, fieldName=comNameChoice]" + "], array=null, fieldName=group]",

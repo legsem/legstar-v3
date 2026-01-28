@@ -24,6 +24,8 @@ import org.legstar.cobol.type.annotations.CobolZonedDecimal;
 /**
  * Converts host bytes to a java T instance.
  * <p>
+ * The target java class must host cobol annotations.
+ * <p>
  * TODO
  * <ul>
  * <li>Is there a need to support numeric-edited Decimals?</li>
@@ -60,12 +62,8 @@ public class CobolConverterFromHost<T> {
 	}
 
 	public T convert(InputStream is, Class<T> outputClass) {
-		try {
-			Annotation annotation = getCobolItemType(outputClass);
-			return convert(annotation, new CobolConverterInputStream(is), outputClass);
-		} catch (Exception e) {
-			throw new CobolConverterException(e);
-		}
+		Annotation annotation = getCobolItemType(outputClass);
+		return convert(annotation, new CobolConverterInputStream(is), outputClass);
 	}
 
 	private <Z> Z convert(Annotation annotation, CobolConverterInputStream is, Class<Z> objectClass) {
@@ -130,20 +128,34 @@ public class CobolConverterFromHost<T> {
 		try {
 			Z choice = newInstance(choiceClass);
 			Field[] fields = choiceClass.getDeclaredFields();
+			long start = is.getBytesRead();
 			for (Field alternative : fields) {
 				if (choiceStrategy.choose(getRoot(), choice, alternative)) {
+					// Strategy says this alternative is eligible so we try it out
 					is.mark(cobolChoice.maxBytesLen());
 					try {
 						Object value = convertField(is, alternative);
+						// Alternative matches the data (no exception caught while converting)
 						setFieldValue(alternative, choice, value);
+						long leftover = cobolChoice.maxBytesLen() - (is.getBytesRead() - start);
+						if (leftover > 0) {
+							// Chosen alternative is shorter than the larger one
+							is.skip(leftover);
+						}
 						break;
 					} catch (Exception e) {
+						// Alternative does not match the data, try another one
 						is.reset();
 					}
 				}
 			}
+			if (start == is.getBytesRead()) {
+				// No data was consumed means no alternative matched the data
+				throw qualifiedException("None of the " + fields.length + " alternatives matched the data", is,
+						cobolChoice.cobolName());
+			}
 			return choice;
-		} catch (SecurityException | IOException e) {
+		} catch (IOException e) {
 			throw new CobolConverterException(e);
 		}
 	}
@@ -201,17 +213,6 @@ public class CobolConverterFromHost<T> {
 		}
 	}
 
-	/**
-	 * Improve error reporting by adding cobol item qualified name and bytes
-	 * location in input stream.
-	 */
-	private CobolConverterException qualifiedException(CobolConverterException e, CobolConverterInputStream is,
-			String cobolName) {
-		e.setCobolQualifiedName(cobolQualifiedName(cobolName));
-		e.setBytesCounter(is.getBytesRead());
-		return e;
-	}
-
 	// -----------------------------------------------------------------------------
 	// Occurs depending On
 	// -----------------------------------------------------------------------------
@@ -228,8 +229,7 @@ public class CobolConverterFromHost<T> {
 		if (odoObjectValues.containsKey(dependingOn)) {
 			return odoObjectValues.get(dependingOn);
 		} else {
-			throw new CobolConverterException(
-					"Occurs depending on " + dependingOn + " was not set");
+			throw new CobolConverterException("Occurs depending on " + dependingOn + " was not set");
 		}
 	}
 
@@ -341,6 +341,28 @@ public class CobolConverterFromHost<T> {
 			sb.append(cobolGroup.cobolName());
 		}
 		return sb.toString();
+	}
+
+	// -----------------------------------------------------------------------------
+	// Error reporting
+	// -----------------------------------------------------------------------------
+
+	/**
+	 * Improve error reporting by adding cobol item qualified name and bytes
+	 * location in input stream.
+	 */
+	private CobolConverterException qualifiedException(CobolConverterException e, CobolConverterInputStream is,
+			String cobolName) {
+		e.setCobolQualifiedName(cobolQualifiedName(cobolName));
+		e.setBytesCounter(is.getBytesRead());
+		return e;
+	}
+
+	private CobolConverterException qualifiedException(String msg, CobolConverterInputStream is, String cobolName) {
+		CobolConverterException e = new CobolConverterException(msg);
+		e.setCobolQualifiedName(cobolQualifiedName(cobolName));
+		e.setBytesCounter(is.getBytesRead());
+		return e;
 	}
 
 	private String cobolQualifiedName(String cobolName) {

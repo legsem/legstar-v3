@@ -1,5 +1,9 @@
 package org.legstar.cobol.type.converter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.lang.reflect.Field;
 import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
@@ -12,8 +16,11 @@ import legstar.samples.flat01.Flat01Record;
 import legstar.samples.flat02.Flat02Record;
 import legstar.samples.optl01.Optl01Record;
 import legstar.samples.rdef01.Rdef01Record;
+import legstar.samples.rdef02.Rdef02Record;
 import legstar.samples.rdef03.Rdef03Record;
 import legstar.samples.rdef03.Rdef03RecordChoiceStrategy;
+import legstar.samples.rdef04.Rdef04Record;
+import legstar.samples.rdef04.Rdef04RecordChoiceStrategy;
 import legstar.samples.stru01.Stru01Record;
 import legstar.samples.stru03.Stru03Record;
 
@@ -28,7 +35,7 @@ import legstar.samples.stru03.Stru03Record;
  * </ul>
  */
 public class CobolConverterFromHostTest extends CobolConverterTestBase {
-	
+
 	@Test
 	public void testFlat01() {
 		check(convert("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F", Flat01Record.class));
@@ -36,7 +43,8 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 
 	@Test
 	public void testFlat02() {
-		check(convert("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F00010002000300040005", Flat02Record.class));
+		check(convert("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F00010002000300040005",
+				Flat02Record.class));
 	}
 
 	@Test
@@ -46,7 +54,9 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 
 	@Test
 	public void testStru03() {
-		check(convert("F0F0F0F0F6F2D5C1D4C5F0F0F0F0F6F2404040404040404040400310000F0001C1C20002C2C30003C3C40004C4C50005C5C6", Stru03Record.class));
+		check(convert(
+				"F0F0F0F0F6F2D5C1D4C5F0F0F0F0F6F2404040404040404040400310000F0001C1C20002C2C30003C3C40004C4C50005C5C6",
+				Stru03Record.class));
 	}
 
 	@Test
@@ -61,7 +71,9 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 
 	@Test
 	public void testArdo01Full() {
-		check(convert("F0F0F0F0F6F2D5C1D4C5F0F0F0F0F6F2404040404040404040400005000000000023556C000000000023656C000000000023756C000000000023856C000000000023956C", Ardo01Record.class));
+		check(convert(
+				"F0F0F0F0F6F2D5C1D4C5F0F0F0F0F6F2404040404040404040400005000000000023556C000000000023656C000000000023756C000000000023856C000000000023956C",
+				Ardo01Record.class));
 	}
 
 	@Test
@@ -112,6 +124,11 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 	}
 
 	@Test
+	public void testRdef02Choice1() {
+		check(convert("D1D6C8D540E20001C3C1D4C2D9C9C4C7C5400250000F", Rdef02Record.class));
+	}
+
+	@Test
 	public void testRdef03Choice1() {
 		check(convert("0000C3C1D4C2D9C9C4C7C540", Rdef03Record.class, new Rdef03RecordChoiceStrategy()));
 	}
@@ -124,6 +141,36 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 	@Test
 	public void testRdef03Choice3() {
 		check(convert("0002F1F2F3F4F5", Rdef03Record.class, new Rdef03RecordChoiceStrategy()));
+	}
+
+	@Test
+	public void testRdef04Choice1() {
+		check(convert("C3C1D4C2D9C9C4C7C540C1", Rdef04Record.class));
+	}
+
+	@Test
+	public void testRdef04Choice2() {
+		check(convert("C3C1D4C2D9C9C4C7C540C1", Rdef04Record.class, new Rdef04RecordChoiceStrategy()));
+	}
+
+	@Test
+	public void testRdef04NoChoice() {
+		try {
+			check(convert("C3C1D4C2D9C9C4C7C540C1", Rdef04Record.class,
+					new CobolConverterFromHostChoiceStrategy<Rdef04Record>() {
+
+						@Override
+						public boolean choose(Rdef04Record root, Object choice, Field alternative) {
+							return false;
+						}
+
+					}));
+			fail();
+		} catch (Exception e) {
+			assertEquals("org.legstar.cobol.type.converter.CobolConverterException:"
+					+ " None of the 2 alternatives matched the data"
+					+ " {Cobol item: 'RDEF04-RECORD.OUTER-REDEFINES-LONG', @offset: 0}", e.getMessage());
+		}
 	}
 
 	private <T> String convert(String payload, Class<T> clazz) {

@@ -102,34 +102,49 @@ public class RenderingModelGenerator {
 	 */
 	private RenderingGroup generateGroup(CobolDataEntry dataEntry, String fieldName) {
 		List<RenderingItem> children = new ArrayList<>();
-		List<RenderingItem> choiceAlternatives = null;
-		String choiceFieldName = null;
-		RenderingArray choiceArray = null;
+		ChoiceBuilder choiceBuilder = null;
 		for (CobolDataEntry child : dataEntry.children()) {
 			String childFieldName = uniqueFieldName(child.cobolName(), children);
 			if (child.isConditionName() || child.isRenames()) {
 				continue;
 			} else if (isRedefObject(child)) {
-				choiceArray = generateArray(child);
-				choiceAlternatives = new ArrayList<>();
-				choiceAlternatives.add(generate(child, childFieldName));
-				choiceFieldName = childFieldName + "Choice";
+				choiceBuilder = new ChoiceBuilder( //
+						child.cobolName(), //
+						new ArrayList<>(), //
+						generateArray(child), //
+						childFieldName + "Choice" //
+				);
+				choiceBuilder.add(generate(child, childFieldName));
 			} else if (child.isRedefinition()) {
-				choiceAlternatives.add(generate(child, childFieldName));
+				choiceBuilder.add(generate(child, childFieldName));
 			} else {
-				if (choiceAlternatives != null) {
-					children.add(new RenderingChoice(choiceAlternatives, choiceArray, choiceFieldName));
-					choiceArray = null;
-					choiceAlternatives = null;
-					choiceFieldName = null;
+				if (choiceBuilder != null) {
+					children.add(choiceBuilder.build());
+					choiceBuilder = null;
 				}
 				children.add(generate(child, childFieldName));
 			}
 		}
-		if (choiceAlternatives != null) {
-			children.add(new RenderingChoice(choiceAlternatives, choiceArray, choiceFieldName));
+		if (choiceBuilder != null) {
+			children.add(choiceBuilder.build());
 		}
 		return new RenderingGroup(dataEntry.cobolName(), children, generateArray(dataEntry), fieldName);
+	}
+
+	/**
+	 * Accumulates choice alternatives as they are encountered.
+	 */
+	static record ChoiceBuilder(String choiceCobolName, List<RenderingItem> choiceAlternatives,
+			RenderingArray choiceArray, String choiceFieldName) {
+
+		void add(RenderingItem alternative) {
+			choiceAlternatives().add(alternative);
+		}
+
+		RenderingChoice build() {
+			return new RenderingChoice(choiceCobolName(), choiceAlternatives(), choiceArray(), choiceFieldName());
+		}
+
 	}
 
 	/**

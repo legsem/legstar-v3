@@ -29,14 +29,28 @@ public class CobolConverterException extends RuntimeException {
 
 	@Override
 	public String getMessage() {
-		String msg = super.getMessage();
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.getMessage());
 		if (cobolQualifiedName != null) {
-			msg += "\nCobol item: " + cobolQualifiedName + ". ";
+			sb.append(" {");
+			sb.append("Cobol item: '");
+			sb.append(cobolQualifiedName);
+			sb.append("'");
+			if (bytesCounter == -1) {
+				sb.append("}");
+			}
 		}
 		if (bytesCounter > -1) {
-			msg += "\nInput bytes location: " + bytesCounter + ". ";
+			if (cobolQualifiedName == null) {
+				sb.append(" {");
+			} else {
+				sb.append(", ");
+			}
+			sb.append("@offset: ");
+			sb.append(bytesCounter);
+			sb.append("}");
 		}
-		return msg;
+		return sb.toString();
 	}
 
 	public String getCobolQualifiedName() {
