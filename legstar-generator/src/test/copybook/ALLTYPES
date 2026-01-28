@@ -1,0 +1,19 @@
+       01 ALLTYPES.
+          05 S-STRING      PIC X(4).
+          05 S-BINARY      PIC X(4).
+          05 S-SHORT       PIC S9(4) COMP.
+          05 S-USHORT      PIC 9(4) COMP.
+          05 S-INT         PIC S9(9) COMP.
+          05 S-UINT        PIC 9(9) COMP.
+          05 S-LONG        PIC S9(18) COMP.
+          05 S-ULONG       PIC 9(18) COMP.
+          05 S-PDECIMAL    PIC 9(7)V99 COMP-3.
+          05 S-FLOAT       COMP-1.
+          05 S-DOUBLE      COMP-2.
+          05 S-ZONED       PIC S9(3)V99.
+          05 S-UZONED      PIC 9(3)V99.
+          05 S-ZONED-SL    PIC S9(3) SIGN IS LEADING.
+          05 S-ZONED-ST    PIC S9(2) SIGN IS TRAILING.
+          05 S-ZONED-SLS   PIC S9(1) SIGN IS LEADING SEPARATE.
+          05 S-ZONED-STS   PIC S9(2) SIGN IS TRAILING SEPARATE.
+          05 S-UZONED-BWZ  PIC 9(3)V99 BLANK WHEN ZERO.

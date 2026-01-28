@@ -98,7 +98,7 @@ public class CobolConverterPackedDecimal {
 			} else {
 				return new BigDecimal(s).scaleByPowerOfTen(-fractionDigits);
 			}
-		} catch (IOException e) {
+		} catch (IOException | NumberFormatException e) {
 			throw new CobolConverterException(e);
 		}
 

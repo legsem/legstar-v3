@@ -62,6 +62,7 @@ public class CobolConverterPackedDecimalTest extends CobolConverterTestBase {
 			assertEquals("Low nibble 10 at byte position 0 is invalid for a BigDecimal. Not a sign indicator.", e.getMessage());
 		}
 	}
+
 	private String fromHost(String payload, boolean signed, int totalDigits, int fractionDigits) {
 		return converter.toString(inputStreamFrom(payload), signed, totalDigits, fractionDigits);
 	}

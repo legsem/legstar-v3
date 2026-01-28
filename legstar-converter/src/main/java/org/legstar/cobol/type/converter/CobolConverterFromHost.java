@@ -15,6 +15,8 @@ import java.util.Stack;
 import org.legstar.cobol.type.annotations.CobolArray;
 import org.legstar.cobol.type.annotations.CobolBinaryNumber;
 import org.legstar.cobol.type.annotations.CobolChoice;
+import org.legstar.cobol.type.annotations.CobolDouble;
+import org.legstar.cobol.type.annotations.CobolFloat;
 import org.legstar.cobol.type.annotations.CobolGroup;
 import org.legstar.cobol.type.annotations.CobolItemType;
 import org.legstar.cobol.type.annotations.CobolPackedDecimal;
@@ -29,7 +31,6 @@ import org.legstar.cobol.type.annotations.CobolZonedDecimal;
  * TODO
  * <ul>
  * <li>Is there a need to support numeric-edited Decimals?</li>
- * <li>Missing Float/Double z/os data handling</li>
  * <li>Missing handling of RDW headers</li>
  * </ul>
  */
@@ -42,6 +43,10 @@ public class CobolConverterFromHost<T> {
 	private final CobolConverterZonedDecimal zonedDecimalConverter;
 
 	private final CobolConverterPackedDecimal packedDecimalConverter;
+
+	private final CobolConverterFloat floatConverter;
+
+	private final CobolConverterDouble doubleConverter;
 
 	private final Map<String, Integer> odoObjectValues = new HashMap<>();
 
@@ -58,6 +63,8 @@ public class CobolConverterFromHost<T> {
 		this.binaryNumberConverter = new CobolConverterBinaryNumber(config);
 		this.zonedDecimalConverter = new CobolConverterZonedDecimal(config);
 		this.packedDecimalConverter = new CobolConverterPackedDecimal(config);
+		this.floatConverter = new CobolConverterFloat(config);
+		this.doubleConverter = new CobolConverterDouble(config);
 		this.choiceStrategy = choiceStrategy == null ? new CobolConverterDefaultChoiceStrategy() : choiceStrategy;
 	}
 
@@ -79,6 +86,10 @@ public class CobolConverterFromHost<T> {
 			return convertZonedDecimal((CobolZonedDecimal) annotation, is, objectClass);
 		} else if (annotation instanceof CobolPackedDecimal) {
 			return convertPackedDecimal((CobolPackedDecimal) annotation, is, objectClass);
+		} else if (annotation instanceof CobolFloat) {
+			return convertFloat((CobolFloat) annotation, is, objectClass);
+		} else if (annotation instanceof CobolDouble) {
+			return convertDouble((CobolDouble) annotation, is, objectClass);
 		} else {
 			throw new CobolConverterException("Unsupported Cobol annotation " + annotation);
 		}
@@ -210,6 +221,22 @@ public class CobolConverterFromHost<T> {
 			return value;
 		} catch (CobolConverterException e) {
 			throw qualifiedException(e, is, cobolPackedDecimal.cobolName());
+		}
+	}
+
+	private <Z> Z convertFloat(CobolFloat cobolFloat, CobolConverterInputStream is, Class<Z> objectClass) {
+		try {
+			return (Z) floatConverter.convert(is, objectClass);
+		} catch (CobolConverterException e) {
+			throw qualifiedException(e, is, cobolFloat.cobolName());
+		}
+	}
+
+	private <Z> Z convertDouble(CobolDouble cobolDouble, CobolConverterInputStream is, Class<Z> objectClass) {
+		try {
+			return (Z) doubleConverter.convert(is, objectClass);
+		} catch (CobolConverterException e) {
+			throw qualifiedException(e, is, cobolDouble.cobolName());
 		}
 	}
 

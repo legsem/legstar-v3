@@ -17,6 +17,11 @@ public class CobolBeanGeneratorTest extends CobolGeneratorTestBase {
 	private CobolBeanGeneratorConfig config = new CobolBeanGeneratorConfig().setPackageNamePrefix("legstar.samples");
 
 	@Test
+	public void testAlltypes() {
+		check(generate("ALLTYPES"));
+	}
+
+	@Test
 	public void testFlat01() {
 		check(generate("FLAT01"));
 	}

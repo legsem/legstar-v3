@@ -8,19 +8,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @CobolItemType
-public @interface CobolZonedDecimal {
-	
+public @interface CobolDouble {
+
 	String cobolName();
-	
-	int totalDigits();
-	
-	int fractionDigits() default 0;
 
-	boolean signLeading() default false;
-	
-	boolean signSeparate() default false;
-
-	boolean blankWhenZero() default false;
-
-	boolean odoObject() default false;
 }

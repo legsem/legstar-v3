@@ -62,18 +62,16 @@ public class RenderingModelGenerator {
 				return generateBinaryNumber(dataEntry, fieldName);
 			case PACKED_DECIMAL:
 				return generatePackedDecimal(dataEntry, fieldName);
-			case DISPLAY:
-				break;
-			case DISPLAY1:
-				break;
 			case DOUBLE_FLOAT:
-				break;
+				return generateDouble(dataEntry, fieldName);
 			case FLOAT:
-				break;
-			case NATIONAL:
-				break;
+				return generateFloat(dataEntry, fieldName);
 			case NATIVE_BINARY:
 				return generateBinaryNumber(dataEntry, fieldName);
+			case DISPLAY:
+			case DISPLAY1:
+			case NATIONAL:
+				break;
 			case FUNCTION_POINTER:
 			case INDEX:
 			case POINTER:
@@ -156,7 +154,7 @@ public class RenderingModelGenerator {
 	/**
 	 * An alphanumeric item
 	 */
-	private RenderingItem generateString(CobolDataEntry dataEntry, String fieldName) {
+	private RenderingString generateString(CobolDataEntry dataEntry, String fieldName) {
 		PictureUtils.AlphaNumeric n = PictureUtils.alphaNumeric(dataEntry.picture());
 		return new RenderingString(dataEntry.cobolName(), n.charNum(), generateArray(dataEntry), fieldName);
 	}
@@ -176,8 +174,8 @@ public class RenderingModelGenerator {
 	private RenderingZonedDecimal generateZonedDecimal(CobolDataEntry dataEntry, String fieldName) {
 		PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
 		return new RenderingZonedDecimal(dataEntry.cobolName(), n.totalDigits(), n.fractionDigits(),
-				dataEntry.signLeading(), dataEntry.signSeparate(), isOdoObject(dataEntry), generateArray(dataEntry),
-				fieldName);
+				dataEntry.signLeading(), dataEntry.signSeparate(), dataEntry.blankWhenZero(), isOdoObject(dataEntry),
+				generateArray(dataEntry), fieldName);
 	}
 
 	/**
@@ -187,6 +185,20 @@ public class RenderingModelGenerator {
 		PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
 		return new RenderingPackedDecimal(dataEntry.cobolName(), n.signed(), n.totalDigits(), n.fractionDigits(),
 				isOdoObject(dataEntry), generateArray(dataEntry), fieldName);
+	}
+
+	/**
+	 * A COMP-1 item
+	 */
+	private RenderingFloat generateFloat(CobolDataEntry dataEntry, String fieldName) {
+		return new RenderingFloat(dataEntry.cobolName(), generateArray(dataEntry), fieldName);
+	}
+
+	/**
+	 * A COMP-2 item
+	 */
+	private RenderingDouble generateDouble(CobolDataEntry dataEntry, String fieldName) {
+		return new RenderingDouble(dataEntry.cobolName(), generateArray(dataEntry), fieldName);
 	}
 
 	/**

@@ -9,6 +9,7 @@ import org.legstar.cobol.data.entry.CobolDataEntryUsage;
 import org.legstar.cobol.data.entry.CobolDataEntry.Range;
 
 import org.legstar.cobol.copybook.ccparser.Node.Visitor;
+import org.legstar.cobol.copybook.ccparser.ast.BlankWhenZeroClause;
 import org.legstar.cobol.copybook.ccparser.ast.ConditionValue;
 import org.legstar.cobol.copybook.ccparser.ast.Copybook;
 import org.legstar.cobol.copybook.ccparser.ast.DATA_NAME;
@@ -159,6 +160,11 @@ public class CopybookParserVisitor extends Visitor {
 
 	public void visit(SignSeparate node) {
 		pendingEntries.peek().signSeparate(true);
+		recurse(node);
+	}
+
+	public void visit(BlankWhenZeroClause node) {
+		pendingEntries.peek().blankWhenZero(true);
 		recurse(node);
 	}
 

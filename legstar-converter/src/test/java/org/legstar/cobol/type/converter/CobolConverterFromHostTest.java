@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
+import legstar.samples.alltypes.Alltypes;
 import legstar.samples.ardo01.Ardo01Record;
 import legstar.samples.ardo03.Ardo03Record;
 import legstar.samples.ardo04.Ardo04Record;
@@ -37,6 +38,11 @@ import legstar.samples.stru03.Stru03Record;
  * </ul>
  */
 public class CobolConverterFromHostTest extends CobolConverterTestBase {
+
+	@Test
+	public void testAlltypes() {
+		check(convert("C1C2C3C4000000008000007f800000000000ffff7fffffffffffffff00000003ffffffff001234567D403733c6404cbfcdcafd37c0F1F1F1F0C0F2F1F2F0F0D3F3F3F4D44EF5F6F6604040404040", Alltypes.class));
+	}
 
 	@Test
 	public void testFlat01() {

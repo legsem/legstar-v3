@@ -36,4 +36,18 @@ public class BytesLenUtils {
 		return totalDigits + (signSeparate ? 1 : 0);
 	}
 
+	/**
+	 * COMP-1 use 4 bytes
+	 */
+	public static int floatByteLen() {
+		return 4;
+	}
+
+	/**
+	 * COMP-2 use 8 bytes
+	 */
+	public static int doubleByteLen() {
+		return 8;
+	}
+
 }

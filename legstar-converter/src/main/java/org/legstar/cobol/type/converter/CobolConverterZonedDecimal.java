@@ -86,7 +86,7 @@ public class CobolConverterZonedDecimal {
 
 			sb.insert(0, signum == -1 ? "-" : "");
 			return new BigDecimal(sb.toString()).scaleByPowerOfTen(-fractionDigits);
-		} catch (IOException e) {
+		} catch (IOException | NumberFormatException e) {
 			throw new CobolConverterException(e);
 		}
 
