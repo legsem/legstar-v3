@@ -107,25 +107,31 @@ public class RenderingModelGenerator {
 			String childFieldName = uniqueFieldName(child.cobolName(), children);
 			if (child.isConditionName() || child.isRenames()) {
 				continue;
-			} else if (isRedefObject(child)) {
-				choiceBuilder = new ChoiceBuilder( //
-						child.cobolName(), //
-						new ArrayList<>(), //
-						generateArray(child), //
-						childFieldName + "Choice" //
-				);
-				choiceBuilder.add(generate(child, childFieldName));
 			} else if (child.isRedefinition()) {
+				// There must be a pending choice being built
 				choiceBuilder.add(generate(child, childFieldName));
 			} else {
 				if (choiceBuilder != null) {
+					// Terminate any pending choice
 					children.add(choiceBuilder.build());
 					choiceBuilder = null;
 				}
-				children.add(generate(child, childFieldName));
+				if (isRedefObject(child)) {
+					// Start a new pending choice
+					choiceBuilder = new ChoiceBuilder( //
+							child.cobolName(), //
+							new ArrayList<>(), //
+							generateArray(child), //
+							childFieldName + "Choice" //
+					);
+					choiceBuilder.add(generate(child, childFieldName));
+				} else {
+					children.add(generate(child, childFieldName));
+				}
 			}
 		}
 		if (choiceBuilder != null) {
+			// Terminate any pending choice
 			children.add(choiceBuilder.build());
 		}
 		return new RenderingGroup(dataEntry.cobolName(), children, generateArray(dataEntry), fieldName);
@@ -247,10 +253,13 @@ public class RenderingModelGenerator {
 	}
 
 	/**
-	 * Is this a redefined data entry
+	 * Is this a redefined data entry.
+	 * <p>
+	 * If a refined item is also redefining another item then this returns false. We
+	 * want the top level redefined item.
 	 */
 	private boolean isRedefObject(CobolDataEntry dataEntry) {
-		return redefObjects.contains(dataEntry.cobolName());
+		return dataEntry.isRedefinition() ? false : redefObjects.contains(dataEntry.cobolName());
 	}
 
 	/**

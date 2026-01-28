@@ -77,6 +77,21 @@ public class CobolBeanGeneratorTest extends CobolGeneratorTestBase {
 	}
 
 	@Test
+	public void testRdef05() {
+		check(generate("RDEF05"));
+	}
+
+	@Test
+	public void testRdef06() {
+		check(generate("RDEF06"));
+	}
+
+	@Test
+	public void testRdef07() {
+		check(generate("RDEF07"));
+	}
+
+	@Test
 	public void testCustdat() {
 		check(generate("CUSTDAT"));
 	}

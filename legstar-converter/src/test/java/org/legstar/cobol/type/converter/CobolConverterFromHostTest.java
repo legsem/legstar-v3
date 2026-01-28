@@ -21,6 +21,11 @@ import legstar.samples.rdef03.Rdef03Record;
 import legstar.samples.rdef03.Rdef03RecordChoiceStrategy;
 import legstar.samples.rdef04.Rdef04Record;
 import legstar.samples.rdef04.Rdef04RecordChoiceStrategy;
+import legstar.samples.rdef05.Rdef05Record;
+import legstar.samples.rdef05.Rdef05RecordChoiceStrategy;
+import legstar.samples.rdef06.Rdef06Record;
+import legstar.samples.rdef06.Rdef06RecordChoiceStrategy;
+import legstar.samples.rdef07.Rdef07Record;
 import legstar.samples.stru01.Stru01Record;
 import legstar.samples.stru03.Stru03Record;
 
@@ -29,9 +34,6 @@ import legstar.samples.stru03.Stru03Record;
  * <ul>
  * <li>Add case choice with an array alternative</li>
  * <li>Add case array with Choice items</li>
- * <li>Add case primitive as root</li>
- * <li>Add case choice as root</li>
- * <li>Add case array as root</li>
  * </ul>
  */
 public class CobolConverterFromHostTest extends CobolConverterTestBase {
@@ -173,8 +175,33 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 		}
 	}
 
+	@Test
+	public void testRdef05Choice1() {
+		check(convert("F1F2F3F4F5F6F7F8", Rdef05Record.class));
+	}
+
+	@Test
+	public void testRdef05Choice2() {
+		check(convert("F1F2F3F4F5F6F7F8", Rdef05Record.class, new Rdef05RecordChoiceStrategy()));
+	}
+
+	@Test
+	public void testRdef06Choice1() {
+		check(convert("F0F0F1C3C1D4C2D9C9C4C7C540C3C1D4C2D9C9C4C7C540404040", Rdef06Record.class));
+	}
+
+	@Test
+	public void testRdef06Choice2() {
+		check(convert("F0F0F1C3C1D4C2D9C9C4C7C540C3C1D4C2D9C9C4C7C540404040", Rdef06Record.class, new Rdef06RecordChoiceStrategy()));
+	}
+
 	private <T> String convert(String payload, Class<T> clazz) {
 		return convert(payload, clazz, null);
+	}
+
+	@Test
+	public void testRdef07Choice() {
+		check(convert("F0F0F2052FC1C2C3", Rdef07Record.class));
 	}
 
 	private <T> String convert(String payload, Class<T> clazz, CobolConverterFromHostChoiceStrategy<T> choiceStrategy) {

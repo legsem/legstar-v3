@@ -1,0 +1,5 @@
+       01  RDEF07-RECORD.
+           05 COM-COUNTER                           PIC 9(3).
+           05 COM-STRUCT OCCURS 0 TO 5 DEPENDING ON COM-COUNTER.
+              10 COM-ALT1                           PIC 9(3) COMP-3.
+              10 COM-ALT2 REDEFINES COM-ALT1        PIC X(2).
