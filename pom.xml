@@ -80,6 +80,7 @@
 		<module>legstar-converter</module>
 		<module>legstar-generator</module>
 		<module>legstar-parser</module>
+		<module>legstar-maven-plugin</module>
 	</modules>
 
 	<dependencyManagement>
@@ -114,11 +115,18 @@
 				<version>${project.version}</version>
 			</dependency>
 
+			<!-- LegStar Maven Plugin -->
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-maven-plugin</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 			<!-- Tests -->
 			<dependency>
 				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>
-				<version>5.11.0</version>
+				<version>5.12.1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

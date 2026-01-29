@@ -21,12 +21,13 @@ public class CobolBeanGenerator {
 		this.config = config;
 	}
 
-	public void generate(String inputSource, Reader reader, Writer writer) {
+	public String generate(String inputSource, Reader reader, Writer writer) {
 		CopybookParser parser = new CopybookParser();
 		List<CobolDataEntry> entries = parser.parse(inputSource, reader);
 		RenderingModel renderingModel = new RenderingModelGenerator().generate(inputSource, entries.get(0),
 				config.packageNamePrefix(), config.withToString());
 		generate(renderingModel, writer);
+		return renderingModel.cobol_item().className();
 	}
 
 	public void generate(RenderingModel renderingModel, Writer writer) {
