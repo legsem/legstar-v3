@@ -12,11 +12,7 @@ import org.legstar.cobol.generator.model.RenderingModelGenerator;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.TemplateOutput;
-import gg.jte.output.WriterOutput;
 
-/**
- * TODO add formatting post-processor to correctly indent sub records
- */
 public class CobolBeanGenerator {
 
 	private final CobolBeanGeneratorConfig config;
@@ -35,7 +31,7 @@ public class CobolBeanGenerator {
 
 	public void generate(RenderingModel renderingModel, Writer writer) {
 		TemplateEngine templateEngine = TemplateEngine.createPrecompiled(ContentType.Plain);
-		TemplateOutput output = new WriterOutput(writer);
+		TemplateOutput output = new BeanIndentWriterOutput(writer);
 		templateEngine.render("bean_class.jte", renderingModel, output);
 	}
 

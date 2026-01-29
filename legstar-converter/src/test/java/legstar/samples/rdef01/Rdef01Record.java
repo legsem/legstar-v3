@@ -29,87 +29,87 @@ public class Rdef01Record {
         this.comDetail1Choice = comDetail1Choice;
     }
 
-@CobolChoice(cobolName = "COM-DETAIL1", maxBytesLen = 10)
-public static class ComDetail1Choice {
-
-    private ComDetail1 comDetail1;
-
-    private ComDetail2 comDetail2;
-
-    public ComDetail1 getComDetail1() {
-        return comDetail1;
+    @CobolChoice(cobolName = "COM-DETAIL1", maxBytesLen = 10)
+    public static class ComDetail1Choice {
+    
+        private ComDetail1 comDetail1;
+    
+        private ComDetail2 comDetail2;
+    
+        public ComDetail1 getComDetail1() {
+            return comDetail1;
+        }
+    
+        public void setComDetail1(ComDetail1 comDetail1) {
+            this.comDetail1 = comDetail1;
+        }
+    
+        public ComDetail2 getComDetail2() {
+            return comDetail2;
+        }
+    
+        public void setComDetail2(ComDetail2 comDetail2) {
+            this.comDetail2 = comDetail2;
+        }
+    
+        @CobolGroup(cobolName = "COM-DETAIL1")
+        public static class ComDetail1 {
+        
+            @CobolString(cobolName = "COM-NAME", charNum = 10)
+            private String comName;
+        
+            public String getComName() {
+                return comName;
+            }
+        
+            public void setComName(String comName) {
+                this.comName = comName;
+            }
+        
+            @Override
+            public String toString() {
+                StringBuilder sb = new StringBuilder();
+                sb.append("{")
+                    .append("comName=").append(comName)
+                    .append("}");
+                return sb.toString();
+            }
+        }
+    
+        @CobolGroup(cobolName = "COM-DETAIL2")
+        public static class ComDetail2 {
+        
+            @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
+            private BigDecimal comAmount;
+        
+            public BigDecimal getComAmount() {
+                return comAmount;
+            }
+        
+            public void setComAmount(BigDecimal comAmount) {
+                this.comAmount = comAmount;
+            }
+        
+            @Override
+            public String toString() {
+                StringBuilder sb = new StringBuilder();
+                sb.append("{")
+                    .append("comAmount=").append(comAmount)
+                    .append("}");
+                return sb.toString();
+            }
+        }
+    
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("{")
+                .append("comDetail1=").append(comDetail1)
+                .append(", comDetail2=").append(comDetail2)
+                .append("}");
+            return sb.toString();
+        }
     }
-
-    public void setComDetail1(ComDetail1 comDetail1) {
-        this.comDetail1 = comDetail1;
-    }
-
-    public ComDetail2 getComDetail2() {
-        return comDetail2;
-    }
-
-    public void setComDetail2(ComDetail2 comDetail2) {
-        this.comDetail2 = comDetail2;
-    }
-
-@CobolGroup(cobolName = "COM-DETAIL1")
-public static class ComDetail1 {
-
-    @CobolString(cobolName = "COM-NAME", charNum = 10)
-    private String comName;
-
-    public String getComName() {
-        return comName;
-    }
-
-    public void setComName(String comName) {
-        this.comName = comName;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{")
-            .append("comName=").append(comName)
-            .append("}");
-        return sb.toString();
-    }
-}
-
-@CobolGroup(cobolName = "COM-DETAIL2")
-public static class ComDetail2 {
-
-    @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
-    private BigDecimal comAmount;
-
-    public BigDecimal getComAmount() {
-        return comAmount;
-    }
-
-    public void setComAmount(BigDecimal comAmount) {
-        this.comAmount = comAmount;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{")
-            .append("comAmount=").append(comAmount)
-            .append("}");
-        return sb.toString();
-    }
-}
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{")
-            .append("comDetail1=").append(comDetail1)
-            .append(", comDetail2=").append(comDetail2)
-            .append("}");
-        return sb.toString();
-    }
-}
 
     @Override
     public String toString() {

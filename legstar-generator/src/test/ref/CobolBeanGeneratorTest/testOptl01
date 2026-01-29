@@ -53,41 +53,41 @@ public class Optl01Record {
         this.optlItem = optlItem;
     }
 
-@CobolGroup(cobolName = "OPTL-STRUCT")
-public static class OptlStruct {
-
-    @CobolString(cobolName = "OPTL-STRUCT-FIELD1", charNum = 18)
-    private String optlStructField1;
-
-    @CobolString(cobolName = "OPTL-STRUCT-FIELD2", charNum = 5)
-    private String optlStructField2;
-
-    public String getOptlStructField1() {
-        return optlStructField1;
+    @CobolGroup(cobolName = "OPTL-STRUCT")
+    public static class OptlStruct {
+    
+        @CobolString(cobolName = "OPTL-STRUCT-FIELD1", charNum = 18)
+        private String optlStructField1;
+    
+        @CobolString(cobolName = "OPTL-STRUCT-FIELD2", charNum = 5)
+        private String optlStructField2;
+    
+        public String getOptlStructField1() {
+            return optlStructField1;
+        }
+    
+        public void setOptlStructField1(String optlStructField1) {
+            this.optlStructField1 = optlStructField1;
+        }
+    
+        public String getOptlStructField2() {
+            return optlStructField2;
+        }
+    
+        public void setOptlStructField2(String optlStructField2) {
+            this.optlStructField2 = optlStructField2;
+        }
+    
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("{")
+                .append("optlStructField1=").append(optlStructField1)
+                .append(", optlStructField2=").append(optlStructField2)
+                .append("}");
+            return sb.toString();
+        }
     }
-
-    public void setOptlStructField1(String optlStructField1) {
-        this.optlStructField1 = optlStructField1;
-    }
-
-    public String getOptlStructField2() {
-        return optlStructField2;
-    }
-
-    public void setOptlStructField2(String optlStructField2) {
-        this.optlStructField2 = optlStructField2;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{")
-            .append("optlStructField1=").append(optlStructField1)
-            .append(", optlStructField2=").append(optlStructField2)
-            .append("}");
-        return sb.toString();
-    }
-}
 
     @Override
     public String toString() {

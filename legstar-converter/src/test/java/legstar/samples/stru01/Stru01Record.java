@@ -51,41 +51,41 @@ public class Stru01Record {
         this.comSubRecord = comSubRecord;
     }
 
-@CobolGroup(cobolName = "COM-SUB-RECORD")
-public static class ComSubRecord {
-
-    @CobolBinaryNumber(cobolName = "COM-ITEM1", signed = true, totalDigits = 4)
-    private Short comItem1;
-
-    @CobolString(cobolName = "COM-ITEM2", charNum = 2)
-    private String comItem2;
-
-    public Short getComItem1() {
-        return comItem1;
+    @CobolGroup(cobolName = "COM-SUB-RECORD")
+    public static class ComSubRecord {
+    
+        @CobolBinaryNumber(cobolName = "COM-ITEM1", signed = true, totalDigits = 4)
+        private Short comItem1;
+    
+        @CobolString(cobolName = "COM-ITEM2", charNum = 2)
+        private String comItem2;
+    
+        public Short getComItem1() {
+            return comItem1;
+        }
+    
+        public void setComItem1(Short comItem1) {
+            this.comItem1 = comItem1;
+        }
+    
+        public String getComItem2() {
+            return comItem2;
+        }
+    
+        public void setComItem2(String comItem2) {
+            this.comItem2 = comItem2;
+        }
+    
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("{")
+                .append("comItem1=").append(comItem1)
+                .append(", comItem2=").append(comItem2)
+                .append("}");
+            return sb.toString();
+        }
     }
-
-    public void setComItem1(Short comItem1) {
-        this.comItem1 = comItem1;
-    }
-
-    public String getComItem2() {
-        return comItem2;
-    }
-
-    public void setComItem2(String comItem2) {
-        this.comItem2 = comItem2;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{")
-            .append("comItem1=").append(comItem1)
-            .append(", comItem2=").append(comItem2)
-            .append("}");
-        return sb.toString();
-    }
-}
 
     @Override
     public String toString() {
