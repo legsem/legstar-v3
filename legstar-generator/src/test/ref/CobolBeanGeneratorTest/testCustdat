@@ -85,6 +85,7 @@ public class CustomerData {
                 .append("}");
             return sb.toString();
         }
+    
     }
 
     @CobolGroup(cobolName = "TRANSACTIONS")
@@ -241,6 +242,7 @@ public class CustomerData {
                             .append("}");
                         return sb.toString();
                     }
+                
                 }
             
                 @Override
@@ -252,6 +254,7 @@ public class CustomerData {
                         .append("}");
                     return sb.toString();
                 }
+            
             }
         
             @Override
@@ -264,6 +267,7 @@ public class CustomerData {
                     .append("}");
                 return sb.toString();
             }
+        
         }
     
         @Override
@@ -275,6 +279,7 @@ public class CustomerData {
                 .append("}");
             return sb.toString();
         }
+    
     }
 
     @Override
@@ -287,4 +292,5 @@ public class CustomerData {
             .append("}");
         return sb.toString();
     }
+
 }

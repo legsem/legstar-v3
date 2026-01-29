@@ -97,6 +97,7 @@ public class Rdef02Record {
                     .append("}");
                 return sb.toString();
             }
+        
         }
     
         @Override
@@ -108,6 +109,7 @@ public class Rdef02Record {
                 .append("}");
             return sb.toString();
         }
+    
     }
 
     @CobolChoice(cobolName = "COM-DETAIL1", maxBytesLen = 10)
@@ -155,6 +157,7 @@ public class Rdef02Record {
                     .append("}");
                 return sb.toString();
             }
+        
         }
     
         @CobolGroup(cobolName = "COM-DETAIL2")
@@ -191,6 +194,7 @@ public class Rdef02Record {
                     .append("}");
                 return sb.toString();
             }
+        
         }
     
         @Override
@@ -202,6 +206,7 @@ public class Rdef02Record {
                 .append("}");
             return sb.toString();
         }
+    
     }
 
     @Override
@@ -214,4 +219,5 @@ public class Rdef02Record {
             .append("}");
         return sb.toString();
     }
+
 }

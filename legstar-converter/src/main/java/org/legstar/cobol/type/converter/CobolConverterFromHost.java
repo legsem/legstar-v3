@@ -30,7 +30,6 @@ import org.legstar.cobol.type.annotations.CobolZonedDecimal;
  * <p>
  * TODO
  * <ul>
- * <li>Is there a need to support numeric-edited Decimals?</li>
  * <li>Missing handling of RDW headers</li>
  * </ul>
  */

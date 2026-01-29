@@ -100,6 +100,7 @@ public class Rdef04Record {
                         .append("}");
                     return sb.toString();
                 }
+            
             }
         
             @Override
@@ -110,6 +111,7 @@ public class Rdef04Record {
                     .append("}");
                 return sb.toString();
             }
+        
         }
     
         @Override
@@ -121,6 +123,7 @@ public class Rdef04Record {
                 .append("}");
             return sb.toString();
         }
+    
     }
 
     @Override
@@ -132,4 +135,5 @@ public class Rdef04Record {
             .append("}");
         return sb.toString();
     }
+
 }

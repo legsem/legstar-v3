@@ -10,15 +10,10 @@ import org.legstar.cobol.data.entry.CobolDataEntry;
 import org.legstar.cobol.type.utils.PictureUtils;
 
 /**
- * TODO missing Float & Double
- * <p>
  * TODO National & DBCS (DISPLAY-1) not handled
  * <p>
  * TODO For occurs depending on relationships, the cobol name could be qualified
  * - this is not handled
- * <p>
- * TODO For redefines relationships, the cobol name could be qualified - this is
- * not handled
  */
 public class RenderingModelGenerator {
 
@@ -32,7 +27,30 @@ public class RenderingModelGenerator {
 	 */
 	private Set<String> redefObjects;
 
+	/**
+	 * Generate a rendering model from a cobol data entry.
+	 * 
+	 * @param source              used to form the last segment of the package name
+	 * @param dataEntry           the root cobol data entry
+	 * @param targetPackagePrefix the package name prefix
+	 * @return a rendering model ready for code generation
+	 */
 	public RenderingModel generate(String source, CobolDataEntry dataEntry, String targetPackagePrefix) {
+		return generate(source, dataEntry, targetPackagePrefix, false);
+	}
+
+	/**
+	 * Generate a rendering model from a cobol data entry.
+	 * 
+	 * @param source              used to form the last segment of the package name
+	 * @param dataEntry           the root cobol data entry
+	 * @param targetPackagePrefix the package name prefix
+	 * @param withToString        whether toSting methods must be added on each
+	 *                            class and nested class
+	 * @return a rendering model ready for code generation
+	 */
+	public RenderingModel generate(String source, CobolDataEntry dataEntry, String targetPackagePrefix,
+			boolean withToString) {
 		if (dataEntry.isConditionName() || dataEntry.isRenames()) {
 			throw new IllegalArgumentException("This type of entry is not supported: " + dataEntry);
 		}
@@ -44,7 +62,7 @@ public class RenderingModelGenerator {
 			sb.append(".");
 		}
 		sb.append(source.toLowerCase());
-		return new RenderingModel(sb.toString(), generate(dataEntry, fieldName(dataEntry.cobolName())));
+		return new RenderingModel(sb.toString(), generate(dataEntry, fieldName(dataEntry.cobolName())), withToString);
 	}
 
 	/**

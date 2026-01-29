@@ -1,5 +1,5 @@
 package org.legstar.cobol.generator.model;
 
-public record RenderingModel(String target_package_name, RenderingItem cobol_item) {
+public record RenderingModel(String target_package_name, RenderingItem cobol_item, boolean withToString) {
 
 }

@@ -59,4 +59,6 @@
 @endif
 @endfor
 <%-- To String --%>
+@if(model.withToString())
 @template.bean_fields_tostring(model, fields)
+@endif

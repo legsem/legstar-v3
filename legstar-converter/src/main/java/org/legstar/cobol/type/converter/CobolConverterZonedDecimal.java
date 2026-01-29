@@ -8,11 +8,6 @@ import org.legstar.cobol.type.utils.BytesLenUtils;
 
 /**
  * Converts between a Cobol zoned decimal and a java BigDecimal or String.
- * <p>
- * TODO
- * <ul>
- * <li>Missing toShort, toInteger, toLong</li>
- * </ul>
  */
 public class CobolConverterZonedDecimal {
 

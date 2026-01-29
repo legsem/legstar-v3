@@ -74,6 +74,7 @@ public class Rdef05Record {
                 .append("}");
             return sb.toString();
         }
+    
     }
 
     @CobolChoice(cobolName = "CHOICE2-ALT1", maxBytesLen = 4)
@@ -134,6 +135,7 @@ public class Rdef05Record {
                 .append("}");
             return sb.toString();
         }
+    
     }
 
     @Override
@@ -145,4 +147,5 @@ public class Rdef05Record {
             .append("}");
         return sb.toString();
     }
+
 }

@@ -1,12 +1,5 @@
 package org.legstar.cobol.type.converter;
 
-/**
- * TODO
- * <ul>
- * <li>improve message with annotation content (cobolName, type)</li>
- * <li>enhance annotations to reflect location in original source</li>
- * </ul>
- */
 public class CobolConverterException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

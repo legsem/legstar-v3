@@ -25,7 +25,7 @@ public class CobolBeanGenerator {
 		CopybookParser parser = new CopybookParser();
 		List<CobolDataEntry> entries = parser.parse(inputSource, reader);
 		RenderingModel renderingModel = new RenderingModelGenerator().generate(inputSource, entries.get(0),
-				config.packageNamePrefix());
+				config.packageNamePrefix(), config.withToString());
 		generate(renderingModel, writer);
 	}
 

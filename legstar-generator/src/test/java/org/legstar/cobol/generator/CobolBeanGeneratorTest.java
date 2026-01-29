@@ -14,7 +14,9 @@ public class CobolBeanGeneratorTest extends CobolGeneratorTestBase {
 
 	private static final Path COPYBOOKS = Paths.get("src/test/copybook");
 
-	private CobolBeanGeneratorConfig config = new CobolBeanGeneratorConfig().setPackageNamePrefix("legstar.samples");
+	private CobolBeanGeneratorConfig config = new CobolBeanGeneratorConfig() //
+			.setPackageNamePrefix("legstar.samples") //
+			.setWithToString(true);
 
 	@Test
 	public void testAlltypes() {

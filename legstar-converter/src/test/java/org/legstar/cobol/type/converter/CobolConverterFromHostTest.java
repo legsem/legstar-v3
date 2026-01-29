@@ -30,13 +30,6 @@ import legstar.samples.rdef07.Rdef07Record;
 import legstar.samples.stru01.Stru01Record;
 import legstar.samples.stru03.Stru03Record;
 
-/**
- * TODO
- * <ul>
- * <li>Add case choice with an array alternative</li>
- * <li>Add case array with Choice items</li>
- * </ul>
- */
 public class CobolConverterFromHostTest extends CobolConverterTestBase {
 
 	@Test

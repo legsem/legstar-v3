@@ -86,6 +86,7 @@ public class Stru03Record {
                 .append("}");
             return sb.toString();
         }
+    
     }
 
     @Override
@@ -99,4 +100,5 @@ public class Stru03Record {
             .append("}");
         return sb.toString();
     }
+
 }

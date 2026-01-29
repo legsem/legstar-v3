@@ -74,6 +74,7 @@ public class Rdef01Record {
                     .append("}");
                 return sb.toString();
             }
+        
         }
     
         @CobolGroup(cobolName = "COM-DETAIL2")
@@ -98,6 +99,7 @@ public class Rdef01Record {
                     .append("}");
                 return sb.toString();
             }
+        
         }
     
         @Override
@@ -109,6 +111,7 @@ public class Rdef01Record {
                 .append("}");
             return sb.toString();
         }
+    
     }
 
     @Override
@@ -120,4 +123,5 @@ public class Rdef01Record {
             .append("}");
         return sb.toString();
     }
+
 }

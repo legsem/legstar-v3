@@ -77,6 +77,7 @@ public class Rdef07Record {
                     .append("}");
                 return sb.toString();
             }
+        
         }
     
         @Override
@@ -87,6 +88,7 @@ public class Rdef07Record {
                 .append("}");
             return sb.toString();
         }
+    
     }
 
     @Override
@@ -98,4 +100,5 @@ public class Rdef07Record {
             .append("}");
         return sb.toString();
     }
+
 }

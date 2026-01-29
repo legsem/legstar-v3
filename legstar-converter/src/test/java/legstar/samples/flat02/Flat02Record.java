@@ -64,4 +64,5 @@ public class Flat02Record {
             .append("}");
         return sb.toString();
     }
+
 }
