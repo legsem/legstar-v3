@@ -1,5 +1,6 @@
 package org.legstar.cobol.type.converter;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
@@ -124,7 +125,10 @@ public class CobolConverterBinaryNumber {
 		try {
 			int byteLen = BytesLenUtils.binaryNumberByteLen(totalDigits);
 			byte[] buffer = new byte[byteLen];
-			is.read(buffer);
+			int l = is.read(buffer);
+			if (l <= 0) {
+				throw new CobolConverterException("No more data available");
+			}
 			return ByteBuffer.wrap(buffer);
 		} catch (IOException e) {
 			throw new CobolConverterException(e);

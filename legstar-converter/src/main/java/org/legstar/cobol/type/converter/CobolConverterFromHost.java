@@ -1,7 +1,6 @@
 package org.legstar.cobol.type.converter;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -67,9 +66,9 @@ public class CobolConverterFromHost<T> {
 		this.choiceStrategy = choiceStrategy == null ? new CobolConverterDefaultChoiceStrategy() : choiceStrategy;
 	}
 
-	public T convert(InputStream is, Class<T> outputClass) {
+	public T convert(CobolConverterInputStream is, Class<T> outputClass) {
 		Annotation annotation = getCobolItemType(outputClass);
-		return convert(annotation, new CobolConverterInputStream(is), outputClass);
+		return convert(annotation, is, outputClass);
 	}
 
 	private <Z> Z convert(Annotation annotation, CobolConverterInputStream is, Class<Z> objectClass) {

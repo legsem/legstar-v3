@@ -1,12 +1,23 @@
 package org.legstar.cobol.type.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
 public class CobolConverterStringTest extends CobolConverterTestBase {
 
 	CobolConverterString converter = new CobolConverterString(config);
+
+	@Test
+	public void testNoHostData() {
+		try {
+			converter.toString(inputStreamFrom(""), 1);
+			fail();
+		} catch (Exception e) {
+			assertEquals("No more data available", e.getMessage());
+		}
+	}
 
 	@Test
 	public void test0ByteLen() {

@@ -1,6 +1,7 @@
 package org.legstar.cobol.type.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,12 @@ public class CobolConverterBinaryNumberTest extends CobolConverterTestBase {
 
 	@Test
 	public void testNoHostData() {
-		assertEquals((short) 0, converter.toShort(inputStreamFrom(""), true, 0));
+		try {
+			converter.toShort(inputStreamFrom(""), true, 2);
+			fail();
+		} catch (Exception e) {
+			assertEquals("No more data available", e.getMessage());
+		}
 	}
 
 	@Test

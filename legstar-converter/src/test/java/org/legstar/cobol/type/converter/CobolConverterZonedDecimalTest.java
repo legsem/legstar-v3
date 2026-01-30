@@ -1,6 +1,7 @@
 package org.legstar.cobol.type.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +10,23 @@ public class CobolConverterZonedDecimalTest extends CobolConverterTestBase {
 	CobolConverterZonedDecimal converter = new CobolConverterZonedDecimal(config);
 
 	@Test
+	public void testNoHostData() {
+		try {
+			fromHost("", 2, 0, false, false);
+			fail();
+		} catch (Exception e) {
+			assertEquals("No more data available", e.getMessage());
+		}
+	}
+
+	@Test
 	public void allLowValues() {
 		assertEquals("0", fromHost("00000000", 4, 0, false, false));
+	}
+
+	@Test
+	public void allZeroes() {
+		assertEquals("0", fromHost("F0F0", 2, 0, false, false));
 	}
 
 	@Test

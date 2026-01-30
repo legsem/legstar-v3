@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 import org.legstar.cobol.data.entry.CobolDataEntry;
 import org.legstar.cobol.type.utils.PictureUtils;
@@ -26,6 +27,11 @@ public class RenderingModelGenerator {
 	 * Cobol name of items which are redefined by at least one sibling.
 	 */
 	private Set<String> redefObjects;
+
+	/**
+	 * Keeps track of the group hierarchy for error reporting
+	 */
+	private Stack<String> groupStack = new Stack<String>();
 
 	/**
 	 * Generate a rendering model from a cobol data entry.
@@ -52,7 +58,8 @@ public class RenderingModelGenerator {
 	public RenderingModel generate(String source, CobolDataEntry dataEntry, String targetPackagePrefix,
 			boolean withToString) {
 		if (dataEntry.isConditionName() || dataEntry.isRenames()) {
-			throw new IllegalArgumentException("This type of entry is not supported: " + dataEntry);
+			throw new RenderingModelGeneratorException(
+					"This type of entry is not supported: " + dataEntry.levelNumber(), groupStack, dataEntry);
 		}
 		odoObjects = odoObjects(dataEntry);
 		redefObjects = redefObjects(dataEntry);
@@ -61,8 +68,21 @@ public class RenderingModelGenerator {
 			sb.append(targetPackagePrefix);
 			sb.append(".");
 		}
-		sb.append(source.toLowerCase());
+		sb.append(packageSegment(source));
 		return new RenderingModel(sb.toString(), generate(dataEntry, fieldName(dataEntry.cobolName())), withToString);
+	}
+	
+	/**
+	 * Form a valid java package segment using the cobol source name.
+	 */
+	private String packageSegment(String source) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < source.length(); i++) {
+			char c = source.charAt(i);
+			c = Character.toLowerCase(c);
+			sb.append(Character.isJavaIdentifierPart(c) ? c : "_");
+		}
+		return sb.toString();
 	}
 
 	/**
@@ -94,7 +114,8 @@ public class RenderingModelGenerator {
 			case INDEX:
 			case POINTER:
 			case PROCEDURE_POINTER:
-				throw new IllegalArgumentException("Usage " + dataEntry.usage() + " is not supported");
+				throw new RenderingModelGeneratorException("Usage " + dataEntry.usage() + " is not supported",
+						groupStack, dataEntry);
 			default:
 				break;
 			}
@@ -104,7 +125,7 @@ public class RenderingModelGenerator {
 		} else if (PictureUtils.isAlphaNumeric(dataEntry.picture())) {
 			return generateString(dataEntry, fieldName);
 		} else {
-			throw new IllegalArgumentException("Unable to recognize " + dataEntry);
+			throw new RenderingModelGeneratorException("Unable to recognize this data entry", groupStack, dataEntry);
 		}
 	}
 
@@ -117,21 +138,28 @@ public class RenderingModelGenerator {
 	 * grouped in a RenderingChoice item.
 	 */
 	private RenderingGroup generateGroup(CobolDataEntry dataEntry, String fieldName) {
+		groupStack.add(dataEntry.cobolName());
 		List<RenderingItem> children = new ArrayList<>();
 		ChoiceBuilder choiceBuilder = null;
 		for (CobolDataEntry child : dataEntry.children()) {
-			String childFieldName = uniqueFieldName(child.cobolName(), children);
 			if (child.isConditionName() || child.isRenames()) {
 				continue;
 			} else if (child.isRedefinition()) {
 				// There must be a pending choice being built
-				choiceBuilder.add(generate(child, childFieldName));
+				if (choiceBuilder == null) {
+					throw new RenderingModelGeneratorException("Cobol item " + child.cobolName() + " redefines "
+							+ child.redefines() + " which is not found", groupStack, child);
+				}
+				// Add a new alternative in the pending choice being built
+				String alternativeFieldName = uniqueFieldName(child.cobolName(), choiceBuilder.choiceAlternatives());
+				choiceBuilder.add(generate(child, alternativeFieldName));
 			} else {
 				if (choiceBuilder != null) {
 					// Terminate any pending choice
 					children.add(choiceBuilder.build());
 					choiceBuilder = null;
 				}
+				String childFieldName = uniqueFieldName(child.cobolName(), children);
 				if (isRedefObject(child)) {
 					// Start a new pending choice
 					choiceBuilder = new ChoiceBuilder( //
@@ -150,6 +178,7 @@ public class RenderingModelGenerator {
 			// Terminate any pending choice
 			children.add(choiceBuilder.build());
 		}
+		groupStack.pop();
 		return new RenderingGroup(dataEntry.cobolName(), children, generateArray(dataEntry), fieldName);
 	}
 
@@ -173,60 +202,88 @@ public class RenderingModelGenerator {
 	 * An alphanumeric item
 	 */
 	private RenderingString generateString(CobolDataEntry dataEntry, String fieldName) {
-		PictureUtils.AlphaNumeric n = PictureUtils.alphaNumeric(dataEntry.picture());
-		return new RenderingString(dataEntry.cobolName(), n.charNum(), generateArray(dataEntry), fieldName);
+		try {
+			PictureUtils.AlphaNumeric n = PictureUtils.alphaNumeric(dataEntry.picture());
+			return new RenderingString(dataEntry.cobolName(), n.charNum(), generateArray(dataEntry), fieldName);
+		} catch (Exception e) {
+			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
+		}
 	}
 
 	/**
 	 * A COMP item
 	 */
 	private RenderingBinaryNumber generateBinaryNumber(CobolDataEntry dataEntry, String fieldName) {
-		PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
-		return new RenderingBinaryNumber(dataEntry.cobolName(), n.signed(), n.totalDigits(), isOdoObject(dataEntry),
-				generateArray(dataEntry), fieldName);
+		try {
+			PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
+			return new RenderingBinaryNumber(dataEntry.cobolName(), n.signed(), n.totalDigits(), isOdoObject(dataEntry),
+					generateArray(dataEntry), fieldName);
+		} catch (Exception e) {
+			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
+		}
 	}
 
 	/**
 	 * A DISPLAY zoned decimal item
 	 */
 	private RenderingZonedDecimal generateZonedDecimal(CobolDataEntry dataEntry, String fieldName) {
-		PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
-		return new RenderingZonedDecimal(dataEntry.cobolName(), n.totalDigits(), n.fractionDigits(),
-				dataEntry.signLeading(), dataEntry.signSeparate(), dataEntry.blankWhenZero(), isOdoObject(dataEntry),
-				generateArray(dataEntry), fieldName);
+		try {
+			PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
+			return new RenderingZonedDecimal(dataEntry.cobolName(), n.totalDigits(), n.fractionDigits(),
+					dataEntry.signLeading(), dataEntry.signSeparate(), dataEntry.blankWhenZero(),
+					isOdoObject(dataEntry), generateArray(dataEntry), fieldName);
+		} catch (Exception e) {
+			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
+		}
 	}
 
 	/**
 	 * A COMP-3 item
 	 */
 	private RenderingPackedDecimal generatePackedDecimal(CobolDataEntry dataEntry, String fieldName) {
-		PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
-		return new RenderingPackedDecimal(dataEntry.cobolName(), n.signed(), n.totalDigits(), n.fractionDigits(),
-				isOdoObject(dataEntry), generateArray(dataEntry), fieldName);
+		try {
+			PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
+			return new RenderingPackedDecimal(dataEntry.cobolName(), n.signed(), n.totalDigits(), n.fractionDigits(),
+					isOdoObject(dataEntry), generateArray(dataEntry), fieldName);
+		} catch (Exception e) {
+			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
+		}
 	}
 
 	/**
 	 * A COMP-1 item
 	 */
 	private RenderingFloat generateFloat(CobolDataEntry dataEntry, String fieldName) {
-		return new RenderingFloat(dataEntry.cobolName(), generateArray(dataEntry), fieldName);
+		try {
+			return new RenderingFloat(dataEntry.cobolName(), generateArray(dataEntry), fieldName);
+		} catch (Exception e) {
+			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
+		}
 	}
 
 	/**
 	 * A COMP-2 item
 	 */
 	private RenderingDouble generateDouble(CobolDataEntry dataEntry, String fieldName) {
-		return new RenderingDouble(dataEntry.cobolName(), generateArray(dataEntry), fieldName);
+		try {
+			return new RenderingDouble(dataEntry.cobolName(), generateArray(dataEntry), fieldName);
+		} catch (Exception e) {
+			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
+		}
 	}
 
 	/**
 	 * A fixed or Variable size array
 	 */
 	private RenderingArray generateArray(CobolDataEntry dataEntry) {
-		if (dataEntry.isArray()) {
-			return new RenderingArray(dataEntry.minOccurs(), dataEntry.maxOccurs(), dataEntry.dependingOn());
-		} else {
-			return null;
+		try {
+			if (dataEntry.isArray()) {
+				return new RenderingArray(dataEntry.minOccurs(), dataEntry.maxOccurs(), dataEntry.dependingOn());
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
 		}
 	}
 

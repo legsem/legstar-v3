@@ -50,10 +50,9 @@ public class BeanGeneratorMojo extends LegstarMojoBase {
 			Charset charset = cobolFileEncoding == null ? Charset.defaultCharset() : Charset.forName(cobolFileEncoding);
 			FileReader reader = new FileReader(cobolFile, charset);
 			StringWriter writer = new StringWriter();
-			String className = gen.generate(baseName, reader, writer);
-			String packageName = packageNamePrefix == null ? baseName
-			        : (packageNamePrefix + "." + baseName);
-
+			CobolBeanGenerator.Result result = gen.generate(baseName, reader, writer);
+			String className = result.className();
+			String packageName = result.packageName();
 			Path classPath = output.toPath().resolve(packageName.replace(".", "/"));
 			classPath.toFile().mkdirs();
 			Files.writeString(classPath.resolve(className + ".java"), writer.toString(), StandardCharsets.UTF_8);

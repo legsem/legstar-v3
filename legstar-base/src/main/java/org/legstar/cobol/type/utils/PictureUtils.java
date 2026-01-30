@@ -84,7 +84,7 @@ public class PictureUtils {
 	 * Calculate the number of digits given a numeric description like 9999 or 9(4)
 	 */
 	public static int digitCount(String numberPart) {
-		if (numberPart == null) {
+		if (numberPart == null || numberPart.isBlank()) {
 			return 0;
 		}
 		Matcher m = COMP_NUMERIC_PART.matcher(numberPart);

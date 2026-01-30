@@ -13,6 +13,7 @@ public class PictureUtilsTest {
 		assertEquals("CompNumeric[signed=false, totalDigits=1, fractionDigits=0]", PictureUtils.compNumeric("9").toString());
 		assertEquals("CompNumeric[signed=true, totalDigits=2, fractionDigits=1]", PictureUtils.compNumeric("S9V9").toString());
 		assertEquals("CompNumeric[signed=true, totalDigits=7, fractionDigits=2]", PictureUtils.compNumeric("S9(5)V99").toString());
+		assertEquals("CompNumeric[signed=true, totalDigits=4, fractionDigits=4]", PictureUtils.compNumeric("SV9999").toString());
 	}
 
 	@Test

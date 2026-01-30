@@ -10,6 +10,16 @@ public class CobolConverterPackedDecimalTest extends CobolConverterTestBase {
 	CobolConverterPackedDecimal converter = new CobolConverterPackedDecimal(config);
 
 	@Test
+	public void testNoHostData() {
+		try {
+			fromHost("", false, 2, 0);
+			fail();
+		} catch (Exception e) {
+			assertEquals("No more data available", e.getMessage());
+		}
+	}
+
+	@Test
 	public void allLowValues() {
 		assertEquals("0", fromHost("00", false, 2, 0));
 	}

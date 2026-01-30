@@ -147,10 +147,30 @@
 					<artifactId>build-helper-maven-plugin</artifactId>
 					<version>3.6.1</version>
 				</plugin>
+				<!-- Add source folders (for generated code) -->
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.4.0</version>
+				</plugin>
 
 			</plugins>
 
 		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 
 	</build>
 

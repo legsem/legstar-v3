@@ -1,5 +1,6 @@
 package org.legstar.cobol.type.converter;
 
+import java.io.BufferedInputStream;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,17 +17,14 @@ public class CobolConverterInputStream extends FilterInputStream {
 
 	private long markedBytesRead;
 
-	protected CobolConverterInputStream(InputStream in) {
-		super(in);
-		if (!in.markSupported()) {
-			throw new IllegalArgumentException("The input stream class " + in.getClass() + " does not support marking");
-		}
+	public CobolConverterInputStream(InputStream in) {
+		super(in.markSupported() ? in : new BufferedInputStream(in));
 	}
 
 	@Override
 	public int read() throws IOException {
 		int read = super.read();
-		if (read > 0) {
+		if (read != -1) {
 			bytesRead++;
 		}
 		return read;

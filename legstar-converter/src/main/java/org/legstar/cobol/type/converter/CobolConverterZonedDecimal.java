@@ -79,6 +79,9 @@ public class CobolConverterZonedDecimal {
 				sb.append(ln);
 			}
 
+			if (sb.isEmpty()) {
+				throw new CobolConverterException("No more data available");
+			}
 			sb.insert(0, signum == -1 ? "-" : "");
 			return new BigDecimal(sb.toString()).scaleByPowerOfTen(-fractionDigits);
 		} catch (IOException | NumberFormatException e) {

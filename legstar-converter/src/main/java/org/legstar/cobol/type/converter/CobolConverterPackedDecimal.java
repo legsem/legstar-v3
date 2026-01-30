@@ -93,7 +93,9 @@ public class CobolConverterPackedDecimal {
 			}
 
 			String s = sb.toString();
-			if (isAllSpaces(s)) {
+			if (s.isEmpty()) {
+				throw new CobolConverterException("No more data available");
+			} else if (isAllSpaces(s)) {
 				return BigDecimal.valueOf(0);
 			} else {
 				return new BigDecimal(s).scaleByPowerOfTen(-fractionDigits);

@@ -41,6 +41,9 @@ public class CobolConverterString {
 			for (int i = 0; i < charNum; i++) {
 				int c = is.read();
 				if (c == -1) {
+					if (i == 0) {
+						throw new CobolConverterException("No more data available");
+					}
 					break;
 				} else if (c == 0 || c == 0xFF) {
 					continue;
