@@ -1,7 +1,9 @@
 package org.legstar.cobol.generator;
 
-public class CobolBeanGeneratorConfig {
+import org.legstar.cobol.copybook.parser.CopybookParserConfig;
 
+public class CobolBeanGeneratorConfig extends CopybookParserConfig {
+	
 	/**
 	 * Generated java classes will use this prefix to form a java package name.
 	 */
@@ -28,6 +30,21 @@ public class CobolBeanGeneratorConfig {
 	public CobolBeanGeneratorConfig setWithToString(boolean withToString) {
 		this.withToString = withToString;
 		return this;
+	}
+
+	@Override
+	public CobolBeanGeneratorConfig setFreeCodeFormat(boolean freeCodeFormat) {
+		return (CobolBeanGeneratorConfig) super.setFreeCodeFormat(freeCodeFormat);
+	}
+
+	@Override
+	public CobolBeanGeneratorConfig setStartColumn(int startColumn) {
+		return (CobolBeanGeneratorConfig) super.setStartColumn(startColumn);
+	}
+
+	@Override
+	public CobolBeanGeneratorConfig setEndColumn(int endColumn) {
+		return (CobolBeanGeneratorConfig) super.setEndColumn(endColumn);
 	}
 
 }

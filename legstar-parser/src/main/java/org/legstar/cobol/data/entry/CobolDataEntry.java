@@ -250,11 +250,13 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 	}
 	
 	/**
-	 * @return true if this is a group data entry (has children and at least one of
-	 *         them is not a condition name or a renames)
+	 * @return true if this is not a primitive type
 	 */
 	public boolean isGroup() {
-		return children() != null && children().stream().anyMatch(c -> !(c.isRenames() || c.isConditionName()));
+		if (isConditionName() || isRenames()) {
+			return false;
+		}
+		return usage == null && picture == null;
 	}
 
 	/**

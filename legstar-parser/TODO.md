@@ -1,1 +1,0 @@
-* Signed is unclear: SIGN clause or S/+/- in PIC clause ?

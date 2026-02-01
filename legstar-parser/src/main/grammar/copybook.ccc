@@ -125,8 +125,9 @@ TOKEN [IGNORE_CASE]:
 |   < PERIOD: "." >
 |   < COMMA: "," >
 |   < SEMI_COLON: ";" >
-|   < #DATA_NAME_PART: <LETTER> ( <DIGIT> | <LETTER> | <SPECIAL_NAME_CHARS> )* >
-|   < #SPECIAL_NAME_CHARS: "_" | "-" | "$" >
+|   < #DATA_NAME_SPECIAL_CHARS: "_" | "-" | "$" >
+|   < #DATA_NAME_CHARS: <DIGIT> | <LETTER> | <DATA_NAME_SPECIAL_CHARS> >
+|   < #DATA_NAME_PART:  ( <LETTER> | ( ( <DIGIT> )+ ( <LETTER> | <DATA_NAME_SPECIAL_CHARS>) ) ) ( <DATA_NAME_CHARS> )* >
 |   < DATA_NAME: 
         <DATA_NAME_PART> ( <WHITESPACE> (<OF> | <IN>) <WHITESPACE> <DATA_NAME_PART> )* 
         ( "(" <DATA_NAME_PART> ")" )?

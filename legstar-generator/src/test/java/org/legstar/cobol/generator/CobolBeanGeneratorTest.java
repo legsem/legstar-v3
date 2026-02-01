@@ -14,10 +14,6 @@ public class CobolBeanGeneratorTest extends CobolGeneratorTestBase {
 
 	private static final Path COPYBOOKS = Paths.get("src/test/copybook");
 
-	private CobolBeanGeneratorConfig config = new CobolBeanGeneratorConfig() //
-			.setPackageNamePrefix("legstar.samples") //
-			.setWithToString(true);
-
 	@Test
 	public void testAlltypes() {
 		check(generate("ALLTYPES"));
@@ -103,7 +99,31 @@ public class CobolBeanGeneratorTest extends CobolGeneratorTestBase {
 		check(generate("CUSTDAT"));
 	}
 
+	@Test
+	public void testDigitname() {
+		check(generate("DIGITNAME"));
+	}
+
+	@Test
+	public void testFreeform() {
+		check(generate("FREEFORM", getFreeformConfig()));
+	}
+
 	private String generate(String source) {
+		return generate(source, getDefaultConfig());
+	}
+
+	private CobolBeanGeneratorConfig getDefaultConfig() {
+		return new CobolBeanGeneratorConfig() //
+				.setPackageNamePrefix("legstar.samples") //
+				.setWithToString(true);
+	}
+
+	private CobolBeanGeneratorConfig getFreeformConfig() {
+		return getDefaultConfig().setFreeCodeFormat(true);
+	}
+
+	private String generate(String source, CobolBeanGeneratorConfig config) {
 		StringWriter sw = new StringWriter();
 		new CobolBeanGenerator(config).generate(source, getReader(source), sw);
 		return sw.toString();

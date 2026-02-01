@@ -47,6 +47,8 @@ public class RenderingModelGenerator {
 
 	/**
 	 * Generate a rendering model from a cobol data entry.
+	 * <p>
+	 * The data entry must be a group item.
 	 * 
 	 * @param source              used to form the last segment of the package name
 	 * @param dataEntry           the root cobol data entry
@@ -57,10 +59,6 @@ public class RenderingModelGenerator {
 	 */
 	public RenderingModel generate(String source, CobolDataEntry dataEntry, String targetPackagePrefix,
 			boolean withToString) {
-		if (dataEntry.isConditionName() || dataEntry.isRenames()) {
-			throw new RenderingModelGeneratorException(
-					"This type of entry is not supported: " + dataEntry.levelNumber(), groupStack, dataEntry);
-		}
 		odoObjects = odoObjects(dataEntry);
 		redefObjects = redefObjects(dataEntry);
 		StringBuilder sb = new StringBuilder();
@@ -69,9 +67,10 @@ public class RenderingModelGenerator {
 			sb.append(".");
 		}
 		sb.append(packageSegment(source));
-		return new RenderingModel(sb.toString(), generate(dataEntry, fieldName(dataEntry.cobolName())), withToString);
+		RenderingItem rootItem = generate(dataEntry, fieldName(dataEntry.cobolName()));
+		return new RenderingModel(sb.toString(), rootItem, withToString);
 	}
-	
+
 	/**
 	 * Form a valid java package segment using the cobol source name.
 	 */
@@ -362,18 +361,33 @@ public class RenderingModelGenerator {
 	}
 
 	/**
-	 * Form a java field name from a cobol name
+	 * Form a java field name from a cobol name.
+	 * <p>
+	 * Cobol names are usually valid java names apart from the fact that cobol names
+	 * may start with a digit and may contain hyphens.
+	 * <p>
+	 * Otherwise hyphens are often used as separators in Cobol. Here we replace them
+	 * with camel casing.
 	 */
 	private String fieldName(String cobolName) {
 		String[] parts = cobolName.split("-");
 		StringBuilder sb = new StringBuilder();
 		Arrays.stream(parts).forEach(p -> {
-			if (sb.isEmpty()) {
-				sb.append(Character.toLowerCase(p.charAt(0)));
+			if (p.length() == 0) {
+				// 2 (or more) consecutive hyphens
+				sb.append("_");
 			} else {
-				sb.append(Character.toUpperCase(p.charAt(0)));
+				char c = p.charAt(0);
+				if (sb.isEmpty()) {
+					if (Character.isDigit(c)) {
+						sb.append("_");
+					}
+					sb.append(Character.toLowerCase(c));
+				} else {
+					sb.append(Character.toUpperCase(c));
+				}
+				sb.append(p.substring(1).toLowerCase());
 			}
-			sb.append(p.substring(1).toLowerCase());
 		});
 		return sb.toString();
 	}

@@ -87,6 +87,11 @@ public class CopybookParserTest extends CopybookParserTestBase {
 	}
 	
 	@Test
+	public void parseDIGITNAME() {
+		check(parse("DIGITNAME"));
+	}
+	
+	@Test
 	public void parseDOUBLMIX() {
 		check(parse("DOUBLMIX"));
 	}
@@ -124,6 +129,11 @@ public class CopybookParserTest extends CopybookParserTestBase {
 	@Test
 	public void parseFLOATMIX() {
 		check(parse("FLOATMIX"));
+	}
+	
+	@Test
+	public void parseFREEFORM() {
+		check(parse("FREEFORM", new CopybookParserConfig().setFreeCodeFormat(true)));
 	}
 	
 	@Test
@@ -272,7 +282,11 @@ public class CopybookParserTest extends CopybookParserTestBase {
 	}
 	
 	private String parse(String source) {
-		CopybookParser parser = new CopybookParser();
+		return parse(source, new CopybookParserConfig());
+	}
+
+	private String parse(String source, CopybookParserConfig config) {
+		CopybookParser parser = new CopybookParser(config);
 		List<CobolDataEntry> entries = parser.parse(getTestName(), getReader(source));
 		StringBuilder sb = new StringBuilder();
 		sb.append("[\n");

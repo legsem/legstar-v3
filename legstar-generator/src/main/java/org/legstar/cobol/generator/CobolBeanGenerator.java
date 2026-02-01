@@ -3,6 +3,7 @@ package org.legstar.cobol.generator;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
+import java.util.Optional;
 
 import org.legstar.cobol.copybook.parser.CopybookParser;
 import org.legstar.cobol.data.entry.CobolDataEntry;
@@ -13,31 +14,74 @@ import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.TemplateOutput;
 
+/**
+ * Generates a java bean using a cobol copybook.
+ * <p>
+ * The cobol copybook is first parsed into a set of CobolDataEntry objects (an
+ * Abstract Syntax Tree).
+ * <p>
+ * The first CobolDataEntry which is a group is used to produce the java bean
+ * (other data entries are ignored).
+ * <p>
+ * The chosen group CobolDataEntry is transformed into a Rendering model.
+ * <p>
+ * The rendering model serves as input for a set of templates to produce the
+ * final java bean.
+ */
 public class CobolBeanGenerator {
 
 	private final CobolBeanGeneratorConfig config;
 
+	private final CopybookParser parser;
+
 	public CobolBeanGenerator(CobolBeanGeneratorConfig config) {
 		this.config = config;
+		parser = new CopybookParser(config);
 	}
 
+	/**
+	 * Generate a java bean class using a cobol copybook source.
+	 * 
+	 * @param inputSource an identifier for the source
+	 * @param reader      reads the cobol copybook
+	 * @param writer      writes the java bean class
+	 * @return the class and package name used for the generated java bean class
+	 */
 	public Result generate(String inputSource, Reader reader, Writer writer) {
-		CopybookParser parser = new CopybookParser();
-		List<CobolDataEntry> entries = parser.parse(inputSource, reader);
-		RenderingModel renderingModel = new RenderingModelGenerator().generate(inputSource, entries.get(0),
-				config.packageNamePrefix(), config.withToString());
+		CobolDataEntry groupEntry = parse(inputSource, reader);
+		RenderingModel renderingModel = render(inputSource, groupEntry);
 		generate(renderingModel, writer);
-		String packageName = renderingModel.target_package_name();
-		String className = renderingModel.cobol_item().className();
-		return new Result(packageName, className);
+		return new Result(renderingModel.package_name(), renderingModel.root_item().className());
 	}
 
+	/**
+	 * Parse a cobol copybook, returning the first root group item.
+	 */
+	private CobolDataEntry parse(String inputSource, Reader reader) {
+		List<CobolDataEntry> entries = parser.parse(inputSource, reader);
+		Optional<CobolDataEntry> groupEntry = entries.stream().filter(CobolDataEntry::isGroup).findFirst();
+		if (groupEntry.isEmpty()) {
+			throw new CobolBeanGeneratorException("Cobol copybook parser did not return any group data items");
+		} else {
+			return groupEntry.get();
+		}
+	}
+
+	private RenderingModel render(String inputSource, CobolDataEntry groupEntry) {
+		return new RenderingModelGenerator() //
+				.generate(inputSource, groupEntry, config.packageNamePrefix(), config.withToString());
+	}
+
+	/**
+	 * Apply templates to a rendering model producing a java bean class.
+	 */
 	public void generate(RenderingModel renderingModel, Writer writer) {
 		TemplateEngine templateEngine = TemplateEngine.createPrecompiled(ContentType.Plain);
 		TemplateOutput output = new BeanIndentWriterOutput(writer);
 		templateEngine.render("bean_class.jte", renderingModel, output);
 	}
-	
-	public static record Result(String packageName, String className) {};
+
+	public static record Result(String packageName, String className) {
+	};
 
 }

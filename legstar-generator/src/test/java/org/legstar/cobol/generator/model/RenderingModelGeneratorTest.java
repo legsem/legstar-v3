@@ -18,7 +18,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModelGenerator generator = new RenderingModelGenerator();
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals("RenderingString[cobolName=MYVAR, charNum=18, array=null, fieldName=myvar]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -33,7 +33,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingBinaryNumber[cobolName=MYVAR, signed=true, totalDigits=3, odoObject=false, array=null, fieldName=myvar]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingZonedDecimal[cobolName=MYVAR, totalDigits=7, fractionDigits=2, signLeading=false, signSeparate=false, blankWhenZero=false, odoObject=false, array=null, fieldName=myvar]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -62,7 +62,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingPackedDecimal[cobolName=MYVAR, signed=true, totalDigits=7, fractionDigits=2, odoObject=false, array=null, fieldName=myvar]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -76,7 +76,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingFloat[cobolName=MYVAR, array=null, fieldName=myvar]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -90,7 +90,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingDouble[cobolName=MYVAR, array=null, fieldName=myvar]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -106,7 +106,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingString[cobolName=MYVAR, charNum=18, array=RenderingArray[minOccurs=5, maxOccurs=5, dependingOn=null], fieldName=myvar]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -123,7 +123,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingBinaryNumber[cobolName=MYVAR, signed=true, totalDigits=3, odoObject=false, array=RenderingArray[minOccurs=5, maxOccurs=5, dependingOn=null], fieldName=myvar]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -139,7 +139,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingZonedDecimal[cobolName=MYVAR, totalDigits=7, fractionDigits=2, signLeading=false, signSeparate=false, blankWhenZero=false, odoObject=false, array=RenderingArray[minOccurs=5, maxOccurs=5, dependingOn=null], fieldName=myvar]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -156,7 +156,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingPackedDecimal[cobolName=MYVAR, signed=true, totalDigits=7, fractionDigits=2, odoObject=false, array=RenderingArray[minOccurs=5, maxOccurs=5, dependingOn=null], fieldName=myvar]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -175,7 +175,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingGroup[cobolName=GROUP, fields=[RenderingZonedDecimal[cobolName=CHILD, totalDigits=7, fractionDigits=2, signLeading=false, signSeparate=false, blankWhenZero=false, odoObject=false, array=null, fieldName=child]], array=null, fieldName=group]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -196,7 +196,7 @@ public class RenderingModelGeneratorTest {
 		RenderingModel model = generator.generate("t", entry, "some.package");
 		assertEquals(
 				"RenderingGroup[cobolName=GROUP, fields=[RenderingZonedDecimal[cobolName=CHILD, totalDigits=7, fractionDigits=2, signLeading=false, signSeparate=false, blankWhenZero=false, odoObject=false, array=null, fieldName=child]], array=RenderingArray[minOccurs=5, maxOccurs=5, dependingOn=null], fieldName=group]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 	@Test
@@ -225,7 +225,7 @@ public class RenderingModelGeneratorTest {
 		assertEquals("RenderingGroup[cobolName=GROUP, fields=["
 				+ "RenderingZonedDecimal[cobolName=COUNTER, totalDigits=4, fractionDigits=0, signLeading=false, signSeparate=false, blankWhenZero=false, odoObject=true, array=null, fieldName=counter], "
 				+ "RenderingString[cobolName=ARRAY, charNum=3, array=RenderingArray[minOccurs=0, maxOccurs=5, dependingOn=COUNTER], fieldName=array]"
-				+ "], array=null, fieldName=group]", model.cobol_item().toString());
+				+ "], array=null, fieldName=group]", model.root_item().toString());
 	}
 
 	@Test
@@ -255,7 +255,31 @@ public class RenderingModelGeneratorTest {
 				+ "RenderingString[cobolName=COM-NAME, charNum=10, array=null, fieldName=comName], "
 				+ "RenderingPackedDecimal[cobolName=COM-AMOUNT, signed=false, totalDigits=7, fractionDigits=2, odoObject=false, array=null, fieldName=comAmount]"
 				+ "], array=null, fieldName=comNameChoice]" + "], array=null, fieldName=group]",
-				model.cobol_item().toString());
+				model.root_item().toString());
+	}
+
+	@Test
+	public void testFieldName() {
+		CobolDataEntry entry = new CobolDataEntry.Builder() //
+				.levelNumber(1) //
+				.cobolName("L--DEFAULT---1") //
+				.build();
+		RenderingModelGenerator generator = new RenderingModelGenerator();
+		RenderingModel model = generator.generate("t", entry, "some.package");
+		assertEquals("RenderingGroup[cobolName=L--DEFAULT---1, fields=[], array=null, fieldName=l_Default__1]",
+				model.root_item().toString());
+	}
+
+	@Test
+	public void testFieldNameDigits() {
+		CobolDataEntry entry = new CobolDataEntry.Builder() //
+				.levelNumber(1) //
+				.cobolName("5500-REC-01") //
+				.build();
+		RenderingModelGenerator generator = new RenderingModelGenerator();
+		RenderingModel model = generator.generate("t", entry, "some.package");
+		assertEquals("RenderingGroup[cobolName=5500-REC-01, fields=[], array=null, fieldName=_5500Rec01]",
+				model.root_item().toString());
 	}
 
 	@Test
@@ -304,7 +328,7 @@ public class RenderingModelGeneratorTest {
 				+ "RenderingString[cobolName=COM-ADDRESS, charNum=10, array=null, fieldName=comAddress], "
 				+ "RenderingString[cobolName=FILLER, charNum=10, array=null, fieldName=filler_4]"
 				+ "], array=null, fieldName=group]",
-				model.cobol_item().toString());
+				model.root_item().toString());
 	}
 
 }

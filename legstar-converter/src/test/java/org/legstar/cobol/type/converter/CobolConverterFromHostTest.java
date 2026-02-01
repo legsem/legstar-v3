@@ -13,8 +13,10 @@ import legstar.samples.ardo01.Ardo01Record;
 import legstar.samples.ardo03.Ardo03Record;
 import legstar.samples.ardo04.Ardo04Record;
 import legstar.samples.custdat.CustomerData;
+import legstar.samples.digitname._5500Rec01;
 import legstar.samples.flat01.Flat01Record;
 import legstar.samples.flat02.Flat02Record;
+import legstar.samples.freeform.RecA;
 import legstar.samples.optl01.Optl01Record;
 import legstar.samples.rdef01.Rdef01Record;
 import legstar.samples.rdef02.Rdef02Record;
@@ -34,7 +36,9 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 
 	@Test
 	public void testAlltypes() {
-		check(convert("C1C2C3C4000000008000007f800000000000ffff7fffffffffffffff00000003ffffffff001234567D403733c6404cbfcdcafd37c0F1F1F1F0C0F2F1F2F0F0D3F3F3F4D44EF5F6F6604040404040", Alltypes.class));
+		check(convert(
+				"C1C2C3C4000000008000007f800000000000ffff7fffffffffffffff00000003ffffffff001234567D403733c6404cbfcdcafd37c0F1F1F1F0C0F2F1F2F0F0D3F3F3F4D44EF5F6F6604040404040",
+				Alltypes.class));
 	}
 
 	@Test
@@ -191,16 +195,29 @@ public class CobolConverterFromHostTest extends CobolConverterTestBase {
 
 	@Test
 	public void testRdef06Choice2() {
-		check(convert("F0F0F1C3C1D4C2D9C9C4C7C540C3C1D4C2D9C9C4C7C540404040", Rdef06Record.class, new Rdef06RecordChoiceStrategy()));
-	}
-
-	private <T> String convert(String payload, Class<T> clazz) {
-		return convert(payload, clazz, null);
+		check(convert("F0F0F1C3C1D4C2D9C9C4C7C540C3C1D4C2D9C9C4C7C540404040", Rdef06Record.class,
+				new Rdef06RecordChoiceStrategy()));
 	}
 
 	@Test
 	public void testRdef07Choice() {
 		check(convert("F0F0F2052FC1C2C3", Rdef07Record.class));
+	}
+
+	@Test
+	public void test_5500Rec01() {
+		check(convert("F5C3C1D4C2D9C9", _5500Rec01.class));
+	}
+
+	@Test
+	public void testRecA() {
+		check(convert(
+				"D7D7D7D7F0F0C3C1D4C2D9C9C4C7F1F1F1F6F7F8F9F1F2C1F5F4F3F2F1C2C2C3C4404040404040404040404040404040404040404040404040404040404040404040C4C5",
+				RecA.class));
+	}
+
+	private <T> String convert(String payload, Class<T> clazz) {
+		return convert(payload, clazz, null);
 	}
 
 	private <T> String convert(String payload, Class<T> clazz, CobolConverterFromHostChoiceStrategy<T> choiceStrategy) {
