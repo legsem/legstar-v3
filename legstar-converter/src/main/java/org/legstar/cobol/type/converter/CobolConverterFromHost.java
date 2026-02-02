@@ -25,12 +25,7 @@ import org.legstar.cobol.type.annotations.CobolZonedDecimal;
 /**
  * Converts host bytes to a java T instance.
  * <p>
- * The target java class must host cobol annotations.
- * <p>
- * TODO
- * <ul>
- * <li>Missing handling of RDW headers</li>
- * </ul>
+ * The target java class must hold cobol annotations as produced by legstar-generator.
  */
 public class CobolConverterFromHost<T> {
 
@@ -51,7 +46,7 @@ public class CobolConverterFromHost<T> {
 	private final CobolConverterFromHostChoiceStrategy<T> choiceStrategy;
 
 	private final Stack<Object> groupStack = new Stack<>();
-
+	
 	public CobolConverterFromHost(CobolConverterConfig config) {
 		this(config, null);
 	}
@@ -323,19 +318,6 @@ public class CobolConverterFromHost<T> {
 		}
 	}
 
-	private Object getFieldValue(Field field, Object group) {
-		try {
-			Method getter = group.getClass().getMethod(getterName(field));
-			return getter.invoke(group);
-		} catch (Exception e) {
-			throw new CobolConverterException(e);
-		}
-	}
-
-	private String getterName(Field field) {
-		return (field.getType().equals(Boolean.TYPE) ? "is" : "get") + Capitalize(field.getName());
-	}
-
 	private String setterName(Field field) {
 		return "set" + Capitalize(field.getName());
 	}
@@ -399,5 +381,5 @@ public class CobolConverterFromHost<T> {
 		sb.append(cobolName);
 		return sb.toString();
 	}
-
+	
 }

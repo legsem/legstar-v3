@@ -5,11 +5,21 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.legstar.cobol.io.RecfmVBInputStream;
+import org.legstar.cobol.io.RecfmVInputStream;
+
 /**
- * A simple proxy on an input stream that allow tracking how may bytes were
- * read.
+ * A proxy on an input stream to read host data.
  * <p>
- * This is useful for error reporting
+ * If data contains descriptor words, we filter these out with specialized input
+ * streams.
+ * <p>
+ * Otherwise we always use a BufferedInputStream since we need mark/reset
+ * semantic to support choice strategies.
+ * <p>
+ * Finally we need to keep track of the bytes read (for error reporting). Note
+ * that at the moment this is not accurate when combined with Recfm V/VB
+ * filters.
  */
 public class CobolConverterInputStream extends FilterInputStream {
 
@@ -18,7 +28,11 @@ public class CobolConverterInputStream extends FilterInputStream {
 	private long markedBytesRead;
 
 	public CobolConverterInputStream(InputStream in) {
-		super(in.markSupported() ? in : new BufferedInputStream(in));
+		this(in, HostDataRecordFormat.FB);
+	}
+
+	public CobolConverterInputStream(InputStream in, HostDataRecordFormat recfm) {
+		super(getBufferedInputStream(in, recfm));
 	}
 
 	@Override
@@ -59,6 +73,25 @@ public class CobolConverterInputStream extends FilterInputStream {
 
 	public long getBytesRead() {
 		return bytesRead;
+	}
+
+	private static BufferedInputStream getBufferedInputStream(InputStream is, HostDataRecordFormat recfm) {
+		BufferedInputStream bis = null;
+		switch (recfm) {
+		case V:
+			bis = new BufferedInputStream(new RecfmVInputStream(is));
+			break;
+		case VB:
+			bis = new BufferedInputStream(new RecfmVBInputStream(is));
+			break;
+		default:
+			if (is instanceof BufferedInputStream) {
+				bis = (BufferedInputStream) is;
+			} else {
+				bis = new BufferedInputStream(is);
+			}
+		}
+		return bis;
 	}
 
 }

@@ -1,0 +1,367 @@
+package legstar.samples.mymain;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+
+import org.legstar.cobol.type.annotations.*;
+
+@CobolGroup(cobolName = "MYMAIN-1")
+public class Mymain1 {
+
+    private Mymain1Header mymain1Header;
+
+    private Mymain1VariablePortion mymain1VariablePortion;
+
+    public Mymain1Header getMymain1Header() {
+        return mymain1Header;
+    }
+
+    public void setMymain1Header(Mymain1Header mymain1Header) {
+        this.mymain1Header = mymain1Header;
+    }
+
+    public Mymain1VariablePortion getMymain1VariablePortion() {
+        return mymain1VariablePortion;
+    }
+
+    public void setMymain1VariablePortion(Mymain1VariablePortion mymain1VariablePortion) {
+        this.mymain1VariablePortion = mymain1VariablePortion;
+    }
+
+    @CobolGroup(cobolName = "MYMAIN-1-HEADER")
+    public static class Mymain1Header {
+    
+        private MymainCurrentPanelset mymainCurrentPanelset;
+    
+        @CobolBinaryNumber(cobolName = "MYMAIN-EVENT-ID", signed = true, totalDigits = 4)
+        private Short mymainEventId;
+    
+        @CobolBinaryNumber(cobolName = "MYMAIN-DISPLAY-OPTION", signed = true, totalDigits = 4)
+        private Short mymainDisplayOption;
+    
+        private MymainActivatedPanelset mymainActivatedPanelset;
+    
+        @CobolString(cobolName = "MYMAIN-HWNDMAIN", charNum = 4)
+        private String mymainHwndmain;
+    
+        @CobolBinaryNumber(cobolName = "MYMAIN-FIELD-COUNT", signed = true, totalDigits = 4)
+        private Short mymainFieldCount;
+    
+        @CobolBinaryNumber(cobolName = "MYMAIN-LANGUAGE-SELECTED", signed = true, totalDigits = 4)
+        private Short mymainLanguageSelected;
+    
+        @CobolString(cobolName = "FILLER", charNum = 4)
+        private String filler;
+    
+        @CobolString(cobolName = "MYMAIN-MESSAGE-TEXT", charNum = 120)
+        private String mymainMessageText;
+    
+        @CobolBinaryNumber(cobolName = "MYMAIN-MESSAGE-DESTINATION", signed = true, totalDigits = 4)
+        private Short mymainMessageDestination;
+    
+        private MymainSizePosition mymainSizePosition;
+    
+        public MymainCurrentPanelset getMymainCurrentPanelset() {
+            return mymainCurrentPanelset;
+        }
+    
+        public void setMymainCurrentPanelset(MymainCurrentPanelset mymainCurrentPanelset) {
+            this.mymainCurrentPanelset = mymainCurrentPanelset;
+        }
+    
+        public Short getMymainEventId() {
+            return mymainEventId;
+        }
+    
+        public void setMymainEventId(Short mymainEventId) {
+            this.mymainEventId = mymainEventId;
+        }
+    
+        public Short getMymainDisplayOption() {
+            return mymainDisplayOption;
+        }
+    
+        public void setMymainDisplayOption(Short mymainDisplayOption) {
+            this.mymainDisplayOption = mymainDisplayOption;
+        }
+    
+        public MymainActivatedPanelset getMymainActivatedPanelset() {
+            return mymainActivatedPanelset;
+        }
+    
+        public void setMymainActivatedPanelset(MymainActivatedPanelset mymainActivatedPanelset) {
+            this.mymainActivatedPanelset = mymainActivatedPanelset;
+        }
+    
+        public String getMymainHwndmain() {
+            return mymainHwndmain;
+        }
+    
+        public void setMymainHwndmain(String mymainHwndmain) {
+            this.mymainHwndmain = mymainHwndmain;
+        }
+    
+        public Short getMymainFieldCount() {
+            return mymainFieldCount;
+        }
+    
+        public void setMymainFieldCount(Short mymainFieldCount) {
+            this.mymainFieldCount = mymainFieldCount;
+        }
+    
+        public Short getMymainLanguageSelected() {
+            return mymainLanguageSelected;
+        }
+    
+        public void setMymainLanguageSelected(Short mymainLanguageSelected) {
+            this.mymainLanguageSelected = mymainLanguageSelected;
+        }
+    
+        public String getFiller() {
+            return filler;
+        }
+    
+        public void setFiller(String filler) {
+            this.filler = filler;
+        }
+    
+        public String getMymainMessageText() {
+            return mymainMessageText;
+        }
+    
+        public void setMymainMessageText(String mymainMessageText) {
+            this.mymainMessageText = mymainMessageText;
+        }
+    
+        public Short getMymainMessageDestination() {
+            return mymainMessageDestination;
+        }
+    
+        public void setMymainMessageDestination(Short mymainMessageDestination) {
+            this.mymainMessageDestination = mymainMessageDestination;
+        }
+    
+        public MymainSizePosition getMymainSizePosition() {
+            return mymainSizePosition;
+        }
+    
+        public void setMymainSizePosition(MymainSizePosition mymainSizePosition) {
+            this.mymainSizePosition = mymainSizePosition;
+        }
+    
+        @CobolGroup(cobolName = "MYMAIN-CURRENT-PANELSET")
+        public static class MymainCurrentPanelset {
+        
+            @CobolString(cobolName = "MYMAIN-PANEL-NAME", charNum = 8)
+            private String mymainPanelName;
+        
+            @CobolBinaryNumber(cobolName = "MYMAIN-WORKING-SET", signed = true, totalDigits = 4)
+            private Short mymainWorkingSet;
+        
+            public String getMymainPanelName() {
+                return mymainPanelName;
+            }
+        
+            public void setMymainPanelName(String mymainPanelName) {
+                this.mymainPanelName = mymainPanelName;
+            }
+        
+            public Short getMymainWorkingSet() {
+                return mymainWorkingSet;
+            }
+        
+            public void setMymainWorkingSet(Short mymainWorkingSet) {
+                this.mymainWorkingSet = mymainWorkingSet;
+            }
+        
+            @Override
+            public String toString() {
+                StringBuilder sb = new StringBuilder();
+                sb.append("{")
+                    .append("mymainPanelName=").append(mymainPanelName)
+                    .append(", mymainWorkingSet=").append(mymainWorkingSet)
+                    .append("}");
+                return sb.toString();
+            }
+        
+        }
+    
+        @CobolGroup(cobolName = "MYMAIN-ACTIVATED-PANELSET")
+        public static class MymainActivatedPanelset {
+        
+            @CobolString(cobolName = "MYMAIN-ACTIVATED-PANEL-NAME", charNum = 8)
+            private String mymainActivatedPanelName;
+        
+            @CobolBinaryNumber(cobolName = "MYMAIN-ACTIVATED-WORKING-SET", signed = true, totalDigits = 4)
+            private Short mymainActivatedWorkingSet;
+        
+            public String getMymainActivatedPanelName() {
+                return mymainActivatedPanelName;
+            }
+        
+            public void setMymainActivatedPanelName(String mymainActivatedPanelName) {
+                this.mymainActivatedPanelName = mymainActivatedPanelName;
+            }
+        
+            public Short getMymainActivatedWorkingSet() {
+                return mymainActivatedWorkingSet;
+            }
+        
+            public void setMymainActivatedWorkingSet(Short mymainActivatedWorkingSet) {
+                this.mymainActivatedWorkingSet = mymainActivatedWorkingSet;
+            }
+        
+            @Override
+            public String toString() {
+                StringBuilder sb = new StringBuilder();
+                sb.append("{")
+                    .append("mymainActivatedPanelName=").append(mymainActivatedPanelName)
+                    .append(", mymainActivatedWorkingSet=").append(mymainActivatedWorkingSet)
+                    .append("}");
+                return sb.toString();
+            }
+        
+        }
+    
+        @CobolGroup(cobolName = "MYMAIN-SIZE-POSITION")
+        public static class MymainSizePosition {
+        
+            @CobolBinaryNumber(cobolName = "MYMAIN-X-POSITION", signed = true, totalDigits = 9)
+            private Integer mymainXPosition;
+        
+            @CobolBinaryNumber(cobolName = "MYMAIN-Y-POSITION", signed = true, totalDigits = 9)
+            private Integer mymainYPosition;
+        
+            @CobolBinaryNumber(cobolName = "MYMAIN-WIDTH", signed = true, totalDigits = 9)
+            private Integer mymainWidth;
+        
+            @CobolBinaryNumber(cobolName = "MYMAIN-HEIGHT", signed = true, totalDigits = 9)
+            private Integer mymainHeight;
+        
+            public Integer getMymainXPosition() {
+                return mymainXPosition;
+            }
+        
+            public void setMymainXPosition(Integer mymainXPosition) {
+                this.mymainXPosition = mymainXPosition;
+            }
+        
+            public Integer getMymainYPosition() {
+                return mymainYPosition;
+            }
+        
+            public void setMymainYPosition(Integer mymainYPosition) {
+                this.mymainYPosition = mymainYPosition;
+            }
+        
+            public Integer getMymainWidth() {
+                return mymainWidth;
+            }
+        
+            public void setMymainWidth(Integer mymainWidth) {
+                this.mymainWidth = mymainWidth;
+            }
+        
+            public Integer getMymainHeight() {
+                return mymainHeight;
+            }
+        
+            public void setMymainHeight(Integer mymainHeight) {
+                this.mymainHeight = mymainHeight;
+            }
+        
+            @Override
+            public String toString() {
+                StringBuilder sb = new StringBuilder();
+                sb.append("{")
+                    .append("mymainXPosition=").append(mymainXPosition)
+                    .append(", mymainYPosition=").append(mymainYPosition)
+                    .append(", mymainWidth=").append(mymainWidth)
+                    .append(", mymainHeight=").append(mymainHeight)
+                    .append("}");
+                return sb.toString();
+            }
+        
+        }
+    
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("{")
+                .append("mymainCurrentPanelset=").append(mymainCurrentPanelset)
+                .append(", mymainEventId=").append(mymainEventId)
+                .append(", mymainDisplayOption=").append(mymainDisplayOption)
+                .append(", mymainActivatedPanelset=").append(mymainActivatedPanelset)
+                .append(", mymainHwndmain=").append(mymainHwndmain)
+                .append(", mymainFieldCount=").append(mymainFieldCount)
+                .append(", mymainLanguageSelected=").append(mymainLanguageSelected)
+                .append(", filler=").append(filler)
+                .append(", mymainMessageText=").append(mymainMessageText)
+                .append(", mymainMessageDestination=").append(mymainMessageDestination)
+                .append(", mymainSizePosition=").append(mymainSizePosition)
+                .append("}");
+            return sb.toString();
+        }
+    
+    }
+
+    @CobolGroup(cobolName = "MYMAIN-1-VARIABLE-PORTION")
+    public static class Mymain1VariablePortion {
+    
+        private MymainStringsDefault mymainStringsDefault;
+    
+        public MymainStringsDefault getMymainStringsDefault() {
+            return mymainStringsDefault;
+        }
+    
+        public void setMymainStringsDefault(MymainStringsDefault mymainStringsDefault) {
+            this.mymainStringsDefault = mymainStringsDefault;
+        }
+    
+        @CobolGroup(cobolName = "MYMAIN-STRINGS-DEFAULT")
+        public static class MymainStringsDefault {
+        
+            @CobolString(cobolName = "L--DEFAULT", charNum = 23)
+            private String l_Default;
+        
+            public String getL_Default() {
+                return l_Default;
+            }
+        
+            public void setL_Default(String l_Default) {
+                this.l_Default = l_Default;
+            }
+        
+            @Override
+            public String toString() {
+                StringBuilder sb = new StringBuilder();
+                sb.append("{")
+                    .append("l_Default=").append(l_Default)
+                    .append("}");
+                return sb.toString();
+            }
+        
+        }
+    
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("{")
+                .append("mymainStringsDefault=").append(mymainStringsDefault)
+                .append("}");
+            return sb.toString();
+        }
+    
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{")
+            .append("mymain1Header=").append(mymain1Header)
+            .append(", mymain1VariablePortion=").append(mymain1VariablePortion)
+            .append("}");
+        return sb.toString();
+    }
+
+}

@@ -1,0 +1,36 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=REC-A, children=[
+    CobolDataEntry [levelNumber=3, cobolName=REC-A-HEADER, children=[
+      CobolDataEntry [levelNumber=5, cobolName=FLD-01, picture=X(04), srceLine=3]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-02, picture=X(02), srceLine=4]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-03, picture=X(08), srceLine=5]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-04, picture=X(03), srceLine=6]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-05, picture=9(06), srceLine=7]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-06, picture=X, srceLine=8]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-07, picture=9(05), srceLine=9]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-08, picture=X(02), srceLine=10]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-09-REC-TYPE, picture=X, srceLine=11]
+    ], srceLine=2]
+    CobolDataEntry [levelNumber=3, cobolName=REC-A-DATA, children=[
+      CobolDataEntry [levelNumber=5, cobolName=FLD-10, picture=X(35), srceLine=13]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-11, picture=X, srceLine=14]
+    ], srceLine=12]
+  ], srceLine=1]
+  CobolDataEntry [levelNumber=1, cobolName=REC-B, children=[
+    CobolDataEntry [levelNumber=3, cobolName=REC-B-HEADER, children=[
+      CobolDataEntry [levelNumber=5, cobolName=FLD-01, picture=X(04), srceLine=18]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-02, picture=X(02), srceLine=19]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-03, picture=X(08), srceLine=20]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-04, picture=X(03), srceLine=21]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-05, picture=9(06), srceLine=22]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-06, picture=X, srceLine=23]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-07, picture=9(05), srceLine=24]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-08, picture=X(02), srceLine=25]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-09-REC-TYPE, picture=X, srceLine=26]
+    ], srceLine=17]
+    CobolDataEntry [levelNumber=3, cobolName=REC-B-DATA, children=[
+      CobolDataEntry [levelNumber=5, cobolName=FLD-10, picture=X(30), srceLine=28]
+      CobolDataEntry [levelNumber=5, cobolName=FLD-11, picture=X, srceLine=29]
+    ], srceLine=27]
+  ], srceLine=16]
+]

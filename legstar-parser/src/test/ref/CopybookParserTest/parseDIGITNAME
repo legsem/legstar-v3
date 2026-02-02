@@ -1,0 +1,6 @@
+[
+  CobolDataEntry [levelNumber=1, cobolName=5500-REC-01, children=[
+    CobolDataEntry [levelNumber=5, cobolName=5500-REC-TYPE, picture=X(01), srceLine=2]
+    CobolDataEntry [levelNumber=5, cobolName=5500-PLAN-NUM, picture=X(06), srceLine=3]
+  ], srceLine=1]
+]
