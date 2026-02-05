@@ -2,7 +2,7 @@ package legstar.samples.rdef03;
 
 import java.lang.reflect.Field;
 
-import org.legstar.cobol.type.converter.CobolConverterFromHostChoiceStrategy;
+import org.legstar.cobol.converter.CobolConverterFromHostChoiceStrategy;
 
 import legstar.samples.rdef03.Rdef03Record.ComDetail1Choice;
 

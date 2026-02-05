@@ -18,7 +18,6 @@
 		<maven.compiler.release>17</maven.compiler.release>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-		<jte.version>3.2.1</jte.version>
 	</properties>
 
 	<issueManagement>
@@ -82,6 +81,7 @@
 		<module>legstar-generator</module>
 		<module>legstar-parser</module>
 		<module>legstar-jaxb-generator</module>
+		<module>legstar-jaxb-converter</module>
 		<module>legstar-maven-plugin</module>
 	</modules>
 
@@ -121,18 +121,23 @@
 
 			<dependency>
 				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-jaxb-converter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-maven-plugin</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
-			<!-- Templating system -->
-			<dependency>
-				<groupId>gg.jte</groupId>
-				<artifactId>jte</artifactId>
-				<version>${jte.version}</version>
-			</dependency>
-
 			<!-- Tests -->
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-converter</artifactId>
+				<type>test-jar</type>
+				<version>${project.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-generator</artifactId>
@@ -156,12 +161,6 @@
 		<pluginManagement>
 
 			<plugins>
-
-				<plugin>
-					<groupId>gg.jte</groupId>
-					<artifactId>jte-maven-plugin</artifactId>
-					<version>${jte.version}</version>
-				</plugin>
 
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>

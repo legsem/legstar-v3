@@ -39,7 +39,7 @@ public class CobolJaxbRenderingOptions implements RenderingOptions {
 			StringBuilder sb = new StringBuilder();
 			sb.append("@XmlType (propOrder={\"");
 			sb.append(String.join("\", \"", group.fields().stream().map(RenderingItem::fieldName).toList()));
-			sb.append("\"}");
+			sb.append("\"})");
 			return sb.toString();
 		};
 	}
@@ -55,7 +55,13 @@ public class CobolJaxbRenderingOptions implements RenderingOptions {
 			StringBuilder sb = new StringBuilder();
 			sb.append("@XmlRootElement(name = \"");
 			sb.append(group.fieldName());
-			sb.append("\", namespace = \"\"}");
+			sb.append("\", namespace = \"\")");
+			
+			if (config.isXmlAccessTypeField()) {
+				sb.append("\n");
+				sb.append("@XmlAccessorType(XmlAccessType.FIELD)");
+			}
+			
 			return sb.toString();
 		};
 	}

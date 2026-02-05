@@ -13,6 +13,11 @@ public class CobolJaxbBeanGeneratorTest extends CobolGeneratorTestBase {
 	}
 
 	@Test
+	public void testCUSTDAT() {
+		check(generate("CUSTDAT"));
+	}
+
+	@Test
 	public void testFlat01() {
 		check(generate("FLAT01"));
 	}
@@ -34,7 +39,7 @@ public class CobolJaxbBeanGeneratorTest extends CobolGeneratorTestBase {
 
 	private CobolJaxbBeanGeneratorConfig getDefaultConfig() {
 		return new CobolJaxbBeanGeneratorConfig() //
-				.setPackageNamePrefix("legstar.samples") //
+				.setPackageNamePrefix("legstar.samples.jaxb") //
 				.setWithToString(true);
 	}
 

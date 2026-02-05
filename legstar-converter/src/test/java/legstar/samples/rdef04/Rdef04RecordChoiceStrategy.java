@@ -2,7 +2,7 @@ package legstar.samples.rdef04;
 
 import java.lang.reflect.Field;
 
-import org.legstar.cobol.type.converter.CobolConverterFromHostChoiceStrategy;
+import org.legstar.cobol.converter.CobolConverterFromHostChoiceStrategy;
 
 import legstar.samples.rdef04.Rdef04Record.OuterRedefinesLongChoice;
 import legstar.samples.rdef04.Rdef04Record.OuterRedefinesLongChoice.OuterRedefinesShort.InnerRedefinesLongChoice;
