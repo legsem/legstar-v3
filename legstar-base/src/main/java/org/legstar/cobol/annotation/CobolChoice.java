@@ -1,4 +1,4 @@
-package org.legstar.cobol.type.annotations;
+package org.legstar.cobol.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

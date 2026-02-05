@@ -3,7 +3,7 @@ package legstar.samples.stru03;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-import org.legstar.cobol.type.annotations.*;
+import org.legstar.cobol.annotation.*;
 
 @CobolGroup(cobolName = "STRU03-RECORD")
 public class Stru03Record {

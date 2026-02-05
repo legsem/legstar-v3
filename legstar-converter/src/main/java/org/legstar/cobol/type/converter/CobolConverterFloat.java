@@ -3,7 +3,7 @@ package org.legstar.cobol.type.converter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import org.legstar.cobol.type.utils.BytesLenUtils;
+import org.legstar.cobol.utils.BytesLenUtils;
 
 /**
  * Converts between a Cobol COMP-1 literal and a java Float.

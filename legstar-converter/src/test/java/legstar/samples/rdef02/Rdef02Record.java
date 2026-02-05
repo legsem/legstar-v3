@@ -3,7 +3,7 @@ package legstar.samples.rdef02;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-import org.legstar.cobol.type.annotations.*;
+import org.legstar.cobol.annotation.*;
 
 @CobolGroup(cobolName = "RDEF02-RECORD")
 public class Rdef02Record {

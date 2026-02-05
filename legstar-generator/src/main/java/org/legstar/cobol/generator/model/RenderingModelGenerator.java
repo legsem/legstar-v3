@@ -8,13 +8,17 @@ import java.util.Set;
 import java.util.Stack;
 
 import org.legstar.cobol.data.entry.CobolDataEntry;
-import org.legstar.cobol.type.utils.PictureUtils;
+import org.legstar.cobol.utils.PictureUtils;
 
 /**
- * TODO National & DBCS (DISPLAY-1) not handled
+ * Builds a model aimed at rendering engines.
  * <p>
- * TODO For occurs depending on relationships, the cobol name could be qualified
- * - this is not handled
+ * Unsupported features at the moment:
+ * <ul>
+ * <li>National & DBCS (DISPLAY-1) items</li>
+ * <li>For occurs depending on relationships, the cobol name could be
+ * qualified (IN/OF keywords)</li>
+ * </ul>
  */
 public class RenderingModelGenerator {
 
@@ -35,14 +39,16 @@ public class RenderingModelGenerator {
 
 	/**
 	 * Generate a rendering model from a cobol data entry.
+	 * <p>
+	 * The data entry must be a group item.
 	 * 
 	 * @param source              used to form the last segment of the package name
 	 * @param dataEntry           the root cobol data entry
 	 * @param targetPackagePrefix the package name prefix
 	 * @return a rendering model ready for code generation
 	 */
-	public RenderingModel generate(String source, CobolDataEntry dataEntry, String targetPackagePrefix) {
-		return generate(source, dataEntry, targetPackagePrefix, false);
+	public RenderingModel generate(String string, CobolDataEntry entry, String targetPackagePrefix) {
+		return generate(string, entry, targetPackagePrefix, false, RenderingOptions.defaults());
 	}
 
 	/**
@@ -53,22 +59,30 @@ public class RenderingModelGenerator {
 	 * @param source              used to form the last segment of the package name
 	 * @param dataEntry           the root cobol data entry
 	 * @param targetPackagePrefix the package name prefix
-	 * @param withToString        whether toSting methods must be added on each
+	 * @param withToString        whether toString methods must be added on each
 	 *                            class and nested class
+	 * @param options             additional content to add to generated bean
 	 * @return a rendering model ready for code generation
 	 */
 	public RenderingModel generate(String source, CobolDataEntry dataEntry, String targetPackagePrefix,
-			boolean withToString) {
+			boolean withToString, RenderingOptions options) {
 		odoObjects = odoObjects(dataEntry);
 		redefObjects = redefObjects(dataEntry);
+		RenderingItem rootItem = generate(dataEntry, fieldName(dataEntry.cobolName()));
+		return new RenderingModel(packageName(source, targetPackagePrefix), rootItem, withToString, options);
+	}
+
+	/**
+	 * Form a valid java package name for the generated bean.
+	 */
+	private String packageName(String source, String targetPackagePrefix) {
 		StringBuilder sb = new StringBuilder();
 		if (targetPackagePrefix != null && !targetPackagePrefix.isBlank()) {
 			sb.append(targetPackagePrefix);
 			sb.append(".");
 		}
 		sb.append(packageSegment(source));
-		RenderingItem rootItem = generate(dataEntry, fieldName(dataEntry.cobolName()));
-		return new RenderingModel(sb.toString(), rootItem, withToString);
+		return sb.toString();
 	}
 
 	/**

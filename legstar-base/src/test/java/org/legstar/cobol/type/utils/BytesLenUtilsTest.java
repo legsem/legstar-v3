@@ -3,6 +3,7 @@ package org.legstar.cobol.type.utils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import org.legstar.cobol.utils.BytesLenUtils;
 
 public class BytesLenUtilsTest {
 	

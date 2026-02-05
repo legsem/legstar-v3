@@ -330,5 +330,5 @@ public class RenderingModelGeneratorTest {
 				+ "], array=null, fieldName=group]",
 				model.root_item().toString());
 	}
-
+	
 }

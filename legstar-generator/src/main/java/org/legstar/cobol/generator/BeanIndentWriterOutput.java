@@ -6,10 +6,11 @@ import java.util.Stack;
 import gg.jte.output.WriterOutput;
 
 /**
- * Getting proper indentation using jte templates only is complicated (see
+ * Getting proper indentation using jte templates only is hard (see
  * https://github.com/casid/jte/issues/270).
  * <p>
- * This output writer indents Groups and Choices.
+ * This output writer indents Groups and Choices after the templating engine did
+ * its part.
  */
 public class BeanIndentWriterOutput extends WriterOutput {
 

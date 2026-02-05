@@ -1,6 +1,6 @@
 package org.legstar.cobol.generator.model;
 
-import org.legstar.cobol.type.utils.BytesLenUtils;
+import org.legstar.cobol.utils.BytesLenUtils;
 
 public record RenderingZonedDecimal(String cobolName, int totalDigits, int fractionDigits, boolean signLeading,
 		boolean signSeparate, boolean blankWhenZero, boolean odoObject, RenderingArray array, String fieldName)

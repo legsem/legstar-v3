@@ -11,16 +11,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import org.legstar.cobol.type.annotations.CobolArray;
-import org.legstar.cobol.type.annotations.CobolBinaryNumber;
-import org.legstar.cobol.type.annotations.CobolChoice;
-import org.legstar.cobol.type.annotations.CobolDouble;
-import org.legstar.cobol.type.annotations.CobolFloat;
-import org.legstar.cobol.type.annotations.CobolGroup;
-import org.legstar.cobol.type.annotations.CobolItemType;
-import org.legstar.cobol.type.annotations.CobolPackedDecimal;
-import org.legstar.cobol.type.annotations.CobolString;
-import org.legstar.cobol.type.annotations.CobolZonedDecimal;
+import org.legstar.cobol.annotation.CobolArray;
+import org.legstar.cobol.annotation.CobolBinaryNumber;
+import org.legstar.cobol.annotation.CobolChoice;
+import org.legstar.cobol.annotation.CobolDouble;
+import org.legstar.cobol.annotation.CobolFloat;
+import org.legstar.cobol.annotation.CobolGroup;
+import org.legstar.cobol.annotation.CobolItemType;
+import org.legstar.cobol.annotation.CobolPackedDecimal;
+import org.legstar.cobol.annotation.CobolString;
+import org.legstar.cobol.annotation.CobolZonedDecimal;
 
 /**
  * Converts host bytes to a java T instance.

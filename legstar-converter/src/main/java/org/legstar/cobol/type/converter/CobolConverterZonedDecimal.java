@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 
-import org.legstar.cobol.type.utils.BytesLenUtils;
+import org.legstar.cobol.utils.BytesLenUtils;
 
 /**
  * Converts between a Cobol zoned decimal and a java BigDecimal or String.

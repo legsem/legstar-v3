@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-import org.legstar.cobol.type.utils.PictureUtils;
+import org.legstar.cobol.utils.PictureUtils;
 
 public class PictureUtilsTest {
 	

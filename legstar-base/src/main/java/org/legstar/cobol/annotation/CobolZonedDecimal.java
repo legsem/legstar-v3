@@ -1,4 +1,4 @@
-package org.legstar.cobol.type.annotations;
+package org.legstar.cobol.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,13 +8,19 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @CobolItemType
-public @interface CobolBinaryNumber {
-
+public @interface CobolZonedDecimal {
+	
 	String cobolName();
-
-	boolean signed() default false;
 	
 	int totalDigits();
+	
+	int fractionDigits() default 0;
+
+	boolean signLeading() default false;
+	
+	boolean signSeparate() default false;
+
+	boolean blankWhenZero() default false;
 
 	boolean odoObject() default false;
 }

@@ -14,10 +14,6 @@
 
 	<name>legstar-generator</name>
 
-	<properties>
-		<jte.version>3.2.1</jte.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.legsem.legstar</groupId>
@@ -30,7 +26,6 @@
 		<dependency>
 			<groupId>gg.jte</groupId>
 			<artifactId>jte</artifactId>
-			<version>${jte.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -44,7 +39,6 @@
 			<plugin>
 				<groupId>gg.jte</groupId>
 				<artifactId>jte-maven-plugin</artifactId>
-				<version>${jte.version}</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -79,6 +73,18 @@
 									${project.build.directory}/generated-sources</source>
 							</sources>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Make test classes available to other modules -->
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

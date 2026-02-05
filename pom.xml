@@ -18,6 +18,7 @@
 		<maven.compiler.release>17</maven.compiler.release>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+		<jte.version>3.2.1</jte.version>
 	</properties>
 
 	<issueManagement>
@@ -80,6 +81,7 @@
 		<module>legstar-converter</module>
 		<module>legstar-generator</module>
 		<module>legstar-parser</module>
+		<module>legstar-jaxb-generator</module>
 		<module>legstar-maven-plugin</module>
 	</modules>
 
@@ -87,42 +89,56 @@
 
 		<dependencies>
 
-			<!-- LegStar Base -->
 			<dependency>
 				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-base</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
-			<!-- LegStar Converter -->
 			<dependency>
 				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-converter</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
-			<!-- LegStar Generator -->
 			<dependency>
 				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-generator</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
-			<!-- LegStar Parser -->
 			<dependency>
 				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-parser</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
-			<!-- LegStar Maven Plugin -->
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-jaxb-generator</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-maven-plugin</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
+			<!-- Templating system -->
+			<dependency>
+				<groupId>gg.jte</groupId>
+				<artifactId>jte</artifactId>
+				<version>${jte.version}</version>
+			</dependency>
+
 			<!-- Tests -->
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-generator</artifactId>
+				<type>test-jar</type>
+				<version>${project.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>
@@ -141,16 +157,26 @@
 
 			<plugins>
 
-				<!-- Add source folders (for generated code) -->
+				<plugin>
+					<groupId>gg.jte</groupId>
+					<artifactId>jte-maven-plugin</artifactId>
+					<version>${jte.version}</version>
+				</plugin>
+
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
 					<version>3.6.1</version>
 				</plugin>
-				<!-- Add source folders (for generated code) -->
+
 				<plugin>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>3.4.0</version>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.4.2</version>
 				</plugin>
 
 			</plugins>

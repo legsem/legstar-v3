@@ -4,7 +4,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import org.legstar.cobol.type.utils.BytesLenUtils;
+import org.legstar.cobol.utils.BytesLenUtils;
 
 /**
  * Converts between a Cobol binary number and a java Short, Integer or Long.

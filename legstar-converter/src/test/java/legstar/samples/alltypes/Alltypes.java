@@ -3,7 +3,7 @@ package legstar.samples.alltypes;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-import org.legstar.cobol.type.annotations.*;
+import org.legstar.cobol.annotation.*;
 
 @CobolGroup(cobolName = "ALLTYPES")
 public class Alltypes {

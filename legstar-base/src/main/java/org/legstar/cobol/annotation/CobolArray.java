@@ -1,4 +1,4 @@
-package org.legstar.cobol.type.annotations;
+package org.legstar.cobol.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,10 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-@CobolItemType
-public @interface CobolGroup {
-
-	String cobolName();
+@Target(ElementType.FIELD)
+public @interface CobolArray {
+	
+	int minOccurs();
+	
+	int maxOccurs();
+	
+	String dependingOn() default "";
 
 }

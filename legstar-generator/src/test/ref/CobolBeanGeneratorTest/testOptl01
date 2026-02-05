@@ -3,7 +3,7 @@ package legstar.samples.optl01;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-import org.legstar.cobol.type.annotations.*;
+import org.legstar.cobol.annotation.*;
 
 @CobolGroup(cobolName = "OPTL01-RECORD")
 public class Optl01Record {

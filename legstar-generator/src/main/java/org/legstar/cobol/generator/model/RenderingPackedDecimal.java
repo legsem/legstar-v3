@@ -1,6 +1,6 @@
 package org.legstar.cobol.generator.model;
 
-import org.legstar.cobol.type.utils.BytesLenUtils;
+import org.legstar.cobol.utils.BytesLenUtils;
 
 public record RenderingPackedDecimal(String cobolName, boolean signed, int totalDigits, int fractionDigits,
 		boolean odoObject, RenderingArray array, String fieldName) implements RenderingItem {

@@ -3,7 +3,7 @@ package legstar.samples.digitname;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-import org.legstar.cobol.type.annotations.*;
+import org.legstar.cobol.annotation.*;
 
 @CobolGroup(cobolName = "5500-REC-01")
 public class _5500Rec01 {

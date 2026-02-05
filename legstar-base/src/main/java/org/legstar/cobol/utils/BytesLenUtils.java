@@ -1,4 +1,4 @@
-package org.legstar.cobol.type.utils;
+package org.legstar.cobol.utils;
 
 public class BytesLenUtils {
 

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.legsem.legstar</groupId>
+		<artifactId>legstar-parent</artifactId>
+		<version>3.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>legstar-jaxb-generator</artifactId>
+
+	<name>legstar-jaxb-generator</name>
+
+	<properties>
+		<jaxb.version>4.0.6</jaxb.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.legsem.legstar</groupId>
+			<artifactId>legstar-base</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.legsem.legstar</groupId>
+			<artifactId>legstar-parser</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.legsem.legstar</groupId>
+			<artifactId>legstar-generator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>gg.jte</groupId>
+			<artifactId>jte</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>${jaxb.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.legsem.legstar</groupId>
+			<artifactId>legstar-generator</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>

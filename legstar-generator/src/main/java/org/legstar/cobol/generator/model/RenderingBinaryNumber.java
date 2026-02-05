@@ -1,6 +1,6 @@
 package org.legstar.cobol.generator.model;
 
-import org.legstar.cobol.type.utils.BytesLenUtils;
+import org.legstar.cobol.utils.BytesLenUtils;
 
 /**
  * TODO unsigned native binaries may require Integer/Long/BigInteger

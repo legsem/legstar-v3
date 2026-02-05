@@ -1,6 +1,6 @@
 package org.legstar.cobol.generator.model;
 
-import org.legstar.cobol.type.utils.BytesLenUtils;
+import org.legstar.cobol.utils.BytesLenUtils;
 
 public record RenderingDouble(String cobolName, RenderingArray array, String fieldName) implements RenderingItem {
 

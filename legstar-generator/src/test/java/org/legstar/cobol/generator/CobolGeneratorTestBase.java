@@ -3,6 +3,8 @@ package org.legstar.cobol.generator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +16,8 @@ public class CobolGeneratorTestBase {
 
 	private static final Path REFERENCES = Paths.get("src/test/ref");
 	
+	private static final Path COPYBOOKS = Paths.get("src/test/copybook");
+
 	private Path references;
 	
 	private String testName;
@@ -45,8 +49,16 @@ public class CobolGeneratorTestBase {
 		return testName;
 	}
 	
-	private String normalize(String s) {
+	public String normalize(String s) {
 		return s.replaceAll("\\r\\n?", "\n");
 	}
 
+	public Reader getReader(String source) {
+		try {
+			Path sourcePath = COPYBOOKS.resolve(source);
+			return Files.newBufferedReader(sourcePath, StandardCharsets.ISO_8859_1);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
