@@ -13,8 +13,28 @@ public class CobolJaxbBeanGeneratorTest extends CobolGeneratorTestBase {
 	}
 
 	@Test
+	public void testArdo01() {
+		check(generate("ARDO01"));
+	}
+
+	@Test
+	public void testArdo03() {
+		check(generate("ARDO03"));
+	}
+
+	@Test
+	public void testArdo04() {
+		check(generate("ARDO04"));
+	}
+
+	@Test
 	public void testCUSTDAT() {
 		check(generate("CUSTDAT"));
+	}
+
+	@Test
+	public void testDIGITNAME() {
+		check(generate("DIGITNAME"));
 	}
 
 	@Test
@@ -25,6 +45,31 @@ public class CobolJaxbBeanGeneratorTest extends CobolGeneratorTestBase {
 	@Test
 	public void testFlat01NoPropOrder() {
 		check(generate("FLAT01", getDefaultConfig().setKeepPropertiesOrder(false)));
+	}
+
+	@Test
+	public void testFlat02() {
+		check(generate("FLAT02"));
+	}
+
+	@Test
+	public void testFreeform() {
+		check(generate("FREEFORM", getFreeformConfig()));
+	}
+
+	@Test
+	public void testOptl01() {
+		check(generate("OPTL01"));
+	}
+
+	@Test
+	public void testRdef01() {
+		check(generate("RDEF01"));
+	}
+
+	@Test
+	public void testRdef02() {
+		check(generate("RDEF02"));
 	}
 
 	private String generate(String source, CobolJaxbBeanGeneratorConfig config) {
@@ -41,6 +86,10 @@ public class CobolJaxbBeanGeneratorTest extends CobolGeneratorTestBase {
 		return new CobolJaxbBeanGeneratorConfig() //
 				.setPackageNamePrefix("legstar.samples.jaxb") //
 				.setWithToString(true);
+	}
+
+	private CobolJaxbBeanGeneratorConfig getFreeformConfig() {
+		return getDefaultConfig().setFreeCodeFormat(true);
 	}
 
 }

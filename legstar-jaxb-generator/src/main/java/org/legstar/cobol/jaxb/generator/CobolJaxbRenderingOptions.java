@@ -12,6 +12,8 @@ import org.legstar.cobol.generator.model.RenderingOptions;
  */
 public class CobolJaxbRenderingOptions implements RenderingOptions {
 	
+	private static final String NL = System.getProperty("line.separator");
+
 	private final CobolJaxbBeanGeneratorConfig config;
 	
 	public CobolJaxbRenderingOptions(CobolJaxbBeanGeneratorConfig config) {
@@ -30,16 +32,24 @@ public class CobolJaxbRenderingOptions implements RenderingOptions {
 
 	@Override
 	public boolean hasMoreGroupAnnotations() {
-		return config.isKeepPropertiesOrder();
+		return config.isKeepPropertiesOrder() || config.isXmlAccessTypeField();
 	}
 
 	@Override
 	public Function<RenderingGroup, String> moreGroupAnnotations() {
 		return group -> {
 			StringBuilder sb = new StringBuilder();
-			sb.append("@XmlType (propOrder={\"");
-			sb.append(String.join("\", \"", group.fields().stream().map(RenderingItem::fieldName).toList()));
-			sb.append("\"})");
+			if (config.isXmlAccessTypeField()) {
+				sb.append("@XmlAccessorType(XmlAccessType.FIELD)");
+				if (config.isKeepPropertiesOrder()) {
+					sb.append(NL);
+				}
+			}
+			if (config.isKeepPropertiesOrder()) {
+				sb.append("@XmlType (propOrder={\"");
+				sb.append(String.join("\", \"", group.fields().stream().map(RenderingItem::fieldName).toList()));
+				sb.append("\"})");
+			}
 			return sb.toString();
 		};
 	}
@@ -56,12 +66,6 @@ public class CobolJaxbRenderingOptions implements RenderingOptions {
 			sb.append("@XmlRootElement(name = \"");
 			sb.append(group.fieldName());
 			sb.append("\", namespace = \"\")");
-			
-			if (config.isXmlAccessTypeField()) {
-				sb.append("\n");
-				sb.append("@XmlAccessorType(XmlAccessType.FIELD)");
-			}
-			
 			return sb.toString();
 		};
 	}
