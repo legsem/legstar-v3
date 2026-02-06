@@ -8,7 +8,6 @@ import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "FLAT02-RECORD")
 @XmlRootElement(name = "flat02Record", namespace = "")
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType (propOrder={"comNumber", "comName", "comAmount", "comArray"})
 public class Flat02Record {
 

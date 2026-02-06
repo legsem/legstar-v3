@@ -34,8 +34,8 @@ public class CobolConverterTestBase {
 		return hex.parseHex(s);
 	}
 	
-	public CobolConverterInputStream inputStreamFrom(String hex) {
-		return new CobolConverterInputStream(new ByteArrayInputStream(hexToBytes(hex)));
+	public CobolInputStream inputStreamFrom(String hex) {
+		return new CobolInputStream(new ByteArrayInputStream(hexToBytes(hex)));
 	}
  
 	public void check(String res) {

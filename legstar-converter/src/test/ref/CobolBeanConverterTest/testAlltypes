@@ -1,0 +1,1 @@
+{s_String=ABCD, s_Binary=, s_Short=-32768, s_Ushort=127, s_Int=-2147483648, s_Uint=65535, s_Long=9223372036854775807, s_Ulong=17179869183, s_Pdecimal=-12345.67, s_Float=0.21563375, s_Double=0.2998016949252067, s_Zoned=111.00, s_Uzoned=212.00, s_ZonedSl=-333, s_ZonedSt=-44, s_ZonedSls=5, s_ZonedSts=-66, s_UzonedBwz=0.00}

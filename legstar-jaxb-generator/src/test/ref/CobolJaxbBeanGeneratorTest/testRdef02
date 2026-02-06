@@ -8,7 +8,6 @@ import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "RDEF02-RECORD")
 @XmlRootElement(name = "rdef02Record", namespace = "")
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType (propOrder={"rdef02Key", "comDetail1Choice", "comItem3"})
 public class Rdef02Record {
 
@@ -44,7 +43,6 @@ public class Rdef02Record {
     }
 
     @CobolGroup(cobolName = "RDEF02-KEY")
-    @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType (propOrder={"rdef02Item1Choice", "comSelect"})
     public static class Rdef02Key {
     
@@ -142,7 +140,6 @@ public class Rdef02Record {
         }
     
         @CobolGroup(cobolName = "COM-DETAIL1")
-        @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType (propOrder={"comName"})
         public static class ComDetail1 {
         
@@ -169,7 +166,6 @@ public class Rdef02Record {
         }
     
         @CobolGroup(cobolName = "COM-DETAIL2")
-        @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType (propOrder={"comAmount", "filler"})
         public static class ComDetail2 {
         

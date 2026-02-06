@@ -12,7 +12,7 @@ public class CobolJaxbBeanGeneratorConfig extends CobolBeanGeneratorConfigBase<C
 	/**
 	 * Add the @XmlAccessorType(XmlAccessType.FIELD) annotation
 	 */
-	private boolean xmlAccessTypeField = true;
+	private boolean xmlAccessTypeField = false;
 
 	public boolean isKeepPropertiesOrder() {
 		return keepPropertiesOrder;

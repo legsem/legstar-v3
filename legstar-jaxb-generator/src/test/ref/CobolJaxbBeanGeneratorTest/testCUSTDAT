@@ -8,7 +8,6 @@ import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "CUSTOMER-DATA")
 @XmlRootElement(name = "customerData", namespace = "")
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType (propOrder={"customerId", "personalData", "transactions"})
 public class CustomerData {
 
@@ -44,7 +43,6 @@ public class CustomerData {
     }
 
     @CobolGroup(cobolName = "PERSONAL-DATA")
-    @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType (propOrder={"customerName", "customerAddress", "customerPhone"})
     public static class PersonalData {
     
@@ -95,7 +93,6 @@ public class CustomerData {
     }
 
     @CobolGroup(cobolName = "TRANSACTIONS")
-    @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType (propOrder={"transactionNbr", "transaction"})
     public static class Transactions {
     
@@ -122,7 +119,6 @@ public class CustomerData {
         }
     
         @CobolGroup(cobolName = "TRANSACTION")
-        @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType (propOrder={"transactionDateChoice", "transactionAmount", "transactionComment"})
         public static class Transaction {
         
@@ -183,7 +179,6 @@ public class CustomerData {
                 }
             
                 @CobolGroup(cobolName = "FILLER")
-                @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType (propOrder={"transactionDay", "filler", "transactionMonth", "filler_3", "transactionYear"})
                 public static class Filler {
                 

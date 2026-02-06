@@ -283,6 +283,18 @@ public class RenderingModelGeneratorTest {
 	}
 
 	@Test
+	public void testFieldNameStartWithSingleLowcase() {
+		CobolDataEntry entry = new CobolDataEntry.Builder() //
+				.levelNumber(1) //
+				.cobolName("S-BINARY") //
+				.build();
+		RenderingModelGenerator generator = new RenderingModelGenerator();
+		RenderingModel model = generator.generate("t", entry, "some.package");
+		assertEquals("RenderingGroup[cobolName=S-BINARY, fields=[], array=null, fieldName=s_Binary]",
+				model.root_item().toString());
+	}
+
+	@Test
 	public void testFieldNameCollision() {
 		CobolDataEntry child1 = new CobolDataEntry.Builder() //
 				.levelNumber(5) //

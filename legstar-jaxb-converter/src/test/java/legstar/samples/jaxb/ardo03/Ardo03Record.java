@@ -8,7 +8,6 @@ import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "ARDO03-RECORD")
 @XmlRootElement(name = "ardo03Record", namespace = "")
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType (propOrder={"odoCounter", "odoArray"})
 public class Ardo03Record {
 
@@ -35,7 +34,6 @@ public class Ardo03Record {
     }
 
     @CobolGroup(cobolName = "ODO-ARRAY")
-    @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType (propOrder={"odoSubCounter", "odoSubArray"})
     public static class OdoArray {
     
@@ -62,7 +60,6 @@ public class Ardo03Record {
         }
     
         @CobolGroup(cobolName = "ODO-SUB-ARRAY")
-        @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType (propOrder={"filler"})
         public static class OdoSubArray {
         

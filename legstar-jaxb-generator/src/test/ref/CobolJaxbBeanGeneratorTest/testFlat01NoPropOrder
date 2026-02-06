@@ -8,7 +8,6 @@ import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "FLAT01-RECORD")
 @XmlRootElement(name = "flat01Record", namespace = "")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Flat01Record {
 
     @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)

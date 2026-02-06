@@ -8,230 +8,229 @@ import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "ALLTYPES")
 @XmlRootElement(name = "alltypes", namespace = "")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType (propOrder={"sString", "sBinary", "sShort", "sUshort", "sInt", "sUint", "sLong", "sUlong", "sPdecimal", "sFloat", "sDouble", "sZoned", "sUzoned", "sZonedSl", "sZonedSt", "sZonedSls", "sZonedSts", "sUzonedBwz"})
+@XmlType (propOrder={"s_String", "s_Binary", "s_Short", "s_Ushort", "s_Int", "s_Uint", "s_Long", "s_Ulong", "s_Pdecimal", "s_Float", "s_Double", "s_Zoned", "s_Uzoned", "s_ZonedSl", "s_ZonedSt", "s_ZonedSls", "s_ZonedSts", "s_UzonedBwz"})
 public class Alltypes {
 
     @CobolString(cobolName = "S-STRING", charNum = 4)
-    private String sString;
+    private String s_String;
 
     @CobolString(cobolName = "S-BINARY", charNum = 4)
-    private String sBinary;
+    private String s_Binary;
 
     @CobolBinaryNumber(cobolName = "S-SHORT", signed = true, totalDigits = 4)
-    private Short sShort;
+    private Short s_Short;
 
     @CobolBinaryNumber(cobolName = "S-USHORT", totalDigits = 4)
-    private Short sUshort;
+    private Short s_Ushort;
 
     @CobolBinaryNumber(cobolName = "S-INT", signed = true, totalDigits = 9)
-    private Integer sInt;
+    private Integer s_Int;
 
     @CobolBinaryNumber(cobolName = "S-UINT", totalDigits = 9)
-    private Integer sUint;
+    private Integer s_Uint;
 
     @CobolBinaryNumber(cobolName = "S-LONG", signed = true, totalDigits = 18)
-    private Long sLong;
+    private Long s_Long;
 
     @CobolBinaryNumber(cobolName = "S-ULONG", totalDigits = 18)
-    private Long sUlong;
+    private Long s_Ulong;
 
     @CobolPackedDecimal(cobolName = "S-PDECIMAL", totalDigits = 9, fractionDigits = 2)
-    private BigDecimal sPdecimal;
+    private BigDecimal s_Pdecimal;
 
     @CobolFloat(cobolName = "S-FLOAT")
-    private Float sFloat;
+    private Float s_Float;
 
     @CobolDouble(cobolName = "S-DOUBLE")
-    private Double sDouble;
+    private Double s_Double;
 
     @CobolZonedDecimal(cobolName = "S-ZONED", totalDigits = 5, fractionDigits = 2)
-    private BigDecimal sZoned;
+    private BigDecimal s_Zoned;
 
     @CobolZonedDecimal(cobolName = "S-UZONED", totalDigits = 5, fractionDigits = 2)
-    private BigDecimal sUzoned;
+    private BigDecimal s_Uzoned;
 
     @CobolZonedDecimal(cobolName = "S-ZONED-SL", totalDigits = 3, signLeading = true)
-    private BigDecimal sZonedSl;
+    private BigDecimal s_ZonedSl;
 
     @CobolZonedDecimal(cobolName = "S-ZONED-ST", totalDigits = 2)
-    private BigDecimal sZonedSt;
+    private BigDecimal s_ZonedSt;
 
     @CobolZonedDecimal(cobolName = "S-ZONED-SLS", totalDigits = 1, signLeading = true, signSeparate = true)
-    private BigDecimal sZonedSls;
+    private BigDecimal s_ZonedSls;
 
     @CobolZonedDecimal(cobolName = "S-ZONED-STS", totalDigits = 2, signSeparate = true)
-    private BigDecimal sZonedSts;
+    private BigDecimal s_ZonedSts;
 
     @CobolZonedDecimal(cobolName = "S-UZONED-BWZ", totalDigits = 5, fractionDigits = 2, blankWhenZero = true)
-    private BigDecimal sUzonedBwz;
+    private BigDecimal s_UzonedBwz;
 
-    public String getSString() {
-        return sString;
+    public String getS_String() {
+        return s_String;
     }
 
-    public void setSString(String sString) {
-        this.sString = sString;
+    public void setS_String(String s_String) {
+        this.s_String = s_String;
     }
 
-    public String getSBinary() {
-        return sBinary;
+    public String getS_Binary() {
+        return s_Binary;
     }
 
-    public void setSBinary(String sBinary) {
-        this.sBinary = sBinary;
+    public void setS_Binary(String s_Binary) {
+        this.s_Binary = s_Binary;
     }
 
-    public Short getSShort() {
-        return sShort;
+    public Short getS_Short() {
+        return s_Short;
     }
 
-    public void setSShort(Short sShort) {
-        this.sShort = sShort;
+    public void setS_Short(Short s_Short) {
+        this.s_Short = s_Short;
     }
 
-    public Short getSUshort() {
-        return sUshort;
+    public Short getS_Ushort() {
+        return s_Ushort;
     }
 
-    public void setSUshort(Short sUshort) {
-        this.sUshort = sUshort;
+    public void setS_Ushort(Short s_Ushort) {
+        this.s_Ushort = s_Ushort;
     }
 
-    public Integer getSInt() {
-        return sInt;
+    public Integer getS_Int() {
+        return s_Int;
     }
 
-    public void setSInt(Integer sInt) {
-        this.sInt = sInt;
+    public void setS_Int(Integer s_Int) {
+        this.s_Int = s_Int;
     }
 
-    public Integer getSUint() {
-        return sUint;
+    public Integer getS_Uint() {
+        return s_Uint;
     }
 
-    public void setSUint(Integer sUint) {
-        this.sUint = sUint;
+    public void setS_Uint(Integer s_Uint) {
+        this.s_Uint = s_Uint;
     }
 
-    public Long getSLong() {
-        return sLong;
+    public Long getS_Long() {
+        return s_Long;
     }
 
-    public void setSLong(Long sLong) {
-        this.sLong = sLong;
+    public void setS_Long(Long s_Long) {
+        this.s_Long = s_Long;
     }
 
-    public Long getSUlong() {
-        return sUlong;
+    public Long getS_Ulong() {
+        return s_Ulong;
     }
 
-    public void setSUlong(Long sUlong) {
-        this.sUlong = sUlong;
+    public void setS_Ulong(Long s_Ulong) {
+        this.s_Ulong = s_Ulong;
     }
 
-    public BigDecimal getSPdecimal() {
-        return sPdecimal;
+    public BigDecimal getS_Pdecimal() {
+        return s_Pdecimal;
     }
 
-    public void setSPdecimal(BigDecimal sPdecimal) {
-        this.sPdecimal = sPdecimal;
+    public void setS_Pdecimal(BigDecimal s_Pdecimal) {
+        this.s_Pdecimal = s_Pdecimal;
     }
 
-    public Float getSFloat() {
-        return sFloat;
+    public Float getS_Float() {
+        return s_Float;
     }
 
-    public void setSFloat(Float sFloat) {
-        this.sFloat = sFloat;
+    public void setS_Float(Float s_Float) {
+        this.s_Float = s_Float;
     }
 
-    public Double getSDouble() {
-        return sDouble;
+    public Double getS_Double() {
+        return s_Double;
     }
 
-    public void setSDouble(Double sDouble) {
-        this.sDouble = sDouble;
+    public void setS_Double(Double s_Double) {
+        this.s_Double = s_Double;
     }
 
-    public BigDecimal getSZoned() {
-        return sZoned;
+    public BigDecimal getS_Zoned() {
+        return s_Zoned;
     }
 
-    public void setSZoned(BigDecimal sZoned) {
-        this.sZoned = sZoned;
+    public void setS_Zoned(BigDecimal s_Zoned) {
+        this.s_Zoned = s_Zoned;
     }
 
-    public BigDecimal getSUzoned() {
-        return sUzoned;
+    public BigDecimal getS_Uzoned() {
+        return s_Uzoned;
     }
 
-    public void setSUzoned(BigDecimal sUzoned) {
-        this.sUzoned = sUzoned;
+    public void setS_Uzoned(BigDecimal s_Uzoned) {
+        this.s_Uzoned = s_Uzoned;
     }
 
-    public BigDecimal getSZonedSl() {
-        return sZonedSl;
+    public BigDecimal getS_ZonedSl() {
+        return s_ZonedSl;
     }
 
-    public void setSZonedSl(BigDecimal sZonedSl) {
-        this.sZonedSl = sZonedSl;
+    public void setS_ZonedSl(BigDecimal s_ZonedSl) {
+        this.s_ZonedSl = s_ZonedSl;
     }
 
-    public BigDecimal getSZonedSt() {
-        return sZonedSt;
+    public BigDecimal getS_ZonedSt() {
+        return s_ZonedSt;
     }
 
-    public void setSZonedSt(BigDecimal sZonedSt) {
-        this.sZonedSt = sZonedSt;
+    public void setS_ZonedSt(BigDecimal s_ZonedSt) {
+        this.s_ZonedSt = s_ZonedSt;
     }
 
-    public BigDecimal getSZonedSls() {
-        return sZonedSls;
+    public BigDecimal getS_ZonedSls() {
+        return s_ZonedSls;
     }
 
-    public void setSZonedSls(BigDecimal sZonedSls) {
-        this.sZonedSls = sZonedSls;
+    public void setS_ZonedSls(BigDecimal s_ZonedSls) {
+        this.s_ZonedSls = s_ZonedSls;
     }
 
-    public BigDecimal getSZonedSts() {
-        return sZonedSts;
+    public BigDecimal getS_ZonedSts() {
+        return s_ZonedSts;
     }
 
-    public void setSZonedSts(BigDecimal sZonedSts) {
-        this.sZonedSts = sZonedSts;
+    public void setS_ZonedSts(BigDecimal s_ZonedSts) {
+        this.s_ZonedSts = s_ZonedSts;
     }
 
-    public BigDecimal getSUzonedBwz() {
-        return sUzonedBwz;
+    public BigDecimal getS_UzonedBwz() {
+        return s_UzonedBwz;
     }
 
-    public void setSUzonedBwz(BigDecimal sUzonedBwz) {
-        this.sUzonedBwz = sUzonedBwz;
+    public void setS_UzonedBwz(BigDecimal s_UzonedBwz) {
+        this.s_UzonedBwz = s_UzonedBwz;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
-            .append("sString=").append(sString)
-            .append(", sBinary=").append(sBinary)
-            .append(", sShort=").append(sShort)
-            .append(", sUshort=").append(sUshort)
-            .append(", sInt=").append(sInt)
-            .append(", sUint=").append(sUint)
-            .append(", sLong=").append(sLong)
-            .append(", sUlong=").append(sUlong)
-            .append(", sPdecimal=").append(sPdecimal)
-            .append(", sFloat=").append(sFloat)
-            .append(", sDouble=").append(sDouble)
-            .append(", sZoned=").append(sZoned)
-            .append(", sUzoned=").append(sUzoned)
-            .append(", sZonedSl=").append(sZonedSl)
-            .append(", sZonedSt=").append(sZonedSt)
-            .append(", sZonedSls=").append(sZonedSls)
-            .append(", sZonedSts=").append(sZonedSts)
-            .append(", sUzonedBwz=").append(sUzonedBwz)
+            .append("s_String=").append(s_String)
+            .append(", s_Binary=").append(s_Binary)
+            .append(", s_Short=").append(s_Short)
+            .append(", s_Ushort=").append(s_Ushort)
+            .append(", s_Int=").append(s_Int)
+            .append(", s_Uint=").append(s_Uint)
+            .append(", s_Long=").append(s_Long)
+            .append(", s_Ulong=").append(s_Ulong)
+            .append(", s_Pdecimal=").append(s_Pdecimal)
+            .append(", s_Float=").append(s_Float)
+            .append(", s_Double=").append(s_Double)
+            .append(", s_Zoned=").append(s_Zoned)
+            .append(", s_Uzoned=").append(s_Uzoned)
+            .append(", s_ZonedSl=").append(s_ZonedSl)
+            .append(", s_ZonedSt=").append(s_ZonedSt)
+            .append(", s_ZonedSls=").append(s_ZonedSls)
+            .append(", s_ZonedSts=").append(s_ZonedSts)
+            .append(", s_UzonedBwz=").append(s_UzonedBwz)
             .append("}");
         return sb.toString();
     }

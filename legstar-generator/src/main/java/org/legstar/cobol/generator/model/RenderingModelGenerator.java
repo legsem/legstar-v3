@@ -16,8 +16,8 @@ import org.legstar.cobol.utils.PictureUtils;
  * Unsupported features at the moment:
  * <ul>
  * <li>National & DBCS (DISPLAY-1) items</li>
- * <li>For occurs depending on relationships, the cobol name could be
- * qualified (IN/OF keywords)</li>
+ * <li>For occurs depending on relationships, the cobol name could be qualified
+ * (IN/OF keywords)</li>
  * </ul>
  */
 public class RenderingModelGenerator {
@@ -382,6 +382,11 @@ public class RenderingModelGenerator {
 	 * <p>
 	 * Otherwise hyphens are often used as separators in Cobol. Here we replace them
 	 * with camel casing.
+	 * <p>
+	 * In the case where the first character is separated from the rest with a
+	 * hyphen in cobol we add an underscore where the hyphen was. So A-B
+	 * becomes field name a_B. This is because some tools don't react well to field
+	 * names such as aB.
 	 */
 	private String fieldName(String cobolName) {
 		String[] parts = cobolName.split("-");
@@ -398,6 +403,9 @@ public class RenderingModelGenerator {
 					}
 					sb.append(Character.toLowerCase(c));
 				} else {
+					if (sb.length() == 1) {
+						sb.append("_");
+					}
 					sb.append(Character.toUpperCase(c));
 				}
 				sb.append(p.substring(1).toLowerCase());

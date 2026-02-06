@@ -8,7 +8,6 @@ import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "5500-REC-01")
 @XmlRootElement(name = "_5500Rec01", namespace = "")
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType (propOrder={"_5500RecType", "_5500PlanNum"})
 public class _5500Rec01 {
 

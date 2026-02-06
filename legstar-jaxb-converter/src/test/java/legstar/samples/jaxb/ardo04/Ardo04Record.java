@@ -8,65 +8,63 @@ import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "ARDO04-RECORD")
 @XmlRootElement(name = "ardo04Record", namespace = "")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType (propOrder={"cItemsNumber", "cArray"})
+@XmlType (propOrder={"c_ItemsNumber", "c_Array"})
 public class Ardo04Record {
 
     @CobolBinaryNumber(cobolName = "C-ITEMS-NUMBER", signed = true, totalDigits = 4, odoObject = true)
-    private Short cItemsNumber;
+    private Short c_ItemsNumber;
 
     @CobolArray(minOccurs=1, maxOccurs=250, dependingOn = "C-ITEMS-NUMBER")
-    private CArray[] cArray;
+    private C_Array[] c_Array;
 
-    public Short getCItemsNumber() {
-        return cItemsNumber;
+    public Short getC_ItemsNumber() {
+        return c_ItemsNumber;
     }
 
-    public void setCItemsNumber(Short cItemsNumber) {
-        this.cItemsNumber = cItemsNumber;
+    public void setC_ItemsNumber(Short c_ItemsNumber) {
+        this.c_ItemsNumber = c_ItemsNumber;
     }
 
-    public CArray[] getCArray() {
-        return cArray;
+    public C_Array[] getC_Array() {
+        return c_Array;
     }
 
-    public void setCArray(CArray[] cArray) {
-        this.cArray = cArray;
+    public void setC_Array(C_Array[] c_Array) {
+        this.c_Array = c_Array;
     }
 
     @CobolGroup(cobolName = "C-ARRAY")
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType (propOrder={"cItem1", "cItem2"})
-    public static class CArray {
+    @XmlType (propOrder={"c_Item1", "c_Item2"})
+    public static class C_Array {
     
         @CobolString(cobolName = "C-ITEM-1", charNum = 5)
-        private String cItem1;
+        private String c_Item1;
     
         @CobolBinaryNumber(cobolName = "C-ITEM-2", signed = true, totalDigits = 4)
-        private Short cItem2;
+        private Short c_Item2;
     
-        public String getCItem1() {
-            return cItem1;
+        public String getC_Item1() {
+            return c_Item1;
         }
     
-        public void setCItem1(String cItem1) {
-            this.cItem1 = cItem1;
+        public void setC_Item1(String c_Item1) {
+            this.c_Item1 = c_Item1;
         }
     
-        public Short getCItem2() {
-            return cItem2;
+        public Short getC_Item2() {
+            return c_Item2;
         }
     
-        public void setCItem2(Short cItem2) {
-            this.cItem2 = cItem2;
+        public void setC_Item2(Short c_Item2) {
+            this.c_Item2 = c_Item2;
         }
     
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append("{")
-                .append("cItem1=").append(cItem1)
-                .append(", cItem2=").append(cItem2)
+                .append("c_Item1=").append(c_Item1)
+                .append(", c_Item2=").append(c_Item2)
                 .append("}");
             return sb.toString();
         }
@@ -77,8 +75,8 @@ public class Ardo04Record {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
-            .append("cItemsNumber=").append(cItemsNumber)
-            .append(", cArray=").append(Arrays.toString(cArray))
+            .append("c_ItemsNumber=").append(c_ItemsNumber)
+            .append(", c_Array=").append(Arrays.toString(c_Array))
             .append("}");
         return sb.toString();
     }

@@ -1,9 +1,13 @@
 package org.legstar.cobol.jaxb.converter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.StringWriter;
+import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.Test;
-import org.legstar.cobol.converter.CobolConverterFromHostChoiceStrategy;
+import org.legstar.cobol.converter.CobolChoiceStrategy;
 import org.legstar.cobol.converter.CobolConverterTestBase;
 
 import legstar.samples.jaxb.flat01.Flat01Record;
@@ -17,6 +21,17 @@ import legstar.samples.jaxb.freeform.RecA;
 import legstar.samples.jaxb.optl01.Optl01Record;
 import legstar.samples.jaxb.rdef01.Rdef01Record;
 import legstar.samples.jaxb.rdef02.Rdef02Record;
+import legstar.samples.jaxb.rdef03.Rdef03Record;
+import legstar.samples.jaxb.rdef03.Rdef03RecordChoiceStrategy;
+import legstar.samples.jaxb.rdef04.Rdef04Record;
+import legstar.samples.jaxb.rdef04.Rdef04RecordChoiceStrategy;
+import legstar.samples.jaxb.rdef05.Rdef05Record;
+import legstar.samples.jaxb.rdef05.Rdef05RecordChoiceStrategy;
+import legstar.samples.jaxb.rdef06.Rdef06Record;
+import legstar.samples.jaxb.rdef06.Rdef06RecordChoiceStrategy;
+import legstar.samples.jaxb.rdef07.Rdef07Record;
+import legstar.samples.jaxb.stru01.Stru01Record;
+import legstar.samples.jaxb.stru03.Stru03Record;
 import legstar.samples.jaxb.alltypes.Alltypes;
 
 public class CobolJaxbConverterFromHostTest extends CobolConverterTestBase {
@@ -120,17 +135,102 @@ public class CobolJaxbConverterFromHostTest extends CobolConverterTestBase {
 		check(convert("D1D6C8D540E20001C3C1D4C2D9C9C4C7C5400250000F", Rdef02Record.class));
 	}
 
-	private <T> String convert(String payload, Class<T> clazz) {
-		return convert(payload, clazz, null);
+	@Test
+	public void testRdef03Choice1() {
+		check(convert("0000C3C1D4C2D9C9C4C7C540", Rdef03Record.class, new Rdef03RecordChoiceStrategy()));
 	}
 
-	private <T> String convert(String payload, Class<T> clazz, CobolConverterFromHostChoiceStrategy<T> choiceStrategy) {
+	@Test
+	public void testRdef03Choice2() {
+		check(convert("00010250000F", Rdef03Record.class, new Rdef03RecordChoiceStrategy()));
+	}
+
+	@Test
+	public void testRdef03Choice3() {
+		check(convert("0002F1F2F3F4F5", Rdef03Record.class, new Rdef03RecordChoiceStrategy()));
+	}
+
+	@Test
+	public void testRdef04Choice1() {
+		check(convert("C3C1D4C2D9C9C4C7C540C1", Rdef04Record.class));
+	}
+
+	@Test
+	public void testRdef04Choice2() {
+		check(convert("C3C1D4C2D9C9C4C7C540C1", Rdef04Record.class, new Rdef04RecordChoiceStrategy()));
+	}
+
+	@Test
+	public void testRdef04NoChoice() {
 		try {
-			CobolJaxbConverterConfig config = CobolJaxbConverterConfig.ebcdic();
-			CobolJaxbConverterFromHost<T> fromHost = choiceStrategy == null ? new CobolJaxbConverterFromHost<>(config)
-					: new CobolJaxbConverterFromHost<>(config, choiceStrategy);
+			check(convert("C3C1D4C2D9C9C4C7C540C1", Rdef04Record.class,
+					new CobolChoiceStrategy<Rdef04Record>() {
+
+						@Override
+						public boolean choose(Rdef04Record root, Object choice, Field alternative) {
+							return false;
+						}
+
+					}));
+			fail();
+		} catch (Exception e) {
+			assertEquals("org.legstar.cobol.converter.CobolBeanConverterException:"
+					+ " None of the 2 alternatives matched the data"
+					+ " {Cobol item: 'RDEF04-RECORD.OUTER-REDEFINES-LONG', @offset: 0}", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testRdef05Choice1() {
+		check(convert("F1F2F3F4F5F6F7F8", Rdef05Record.class));
+	}
+
+	@Test
+	public void testRdef05Choice2() {
+		check(convert("F1F2F3F4F5F6F7F8", Rdef05Record.class, new Rdef05RecordChoiceStrategy()));
+	}
+
+	@Test
+	public void testRdef06Choice1() {
+		check(convert("F0F0F1C3C1D4C2D9C9C4C7C540C3C1D4C2D9C9C4C7C540404040", Rdef06Record.class));
+	}
+
+	@Test
+	public void testRdef06Choice2() {
+		check(convert("F0F0F1C3C1D4C2D9C9C4C7C540C3C1D4C2D9C9C4C7C540404040", Rdef06Record.class,
+				new Rdef06RecordChoiceStrategy()));
+	}
+
+	@Test
+	public void testRdef07Choice() {
+		check(convert("F0F0F2052FC1C2C3", Rdef07Record.class));
+	}
+
+	@Test
+	public void testStru01() {
+		check(convert("F0F0F0F0F6F2D5C1D4C5F0F0F0F0F6F2404040404040404040400310000F003EC1C2", Stru01Record.class));
+	}
+
+	@Test
+	public void testStru03() {
+		check(convert(
+				"F0F0F0F0F6F2D5C1D4C5F0F0F0F0F6F2404040404040404040400310000F0001C1C20002C2C30003C3C40004C4C50005C5C6",
+				Stru03Record.class));
+	}
+
+	private <T> String convert(String payload, Class<T> beanClass) {
+		return convert(payload, beanClass, null);
+	}
+
+	private <T> String convert(String payload, Class<T> beanClass,
+			CobolChoiceStrategy<T> choiceStrategy) {
+		try {
+			CobolXmlConverterConfig config = CobolXmlConverterConfig.ebcdic();
+			CobolXmlConverter<T> fromHost = choiceStrategy == null //
+					? new CobolXmlConverter<>(config, beanClass) //
+					: new CobolXmlConverter<>(config, beanClass, choiceStrategy);
 			StringWriter writer = new StringWriter();
-			fromHost.convert(inputStreamFrom(payload), clazz, writer);
+			fromHost.convert(inputStreamFrom(payload), writer);
 			return writer.toString();
 		} catch (Exception e) {
 			throw new RuntimeException(e);

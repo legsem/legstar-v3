@@ -8,7 +8,6 @@ import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "REC-A")
 @XmlRootElement(name = "recA", namespace = "")
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType (propOrder={"recAHeader", "recAData"})
 public class RecA {
 
@@ -33,7 +32,6 @@ public class RecA {
     }
 
     @CobolGroup(cobolName = "REC-A-HEADER")
-    @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType (propOrder={"fld01", "fld02", "fld03", "fld04", "fld05", "fld06", "fld07", "fld08", "fld09RecType"})
     public static class RecAHeader {
     
@@ -156,7 +154,6 @@ public class RecA {
     }
 
     @CobolGroup(cobolName = "REC-A-DATA")
-    @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType (propOrder={"fld10", "fld11"})
     public static class RecAData {
     

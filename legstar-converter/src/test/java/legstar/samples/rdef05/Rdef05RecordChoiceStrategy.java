@@ -2,13 +2,13 @@ package legstar.samples.rdef05;
 
 import java.lang.reflect.Field;
 
-import org.legstar.cobol.converter.CobolConverterFromHostChoiceStrategy;
+import org.legstar.cobol.converter.CobolChoiceStrategy;
 
 import legstar.samples.rdef05.Rdef05Record.Choice1Alt1Choice;
 import legstar.samples.rdef05.Rdef05Record.Choice2Alt1Choice;
 
 
-public class Rdef05RecordChoiceStrategy implements CobolConverterFromHostChoiceStrategy<Rdef05Record> {
+public class Rdef05RecordChoiceStrategy implements CobolChoiceStrategy<Rdef05Record> {
 
 	@Override
 	public boolean choose(Rdef05Record rdef04Record, Object choice, Field alternative) {

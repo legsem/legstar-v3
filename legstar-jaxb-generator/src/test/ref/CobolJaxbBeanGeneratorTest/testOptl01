@@ -8,7 +8,6 @@ import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "OPTL01-RECORD")
 @XmlRootElement(name = "optl01Record", namespace = "")
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType (propOrder={"optlStructInd", "optlItemInd", "optlStruct", "optlItem"})
 public class Optl01Record {
 
@@ -58,7 +57,6 @@ public class Optl01Record {
     }
 
     @CobolGroup(cobolName = "OPTL-STRUCT")
-    @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType (propOrder={"optlStructField1", "optlStructField2"})
     public static class OptlStruct {
     
