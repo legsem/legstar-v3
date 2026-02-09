@@ -1,6 +1,10 @@
 package org.legstar.cobol.jaxb.converter;
 
+import java.io.OutputStream;
 import java.io.Writer;
+
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
 
 import org.legstar.cobol.converter.CobolBeanConverter;
 import org.legstar.cobol.converter.CobolChoiceStrategy;
@@ -26,6 +30,10 @@ public class CobolXmlConverter<T> {
 
 	private final CobolBeanConverter<T> beanConverter;
 
+	public CobolXmlConverter(Class<T> beanClass) {
+		this(CobolXmlConverterConfig.ebcdic(), beanClass, null);
+	}
+
 	public CobolXmlConverter(CobolXmlConverterConfig config, Class<T> beanClass) {
 		this(config, beanClass, null);
 	}
@@ -38,10 +46,18 @@ public class CobolXmlConverter<T> {
 	}
 
 	public void convert(CobolInputStream cis, Writer writer) {
+		convert(cis, new StreamResult(writer));
+	}
+
+	public void convert(CobolInputStream cis, OutputStream os) {
+		convert(cis, new StreamResult(os));
+	}
+
+	public void convert(CobolInputStream cis, Result result) {
 		T bean = beanConverter.convert(cis);
 		try {
 			Marshaller marshaller = jaxbContext.createMarshaller();
-			marshaller.marshal(bean, writer);
+			marshaller.marshal(bean, result);
 		} catch (JAXBException e) {
 			throw new CobolXmlConverterException(e);
 		}

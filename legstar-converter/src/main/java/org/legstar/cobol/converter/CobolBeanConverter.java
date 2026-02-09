@@ -72,6 +72,10 @@ public class CobolBeanConverter<T> {
 	 */
 	private final CobolDoubleConverter doubleConverter;
 
+	public CobolBeanConverter(Class<T> beanClass) {
+		this(CobolBeanConverterConfig.ebcdic(), beanClass, null);
+	}
+
 	public CobolBeanConverter(CobolBeanConverterConfig config, Class<T> beanClass) {
 		this(config, beanClass, null);
 	}
@@ -159,7 +163,8 @@ public class CobolBeanConverter<T> {
 	private <Z> Z[] convertArray(Context context, CobolArray cobolArray, Annotation cobolItemType, Class<Z> itemClass) {
 		int maxOccurs = cobolArray.dependingOn() == null || cobolArray.dependingOn().isBlank() //
 				? cobolArray.maxOccurs() //
-				: getOdoObjectValue(context, cobolName(cobolItemType), cobolArray.dependingOn());
+				: getOdoObjectValue(context, cobolName(cobolItemType), cobolArray.dependingOn(),
+						cobolArray.maxOccurs());
 		@SuppressWarnings("unchecked")
 		Z[] array = (Z[]) Array.newInstance(itemClass, maxOccurs);
 		for (int i = 0; i < maxOccurs; i++) {
@@ -217,8 +222,8 @@ public class CobolBeanConverter<T> {
 
 	private <Z> Z convertBinary(Context context, CobolBinaryNumber cobolBinary, Class<Z> objectClass) {
 		try {
-			Z value = (Z) binaryNumberConverter.convert(context.cobolInputStream, cobolBinary.signed(), cobolBinary.totalDigits(),
-					objectClass);
+			Z value = (Z) binaryNumberConverter.convert(context.cobolInputStream, cobolBinary.signed(),
+					cobolBinary.totalDigits(), objectClass);
 			if (cobolBinary.odoObject()) {
 				setOdoObjectValue(context, cobolBinary.cobolName(), value);
 			}
@@ -278,16 +283,19 @@ public class CobolBeanConverter<T> {
 		if (value instanceof Number) {
 			context.putOdoObjectValue(cobolName, ((Number) value).intValue());
 		} else {
-			throw qualifiedException(context,
-					"Value " + value + " is not a number and cannot be used as an array size", cobolName);
+			throw qualifiedException(context, "Value " + value + " is not a number and cannot be used as an array size",
+					cobolName);
 		}
 	}
 
-	private int getOdoObjectValue(Context context, String cobolName, String dependingOn) {
+	private int getOdoObjectValue(Context context, String cobolName, String dependingOn, int maxOccurs) {
 		Integer value = context.getOdoObjectValue(dependingOn);
 		if (value == null) {
+			throw qualifiedException(context, "Array size depends on " + dependingOn + " but no value was set",
+					cobolName);
+		} else if (value < 0 || value > maxOccurs) {
 			throw qualifiedException(context,
-					"Array size depends on " + dependingOn + " but no value was set", cobolName);
+					"Array size depending on " + dependingOn + " is '" + value + "' which is invalid", cobolName);
 		} else {
 			return value;
 		}
@@ -331,7 +339,7 @@ public class CobolBeanConverter<T> {
 				.findFirst() //
 				.orElse(null);
 	}
-	
+
 	private String cobolName(Annotation annotation) {
 		if (annotation instanceof CobolGroup) {
 			return ((CobolGroup) annotation).cobolName();
@@ -429,7 +437,7 @@ public class CobolBeanConverter<T> {
 		void skip(long leftover) throws IOException {
 			cobolInputStream.skip(leftover);
 		}
-		
+
 		boolean groupStackIsEmpty() {
 			return groupStack.isEmpty();
 		}
@@ -438,7 +446,7 @@ public class CobolBeanConverter<T> {
 		<Z> Z getRoot() {
 			return groupStack.isEmpty() ? null : (Z) groupStack.get(0);
 		}
-		
+
 		void pushGroup(Object group) {
 			groupStack.push(group);
 		}
@@ -446,7 +454,7 @@ public class CobolBeanConverter<T> {
 		void popGroup() {
 			groupStack.pop();
 		}
-		
+
 		void putOdoObjectValue(String cobolName, int value) {
 			odoObjectValues.put(cobolName, value);
 		}

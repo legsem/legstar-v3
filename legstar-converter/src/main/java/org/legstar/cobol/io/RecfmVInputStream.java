@@ -149,7 +149,7 @@ public class RecfmVInputStream extends FilterInputStream {
 		ByteBuffer bb = ByteBuffer.wrap(bdw);
 		int len = bb.getShort();
 		if (len < 4 || len > 32760 || bb.getShort() != 0) {
-			throw new IOException("Descriptor word at offset" + pos + " is invalid");
+			throw new IOException("Descriptor word at offset " + pos + " is invalid");
 		}
 		return ByteBuffer.wrap(bdw).getShort() - bdw.length;
 	}
