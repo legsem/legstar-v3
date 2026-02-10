@@ -35,15 +35,15 @@ public class CobolFloatConverter {
 	 * </pre>
 	 * 
 	 * @param is the host bytes
+	 * @return a Float
 	 */
 	public Float toFloat(CobolInputStream is) {
 		try {
 			int bytesLen = BytesLenUtils.floatByteLen();
 			byte[] buffer = new byte[bytesLen];
-			int r = is.read(buffer);
-			if (r != bytesLen) {
-				throw new CobolBeanConverterException(
-						"Not enough bytes for a float. Needed " + bytesLen + ", got " + r + " instead");
+			int count = is.read(buffer);
+			if (count < bytesLen) {
+				throw new CobolBeanConverterEOFException();
 			}
 			ByteBuffer bb = ByteBuffer.wrap(buffer);
 			int hostIntBits = bb.getInt();

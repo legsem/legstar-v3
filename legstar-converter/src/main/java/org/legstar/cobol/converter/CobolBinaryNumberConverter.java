@@ -14,8 +14,8 @@ import org.legstar.cobol.utils.BytesLenUtils;
  * BigEndian)</li>
  * <li>No support for arithmetic extended Cobol compiler option (largest numeric
  * supported is 18 digits)</li>
- * <li>No support for unsigned values greater than 7fffffffffffffff. This would require a
- * toBigInteger method.</li>
+ * <li>No support for unsigned values greater than 7fffffffffffffff. This would
+ * require a toBigInteger method.</li>
  * </ul>
  */
 public class CobolBinaryNumberConverter {
@@ -46,7 +46,8 @@ public class CobolBinaryNumberConverter {
 	 * @return the host bytes converted to a short
 	 */
 	public Short toShort(CobolInputStream is, boolean signed, int totalDigits) {
-		return toByteBuffer(is, totalDigits).getShort();
+		ByteBuffer bb = toByteBuffer(is, totalDigits);
+		return bb.getShort();
 	}
 
 	/**
@@ -92,7 +93,7 @@ public class CobolBinaryNumberConverter {
 	 * @param is          the host bytes
 	 * @param signed      is this a signed binary (unsigned otherwise)
 	 * @param totalDigits the total number of digits
-	 * @return the host bytes converted to an integer
+	 * @return the host bytes converted to a long
 	 */
 	public Long toLong(CobolInputStream is, boolean signed, int totalDigits) {
 		ByteBuffer bb = toByteBuffer(is, totalDigits);
@@ -120,9 +121,9 @@ public class CobolBinaryNumberConverter {
 		try {
 			int byteLen = BytesLenUtils.binaryNumberByteLen(totalDigits);
 			byte[] buffer = new byte[byteLen];
-			int l = is.read(buffer);
-			if (l <= 0) {
-				throw new CobolBeanConverterException("No more data available");
+			int count = is.read(buffer);
+			if (count < byteLen) {
+				throw new CobolBeanConverterEOFException();
 			}
 			return ByteBuffer.wrap(buffer);
 		} catch (IOException e) {

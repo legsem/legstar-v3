@@ -2,14 +2,17 @@ package org.legstar.cobol.converter;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodHandles.Lookup;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.legstar.cobol.annotation.CobolArray;
 import org.legstar.cobol.annotation.CobolBinaryNumber;
@@ -71,6 +74,23 @@ public class CobolBeanConverter<T> {
 	 * Converts cobol COMP-2 to double
 	 */
 	private final CobolDoubleConverter doubleConverter;
+
+	/**
+	 * Fast access to bean methods.
+	 * <p>
+	 * Here we cache the method handles so that we don't have to rebuild them every
+	 * time we visit the same field or class.
+	 * <p>
+	 * This should not pose a risk of memory leak as we are limited to the fields
+	 * and classes in beanClass.
+	 */
+	private final Lookup methodsLookup = MethodHandles.lookup();
+
+	private final Map<Field, MethodHandle> setValueCache = new ConcurrentHashMap<>();
+
+	private final Map<Class<?>, MethodHandle> constructorCache = new ConcurrentHashMap<>();
+
+	private final Map<Field, Annotation> annotationCache = new ConcurrentHashMap<>();
 
 	public CobolBeanConverter(Class<T> beanClass) {
 		this(CobolBeanConverterConfig.ebcdic(), beanClass, null);
@@ -325,8 +345,10 @@ public class CobolBeanConverter<T> {
 	}
 
 	private Annotation getCobolItemType(Field field) {
-		Annotation annotation = getCobolItemType(field.getDeclaredAnnotations());
-		return annotation == null ? getCobolItemType(field.getType()) : annotation;
+		return annotationCache.computeIfAbsent(field, f -> {
+			Annotation annotation = getCobolItemType(f.getDeclaredAnnotations());
+			return annotation == null ? getCobolItemType(f.getType()) : annotation;
+		});
 	}
 
 	private CobolArray getCobolArray(Field f) {
@@ -369,19 +391,36 @@ public class CobolBeanConverter<T> {
 	 * Bean is assumed to have a no arg constructor.
 	 */
 	private <Z> Z newInstance(Class<Z> clazz) {
+		var mh = constructorCache.computeIfAbsent(clazz, c -> {
+			try {
+				var mt = MethodType.methodType(void.class);
+				return methodsLookup.findConstructor(c, mt);
+			} catch (Throwable e) {
+				throw new CobolBeanConverterException(e);
+			}
+		});
 		try {
-			Constructor<Z> constructor = clazz.getConstructor();
-			return constructor.newInstance();
-		} catch (Exception e) {
+			return (Z) mh.invoke();
+		} catch (Throwable e) {
 			throw new CobolBeanConverterException(e);
 		}
 	}
 
+	/**
+	 * Set a value on a field in a group.
+	 */
 	private Object setFieldValue(Field field, Object group, Object value) {
+		var mh = setValueCache.computeIfAbsent(field, f -> {
+			try {
+				var mt = MethodType.methodType(void.class, f.getType());
+				return methodsLookup.findVirtual(group.getClass(), setterName(f), mt);
+			} catch (Throwable e) {
+				throw new CobolBeanConverterException(e);
+			}
+		});
 		try {
-			Method setter = group.getClass().getMethod(setterName(field), field.getType());
-			return setter.invoke(group, value);
-		} catch (Exception e) {
+			return mh.invoke(group, value);
+		} catch (Throwable e) {
 			throw new CobolBeanConverterException(e);
 		}
 	}
@@ -422,6 +461,10 @@ public class CobolBeanConverter<T> {
 
 	record Context(CobolInputStream cobolInputStream, Map<String, Integer> odoObjectValues, Stack<Object> groupStack) {
 
+		boolean isEof() {
+			return cobolInputStream.isEof();
+		}
+
 		long getBytesRead() {
 			return cobolInputStream.getBytesRead();
 		}
@@ -434,8 +477,8 @@ public class CobolBeanConverter<T> {
 			cobolInputStream.mark(maxBytesLen);
 		}
 
-		void skip(long leftover) throws IOException {
-			cobolInputStream.skip(leftover);
+		long skip(long leftover) throws IOException {
+			return cobolInputStream.skip(leftover);
 		}
 
 		boolean groupStackIsEmpty() {
@@ -493,4 +536,5 @@ public class CobolBeanConverter<T> {
 		}
 
 	}
+
 }

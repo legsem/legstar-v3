@@ -14,8 +14,8 @@ public class CobolZonedDecimalConverterTest extends CobolConverterTestBase {
 		try {
 			fromHost("", 2, 0, false, false);
 			fail();
-		} catch (Exception e) {
-			assertEquals("No more data available", e.getMessage());
+		} catch (CobolBeanConverterEOFException e) {
+			assertEquals("Not enough cobol input data available", e.getMessage());
 		}
 	}
 

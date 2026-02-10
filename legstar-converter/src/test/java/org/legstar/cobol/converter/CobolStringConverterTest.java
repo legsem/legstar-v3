@@ -14,8 +14,8 @@ public class CobolStringConverterTest extends CobolConverterTestBase {
 		try {
 			converter.toString(inputStreamFrom(""), 1);
 			fail();
-		} catch (Exception e) {
-			assertEquals("No more data available", e.getMessage());
+		} catch (CobolBeanConverterEOFException e) {
+			assertEquals("Not enough cobol input data available", e.getMessage());
 		}
 	}
 

@@ -14,8 +14,8 @@ public class CobolDoubleConverterTest extends CobolConverterTestBase {
 		try {
 			converter.toDouble(inputStreamFrom(""));
 			fail();
-		} catch (Exception e) {
-			assertEquals("Not enough bytes for a double. Needed 8, got -1 instead", e.getMessage());
+		} catch (CobolBeanConverterEOFException e) {
+			assertEquals("Not enough cobol input data available", e.getMessage());
 		}
 	}
 

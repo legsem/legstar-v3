@@ -14,19 +14,19 @@ public class CobolPackedDecimalConverterTest extends CobolConverterTestBase {
 		try {
 			fromHost("", false, 2, 0);
 			fail();
-		} catch (Exception e) {
-			assertEquals("No more data available", e.getMessage());
+		} catch (CobolBeanConverterEOFException e) {
+			assertEquals("Not enough cobol input data available", e.getMessage());
 		}
 	}
 
 	@Test
 	public void allLowValues() {
-		assertEquals("0", fromHost("00", false, 2, 0));
+		assertEquals("0", fromHost("0000", false, 2, 0));
 	}
 
 	@Test
 	public void allSpaceValues() {
-		assertEquals("0", fromHost("4040", false, 4, 0));
+		assertEquals("0", fromHost("404040", false, 4, 0));
 	}
 
 	@Test

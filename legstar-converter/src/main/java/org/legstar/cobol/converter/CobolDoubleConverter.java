@@ -35,15 +35,15 @@ public class CobolDoubleConverter {
 	 * </pre>
 	 * 
 	 * @param is the host bytes
+	 * @return a Double
 	 */
 	public Double toDouble(CobolInputStream is) {
 		try {
 			int bytesLen = BytesLenUtils.doubleByteLen();
 			byte[] buffer = new byte[bytesLen];
-			int r = is.read(buffer);
-			if (r != bytesLen) {
-				throw new CobolBeanConverterException(
-						"Not enough bytes for a double. Needed " + bytesLen + ", got " + r + " instead");
+			int count = is.read(buffer);
+			if (count < bytesLen) {
+				throw new CobolBeanConverterEOFException();
 			}
 			ByteBuffer bb = ByteBuffer.wrap(buffer);
 	        long hostLongBits = bb.getLong();

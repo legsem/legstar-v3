@@ -39,7 +39,8 @@ public class CobolPackedDecimalConverter {
 	}
 
 	public String toString(CobolInputStream is, boolean signed, int totalDigits, int fractionDigits) {
-		return toBigDecimal(is, signed, totalDigits, fractionDigits).toPlainString();
+		BigDecimal dec = toBigDecimal(is, signed, totalDigits, fractionDigits);
+		return dec == null ? null : dec.toPlainString();
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class CobolPackedDecimalConverter {
 			for (int i = 0; i < bytesLen; i++) {
 				int c = is.read();
 				if (c == -1) {
-					break;
+					throw new CobolBeanConverterEOFException();
 				}
 				int hn = highNibble(c);
 				if (hn < 0 || hn > 9) {
@@ -97,9 +98,7 @@ public class CobolPackedDecimalConverter {
 			}
 
 			String s = sb.toString();
-			if (s.isEmpty()) {
-				throw new CobolBeanConverterException("No more data available");
-			} else if (isAllSpaces(s)) {
+			if (s.isEmpty() || isAllSpaces(s)) {
 				return BigDecimal.valueOf(0);
 			} else {
 				return new BigDecimal(s).scaleByPowerOfTen(-fractionDigits);

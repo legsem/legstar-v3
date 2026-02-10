@@ -37,7 +37,8 @@ public class CobolZonedDecimalConverter {
 
 	public String toString(InputStream is, int totalDigits, int fractionDigits, boolean signLeading,
 			boolean signSeparate) {
-		return toBigDecimal(is, totalDigits, fractionDigits, signLeading, signSeparate).toPlainString();
+		BigDecimal dec = toBigDecimal(is, totalDigits, fractionDigits, signLeading, signSeparate);
+		return dec == null ? null : dec.toPlainString();
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class CobolZonedDecimalConverter {
 			for (int i = 0; i < bytesLen; i++) {
 				int c = is.read();
 				if (c == -1) {
-					break;
+					throw new CobolBeanConverterEOFException();
 				}
 				if ((i == 0 && signLeading) || (i == (bytesLen - 1) && !signLeading)) {
 					if (signSeparate) {
@@ -86,7 +87,7 @@ public class CobolZonedDecimalConverter {
 			}
 
 			if (sb.isEmpty()) {
-				throw new CobolBeanConverterException("No more data available");
+				return BigDecimal.valueOf(0);
 			}
 			sb.insert(0, signum == -1 ? "-" : "");
 			return new BigDecimal(sb.toString()).scaleByPowerOfTen(-fractionDigits);

@@ -14,14 +14,19 @@ public class CobolBinaryNumberConverterTest extends CobolConverterTestBase {
 		try {
 			converter.toShort(inputStreamFrom(""), true, 2);
 			fail();
-		} catch (Exception e) {
-			assertEquals("No more data available", e.getMessage());
+		} catch (CobolBeanConverterEOFException e) {
+			assertEquals("Not enough cobol input data available", e.getMessage());
 		}
 	}
 
 	@Test
 	public void testNotEnoughHostData() {
-		assertEquals((short) 4608, converter.toShort(inputStreamFrom("12"), true, 1));
+		try {
+			converter.toShort(inputStreamFrom("12"), true, 1);
+			fail();
+		} catch (CobolBeanConverterEOFException e) {
+			assertEquals("Not enough cobol input data available", e.getMessage());
+		}
 	}
 
 	@Test

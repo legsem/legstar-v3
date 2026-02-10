@@ -14,8 +14,8 @@ public class CobolFloatConverterTest extends CobolConverterTestBase {
 		try {
 			converter.toFloat(inputStreamFrom(""));
 			fail();
-		} catch (Exception e) {
-			assertEquals("Not enough bytes for a float. Needed 4, got -1 instead", e.getMessage());
+		} catch (CobolBeanConverterEOFException e) {
+			assertEquals("Not enough cobol input data available", e.getMessage());
 		}
 	}
 

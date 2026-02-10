@@ -23,9 +23,25 @@ import org.legstar.cobol.io.RecfmVInputStream;
  */
 public class CobolInputStream extends FilterInputStream {
 
+	/**
+	 * Number of bytes read so far.
+	 */
 	private long bytesRead;
 
+	/**
+	 * Number of bytes read when the mark method was called.
+	 */
 	private long markedBytesRead;
+	
+	/**
+	 * Did we reach the end of file.
+	 */
+	private boolean eof;
+	
+	/**
+	 * End of file condition when the mark method was called.
+	 */
+	private boolean markedEof;
 
 	public CobolInputStream(InputStream in) {
 		this(in, CobolRecordFormat.FB);
@@ -38,43 +54,58 @@ public class CobolInputStream extends FilterInputStream {
 	@Override
 	public int read() throws IOException {
 		int read = super.read();
-		if (read != -1) {
+		if (read == -1) {
+			eof = true;
+		} else {
 			bytesRead++;
 		}
 		return read;
 	}
 
 	@Override
-	public synchronized void mark(int readlimit) {
-		super.mark(readlimit);
-		markedBytesRead = bytesRead;
-	}
-
-	@Override
-	public synchronized void reset() throws IOException {
-		super.reset();
-		bytesRead = markedBytesRead;
-	}
-
-	@Override
 	public int read(byte[] b, int off, int len) throws IOException {
 		int count = super.read(b, off, len);
-		if (count != -1) {
+		if (count == -1) {
+			eof = true;
+		} else {
 			bytesRead += count;
 		}
 		return count;
 	}
 
 	@Override
+	public synchronized void mark(int readlimit) {
+		super.mark(readlimit);
+		markedBytesRead = bytesRead;
+		markedEof = eof;
+	}
+
+	@Override
+	public synchronized void reset() throws IOException {
+		super.reset();
+		bytesRead = markedBytesRead;
+		eof = markedEof;
+	}
+
+	@Override
 	public long skip(long n) throws IOException {
-		bytesRead += n;
-		return super.skip(n);
+		long skipped = super.skip(n);
+		bytesRead += skipped;
+		return skipped;
 	}
 
-	public long getBytesRead() {
-		return bytesRead;
-	}
-
+	/**
+	 * Wraps the input stream into a buffered input stream. This is needed to
+	 * support the mark/reset semantic.
+	 * <p>
+	 * If the input data is RECFM=V or RECFM=VB we use specialized filters to handle
+	 * the descriptor words that are part of the incoming data but are not relevant
+	 * to the user.
+	 * 
+	 * @param is    the input stream
+	 * @param recfm the cobol data record format
+	 * @return a BufferedInputStream
+	 */
 	private static BufferedInputStream getBufferedInputStream(InputStream is, CobolRecordFormat recfm) {
 		BufferedInputStream bis = null;
 		switch (recfm) {
@@ -92,6 +123,14 @@ public class CobolInputStream extends FilterInputStream {
 			}
 		}
 		return bis;
+	}
+
+	public long getBytesRead() {
+		return bytesRead;
+	}
+
+	public boolean isEof() {
+		return eof;
 	}
 
 }

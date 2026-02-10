@@ -36,6 +36,7 @@ public class CobolStringConverter {
 	 * 
 	 * @param is      the host bytes
 	 * @param charNum the maximum number of characters for the result string
+	 * @return a string
 	 */
 	public String toString(CobolInputStream is, int charNum) {
 		try {
@@ -45,9 +46,10 @@ public class CobolStringConverter {
 				int c = is.read();
 				if (c == -1) {
 					if (i == 0) {
-						throw new CobolBeanConverterException("No more data available");
+						throw new CobolBeanConverterEOFException();
+					} else {
+						break;
 					}
-					break;
 				} else if (c == 0 || c == 0xFF) {
 					continue;
 				} else {
