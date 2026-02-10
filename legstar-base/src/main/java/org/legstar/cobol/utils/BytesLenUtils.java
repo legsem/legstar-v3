@@ -1,5 +1,8 @@
 package org.legstar.cobol.utils;
 
+/**
+ * Cobol byte length for primitive numeric types.
+ */
 public class BytesLenUtils {
 
 	/**

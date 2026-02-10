@@ -4,6 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Parser for cobol PICTURE clause.
+ * 
  * TODO CR/DB and N/G probably not handled correctly
  */
 public class PictureUtils {
