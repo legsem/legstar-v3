@@ -101,6 +101,12 @@ public class CobolJaxbConverterFromHostTest extends CobolConverterTestBase {
 	public void testFlat01() {
 		check(convert("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F", Flat01Record.class));
 	}
+	
+	@Test
+	public void testFlat01Formatted() {
+		check(convert("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F", Flat01Record.class, null, true));
+	}
+
 
 	@Test
 	public void testFlat02() {
@@ -163,15 +169,14 @@ public class CobolJaxbConverterFromHostTest extends CobolConverterTestBase {
 	@Test
 	public void testRdef04NoChoice() {
 		try {
-			check(convert("C3C1D4C2D9C9C4C7C540C1", Rdef04Record.class,
-					new CobolChoiceStrategy<Rdef04Record>() {
+			check(convert("C3C1D4C2D9C9C4C7C540C1", Rdef04Record.class, new CobolChoiceStrategy<Rdef04Record>() {
 
-						@Override
-						public boolean choose(Rdef04Record root, Object choice, Field alternative) {
-							return false;
-						}
+				@Override
+				public boolean choose(Rdef04Record root, Object choice, Field alternative) {
+					return false;
+				}
 
-					}));
+			}));
 			fail();
 		} catch (Exception e) {
 			assertEquals("org.legstar.cobol.converter.CobolBeanConverterException:"
@@ -222,10 +227,15 @@ public class CobolJaxbConverterFromHostTest extends CobolConverterTestBase {
 		return convert(payload, beanClass, null);
 	}
 
-	private <T> String convert(String payload, Class<T> beanClass,
-			CobolChoiceStrategy<T> choiceStrategy) {
+	private <T> String convert(String payload, Class<T> beanClass, CobolChoiceStrategy<T> choiceStrategy) {
+		return convert(payload, beanClass, choiceStrategy, false);
+	}
+
+	private <T> String convert(String payload, Class<T> beanClass, CobolChoiceStrategy<T> choiceStrategy,
+			boolean formattedOutput) {
 		try {
-			CobolXmlConverterConfig config = CobolXmlConverterConfig.ebcdic();
+			CobolXmlConverterConfig config = CobolXmlConverterConfig.ebcdic() //
+					.setFormattedOutput(formattedOutput);
 			CobolXmlConverter<T> fromHost = choiceStrategy == null //
 					? new CobolXmlConverter<>(config, beanClass) //
 					: new CobolXmlConverter<>(config, beanClass, choiceStrategy);

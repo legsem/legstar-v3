@@ -57,6 +57,9 @@ public class CobolXmlConverter<T> {
 		T bean = beanConverter.convert(cis);
 		try {
 			Marshaller marshaller = jaxbContext.createMarshaller();
+			if (config.isFormattedOutput()) {
+				marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			}
 			marshaller.marshal(bean, result);
 		} catch (JAXBException e) {
 			throw new CobolXmlConverterException(e);

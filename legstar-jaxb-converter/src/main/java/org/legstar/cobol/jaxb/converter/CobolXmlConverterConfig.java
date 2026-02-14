@@ -3,6 +3,11 @@ package org.legstar.cobol.jaxb.converter;
 import org.legstar.cobol.converter.CobolBeanConverterConfig;
 
 public class CobolXmlConverterConfig extends CobolBeanConverterConfig {
+	
+	/**
+	 * Whether to produce an indented formatted Xml.
+	 */
+	private boolean formattedOutput;
 
 	public CobolXmlConverterConfig(String hostCharsetName) {
 		super(hostCharsetName);
@@ -56,6 +61,15 @@ public class CobolXmlConverterConfig extends CobolBeanConverterConfig {
 	@Override
 	public CobolXmlConverterConfig setTruncateHostStringsTrailingSpaces(boolean truncateHostStringsTrailingSpaces) {
 		return (CobolXmlConverterConfig) super.setTruncateHostStringsTrailingSpaces(truncateHostStringsTrailingSpaces);
+	}
+
+	public boolean isFormattedOutput() {
+		return formattedOutput;
+	}
+
+	public CobolXmlConverterConfig setFormattedOutput(boolean formattedOutput) {
+		this.formattedOutput = formattedOutput;
+		return this;
 	}
 
 }
