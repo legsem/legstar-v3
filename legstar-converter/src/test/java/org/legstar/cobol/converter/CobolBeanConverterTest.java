@@ -7,7 +7,6 @@ import java.lang.reflect.Field;
 import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
-import org.legstar.cobol.converter.testbase.CobolConverterTestBase;
 
 import legstar.samples.alltypes.Alltypes;
 import legstar.samples.ardo01.Ardo01Record;

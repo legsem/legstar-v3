@@ -39,8 +39,7 @@
 
 		<dependency>
 			<groupId>com.legsem.legstar</groupId>
-			<artifactId>legstar-generator</artifactId>
-			<type>test-jar</type>
+			<artifactId>legstar-base-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

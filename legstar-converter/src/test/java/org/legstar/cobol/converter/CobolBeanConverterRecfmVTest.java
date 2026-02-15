@@ -7,11 +7,12 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
-import org.legstar.cobol.converter.testbase.CobolConverterTestBase;
+
+import com.legsem.legstar.base.test.CobolTestBase;
 
 import legstar.samples.custdat.CustomerData;
 
-public class CobolBeanConverterRecfmVTest extends CobolConverterTestBase {
+public class CobolBeanConverterRecfmVTest extends CobolTestBase {
 	
 	@Test
 	public void testCustomerDataRecfmV() throws IOException {

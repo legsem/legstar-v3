@@ -3,11 +3,10 @@ package org.legstar.cobol.generator;
 import java.io.StringWriter;
 
 import org.junit.jupiter.api.Test;
-import org.legstar.cobol.generator.CobolBeanGenerator;
-import org.legstar.cobol.generator.CobolBeanGeneratorConfig;
-import org.legstar.cobol.generator.testbase.CobolGeneratorTestBase;
 
-public class CobolBeanGeneratorTest extends CobolGeneratorTestBase {
+import com.legsem.legstar.base.test.CobolTestBase;
+
+public class CobolBeanGeneratorTest extends CobolTestBase {
 
 	@Test
 	public void testAlltypes() {

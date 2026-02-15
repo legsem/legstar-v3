@@ -1,4 +1,4 @@
-package org.legstar.cobol.generator.testbase;
+package com.legsem.legstar.base.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,11 +8,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HexFormat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 
-public abstract class CobolGeneratorTestBase {
+public abstract class CobolTestBase {
 
 	private static final Path REFERENCES = Paths.get("src/test/ref");
 	
@@ -31,6 +32,11 @@ public abstract class CobolGeneratorTestBase {
 		references.toFile().mkdirs();
 	}
 
+	public byte[] hexToBytes(String s) {
+		HexFormat hex = HexFormat.of().withUpperCase();
+		return hex.parseHex(s);
+	}
+	
 	public void check(String res) {
 		try {
 			Path refPath = references.resolve(testName);

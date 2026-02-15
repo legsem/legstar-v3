@@ -10,25 +10,14 @@
 		<version>3.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>legstar-converter</artifactId>
+	<artifactId>legstar-base-test</artifactId>
 
-	<name>legstar-converter</name>
+	<name>legstar-base-test</name>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.legsem.legstar</groupId>
-			<artifactId>legstar-base</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.legsem.legstar</groupId>
-			<artifactId>legstar-base-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

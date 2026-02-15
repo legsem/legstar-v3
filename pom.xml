@@ -77,6 +77,7 @@
 
 	<modules>
 		<module>legstar-base</module>
+		<module>legstar-base-test</module>
 		<module>legstar-converter</module>
 		<module>legstar-generator</module>
 		<module>legstar-parser</module>
@@ -93,6 +94,13 @@
 				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-base</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-base-test</artifactId>
+				<version>${project.version}</version>
+				<scope>test</scope>
 			</dependency>
 
 			<dependency>

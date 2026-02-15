@@ -3,19 +3,23 @@ package org.legstar.cobol.jaxb.converter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.Test;
 import org.legstar.cobol.converter.CobolChoiceStrategy;
-import org.legstar.cobol.converter.testbase.CobolConverterTestBase;
+import org.legstar.cobol.converter.CobolInputStream;
 
-import legstar.samples.jaxb.flat01.Flat01Record;
-import legstar.samples.jaxb.custdat.CustomerData;
+import com.legsem.legstar.base.test.CobolTestBase;
+
+import legstar.samples.jaxb.alltypes.Alltypes;
 import legstar.samples.jaxb.ardo01.Ardo01Record;
 import legstar.samples.jaxb.ardo03.Ardo03Record;
 import legstar.samples.jaxb.ardo04.Ardo04Record;
+import legstar.samples.jaxb.custdat.CustomerData;
 import legstar.samples.jaxb.digitname._5500Rec01;
+import legstar.samples.jaxb.flat01.Flat01Record;
 import legstar.samples.jaxb.flat02.Flat02Record;
 import legstar.samples.jaxb.freeform.RecA;
 import legstar.samples.jaxb.optl01.Optl01Record;
@@ -32,9 +36,8 @@ import legstar.samples.jaxb.rdef06.Rdef06RecordChoiceStrategy;
 import legstar.samples.jaxb.rdef07.Rdef07Record;
 import legstar.samples.jaxb.stru01.Stru01Record;
 import legstar.samples.jaxb.stru03.Stru03Record;
-import legstar.samples.jaxb.alltypes.Alltypes;
 
-public class CobolJaxbConverterFromHostTest extends CobolConverterTestBase {
+public class CobolJaxbConverterFromHostTest extends CobolTestBase {
 
 	@Test
 	public void testAlltypes() {
@@ -246,4 +249,9 @@ public class CobolJaxbConverterFromHostTest extends CobolConverterTestBase {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public CobolInputStream inputStreamFrom(String hex) {
+		return new CobolInputStream(new ByteArrayInputStream(hexToBytes(hex)));
+	}
+
 }
