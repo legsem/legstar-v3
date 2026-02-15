@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+import org.legstar.cobol.converter.testbase.CobolConverterTestBase;
 
 public class CobolFloatConverterTest extends CobolConverterTestBase {
 

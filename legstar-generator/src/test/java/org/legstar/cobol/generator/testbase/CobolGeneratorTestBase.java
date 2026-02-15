@@ -1,4 +1,4 @@
-package org.legstar.cobol.generator;
+package org.legstar.cobol.generator.testbase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 
-public class CobolGeneratorTestBase {
+public abstract class CobolGeneratorTestBase {
 
 	private static final Path REFERENCES = Paths.get("src/test/ref");
 	

@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.Test;
 import org.legstar.cobol.converter.CobolChoiceStrategy;
-import org.legstar.cobol.converter.CobolConverterTestBase;
+import org.legstar.cobol.converter.testbase.CobolConverterTestBase;
 
 import legstar.samples.jaxb.flat01.Flat01Record;
 import legstar.samples.jaxb.custdat.CustomerData;

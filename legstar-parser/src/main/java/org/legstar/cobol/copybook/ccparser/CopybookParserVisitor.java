@@ -1,4 +1,4 @@
-package org.legstar.cobol.copybook.parser;
+package org.legstar.cobol.copybook.ccparser;
 
 import java.util.List;
 import java.util.Stack;

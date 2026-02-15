@@ -3,7 +3,7 @@ package org.legstar.cobol.jaxb.generator;
 import java.io.StringWriter;
 
 import org.junit.jupiter.api.Test;
-import org.legstar.cobol.generator.CobolGeneratorTestBase;
+import org.legstar.cobol.generator.testbase.CobolGeneratorTestBase;
 
 public class CobolJaxbBeanGeneratorTest extends CobolGeneratorTestBase {
 

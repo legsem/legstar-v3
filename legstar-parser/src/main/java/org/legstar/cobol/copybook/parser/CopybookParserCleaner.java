@@ -201,7 +201,7 @@ public class CopybookParserCleaner {
     /**
      * Holds the result of the cleaning process along with utility methods.
      */
-    class Result {
+    public static class Result {
 
 		final List<String> cleanLines = new ArrayList<>();
 

@@ -1,4 +1,4 @@
-package org.legstar.cobol.converter;
+package org.legstar.cobol.converter.testbase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,6 +11,7 @@ import java.util.HexFormat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
+import org.legstar.cobol.converter.CobolInputStream;
 
 public class CobolConverterTestBase {
 

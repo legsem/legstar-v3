@@ -9,6 +9,7 @@ import org.legstar.cobol.copybook.parser.CopybookParserCleaner.Result;
 import org.legstar.cobol.data.entry.CobolDataEntry;
 
 import org.legstar.cobol.copybook.ccparser.CopybookCCParser;
+import org.legstar.cobol.copybook.ccparser.CopybookParserVisitor;
 import org.legstar.cobol.copybook.ccparser.Node;
 import org.legstar.cobol.copybook.ccparser.ParseException;
 
