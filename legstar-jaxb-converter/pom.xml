@@ -14,10 +14,6 @@
 
 	<name>legstar-jaxb-converter</name>
 
-	<properties>
-		<jaxb.version>4.0.6</jaxb.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.legsem.legstar</groupId>
@@ -36,6 +32,11 @@
 		<dependency>
 			<groupId>com.legsem.legstar</groupId>
 			<artifactId>legstar-base-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.legsem.legstar</groupId>
+			<artifactId>legstar-jaxb-samples</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

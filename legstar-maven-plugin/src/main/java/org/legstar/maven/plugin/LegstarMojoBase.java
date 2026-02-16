@@ -1,8 +1,13 @@
 package org.legstar.maven.plugin;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -15,6 +20,10 @@ import org.apache.maven.project.MavenProject;
  * 
  */
 public abstract class LegstarMojoBase extends AbstractMojo {
+
+	private static final String DEFAULT_TARGET_FOLDER = "target/generated-sources";
+
+	private static final String DEFAULT_SOURCE_FOLDER = "src/main/cobol";
 
 	/**
 	 * The source can either be a single COBOL copybook file or a directory
@@ -44,6 +53,26 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 	@Parameter(property = "inputEncoding")
 	private String inputEncoding;
 
+	/**
+	 * The java package name prefix for generated java classes. The copybook name in
+	 * lower case forms the last portion of the final package name.
+	 */
+	@Parameter(property = "packageNamePrefix")
+	private String packageNamePrefix;
+
+	/**
+	 * True if the generated java beans must implement a toString method for each
+	 * class and nested class.
+	 */
+	@Parameter(property = "withToString")
+	private boolean withToString;
+	
+	/**
+	 * True if the cobol copybooks are in free code format (not restricted to columns 8-72).
+	 */
+	@Parameter(property = "freeCodeFormat")
+	private boolean freeCodeFormat;
+
 	@Parameter(required = true, property = "project")
 	protected MavenProject project;
 
@@ -67,7 +96,7 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 
 	private void validate() throws MojoFailureException {
 		if (source == null) {
-			File defaultSource = new File("src/main/cobol");
+			File defaultSource = new File(DEFAULT_SOURCE_FOLDER);
 			if (!defaultSource.exists()) {
 				throw new MojoFailureException(
 						"Missing a source parameter. This should point to a COBOL copybook file or a directory containing COBOL copybook files.");
@@ -79,7 +108,7 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 		}
 
 		if (outputDirectory == null) {
-			outputDirectory = new File("target/generated-sources/" + getDefaultOutputSubDirectory());
+			outputDirectory = new File(DEFAULT_TARGET_FOLDER);
 		}
 		outputDirectory.mkdirs();
 
@@ -87,7 +116,24 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 
 	public abstract void execute(File cobolFile, String cobolFileEncoding, File output);
 
-	public abstract String getDefaultOutputSubDirectory();
+	public String toBaseName(File cobolFile) {
+		String baseName = cobolFile.getName().toLowerCase();
+		if (baseName.contains(".")) {
+			baseName = baseName.substring(0, baseName.lastIndexOf("."));
+		}
+		return baseName;
+	}
+
+	public Reader getReader(File cobolFile, String cobolFileEncoding) throws IOException {
+		Charset charset = cobolFileEncoding == null ? Charset.defaultCharset() : Charset.forName(cobolFileEncoding);
+		return new FileReader(cobolFile, charset);
+	}
+
+	public void writeJavaClass(String packageName, String className, String content, File output) throws IOException {
+		Path classPath = output.toPath().resolve(packageName.replace(".", "/"));
+		classPath.toFile().mkdirs();
+		Files.writeString(classPath.resolve(className + ".java"), content, StandardCharsets.UTF_8);
+	}
 
 	public File getSource() {
 		return source;
@@ -99,6 +145,18 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 
 	public String getInputEncoding() {
 		return inputEncoding;
+	}
+
+	public String getPackageNamePrefix() {
+		return packageNamePrefix;
+	}
+
+	public boolean isWithToString() {
+		return withToString;
+	}
+	
+	public boolean isFreeCodeFormat() {
+		return freeCodeFormat;
 	}
 
 }

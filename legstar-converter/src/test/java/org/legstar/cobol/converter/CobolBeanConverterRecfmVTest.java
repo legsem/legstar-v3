@@ -7,8 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
-
-import com.legsem.legstar.base.test.CobolTestBase;
+import org.legstar.cobol.base.test.CobolTestBase;
 
 import legstar.samples.custdat.CustomerData;
 

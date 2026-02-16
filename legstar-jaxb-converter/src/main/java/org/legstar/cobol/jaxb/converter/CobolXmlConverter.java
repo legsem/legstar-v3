@@ -31,7 +31,7 @@ public class CobolXmlConverter<T> {
 	private final CobolBeanConverter<T> beanConverter;
 
 	public CobolXmlConverter(Class<T> beanClass) {
-		this(CobolXmlConverterConfig.ebcdic(), beanClass, null);
+		this(CobolXmlConverterConfig.ebcdic(), beanClass);
 	}
 
 	public CobolXmlConverter(CobolXmlConverterConfig config, Class<T> beanClass) {

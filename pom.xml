@@ -18,6 +18,7 @@
 		<maven.compiler.release>17</maven.compiler.release>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+		<jaxb.version>4.0.6</jaxb.version>
 	</properties>
 
 	<issueManagement>
@@ -83,6 +84,7 @@
 		<module>legstar-parser</module>
 		<module>legstar-jaxb-generator</module>
 		<module>legstar-jaxb-converter</module>
+		<module>legstar-jaxb-samples</module>
 		<module>legstar-maven-plugin</module>
 	</modules>
 
@@ -131,6 +133,13 @@
 				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-jaxb-converter</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-jaxb-samples</artifactId>
+				<version>${project.version}</version>
+				<scope>test</scope>
 			</dependency>
 
 			<dependency>

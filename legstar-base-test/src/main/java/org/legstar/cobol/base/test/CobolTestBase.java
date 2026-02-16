@@ -1,4 +1,4 @@
-package com.legsem.legstar.base.test;
+package org.legstar.cobol.base.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

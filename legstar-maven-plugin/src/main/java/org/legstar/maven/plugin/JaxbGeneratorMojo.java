@@ -1,76 +1,42 @@
 package org.legstar.maven.plugin;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.io.StringWriter;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 import org.legstar.cobol.jaxb.generator.CobolJaxbBeanGenerator;
 import org.legstar.cobol.jaxb.generator.CobolJaxbBeanGeneratorConfig;
 
 /**
- * Goal generates java beans from a COBOL copybook.
- * 
+ * Goal generates a java bean source code with cobol and jaxb annotations from a
+ * COBOL copybook.
  */
 @Mojo(name = "generate-jaxb", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class JaxbGeneratorMojo extends LegstarMojoBase {
 
-	/**
-	 * The java package name prefix for generated java classes. The copybook name in
-	 * lower case forms the last portion of the final package name.
-	 */
-	@Parameter(property = "packageNamePrefix")
-	private String packageNamePrefix;
-
-	/**
-	 * True if the generated java beans must implement a toString method for each
-	 * class and nested class.
-	 */
-	@Parameter(property = "withToString")
-	private boolean withToString;
-
-	@Override
 	public void execute(File cobolFile, String cobolFileEncoding, File output) {
-		try {
-			getLog().info("Processing COBOL file " + cobolFile);
+		getLog().info("Processing COBOL file " + cobolFile);
+
+		try (Reader reader = getReader(cobolFile, cobolFileEncoding)) {
+
 			CobolJaxbBeanGeneratorConfig config = new CobolJaxbBeanGeneratorConfig() //
-					.setPackageNamePrefix(packageNamePrefix) //
-					.setWithToString(withToString);
+					.setPackageNamePrefix(getPackageNamePrefix()) //
+					.setWithToString(isWithToString()) //
+					.setFreeCodeFormat(isFreeCodeFormat());
 			CobolJaxbBeanGenerator gen = new CobolJaxbBeanGenerator(config);
-			String baseName = cobolFile.getName().toLowerCase();
-			if (baseName.contains(".")) {
-				baseName = baseName.substring(0, baseName.lastIndexOf("."));
-			}
-			Charset charset = cobolFileEncoding == null ? Charset.defaultCharset() : Charset.forName(cobolFileEncoding);
-			FileReader reader = new FileReader(cobolFile, charset);
+
+			String baseName = toBaseName(cobolFile);
 			StringWriter writer = new StringWriter();
 			CobolJaxbBeanGenerator.Result result = gen.generate(baseName, reader, writer);
-			String className = result.className();
-			String packageName = result.packageName();
-			Path classPath = output.toPath().resolve(packageName.replace(".", "/"));
-			classPath.toFile().mkdirs();
-			Files.writeString(classPath.resolve(className + ".java"), writer.toString(), StandardCharsets.UTF_8);
-		} catch (Exception e) {
+
+			writeJavaClass(result.packageName(), result.className(), writer.toString(), output);
+
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	public String getPackageNamePrefix() {
-		return packageNamePrefix;
-	}
-
-	public boolean isWithToString() {
-		return withToString;
-	}
-
-	public String getDefaultOutputSubDirectory() {
-		return "java";
 	}
 
 }

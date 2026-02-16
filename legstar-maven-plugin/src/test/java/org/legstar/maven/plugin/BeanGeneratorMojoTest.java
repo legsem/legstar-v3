@@ -48,7 +48,7 @@ public class BeanGeneratorMojoTest {
 	@MojoParameter(name = "source", value = "src/test/cobol")
 	public void testMojoDirectory(BeanGeneratorMojo mojo) throws Exception {
 		mojo.execute();
-		assertTrue(new File("target/generated-sources/java/legstar/samples/flat01/Flat01Record.java").exists());
+		assertTrue(new File("target/generated-sources/legstar/samples/flat01/Flat01Record.java").exists());
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class BeanGeneratorMojoTest {
 	@MojoParameter(name = "source", value = "src/test/cobol/FLAT01")
 	public void testMojoFile(BeanGeneratorMojo mojo) throws Exception {
 		mojo.execute();
-		assertTrue(new File("target/generated-sources/java/legstar/samples/flat01/Flat01Record.java").exists());
+		assertTrue(new File("target/generated-sources/legstar/samples/flat01/Flat01Record.java").exists());
 	}
 
 	private void clear(File dir) {

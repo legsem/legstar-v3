@@ -2,12 +2,10 @@ package org.legstar.cobol.converter;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodHandles.Lookup;
-import java.lang.invoke.MethodType;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +29,7 @@ import org.legstar.cobol.annotation.CobolZonedDecimal;
  * The target java bean class must hold cobol annotations as produced by
  * legstar-generator.
  * <p>
- * Thread safe and immutable.
+ * Thread safe.
  */
 public class CobolBeanConverter<T> {
 
@@ -78,22 +76,20 @@ public class CobolBeanConverter<T> {
 	/**
 	 * Fast access to bean methods.
 	 * <p>
-	 * Here we cache the method handles so that we don't have to rebuild them every
-	 * time we visit the same field or class.
+	 * Here we cache Annotations, Constructors and setValue methods so that we don't
+	 * have to rebuild them every time we visit the same field or class.
 	 * <p>
 	 * This should not pose a risk of memory leak as we are limited to the fields
-	 * and classes in beanClass.
+	 * and classes in a specific immutable beanClass.
 	 */
-	private final Lookup methodsLookup = MethodHandles.lookup();
-
-	private final Map<Field, MethodHandle> setValueCache = new ConcurrentHashMap<>();
-
-	private final Map<Class<?>, MethodHandle> constructorCache = new ConcurrentHashMap<>();
-
 	private final Map<Field, Annotation> annotationCache = new ConcurrentHashMap<>();
 
+	private final Map<Class<?>, Constructor<?>> constructorCache = new ConcurrentHashMap<>();
+
+	private final Map<Field, Method> setValueCache = new ConcurrentHashMap<>();
+
 	public CobolBeanConverter(Class<T> beanClass) {
-		this(CobolBeanConverterConfig.ebcdic(), beanClass, null);
+		this(CobolBeanConverterConfig.ebcdic(), beanClass);
 	}
 
 	public CobolBeanConverter(CobolBeanConverterConfig config, Class<T> beanClass) {
@@ -322,7 +318,7 @@ public class CobolBeanConverter<T> {
 	}
 
 	// -----------------------------------------------------------------------------
-	// Default Choice strategy (all fields are eligible)
+	// Default Choice strategy (all alternatives are eligible)
 	// -----------------------------------------------------------------------------
 	class CobolConverterDefaultChoiceStrategy implements CobolChoiceStrategy<T> {
 
@@ -390,17 +386,16 @@ public class CobolBeanConverter<T> {
 	 * <p>
 	 * Bean is assumed to have a no arg constructor.
 	 */
+	@SuppressWarnings("unchecked")
 	private <Z> Z newInstance(Class<Z> clazz) {
-		var mh = constructorCache.computeIfAbsent(clazz, c -> {
-			try {
-				var mt = MethodType.methodType(void.class);
-				return methodsLookup.findConstructor(c, mt);
-			} catch (Throwable e) {
-				throw new CobolBeanConverterException(e);
-			}
-		});
 		try {
-			return (Z) mh.invoke();
+			return (Z) constructorCache.computeIfAbsent(clazz, c -> {
+				try {
+					return clazz.getConstructor();
+				} catch (Throwable e) {
+					throw new CobolBeanConverterException(e);
+				}
+			}).newInstance();
 		} catch (Throwable e) {
 			throw new CobolBeanConverterException(e);
 		}
@@ -410,16 +405,14 @@ public class CobolBeanConverter<T> {
 	 * Set a value on a field in a group.
 	 */
 	private Object setFieldValue(Field field, Object group, Object value) {
-		var mh = setValueCache.computeIfAbsent(field, f -> {
-			try {
-				var mt = MethodType.methodType(void.class, f.getType());
-				return methodsLookup.findVirtual(group.getClass(), setterName(f), mt);
-			} catch (Throwable e) {
-				throw new CobolBeanConverterException(e);
-			}
-		});
 		try {
-			return mh.invoke(group, value);
+			return setValueCache.computeIfAbsent(field, f -> {
+				try {
+					return group.getClass().getMethod(setterName(field), field.getType());
+				} catch (Throwable e) {
+					throw new CobolBeanConverterException(e);
+				}
+			}).invoke(group, value);
 		} catch (Throwable e) {
 			throw new CobolBeanConverterException(e);
 		}

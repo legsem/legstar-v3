@@ -10,9 +10,9 @@
 		<version>3.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>legstar-jaxb-generator</artifactId>
+	<artifactId>legstar-jaxb-samples</artifactId>
 
-	<name>legstar-jaxb-generator</name>
+	<name>legstar-jaxb-samples</name>
 
 	<dependencies>
 		<dependency>
@@ -21,27 +21,12 @@
 		</dependency>
 		<dependency>
 			<groupId>com.legsem.legstar</groupId>
-			<artifactId>legstar-parser</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.legsem.legstar</groupId>
-			<artifactId>legstar-generator</artifactId>
+			<artifactId>legstar-converter</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
 			<version>${jaxb.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.legsem.legstar</groupId>
-			<artifactId>legstar-base-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
