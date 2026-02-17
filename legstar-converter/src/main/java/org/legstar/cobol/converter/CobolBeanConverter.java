@@ -8,9 +8,15 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.legstar.cobol.annotation.CobolArray;
 import org.legstar.cobol.annotation.CobolBinaryNumber;
@@ -126,7 +132,48 @@ public class CobolBeanConverter<T> {
 		Annotation annotation = getCobolItemType(beanClass);
 		return convert(context, annotation, beanClass);
 	}
+	
+	/**
+	 * The input stream may contain data for more than one bean. This method
+	 * provides a stream that will produce as many beans as possible from the input
+	 * stream.
+	 */
+	public Stream<T> convertAll(CobolInputStream cis) {
+        Iterator<T> iter = new Iterator<>() {
+            T nextBean = null;
 
+            @Override
+            public boolean hasNext() {
+                if (nextBean != null) {
+                    return true;
+                } else {
+                	try {
+						nextBean = convert(cis);
+					} catch (CobolBeanConverterEOFException e) {
+						nextBean = null;
+					}
+                    return (nextBean != null);
+                }
+            }
+
+            @Override
+            public T next() {
+                if (nextBean != null || hasNext()) {
+                    T bean = nextBean;
+                    nextBean = null;
+                    return bean;
+                } else {
+                    throw new NoSuchElementException();
+                }
+            }
+        };
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(
+                iter, Spliterator.ORDERED | Spliterator.NONNULL), false);
+	}
+
+	/**
+	 * Dispatch to specialized conversion depending on the cobol annotation.
+	 */
 	private <Z> Z convert(Context context, Annotation annotation, Class<Z> objectClass) {
 		if (annotation instanceof CobolGroup) {
 			return convertGroup(context, (CobolGroup) annotation, objectClass);

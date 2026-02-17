@@ -33,6 +33,7 @@ public class BeanGeneratorMojo extends LegstarMojoBase {
 			CobolBeanGenerator.Result result = gen.generate(baseName, reader, writer);
 
 			writeJavaClass(result.packageName(), result.className(), writer.toString(), output);
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

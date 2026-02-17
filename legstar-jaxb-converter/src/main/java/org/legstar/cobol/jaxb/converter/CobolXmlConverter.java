@@ -49,12 +49,28 @@ public class CobolXmlConverter<T> {
 		convert(cis, new StreamResult(writer));
 	}
 
+	public void convertAll(CobolInputStream cis, Writer writer) {
+		convertAll(cis, new StreamResult(writer));
+	}
+
 	public void convert(CobolInputStream cis, OutputStream os) {
 		convert(cis, new StreamResult(os));
 	}
 
+	public void convertAll(CobolInputStream cis, OutputStream os) {
+		convertAll(cis, new StreamResult(os));
+	}
+
 	public void convert(CobolInputStream cis, Result result) {
 		T bean = beanConverter.convert(cis);
+		toXml(bean, result);
+	}
+	
+	public void convertAll(CobolInputStream cis, Result result) {
+		beanConverter.convertAll(cis).forEach(b -> toXml(b, result));
+	}
+	
+	public void toXml(T bean, Result result) {
 		try {
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			if (config.isFormattedOutput()) {
