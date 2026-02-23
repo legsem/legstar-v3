@@ -16,35 +16,66 @@ import java.util.List;
  * <li>TYPEDEF clause</li>
  * <li>VOLATILE clause</li>
  * </ul>
- * @see <a href="https://www.ibm.com/docs/en/cobol-zos/latest?topic=division-data-data-description-entry">Cobol for z/OS data entry</a>
+ * 
+ * @see <a href=
+ *      "https://www.ibm.com/docs/en/cobol-zos/latest?topic=division-data-data-description-entry">Cobol
+ *      for z/OS data entry</a>
+ * @param levelNumber         Level in the hierarchy this element was parsed
+ *                            from
+ * @param cobolName           Cobol element name
+ * @param redefines           Cobol element being redefined
+ * @param blankWhenZero       Blank when zero clause
+ * @param external            External clause
+ * @param global              Global clause
+ * @param groupUsageNational  Group usage national clause
+ * @param justifiedRight      Data aligned at rightmost character position
+ * @param picture             General characteristics and editing requirements
+ * @param signLeading         True if sign in leading byte
+ * @param signSeparate        Sign is in separate byte (not overpunched)
+ * @param sync                Synchronized on natural boundary in storage
+ * @param minOccurs           Minimum number of occurrences
+ * @param maxOccurs           Maximum number of occurrences
+ * @param dependingOn         Cobol element giving array actual size
+ * @param indexes             Indexed by clause
+ * @param ascendingKeys       Array items ordering ascending keys
+ * @param descendingKeys      Array items ordering descending keys
+ * @param usage               Cobol usage
+ * @param value               Cobol value clause
+ * @param dateFormat          Cobol date format clause
+ * @param children            List of direct children
+ * @param renamesSubject      Single rename subject
+ * @param renamesSubjectRange Range of rename subjects
+ * @param conditionLiterals   One or more literal values
+ * @param conditionRanges     One or more ranges of literal values
+ * @param srceLine            Line number in the original source file
  */
-public record CobolDataEntry(int levelNumber, // Level in the hierarchy this element was parsed from.
-		String cobolName, // Cobol element name
-		String redefines, // Cobol element being redefined
-		boolean blankWhenZero, // Blank when zero clause
-		boolean external, // External clause
-		boolean global, // Global clause
-		boolean groupUsageNational, // Group usage national clause
-		boolean justifiedRight, // Data aligned at rightmost character position
-		String picture, // General characteristics and editing requirements
-		boolean signLeading, // True if sign in leading byte
-		boolean signSeparate, // Sign is in separate byte (not overpunched)
-		boolean sync, // Synchronized on natural boundary in storage
-		int minOccurs, // Minimum number of occurrences
-		int maxOccurs, // Maximum number of occurrences
-		String dependingOn, // Cobol element giving array actual size
-		List<String> indexes, // Indexed by clause
-		List<String> ascendingKeys, // Array items ordering ascending keys
-		List<String> descendingKeys, // Array items ordering descending keys
-		CobolDataEntryUsage usage, // Cobol usage
-		String value, // Cobol value clause
-		String dateFormat, // Cobol date format clause
-		List<CobolDataEntry> children, // List of direct children
-		String renamesSubject, // Single rename subject
-		Range renamesSubjectRange, // Range of rename subjects
-		List<String> conditionLiterals, // One or more literal values
-		List<Range> conditionRanges, // One or more ranges of literal values
-		int srceLine // Line number in the original source file
+public record CobolDataEntry(int levelNumber, //
+		String cobolName, //
+		String redefines, //
+		boolean blankWhenZero, //
+		boolean external, //
+		boolean global, //
+		boolean groupUsageNational, //
+		boolean justifiedRight, //
+		String picture, //
+		boolean signLeading, //
+		boolean signSeparate, //
+		boolean sync, //
+		int minOccurs, //
+		int maxOccurs, //
+		String dependingOn, //
+		List<String> indexes, //
+		List<String> ascendingKeys, //
+		List<String> descendingKeys, //
+		CobolDataEntryUsage usage, //
+		String value, //
+		String dateFormat, //
+		List<CobolDataEntry> children, //
+		String renamesSubject, //
+		Range renamesSubjectRange, //
+		List<String> conditionLiterals, //
+		List<Range> conditionRanges, //
+		int srceLine //
 ) {
 
 	public static class Builder {
@@ -213,21 +244,25 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 
 		public CobolDataEntry build() {
 			return new CobolDataEntry(levelNumber, cobolName, redefines, blankWhenZero, external, global,
-					groupUsageNational, justifiedRight, picture, signLeading, signSeparate, sync, minOccurs,
-					maxOccurs, dependingOn, indexes, ascendingKeys, descendingKeys, usage, value, dateFormat,
-					children, renamesSubject, renamesSubjectRange, conditionLiterals, conditionRanges, srceLine);
+					groupUsageNational, justifiedRight, picture, signLeading, signSeparate, sync, minOccurs, maxOccurs,
+					dependingOn, indexes, ascendingKeys, descendingKeys, usage, value, dateFormat, children,
+					renamesSubject, renamesSubjectRange, conditionLiterals, conditionRanges, srceLine);
 		}
 
 		public boolean isHigherThan(int levelNumber2) {
 			return this.levelNumber < levelNumber2;
 		}
-		
+
 	}
 
 	/**
 	 * Represents all data items between from and to
+	 * 
+	 * @param from range start
+	 * @param to   range end
 	 */
-	public static record Range(String from, String to) {}
+	public static record Range(String from, String to) {
+	}
 
 	/**
 	 * If maxOccurs is set, this is an array.
@@ -248,7 +283,7 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 				&& minOccurs != maxOccurs //
 				&& (dependingOn != null && !dependingOn.isBlank());
 	}
-	
+
 	/**
 	 * @return true if this is not a primitive type
 	 */
@@ -280,7 +315,7 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 		return levelNumber() == 66;
 	}
 
-    @Override
+	@Override
 	public String toString() {
 		return toString(0);
 	}
@@ -425,5 +460,5 @@ public record CobolDataEntry(int levelNumber, // Level in the hierarchy this ele
 		sb.append("]");
 		return sb.toString();
 	}
-	
+
 }

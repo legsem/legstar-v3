@@ -17,9 +17,6 @@ import java.util.regex.Pattern;
  * programs with non data description statements to the parser without the need
  * to add grammar rules for all these cases.
  */
-/**
- * 
- */
 public class CopybookParserCleaner {
 
 	private static final Pattern IDENTIFICATION_DIVISION = Pattern.compile("IDENTIFICATION\\sDIVISION(\\s)*\\.",

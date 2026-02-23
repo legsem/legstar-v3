@@ -85,6 +85,18 @@
 
 		<plugins>
 
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Automatic-Module-Name>
+								org.legstar.cobol.maven.plugin</Automatic-Module-Name>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
 			<!-- Generate the plugin.xml and documentation -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
