@@ -11,7 +11,7 @@
 	<name>legstar-parent</name>
 	<description>Translates COBOL structures to a java model. Converts Mainframe
 		data to Java objects.</description>
-	<url>https://github.com/legsem/legstar-sandbox</url>
+	<url>https://github.com/legsem/legstar-v3</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,14 +23,14 @@
 
 	<issueManagement>
 		<system>Github Issue Tracking</system>
-		<url>https://github.com/legsem/legstar-sandbox/issues</url>
+		<url>https://github.com/legsem/legstar-v3/issues</url>
 	</issueManagement>
 
 	<scm>
-		<connection>scm:git:https://legsem@github.com/legsem/legstar-sandbox.git</connection>
+		<connection>scm:git:https://legsem@github.com/legsem/legstar-v3.git</connection>
 		<developerConnection>
-			scm:git:https://legsem@github.com/legsem/legstar-sandbox.git</developerConnection>
-		<url>https://github.com/legsem/legstar-sandbox.git</url>
+			scm:git:https://legsem@github.com/legsem/legstar-v3.git</developerConnection>
+		<url>https://github.com/legsem/legstar-v3.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
