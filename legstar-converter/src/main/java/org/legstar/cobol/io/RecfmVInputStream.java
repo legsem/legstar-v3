@@ -34,6 +34,11 @@ public class RecfmVInputStream extends FilterInputStream {
 	 */
 	protected volatile InputStream in;
 
+	/**
+	 * Build a RECFM=V input stream.
+	 * 
+	 * @param in the input stream
+	 */
 	public RecfmVInputStream(InputStream in) {
 		super(in);
 		this.in = in;
@@ -103,7 +108,12 @@ public class RecfmVInputStream extends FilterInputStream {
 			return -1;
 		}
 	}
-	
+
+	/**
+	 * Add this number of bytes to the counters.
+	 * 
+	 * @param count number of bytes to add
+	 */
 	protected void addToCounters(int count) {
 		pos += count;
 		recordPos += count;
@@ -117,6 +127,7 @@ public class RecfmVInputStream extends FilterInputStream {
 	 * Read record descriptor if needed
 	 * 
 	 * @return true if more data is available, false if at end of file
+	 * @throws IOException if reading DW length fails
 	 */
 	protected boolean primeDW() throws IOException {
 		if (recordPos == recordLen) {
@@ -137,8 +148,9 @@ public class RecfmVInputStream extends FilterInputStream {
 	 * <p>
 	 * First 2 bytes contain the length including the DW length itself so we
 	 * subtract that.
-	 * <p>
-	 * Returns -1 if EOF is reached while trying to read a DW.
+	 * 
+	 * @return -1 if EOF is reached while trying to read a DW.
+	 * @throws IOException if unable to read DW length
 	 */
 	protected int dwLen() throws IOException {
 		byte[] bdw = in.readNBytes(4);
@@ -161,14 +173,29 @@ public class RecfmVInputStream extends FilterInputStream {
 		return false;
 	}
 
+	/**
+	 * Current position within the original input stream
+	 * 
+	 * @return current position within the original input stream
+	 */
 	public long getPos() {
 		return pos;
 	}
 
+	/**
+	 * Current Record length
+	 * 
+	 * @return current Record length
+	 */
 	public int getRecordLen() {
 		return recordLen;
 	}
 
+	/**
+	 * Current position within the current Record
+	 * 
+	 * @return current position within the current Record
+	 */
 	public int getRecordPos() {
 		return recordPos;
 	}

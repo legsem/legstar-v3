@@ -34,8 +34,7 @@ public class CopybookParserCleaner {
 	private static final Pattern LINKAGE_SECTION = Pattern.compile("LINKAGE\\sSECTION(\\s)*\\.",
 			Pattern.CASE_INSENSITIVE);
 
-	private static final Pattern COPY_DIRECTIVE = Pattern.compile("\\sCOPY\s",
-			Pattern.CASE_INSENSITIVE);
+	private static final Pattern COPY_DIRECTIVE = Pattern.compile("\\sCOPY\s", Pattern.CASE_INSENSITIVE);
 
 	/**
 	 * List of compiler directives (they can be period delimited but are guaranteed
@@ -45,14 +44,29 @@ public class CopybookParserCleaner {
 
 	private final CopybookParserConfig config;
 
+	/**
+	 * Create cleaner with default configuration.
+	 */
 	public CopybookParserCleaner() {
 		this(new CopybookParserConfig());
 	}
 
+	/**
+	 * Create a cleaner.
+	 * 
+	 * @param config configuration parameters
+	 */
 	public CopybookParserCleaner(CopybookParserConfig config) {
 		this.config = config;
 	}
 
+	/**
+	 * Read the copybook and produce a set of clean lines. The remaining lines form
+	 * a shorter a copybook that will be easier to parse.
+	 * 
+	 * @param reader reads the cobol copybook
+	 * @return the result of the cleaning process
+	 */
 	public Result clean(Reader reader) {
 		Result res = new Result();
 		try (LineNumberReader r = new LineNumberReader(reader)) {
@@ -96,6 +110,9 @@ public class CopybookParserCleaner {
 
 	/**
 	 * Returns true if this line contains a compiler directive.
+	 * 
+	 * @param l line
+	 * @return true if this line contains a compiler directive
 	 */
 	private boolean isCompilerDirective(String l) {
 		String[] tokens = l.trim().split("[\\s\\.]+");
@@ -107,6 +124,9 @@ public class CopybookParserCleaner {
 	 * format, Column 1 for free format).
 	 * <p>
 	 * There is also support for floating comments which start with *>
+	 * 
+	 * @param l line
+	 * @return true if this line is a comment
 	 */
 	private boolean isComment(String l) {
 		if (l.trim().startsWith("*>")) {
@@ -118,6 +138,9 @@ public class CopybookParserCleaner {
 
 	/**
 	 * Debug lines should be ignored.
+	 * 
+	 * @param l line
+	 * @return true if this is a debug line
 	 */
 	private boolean isDebug(String l) {
 		char c = getIndicator(l);
@@ -126,13 +149,19 @@ public class CopybookParserCleaner {
 
 	/**
 	 * COPY of an external source is not supported.
+	 * 
+	 * @param l line
+	 * @return true if this line contains a COPY directive
 	 */
-	private boolean isCopy(String cl) {
-		return COPY_DIRECTIVE.matcher(cl).find();
+	private boolean isCopy(String l) {
+		return COPY_DIRECTIVE.matcher(l).find();
 	}
 
 	/**
-	 * Debug lines should be ignored.
+	 * Is this a continuation of an alphanumeric literal.
+	 * 
+	 * @param l line
+	 * @return true if this a continuation of an alphanumeric literal
 	 */
 	private boolean isAlphanumContinuationLiteral(String l) {
 		char c = getIndicator(l);
@@ -141,6 +170,9 @@ public class CopybookParserCleaner {
 
 	/**
 	 * Retrieve the character in the indicator area (if any).
+	 * 
+	 * @param l line
+	 * @return the character in the cobol indicator area
 	 */
 	private char getIndicator(String l) {
 		int pos = config.isFreeCodeFormat() ? 0 : config.getStartColumn() - 1;
@@ -150,6 +182,9 @@ public class CopybookParserCleaner {
 	/**
 	 * In fixed code format any character outside of the program-text area (AreaA
 	 * plus AreaB) must be ignored.
+	 * 
+	 * @param l line
+	 * @return a line stripped from extraneous characters
 	 */
 	private String removeExtraneousCharacters(String l) {
 		return config.isFreeCodeFormat() ? l : stripTrailing(blankSeqNumArea(l));
@@ -158,6 +193,9 @@ public class CopybookParserCleaner {
 	/**
 	 * Here we blank out characters before the start column instead of deleting them
 	 * in order to preserve column numbering.
+	 * 
+	 * @param l line
+	 * @return line where sequence number area is blanked out
 	 */
 	private String blankSeqNumArea(String l) {
 		int len = Math.min(l.length(), config.getStartColumn() - 1);
@@ -166,6 +204,9 @@ public class CopybookParserCleaner {
 
 	/**
 	 * All characters past the end column are deleted.
+	 * 
+	 * @param l line
+	 * @return line where al characters past the end column are stripped
 	 */
 	private String stripTrailing(String l) {
 		int len = Math.min(l.length(), config.getEndColumn());
@@ -177,11 +218,21 @@ public class CopybookParserCleaner {
 	 * with space.
 	 * <p>
 	 * We keep an extra space to preserve column numbering.
+	 * 
+	 * @param l line
+	 * @return a line where separators have been normalized
 	 */
 	private String replaceLongSeparators(String l) {
 		return l.replaceAll("[,;]\\s(?=([^\"']*[\"'][^\"']*[\"'])*[^\"']*$)", "  ");
 	}
 
+	/**
+	 * Reconstruct a single line from multiple lines for alphanumeric literals that
+	 * are continued on more than one line.
+	 * 
+	 * @param l   line
+	 * @param res the result of the cleaning process
+	 */
 	private void aggregateAlphanumContinuationLiteral(String l, Result res) {
 		int last = res.cleanLines.size() - 1;
 		if (last < 0) {
@@ -192,27 +243,41 @@ public class CopybookParserCleaner {
 		if (continuation.startsWith("\"") || continuation.startsWith("'")) {
 			res.cleanLines.set(last, continuedLine + continuation.substring(1));
 		}
-		
+
 	}
 
-    /**
-     * Holds the result of the cleaning process along with utility methods.
-     */
-    public static class Result {
+	/**
+	 * Holds the result of the cleaning process along with utility methods.
+	 */
+	public static class Result {
 
 		final List<String> cleanLines = new ArrayList<>();
 
 		/**
-		 * For each clean line, keep track of the original line number (before
-		 * cleaning)
+		 * For each clean line, keep track of the original line number (before cleaning)
 		 */
 		final List<Integer> originalLineNumbers = new ArrayList<>();
 
+		/**
+		 * Create the initial result.
+		 */
+		public Result() {
+		}
+
+		/**
+		 * Add a new clean line.
+		 * 
+		 * @param line       line to add
+		 * @param lineNumber original line number (before cleaning)
+		 */
 		void add(String line, int lineNumber) {
 			cleanLines.add(line);
 			originalLineNumbers.add(lineNumber);
 		}
 
+		/**
+		 * Clear all cleaned lines.
+		 */
 		public void clear() {
 			cleanLines.clear();
 			originalLineNumbers.clear();
@@ -230,10 +295,21 @@ public class CopybookParserCleaner {
 			return sb.toString();
 		}
 
+		/**
+		 * Recreate a shorter copybook with cleaned lines only.
+		 * 
+		 * @return a shorter copybook with cleaned lines only
+		 */
 		public CharSequence toCobolSource() {
 			return String.join("\n", cleanLines);
 		}
-		
+
+		/**
+		 * Retrieve the original line number given the clean line number.
+		 * 
+		 * @param i clean line number
+		 * @return the original line number
+		 */
 		public int originalLineNumber(int i) {
 			return originalLineNumbers.get(i - 1);
 		}

@@ -24,6 +24,10 @@ public class RecfmVBInputStream extends RecfmVInputStream {
 	 */
 	private int blockPos;
 
+	/**
+	 * Build a RECFM=VB input stream
+	 * @param in th filtered input stream
+	 */
 	public RecfmVBInputStream(InputStream in) {
 		super(in);
 	}
@@ -42,6 +46,7 @@ public class RecfmVBInputStream extends RecfmVInputStream {
 	 * Read block or record descriptor if needed
 	 * 
 	 * @return true if more data is available, false if at end of file
+	 * @throws IOException if unable to read DW
 	 */
 	@Override
 	protected boolean primeDW() throws IOException {
@@ -68,10 +73,20 @@ public class RecfmVBInputStream extends RecfmVInputStream {
 		return true;
 	}
 
+	/**
+	 * Current Block length
+	 * 
+	 * @return current Block length
+	 */
 	public int getBlockLen() {
 		return blockLen;
 	}
 
+	/**
+	 * Current position within the current Block
+	 * 
+	 * @return current position within the current Block
+	 */
 	public int getBlockPos() {
 		return blockPos;
 	}

@@ -13,6 +13,7 @@
 	<artifactId>legstar-jaxb-generator</artifactId>
 
 	<name>legstar-jaxb-generator</name>
+	<description>Generates COBOL and XML annotated JAVA beans from COBOL copybooks</description>
 
 	<dependencies>
 		<dependency>

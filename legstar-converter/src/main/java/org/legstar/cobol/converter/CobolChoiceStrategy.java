@@ -2,6 +2,10 @@ package org.legstar.cobol.converter;
 
 import java.lang.reflect.Field;
 
+/**
+ * A strategy that determines which alternative is present for a choice.
+ * @param <T> the java bean type of the root item
+ */
 public interface CobolChoiceStrategy<T> {
 
 	/**

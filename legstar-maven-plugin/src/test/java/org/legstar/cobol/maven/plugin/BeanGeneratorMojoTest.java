@@ -1,4 +1,4 @@
-package org.legstar.maven.plugin;
+package org.legstar.cobol.maven.plugin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

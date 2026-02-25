@@ -12,11 +12,27 @@ public class CobolStringConverter {
 
 	private final boolean truncateHostStringsTrailingSpaces;
 
+	/**
+	 * Build a cobol string converter.
+	 * 
+	 * @param hostCharsetName                   the cobol character set
+	 * @param truncateHostStringsTrailingSpaces true if strings should be right
+	 *                                          truncated
+	 */
 	public CobolStringConverter(String hostCharsetName, boolean truncateHostStringsTrailingSpaces) {
 		this.hostCharsetName = hostCharsetName;
 		this.truncateHostStringsTrailingSpaces = truncateHostStringsTrailingSpaces;
 	}
 
+	/**
+	 * Convert a COBOL alphanumeric.
+	 * 
+	 * @param <T>         the target java type
+	 * @param is          the cobol input data
+	 * @param charNum     the number of characters
+	 * @param targetClass the target java class
+	 * @return the converted java value
+	 */
 	@SuppressWarnings("unchecked")
 	public <T> T convert(CobolInputStream is, int charNum, Class<T> targetClass) {
 		if (targetClass.equals(String.class)) {

@@ -10,6 +10,21 @@ import org.legstar.cobol.utils.BytesLenUtils;
  */
 public class CobolDoubleConverter {
 
+	/**
+	 * Build a COBOL double converter
+	 */
+	public CobolDoubleConverter() {
+		super();
+	}
+
+	/**
+	 * Convert a COBOL double (COMP-2).
+	 * 
+	 * @param <T>         the target java type
+	 * @param is          the cobol input data
+	 * @param targetClass the target java class
+	 * @return the converted java value
+	 */
 	@SuppressWarnings("unchecked")
 	public <T> T convert(CobolInputStream is, Class<T> targetClass) {
 		if (targetClass.equals(Double.class)) {
@@ -46,53 +61,52 @@ public class CobolDoubleConverter {
 				throw new CobolBeanConverterEOFException();
 			}
 			ByteBuffer bb = ByteBuffer.wrap(buffer);
-	        long hostLongBits = bb.getLong();
+			long hostLongBits = bb.getLong();
 
-	        /* First bit left (bit 63) is the sign: 0 = positive, 1 = negative */
-	        int sign = (int) ((hostLongBits & 0x8000000000000000L) >>> 63);
+			/* First bit left (bit 63) is the sign: 0 = positive, 1 = negative */
+			int sign = (int) ((hostLongBits & 0x8000000000000000L) >>> 63);
 
-	        /*
-	         * Bits 62-56 (7 bits) represents the exponent offset by 64, this
-	         * number is called excess so you get the exponent as
-	         * E= excess - 64
-	         */
-	        int excess = (int) ((hostLongBits & 0x7f00000000000000L) >>> 56);
-	        int exponent = excess == 0 ? 0 : (excess - 64);
+			/*
+			 * Bits 62-56 (7 bits) represents the exponent offset by 64, this number is
+			 * called excess so you get the exponent as E= excess - 64
+			 */
+			int excess = (int) ((hostLongBits & 0x7f00000000000000L) >>> 56);
+			int exponent = excess == 0 ? 0 : (excess - 64);
 
-	        /* Bits 55-0 (56 bits) represents the mantissa. */
-	        long mantissa = hostLongBits & 0x00ffffffffffffffL;
+			/* Bits 55-0 (56 bits) represents the mantissa. */
+			long mantissa = hostLongBits & 0x00ffffffffffffffL;
 
-	        /* Java Doubles are in IEEE 754 floating-point bit layout. */
-	        /*
-	         * Host exponent is hexadecimal based while java is binary based.
-	         * There is also an additional shift for non-zero values due to
-	         * the 1-plus" normalized java specs.
-	         */
-	        if (mantissa != 0) {
-	            exponent = ((4 * exponent) - 1);
-	        }
+			/* Java Doubles are in IEEE 754 floating-point bit layout. */
+			/*
+			 * Host exponent is hexadecimal based while java is binary based. There is also
+			 * an additional shift for non-zero values due to the 1-plus" normalized java
+			 * specs.
+			 */
+			if (mantissa != 0) {
+				exponent = ((4 * exponent) - 1);
+			}
 
-	        /*
-	         * The java mantissa is 53 bits while the host is 56. This
-	         * means there is a systematic loss of precision.
-	         */
-	        mantissa = mantissa >>> 3;
-	        
-	        /* In java the 53th bit needs to be one */
-	        while (mantissa > 0L && (mantissa & 0x0010000000000000L) == 0) {
-	            mantissa = mantissa << 1;
-	            exponent = exponent - 1;
-	        }
+			/*
+			 * The java mantissa is 53 bits while the host is 56. This means there is a
+			 * systematic loss of precision.
+			 */
+			mantissa = mantissa >>> 3;
 
-	        /* First check if this is a zero value */
-	        double result = 0d;
-	        if (exponent != 0 || mantissa != 0) {
-	            /* Get rid of the leading 1 which needs to be implicit */
-	            long javaLongBits = mantissa & 0x000fffffffffffffL;
-	            javaLongBits = javaLongBits | ((long) (exponent + 1023) << 52);
-	            javaLongBits = javaLongBits | ((long) sign << 63);
-	            result = Double.longBitsToDouble(javaLongBits);
-	        }
+			/* In java the 53th bit needs to be one */
+			while (mantissa > 0L && (mantissa & 0x0010000000000000L) == 0) {
+				mantissa = mantissa << 1;
+				exponent = exponent - 1;
+			}
+
+			/* First check if this is a zero value */
+			double result = 0d;
+			if (exponent != 0 || mantissa != 0) {
+				/* Get rid of the leading 1 which needs to be implicit */
+				long javaLongBits = mantissa & 0x000fffffffffffffL;
+				javaLongBits = javaLongBits | ((long) (exponent + 1023) << 52);
+				javaLongBits = javaLongBits | ((long) sign << 63);
+				result = Double.longBitsToDouble(javaLongBits);
+			}
 
 			return result;
 		} catch (IOException e) {

@@ -1,3 +1,6 @@
+/**
+ * Generates COBOL annotated JAVA beans from COBOL copybooks
+ */
 module org.legstar.cobol.generator {
 	
 	requires transitive org.legstar.cobol.base;

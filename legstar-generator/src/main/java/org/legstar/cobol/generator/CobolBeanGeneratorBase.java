@@ -35,6 +35,11 @@ public abstract class CobolBeanGeneratorBase {
 
 	private final CopybookParser parser;
 
+	/**
+	 * Build the generator.
+	 * 
+	 * @param config generator parameters
+	 */
 	public CobolBeanGeneratorBase(CobolBeanGeneratorConfigBase<?> config) {
 		this.config = config;
 		parser = new CopybookParser(config);
@@ -51,10 +56,7 @@ public abstract class CobolBeanGeneratorBase {
 	public Result generate(String inputSource, Reader reader, Writer writer) {
 		CobolDataEntry groupEntry = parse(inputSource, reader);
 		RenderingModel renderingModel = new RenderingModelGenerator() //
-				.generate(inputSource, 
-						groupEntry, 
-						config.packageNamePrefix(), 
-						config.withToString(),
+				.generate(inputSource, groupEntry, config.packageNamePrefix(), config.withToString(),
 						renderingOptions());
 		generate(renderingModel, writer);
 		return new Result(renderingModel.package_name(), renderingModel.root_item().className());
@@ -78,11 +80,16 @@ public abstract class CobolBeanGeneratorBase {
 	/**
 	 * This is for derived generators giving them opportunity to inject more code
 	 * into the generated java bean.
+	 * 
+	 * @return optional rendering capabilities
 	 */
 	public abstract RenderingOptions renderingOptions();
 
 	/**
 	 * Apply templates to a set of parameters producing a java bean class.
+	 * 
+	 * @param renderingModel the rendering model for templates
+	 * @param writer         the writer to produce output
 	 */
 	private void generate(RenderingModel renderingModel, Writer writer) {
 		TemplateEngine templateEngine = TemplateEngine.createPrecompiled(ContentType.Plain);
@@ -90,6 +97,12 @@ public abstract class CobolBeanGeneratorBase {
 		templateEngine.render("bean_class.jte", renderingModel, output);
 	}
 
+	/**
+	 * Generation result.
+	 * 
+	 * @param packageName the java package name for the generated java bean class
+	 * @param className   the generated java bean class name
+	 */
 	public static record Result(String packageName, String className) {
 	};
 

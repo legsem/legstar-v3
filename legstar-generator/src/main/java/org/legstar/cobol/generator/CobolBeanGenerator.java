@@ -10,10 +10,16 @@ import org.legstar.cobol.generator.model.RenderingOptions;
  */
 public class CobolBeanGenerator extends CobolBeanGeneratorBase {
 
+	/**
+	 * Build a java bean generator.
+	 * 
+	 * @param config generation parameters
+	 */
 	public CobolBeanGenerator(CobolBeanGeneratorConfig config) {
 		super(config);
 	}
 
+	@Override
 	public RenderingOptions renderingOptions() {
 		return RenderingOptions.defaults();
 	}

@@ -10,8 +10,16 @@ import org.legstar.cobol.generator.model.RenderingOptions;
  */
 public class CobolJaxbBeanGenerator extends CobolBeanGeneratorBase {
 
+	/**
+	 * JAXB rendering options.
+	 */
 	private final CobolJaxbRenderingOptions renderingOptions;
 
+	/**
+	 * Build the generator.
+	 * 
+	 * @param config generator parameters
+	 */
 	public CobolJaxbBeanGenerator(CobolJaxbBeanGeneratorConfig config) {
 		super(config);
 		renderingOptions = new CobolJaxbRenderingOptions(config);

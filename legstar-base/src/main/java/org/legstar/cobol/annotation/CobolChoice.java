@@ -5,18 +5,27 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Describes a cobol set of alternatives which are items that redefine a base
+ * item.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @CobolItemType
 public @interface CobolChoice {
 
 	/**
-	 * @return the cobol name of the first alternative in the choice (the one being redefined)
+	 * The cobol name to use for this choice.
+	 * 
+	 * @return the cobol name of the first alternative in the choice (the one being
+	 *         redefined)
 	 */
 	String cobolName();
 
 	/**
-	 * @return the host data size of the largest alternative in the choice
+	 * The cobol byte length of the largest alternative in the choice.
+	 * 
+	 * @return the cobol byte length of the largest alternative in the choice
 	 */
 	int maxBytesLen();
 

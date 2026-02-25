@@ -2,25 +2,23 @@ package org.legstar.cobol.jaxb.converter;
 
 import org.legstar.cobol.converter.CobolBeanConverterConfig;
 
+/**
+ * Set of parameters for the cobol XML converter.
+ */
 public class CobolXmlConverterConfig extends CobolBeanConverterConfig {
-	
+
 	/**
 	 * Whether to produce an indented formatted Xml.
 	 */
 	private boolean formattedOutput;
 
+	/**
+	 * A set of parameters for the cobol XML converter.
+	 * 
+	 * @param hostCharsetName the cobol character set
+	 */
 	public CobolXmlConverterConfig(String hostCharsetName) {
 		super(hostCharsetName);
-	}
-
-	public static CobolXmlConverterConfig ebcdic() {
-		return new CobolXmlConverterConfig(DEFAULT_EBCDIC_CHARSET)
-				.setMaxCobolTypeBytesLen(DEFAULT_MAX_BYTES_LEN);
-	}
-
-	public static CobolXmlConverterConfig ascii() {
-		return new CobolXmlConverterConfig(DEFAULT_ASCII_CHARSET)
-				.setMaxCobolTypeBytesLen(Integer.MAX_VALUE);
 	}
 
 	@Override
@@ -53,23 +51,42 @@ public class CobolXmlConverterConfig extends CobolBeanConverterConfig {
 		return (CobolXmlConverterConfig) super.setHostSpaceCharCode(hostSpaceCharCode);
 	}
 
-	@Override
-	public CobolXmlConverterConfig setMaxCobolTypeBytesLen(int maxCobolTypeBytesLen) {
-		return (CobolXmlConverterConfig) super.setMaxCobolTypeBytesLen(maxCobolTypeBytesLen);
-	}
-
-	@Override
-	public CobolXmlConverterConfig setTruncateHostStringsTrailingSpaces(boolean truncateHostStringsTrailingSpaces) {
-		return (CobolXmlConverterConfig) super.setTruncateHostStringsTrailingSpaces(truncateHostStringsTrailingSpaces);
-	}
-
+	/**
+	 * Whether to produce an indented formatted Xml
+	 * 
+	 * @return true to produce an indented formatted Xml
+	 */
 	public boolean isFormattedOutput() {
 		return formattedOutput;
 	}
 
+	/**
+	 * Set whether to produce an indented formatted Xml
+	 * 
+	 * @param formattedOutput true to produce an indented formatted Xml
+	 * @return this
+	 */
 	public CobolXmlConverterConfig setFormattedOutput(boolean formattedOutput) {
 		this.formattedOutput = formattedOutput;
 		return this;
+	}
+
+	/**
+	 * A default configuration assuming cobol is using ebcdic (usual)
+	 * 
+	 * @return an ebcdic configuration
+	 */
+	public static CobolXmlConverterConfig ebcdic() {
+		return new CobolXmlConverterConfig(DEFAULT_EBCDIC_CHARSET);
+	}
+
+	/**
+	 * A default configuration assuming cobol is using ascii (unusual)
+	 * 
+	 * @return an ascii configuration
+	 */
+	public static CobolXmlConverterConfig ascii() {
+		return new CobolXmlConverterConfig(DEFAULT_ASCII_CHARSET);
 	}
 
 }

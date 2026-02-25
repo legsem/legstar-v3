@@ -23,6 +23,11 @@ public class BeanIndentWriterOutput extends WriterOutput {
 	 */
 	private Stack<Integer> depth = new Stack<>();
 
+	/**
+	 * Wrap a regular writer to provide indent capabilities.
+	 * 
+	 * @param writer a writer to augment
+	 */
 	public BeanIndentWriterOutput(Writer writer) {
 		super(writer);
 	}

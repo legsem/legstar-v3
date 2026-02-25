@@ -21,14 +21,32 @@ public class CopybookParser {
 
 	private CopybookParserConfig config;
 
+	/**
+	 * Create a parser with default configuration.
+	 */
 	public CopybookParser() {
 		this(new CopybookParserConfig());
 	}
 
+	/**
+	 * Create a parser
+	 * 
+	 * @param config configuration parameters
+	 */
 	public CopybookParser(CopybookParserConfig config) {
 		this.config = config;
 	}
 
+	/**
+	 * Parses a copybook into one or more CobolDataEntry. A CobolDataEntry is the
+	 * Abstract Syntax Tree.
+	 * 
+	 * @param inputSource a name for the input source for reporting purposes (file
+	 *                    name for instance)
+	 * @param reader      reads the cobol copybook
+	 * @return a list of CobolDataEntry (there could be more than one if the
+	 *         copybook contains multiple root items)
+	 */
 	public List<CobolDataEntry> parse(String inputSource, Reader reader) {
 		CopybookParserCleaner cleaner = new CopybookParserCleaner(this.config);
 		Result cleanResult = cleaner.clean(reader);
@@ -42,6 +60,17 @@ public class CopybookParser {
 		}
 	}
 
+	/**
+	 * Produce the list of CobolDataEntry (Abstract Syntax Tree) out of the nodes
+	 * returned by CongoCC.
+	 * 
+	 * @param node               the CongoCC main node
+	 * @param lineNumberProvider a function to reassign line numbers. This is needed
+	 *                           because we pass a subset of the original lines to
+	 *                           CongoCC but need errors to report the original line
+	 *                           number.
+	 * @return a list of CobolDataEntry
+	 */
 	List<CobolDataEntry> produce(Node node, Function<Integer, Integer> lineNumberProvider) {
 		List<CobolDataEntry> cobolDataEntries = new ArrayList<>();
 		CopybookParserVisitor visitor = new CopybookParserVisitor(cobolDataEntries, lineNumberProvider);

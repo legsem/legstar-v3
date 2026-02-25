@@ -78,6 +78,9 @@ public record CobolDataEntry(int levelNumber, //
 		int srceLine //
 ) {
 
+	/**
+	 * Builder for a cobol data entry.
+	 */
 	public static class Builder {
 		private int levelNumber;
 		private String cobolName = "FILLER";
@@ -107,141 +110,314 @@ public record CobolDataEntry(int levelNumber, //
 		private List<String> conditionLiterals = new ArrayList<>();
 		private List<Range> conditionRanges = new ArrayList<>();
 
+		/**
+		 * Create a builder
+		 */
+		public Builder() {
+		}
+
+		/**
+		 * Set the level number
+		 * 
+		 * @param levelNumber level number
+		 * @return this builder
+		 */
 		public Builder levelNumber(int levelNumber) {
 			this.levelNumber = levelNumber;
 			return this;
 		}
 
+		/**
+		 * Set the cobol element name
+		 * 
+		 * @param cobolName cobol element name
+		 * @return this builder
+		 */
 		public Builder cobolName(String cobolName) {
 			this.cobolName = cobolName;
 			return this;
 		}
 
+		/**
+		 * Set the cobol element being redefined
+		 * 
+		 * @param redefines cobol element being redefined
+		 * @return this builder
+		 */
 		public Builder redefines(String redefines) {
 			this.redefines = redefines;
 			return this;
 		}
 
+		/**
+		 * Set the blank when zero clause
+		 * 
+		 * @param blankWhenZero blank when zero clause
+		 * @return this builder
+		 */
 		public Builder blankWhenZero(boolean blankWhenZero) {
 			this.blankWhenZero = blankWhenZero;
 			return this;
 		}
 
+		/**
+		 * Set the external clause
+		 * 
+		 * @param external external clause
+		 * @return this builder
+		 */
 		public Builder external(boolean external) {
 			this.external = external;
 			return this;
 		}
 
+		/**
+		 * Set the global clause
+		 * 
+		 * @param global global clause
+		 * @return this builder
+		 */
 		public Builder global(boolean global) {
 			this.global = global;
 			return this;
 		}
 
+		/**
+		 * Set the group usage national clause
+		 * 
+		 * @param groupUsageNational group usage national clause
+		 * @return this builder
+		 */
 		public Builder groupUsageNational(boolean groupUsageNational) {
 			this.groupUsageNational = groupUsageNational;
 			return this;
 		}
 
+		/**
+		 * Set the data aligned at rightmost character position
+		 * 
+		 * @param justifiedRight data aligned at rightmost character position
+		 * @return this builder
+		 */
 		public Builder justifiedRight(boolean justifiedRight) {
 			this.justifiedRight = justifiedRight;
 			return this;
 		}
 
+		/**
+		 * Set the general characteristics and editing requirements
+		 * 
+		 * @param picture general characteristics and editing requirements
+		 * @return this builder
+		 */
 		public Builder picture(String picture) {
 			this.picture = picture;
 			return this;
 		}
 
+		/**
+		 * Set whether sign is in leading byte
+		 * 
+		 * @param signLeading true if sign in leading byte
+		 * @return this builder
+		 */
 		public Builder signLeading(boolean signLeading) {
 			this.signLeading = signLeading;
 			return this;
 		}
 
+		/**
+		 * Set whether sign is in separate byte (not overpunched)
+		 * 
+		 * @param signSeparate true if sign is in separate byte (not overpunched)
+		 * @return this builder
+		 */
 		public Builder signSeparate(boolean signSeparate) {
 			this.signSeparate = signSeparate;
 			return this;
 		}
 
+		/**
+		 * Set whether synchronized on natural boundary in storage
+		 * 
+		 * @param sync true if synchronized on natural boundary in storage
+		 * @return this builder
+		 */
 		public Builder sync(boolean sync) {
 			this.sync = sync;
 			return this;
 		}
 
+		/**
+		 * Set the minimum number of occurrences
+		 * 
+		 * @param minOccurs minimum number of occurrences
+		 * @return this builder
+		 */
 		public Builder minOccurs(int minOccurs) {
 			this.minOccurs = minOccurs;
 			return this;
 		}
 
+		/**
+		 * Set the maximum number of occurrences
+		 * 
+		 * @param maxOccurs maximum number of occurrences
+		 * @return this builder
+		 */
 		public Builder maxOccurs(int maxOccurs) {
 			this.maxOccurs = maxOccurs;
 			return this;
 		}
 
+		/**
+		 * Set the cobol element giving array actual size
+		 * 
+		 * @param dependingOn cobol element giving array actual size
+		 * @return this builder
+		 */
 		public Builder dependingOn(String dependingOn) {
 			this.dependingOn = dependingOn;
 			return this;
 		}
 
+		/**
+		 * Set the indexed by clause
+		 * 
+		 * @param indexes indexed by clause
+		 * @return this builder
+		 */
 		public Builder indexes(List<String> indexes) {
 			this.indexes = indexes;
 			return this;
 		}
 
+		/**
+		 * Set array items ordering ascending keys
+		 * 
+		 * @param ascendingKeys array items ordering ascending keys
+		 * @return this builder
+		 */
 		public Builder ascendingKeys(List<String> ascendingKeys) {
 			this.ascendingKeys = ascendingKeys;
 			return this;
 		}
 
+		/**
+		 * Set array items ordering descending keys
+		 * 
+		 * @param descendingKeys array items ordering descending keys
+		 * @return this builder
+		 */
 		public Builder descendingKeys(List<String> descendingKeys) {
 			this.descendingKeys = descendingKeys;
 			return this;
 		}
 
+		/**
+		 * Set the cobol usage
+		 * 
+		 * @param usage cobol usage
+		 * @return this builder
+		 */
 		public Builder usage(CobolDataEntryUsage usage) {
 			this.usage = usage;
 			return this;
 		}
 
+		/**
+		 * Set the cobol value clause
+		 * 
+		 * @param value cobol value clause
+		 * @return this builder
+		 */
 		public Builder value(String value) {
 			this.value = value;
 			return this;
 		}
 
+		/**
+		 * Set the cobol date format clause
+		 * 
+		 * @param dateFormat cobol date format clause
+		 * @return this builder
+		 */
 		public Builder dateFormat(String dateFormat) {
 			this.dateFormat = dateFormat;
 			return this;
 		}
 
+		/**
+		 * Add a direct child
+		 * 
+		 * @param child a direct childn
+		 * @return this builder
+		 */
 		public Builder addChild(CobolDataEntry child) {
 			children.add(child);
 			return this;
 		}
 
+		/**
+		 * Set the single rename subject
+		 * 
+		 * @param renamesSubject single rename subject
+		 * @return this builder
+		 */
 		public Builder renamesSubject(String renamesSubject) {
 			this.renamesSubject = renamesSubject;
 			return this;
 		}
 
+		/**
+		 * Add a range of rename subjects
+		 * 
+		 * @param renamesSubjectRange range of rename subjects
+		 * @return this builder
+		 */
 		public Builder renamesSubjectRange(Range renamesSubjectRange) {
 			this.renamesSubjectRange = renamesSubjectRange;
 			return this;
 		}
 
+		/**
+		 * Add a single condition literal value
+		 * 
+		 * @param conditionLiteral a single condition literal value
+		 * @return this builder
+		 */
 		public Builder addConditionLiteral(String conditionLiteral) {
 			this.conditionLiterals.add(conditionLiteral);
 			return this;
 		}
 
+		/**
+		 * Add a range of condition literal values
+		 * 
+		 * @param conditionRange a range of condition literal values
+		 * @return this builder
+		 */
 		public Builder addConditionRange(Range conditionRange) {
 			this.conditionRanges.add(conditionRange);
 			return this;
 		}
 
+		/**
+		 * Set the line number in the original source file
+		 * 
+		 * @param srceLine line number in the original source file
+		 * @return this builder
+		 */
 		public Builder srceLine(int srceLine) {
 			this.srceLine = srceLine;
 			return this;
 		}
 
+		/**
+		 * Build a CobolDataEntry
+		 * 
+		 * @return a new CobolDataEntry
+		 */
 		public CobolDataEntry build() {
 			return new CobolDataEntry(levelNumber, cobolName, redefines, blankWhenZero, external, global,
 					groupUsageNational, justifiedRight, picture, signLeading, signSeparate, sync, minOccurs, maxOccurs,
@@ -249,6 +425,12 @@ public record CobolDataEntry(int levelNumber, //
 					renamesSubject, renamesSubjectRange, conditionLiterals, conditionRanges, srceLine);
 		}
 
+		/**
+		 * Is the level being built an ancestor of levelNumber2
+		 * 
+		 * @param levelNumber2 the other level to compare to
+		 * @return true if the current level is an ancestor of levelNumber2
+		 */
 		public boolean isHigherThan(int levelNumber2) {
 			return this.levelNumber < levelNumber2;
 		}
@@ -269,14 +451,18 @@ public record CobolDataEntry(int levelNumber, //
 	 * <p>
 	 * We also treat an array cobol data entries that are optional. Optionality in
 	 * cobol is specified using a minOccurs or zero and maxOccurs of 1.
+	 * 
+	 * @return true if this is an array
 	 */
 	public boolean isArray() {
 		return (maxOccurs > 1 || (maxOccurs == 1 && minOccurs == 0));
 	}
 
 	/**
-	 * @return true if this is a variable size array. Such arrays have their actual
-	 *         dimension given by a preceding data entry.
+	 * Is this a variable size array. Such arrays have their actual dimension given
+	 * by a preceding data entry.
+	 * 
+	 * @return true if this a variable size array
 	 */
 	public boolean isVariableSizeArray() {
 		return isArray() //
@@ -285,7 +471,13 @@ public record CobolDataEntry(int levelNumber, //
 	}
 
 	/**
-	 * @return true if this is not a primitive type
+	 * Is this a group item. Group items are not conditions, renames or primitive
+	 * types.
+	 * <p>
+	 * Can't just check for children because in cobol groups are allowed not to have
+	 * children.
+	 * 
+	 * @return true if this is a group item
 	 */
 	public boolean isGroup() {
 		if (isConditionName() || isRenames()) {
@@ -295,6 +487,8 @@ public record CobolDataEntry(int levelNumber, //
 	}
 
 	/**
+	 * Does this item redefines a preceding one.
+	 * 
 	 * @return true if this item redefines another
 	 */
 	public boolean isRedefinition() {
@@ -302,6 +496,8 @@ public record CobolDataEntry(int levelNumber, //
 	}
 
 	/**
+	 * Is this a condition name.
+	 * 
 	 * @return true if this item redefines another
 	 */
 	public boolean isConditionName() {
@@ -309,6 +505,8 @@ public record CobolDataEntry(int levelNumber, //
 	}
 
 	/**
+	 * is this an alias for a preceding item.
+	 * 
 	 * @return true if this item renames other items
 	 */
 	public boolean isRenames() {
@@ -320,6 +518,12 @@ public record CobolDataEntry(int levelNumber, //
 		return toString(0);
 	}
 
+	/**
+	 * Returns a string representation of the cobol data entry.
+	 * 
+	 * @param indent number of indentation spaces
+	 * @return a string representation of the cobol data entry
+	 */
 	public String toString(int indent) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" ".repeat(indent));

@@ -13,6 +13,7 @@
 	<artifactId>legstar-generator</artifactId>
 
 	<name>legstar-generator</name>
+	<description>Generates COBOL annotated JAVA beans from COBOL copybooks</description>
 
 	<properties>
 		<jte.version>3.2.1</jte.version>
@@ -87,6 +88,13 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<excludePackageNames>gg.jte.*</excludePackageNames>
+				</configuration>
 			</plugin>
 
 		</plugins>

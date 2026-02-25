@@ -14,8 +14,17 @@ public class CopybookParserException extends RuntimeException {
 
 	private static final Pattern LOCATION_PATTERN = Pattern.compile(" at (.*?):(\\d+):(\\d+)");
 
+	/**
+	 * Function to retrieve the original line number
+	 */
 	private final Function<Integer, Integer> lineNumberProvider;
 
+	/**
+	 * Builds a parser exception.
+	 * 
+	 * @param e                  usually originates from CongoCC
+	 * @param lineNumberProvider how to retrieve the original line number
+	 */
 	public CopybookParserException(Throwable e, Function<Integer, Integer> lineNumberProvider) {
 		super(e);
 		this.lineNumberProvider = lineNumberProvider;
@@ -37,6 +46,12 @@ public class CopybookParserException extends RuntimeException {
 		return sb.toString();
 	}
 
+	/**
+	 * Retrieve the original line number in the copybook
+	 * 
+	 * @param line the clean line number
+	 * @return the original line number
+	 */
 	private int getRealLineNumber(String line) {
 		return lineNumberProvider.apply(Integer.parseInt(line));
 	}

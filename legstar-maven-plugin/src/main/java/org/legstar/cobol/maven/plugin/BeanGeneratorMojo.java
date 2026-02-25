@@ -1,4 +1,4 @@
-package org.legstar.maven.plugin;
+package org.legstar.cobol.maven.plugin;
 
 import java.io.File;
 import java.io.Reader;
@@ -15,6 +15,13 @@ import org.legstar.cobol.generator.CobolBeanGeneratorConfig;
  */
 @Mojo(name = "generate-bean", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class BeanGeneratorMojo extends LegstarMojoBase {
+
+	/**
+	 * Create generate-bean goal.
+	 */
+	public BeanGeneratorMojo() {
+		super();
+	}
 
 	@Override
 	public void execute(File cobolFile, String cobolFileEncoding, File output) {

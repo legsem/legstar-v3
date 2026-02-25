@@ -32,21 +32,32 @@ public class CobolInputStream extends FilterInputStream {
 	 * Number of bytes read when the mark method was called.
 	 */
 	private long markedBytesRead;
-	
+
 	/**
 	 * Did we reach the end of file.
 	 */
 	private boolean eof;
-	
+
 	/**
 	 * End of file condition when the mark method was called.
 	 */
 	private boolean markedEof;
 
+	/**
+	 * Wrap an input stream for the default fixed block record format.
+	 * 
+	 * @param in the input stream
+	 */
 	public CobolInputStream(InputStream in) {
 		this(in, CobolRecordFormat.FB);
 	}
 
+	/**
+	 * Wrap an input stream for the given block record format.
+	 * 
+	 * @param in    the input stream
+	 * @param recfm the input record format
+	 */
 	public CobolInputStream(InputStream in, CobolRecordFormat recfm) {
 		super(getBufferedInputStream(in, recfm));
 	}
@@ -125,10 +136,20 @@ public class CobolInputStream extends FilterInputStream {
 		return bis;
 	}
 
+	/**
+	 * How many cobol bytes were consumed so far
+	 * 
+	 * @return number of cobol bytes consumed
+	 */
 	public long getBytesRead() {
 		return bytesRead;
 	}
 
+	/**
+	 * Has this reached the end of file.
+	 * 
+	 * @return true if the end of file was reached
+	 */
 	public boolean isEof() {
 		return eof;
 	}

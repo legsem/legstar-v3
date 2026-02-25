@@ -15,6 +15,14 @@ public class CobolPackedDecimalConverter {
 	private final int positiveSignNibbleValue;
 	private final int unspecifiedSignNibbleValue;
 
+	/**
+	 * Build a cobol packed decimal converter.
+	 * 
+	 * @param hostSpaceCharCode          the space character encoding
+	 * @param positiveSignNibbleValue    positive sign nibble value
+	 * @param negativeSignNibbleValue    negative sign nibble value
+	 * @param unspecifiedSignNibbleValue unspecified sign nibble value
+	 */
 	public CobolPackedDecimalConverter(int hostSpaceCharCode, int positiveSignNibbleValue, int negativeSignNibbleValue,
 			int unspecifiedSignNibbleValue) {
 		spaceCharValue = new StringBuilder() //
@@ -26,6 +34,17 @@ public class CobolPackedDecimalConverter {
 		this.unspecifiedSignNibbleValue = unspecifiedSignNibbleValue;
 	}
 
+	/**
+	 * Convert a COBOL packed decimal (COMP-3).
+	 * 
+	 * @param <T>            the target java type
+	 * @param is             the cobol input data
+	 * @param signed         a signed decimal
+	 * @param totalDigits    the total number of digits
+	 * @param fractionDigits the number of fraction digits
+	 * @param targetClass    the target java class
+	 * @return the converted java value
+	 */
 	@SuppressWarnings(value = "unchecked")
 	public <T> T convert(CobolInputStream is, boolean signed, int totalDigits, int fractionDigits,
 			Class<T> targetClass) {
@@ -38,6 +57,15 @@ public class CobolPackedDecimalConverter {
 		}
 	}
 
+	/**
+	 * Convert to a BigDecimal and the get the plain string value from that.
+	 * 
+	 * @param is             host bytes to convert
+	 * @param signed         a signed decimal
+	 * @param totalDigits    total number of digits (including fraction digits)
+	 * @param fractionDigits scale
+	 * @return a string representation of the decimal
+	 */
 	public String toString(CobolInputStream is, boolean signed, int totalDigits, int fractionDigits) {
 		BigDecimal dec = toBigDecimal(is, signed, totalDigits, fractionDigits);
 		return dec == null ? null : dec.toPlainString();
@@ -110,16 +138,31 @@ public class CobolPackedDecimalConverter {
 	}
 
 	/**
-	 * return true if the string is a sequence of host space characters only
+	 * Check if the string is a sequence of host space characters only
+	 * 
+	 * @param s the string to check
+	 * @return true if the string is a sequence of host space characters only
 	 */
 	private boolean isAllSpaces(String s) {
 		return s.replace(spaceCharValue, "").length() == 0;
 	}
 
+	/**
+	 * Extract the left half byte from a byte.
+	 * 
+	 * @param c the byte
+	 * @return a half byte
+	 */
 	private int highNibble(int c) {
 		return ((byte) c >> 4) & 0x0f;
 	}
 
+	/**
+	 * Extract the right half byte from a byte.
+	 * 
+	 * @param c the byte
+	 * @return a half byte
+	 */
 	private int lowNibble(int c) {
 		return (byte) c & 0x0f;
 	}

@@ -195,37 +195,33 @@
 					<version>3.4.2</version>
 				</plugin>
 
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.21.0</version>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>3.8.0</version>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.12.0</version>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>3.2.8</version>
+				</plugin>
 			</plugins>
 
 		</pluginManagement>
 
 		<plugins>
-			<plugin>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.21.0</version>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.12.0</version>
-				<configuration>
-					<failOnError>false</failOnError>
-				</configuration>
 			</plugin>
 
 		</plugins>
@@ -235,11 +231,52 @@
 	<reporting>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>3.8.0</version>
 			</plugin>
 		</plugins>
 	</reporting>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<failOnError>false</failOnError>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

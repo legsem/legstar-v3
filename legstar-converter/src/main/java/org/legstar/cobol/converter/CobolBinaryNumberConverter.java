@@ -20,6 +20,23 @@ import org.legstar.cobol.utils.BytesLenUtils;
  */
 public class CobolBinaryNumberConverter {
 
+	/**
+	 * Build a COBOL binary number converter
+	 */
+	public CobolBinaryNumberConverter() {
+		super();
+	}
+
+	/**
+	 * Convert a COBOL binary number (COMP, COMP-5).
+	 * 
+	 * @param <T>         the target java type
+	 * @param is          the cobol input data
+	 * @param signed      is this a signed binary (unsigned otherwise)
+	 * @param totalDigits the total number of digits
+	 * @param targetClass the target java class
+	 * @return the converted java value
+	 */
 	@SuppressWarnings("unchecked")
 	public <T> T convert(CobolInputStream is, boolean signed, int totalDigits, Class<T> targetClass) {
 		if (targetClass.equals(Short.class) || targetClass.equals(short.class)) {
@@ -116,6 +133,10 @@ public class CobolBinaryNumberConverter {
 
 	/**
 	 * Read the requested number of digits from the input stream.
+	 * 
+	 * @param is          cobol input data
+	 * @param totalDigits the total number of digits
+	 * @return a byte buffer
 	 */
 	private ByteBuffer toByteBuffer(CobolInputStream is, int totalDigits) {
 		try {
@@ -134,6 +155,10 @@ public class CobolBinaryNumberConverter {
 	/**
 	 * Given a byte buffer with an underflow condition, expand the byte buffer as
 	 * requested.
+	 * 
+	 * @param bb                 a byte buffer to be expanded
+	 * @param additionalCapacity how many additional bytes are needed
+	 * @return an expanded byte buffer
 	 */
 	private ByteBuffer expand(ByteBuffer bb, int additionalCapacity) {
 		int initialCapacity = bb.capacity();

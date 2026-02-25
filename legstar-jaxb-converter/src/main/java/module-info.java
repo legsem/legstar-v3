@@ -1,3 +1,6 @@
+/**
+ * Converters for COBOL data items to XML using JAXB 
+ */
 module org.legstar.cobol.jaxb.converter {
 	
 	requires transitive org.legstar.cobol.base;

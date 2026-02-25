@@ -13,6 +13,7 @@
 	<artifactId>legstar-jaxb-converter</artifactId>
 
 	<name>legstar-jaxb-converter</name>
+	<description>Converters for COBOL data items to XML using JAXB</description>
 
 	<dependencies>
 		<dependency>

@@ -1,7 +1,6 @@
 package org.legstar.cobol.converter;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 
 import org.legstar.cobol.utils.BytesLenUtils;
@@ -17,15 +16,34 @@ public class CobolZonedDecimalConverter {
 
 	private final int negativeSignNibbleValue;
 
+	/**
+	 * Build a cobol zoned converter.
+	 * 
+	 * @param hostMinusSign           the minus sign cobol character encoding
+	 * @param positiveSignNibbleValue positive sign nibble value
+	 * @param negativeSignNibbleValue negative sign nibble value
+	 */
 	public CobolZonedDecimalConverter(int hostMinusSign, int positiveSignNibbleValue, int negativeSignNibbleValue) {
 		this.hostMinusSign = hostMinusSign;
 		this.positiveSignNibbleValue = positiveSignNibbleValue;
 		this.negativeSignNibbleValue = negativeSignNibbleValue;
 	}
 
+	/**
+	 * Convert a COBOL zoned decimal.
+	 * 
+	 * @param <T>            the target java type
+	 * @param is             the cobol input data
+	 * @param totalDigits    the total number of digits
+	 * @param fractionDigits the number of fraction digits
+	 * @param signLeading    whether the sign is leading (trailing otherwise)
+	 * @param signSeparate   whether the sign is separate (overpunched otherwise)
+	 * @param targetClass    the target java class
+	 * @return the converted java value
+	 */
 	@SuppressWarnings(value = "unchecked")
-	public <T> T convert(InputStream is, int totalDigits, int fractionDigits, boolean signLeading, boolean signSeparate,
-			Class<T> targetClass) {
+	public <T> T convert(CobolInputStream is, int totalDigits, int fractionDigits, boolean signLeading,
+			boolean signSeparate, Class<T> targetClass) {
 		if (targetClass.equals(String.class)) {
 			return (T) toString(is, totalDigits, fractionDigits, signLeading, signSeparate);
 		} else if (targetClass.equals(BigDecimal.class)) {
@@ -35,7 +53,17 @@ public class CobolZonedDecimalConverter {
 		}
 	}
 
-	public String toString(InputStream is, int totalDigits, int fractionDigits, boolean signLeading,
+	/**
+	 * Convert to a BigDecimal and the get the plain string value from that.
+	 * 
+	 * @param is             host bytes to convert
+	 * @param totalDigits    total number of digits (including fraction digits)
+	 * @param fractionDigits the number of fraction digits
+	 * @param signLeading    whether the sign is leading (trailing otherwise)
+	 * @param signSeparate   whether the sign is separate (overpunched otherwise)
+	 * @return a string representation of the decimal
+	 */
+	public String toString(CobolInputStream is, int totalDigits, int fractionDigits, boolean signLeading,
 			boolean signSeparate) {
 		BigDecimal dec = toBigDecimal(is, totalDigits, fractionDigits, signLeading, signSeparate);
 		return dec == null ? null : dec.toPlainString();
@@ -58,7 +86,7 @@ public class CobolZonedDecimalConverter {
 	 *                       as the high nibble of the leading or trailing byte)
 	 * @return a BigDecimal
 	 */
-	public BigDecimal toBigDecimal(InputStream is, int totalDigits, int fractionDigits, boolean signLeading,
+	public BigDecimal toBigDecimal(CobolInputStream is, int totalDigits, int fractionDigits, boolean signLeading,
 			boolean signSeparate) {
 
 		try {
@@ -102,6 +130,9 @@ public class CobolZonedDecimalConverter {
 	 * <p>
 	 * For example: -1234 is stored as F1F2F3D4 when sign is trailing and not
 	 * separate
+	 * 
+	 * @param b the byte to check for sign nibble
+	 * @return -1 if sign is negative, 1 otherwise
 	 */
 	private int overpunchedSignum(byte b) {
 		int hn = (b >> 4) & 0x0f;

@@ -8,7 +8,7 @@ import org.legstar.cobol.generator.model.RenderingModel;
 import org.legstar.cobol.generator.model.RenderingOptions;
 
 /**
- * Inject JAXB annotations.
+ * Inject JAXB annotations as additional rendering options.
  */
 public class CobolJaxbRenderingOptions implements RenderingOptions {
 	
@@ -16,6 +16,10 @@ public class CobolJaxbRenderingOptions implements RenderingOptions {
 
 	private final CobolJaxbBeanGeneratorConfig config;
 	
+	/**
+	 * Create the additional JAXD rendering options. 
+	 * @param config configuration parameters
+	 */
 	public CobolJaxbRenderingOptions(CobolJaxbBeanGeneratorConfig config) {
 		this.config = config;
 	}

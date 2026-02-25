@@ -15,7 +15,7 @@ import org.legstar.cobol.utils.PictureUtils;
  * <p>
  * Unsupported features at the moment:
  * <ul>
- * <li>National & DBCS (DISPLAY-1) items</li>
+ * <li>National &amp; DBCS (DISPLAY-1) items</li>
  * <li>For occurs depending on relationships, the cobol name could be qualified
  * (IN/OF keywords)</li>
  * </ul>
@@ -43,12 +43,19 @@ public class RenderingModelGenerator {
 	 * The data entry must be a group item.
 	 * 
 	 * @param source              used to form the last segment of the package name
-	 * @param dataEntry           the root cobol data entry
+	 * @param entry               the root cobol data entry
 	 * @param targetPackagePrefix the package name prefix
 	 * @return a rendering model ready for code generation
 	 */
-	public RenderingModel generate(String string, CobolDataEntry entry, String targetPackagePrefix) {
-		return generate(string, entry, targetPackagePrefix, false, RenderingOptions.defaults());
+	public RenderingModel generate(String source, CobolDataEntry entry, String targetPackagePrefix) {
+		return generate(source, entry, targetPackagePrefix, false, RenderingOptions.defaults());
+	}
+
+	/**
+	 * Build a generator.
+	 */
+	public RenderingModelGenerator() {
+		super();
 	}
 
 	/**
@@ -384,9 +391,9 @@ public class RenderingModelGenerator {
 	 * with camel casing.
 	 * <p>
 	 * In the case where the first character is separated from the rest with a
-	 * hyphen in cobol we add an underscore where the hyphen was. So A-B
-	 * becomes field name a_B. This is because some tools don't react well to field
-	 * names such as aB.
+	 * hyphen in cobol we add an underscore where the hyphen was. So A-B becomes
+	 * field name a_B. This is because some tools don't react well to field names
+	 * such as aB.
 	 */
 	private String fieldName(String cobolName) {
 		String[] parts = cobolName.split("-");

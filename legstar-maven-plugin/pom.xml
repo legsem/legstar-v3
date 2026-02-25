@@ -14,7 +14,7 @@
 	<packaging>maven-plugin</packaging>
 
 	<name>legstar-maven-plugin</name>
-	<description>Produces Java classes for a set of COBOL copybooks</description>
+	<description>Generates JAVA bean classes for a set of COBOL copybooks</description>
 
 	<prerequisites>
 		<maven>3.9.11</maven>
@@ -60,7 +60,7 @@
 		<dependency>
 			<groupId>org.apache.maven.plugin-testing</groupId>
 			<artifactId>maven-plugin-testing-harness</artifactId>
-			<version>3.5.0</version>
+			<version>3.5.1</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -102,12 +102,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
 				<version>${maven.plugin.version}</version>
-				<executions>
-					<execution>
-						<id>default-descriptor</id>
-						<phase>process-classes</phase>
-					</execution>
-				</executions>
 			</plugin>
 
 		</plugins>
@@ -120,8 +114,15 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-plugin-plugin</artifactId>
+				<artifactId>maven-plugin-report-plugin</artifactId>
 				<version>${maven.plugin.version}</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>report-no-fork</report>
+						</reports>
+					</reportSet>
+				</reportSets>
 			</plugin>
 
 		</plugins>

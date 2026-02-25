@@ -1,4 +1,4 @@
-package org.legstar.maven.plugin;
+package org.legstar.cobol.maven.plugin;
 
 import java.io.File;
 import java.io.FileReader;
@@ -66,15 +66,26 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 	 */
 	@Parameter(property = "withToString")
 	private boolean withToString;
-	
+
 	/**
-	 * True if the cobol copybooks are in free code format (not restricted to columns 8-72).
+	 * True if the cobol copybooks are in free code format (not restricted to
+	 * columns 8-72).
 	 */
 	@Parameter(property = "freeCodeFormat")
 	private boolean freeCodeFormat;
 
+	/**
+	 * The maven project
+	 */
 	@Parameter(required = true, property = "project")
 	protected MavenProject project;
+
+	/**
+	 * Builds a goal.
+	 */
+	public LegstarMojoBase() {
+
+	}
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 
@@ -94,6 +105,11 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 		}
 	}
 
+	/**
+	 * Check parameters passed on the goal.
+	 * 
+	 * @throws MojoFailureException if parameters are invalid
+	 */
 	private void validate() throws MojoFailureException {
 		if (source == null) {
 			File defaultSource = new File(DEFAULT_SOURCE_FOLDER);
@@ -114,8 +130,21 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 
 	}
 
+	/**
+	 * Given a cobol copybook file, generate an output file.
+	 * 
+	 * @param cobolFile         the cobol file
+	 * @param cobolFileEncoding the cobol file encoding
+	 * @param output            the output file
+	 */
 	public abstract void execute(File cobolFile, String cobolFileEncoding, File output);
 
+	/**
+	 * Extract the base name of a cobol file. This is for reporting only.
+	 * 
+	 * @param cobolFile the cobol file
+	 * @return the base name (simple lower case name without an extension)
+	 */
 	public String toBaseName(File cobolFile) {
 		String baseName = cobolFile.getName().toLowerCase();
 		if (baseName.contains(".")) {
@@ -124,37 +153,85 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 		return baseName;
 	}
 
+	/**
+	 * Given a cobol copybook file, get a reader.
+	 * 
+	 * @param cobolFile         the cobol file
+	 * @param cobolFileEncoding the cobol file encoding
+	 * @return a Reader
+	 * @throws IOException if reader cannot be created
+	 */
 	public Reader getReader(File cobolFile, String cobolFileEncoding) throws IOException {
 		Charset charset = cobolFileEncoding == null ? Charset.defaultCharset() : Charset.forName(cobolFileEncoding);
 		return new FileReader(cobolFile, charset);
 	}
 
+	/**
+	 * Create a java class in a package.
+	 * 
+	 * @param packageName the package name
+	 * @param className   the java class name
+	 * @param content     the java class code
+	 * @param output      where to place output files
+	 * @throws IOException if writing the java class fails
+	 */
 	public void writeJavaClass(String packageName, String className, String content, File output) throws IOException {
 		Path classPath = output.toPath().resolve(packageName.replace(".", "/"));
 		classPath.toFile().mkdirs();
 		Files.writeString(classPath.resolve(className + ".java"), content, StandardCharsets.UTF_8);
 	}
 
+	/**
+	 * A folder or file for input cobol copybooks.
+	 * 
+	 * @return The folder or file for input cobol copybooks
+	 */
 	public File getSource() {
 		return source;
 	}
 
+	/**
+	 * Folder where output files should be created
+	 * 
+	 * @return the folder where output files should be created
+	 */
 	public File getOutputDirectory() {
 		return outputDirectory;
 	}
 
+	/**
+	 * Character encoding for the COBOL copybooks
+	 * 
+	 * @return the character encoding for the COBOL copybooks
+	 */
 	public String getInputEncoding() {
 		return inputEncoding;
 	}
 
+	/**
+	 * Java package name prefix for generated java classes
+	 * 
+	 * @return The java package name prefix for generated java classes
+	 */
 	public String getPackageNamePrefix() {
 		return packageNamePrefix;
 	}
 
+	/**
+	 * Whether generated java beans must implement a toString method
+	 * 
+	 * @return true if the generated java beans must implement a toString method
+	 */
 	public boolean isWithToString() {
 		return withToString;
 	}
-	
+
+	/**
+	 * Whether the cobol copybooks are in free code format (not restricted to
+	 * columns 8-72)
+	 * 
+	 * @return true if the cobol copybooks are in free code format
+	 */
 	public boolean isFreeCodeFormat() {
 		return freeCodeFormat;
 	}

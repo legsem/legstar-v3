@@ -1,4 +1,4 @@
-package org.legstar.maven.plugin;
+package org.legstar.cobol.maven.plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +16,13 @@ import org.legstar.cobol.jaxb.generator.CobolJaxbBeanGeneratorConfig;
  */
 @Mojo(name = "generate-jaxb", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class JaxbGeneratorMojo extends LegstarMojoBase {
+
+	/**
+	 * Create generate-jaxb goal.
+	 */
+	public JaxbGeneratorMojo() {
+		super();
+	}
 
 	public void execute(File cobolFile, String cobolFileEncoding, File output) {
 		getLog().info("Processing COBOL file " + cobolFile);

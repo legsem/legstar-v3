@@ -13,6 +13,7 @@
 	<artifactId>legstar-converter</artifactId>
 
 	<name>legstar-converter</name>
+	<description>Converters for COBOL data items to JAVA objects</description>
 
 	<dependencies>
 		<dependency>

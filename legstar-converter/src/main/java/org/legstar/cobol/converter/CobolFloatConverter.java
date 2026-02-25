@@ -10,6 +10,21 @@ import org.legstar.cobol.utils.BytesLenUtils;
  */
 public class CobolFloatConverter {
 
+	/**
+	 * Build a COBOL float converter
+	 */
+	public CobolFloatConverter() {
+		super();
+	}
+
+	/**
+	 * Convert a COBOL float (COMP-1).
+	 * 
+	 * @param <T>         the target java type
+	 * @param is          the cobol input data
+	 * @param targetClass the target java class
+	 * @return the converted java value
+	 */
 	@SuppressWarnings("unchecked")
 	public <T> T convert(CobolInputStream is, Class<T> targetClass) {
 		if (targetClass.equals(Float.class)) {

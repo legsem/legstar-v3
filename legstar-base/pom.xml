@@ -13,6 +13,7 @@
 	<artifactId>legstar-base</artifactId>
 
 	<name>legstar-base</name>
+	<description>Common annotations and utility classes</description>
 
 	<dependencies>
 		<dependency>
