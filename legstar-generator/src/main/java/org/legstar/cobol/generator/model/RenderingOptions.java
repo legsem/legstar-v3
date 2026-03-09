@@ -41,6 +41,23 @@ public interface RenderingOptions {
 
 	/**
 	 * Whether the generated java bean should include additional annotations for
+	 * choice items.
+	 * 
+	 * @return true if the generated java bean should more annotations for choice
+	 *         items
+	 */
+	boolean hasMoreChoiceAnnotations();
+
+	/**
+	 * An additional choice annotations provider.
+	 * 
+	 * @return a method that renders additional choice annotations to include in the
+	 *         generated java bean.
+	 */
+	Function<RenderingChoice, String> moreChoiceAnnotations();
+
+	/**
+	 * Whether the generated java bean should include additional annotations for
 	 * root item.
 	 * 
 	 * @return true if the generated java bean should more annotations for the root
@@ -81,6 +98,16 @@ public interface RenderingOptions {
 
 			@Override
 			public Function<RenderingGroup, String> moreGroupAnnotations() {
+				return null;
+			}
+
+			@Override
+			public boolean hasMoreChoiceAnnotations() {
+				return false;
+			}
+
+			@Override
+			public Function<RenderingChoice, String> moreChoiceAnnotations() {
 				return null;
 			}
 

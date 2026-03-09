@@ -7,7 +7,7 @@ import org.legstar.cobol.annotation.*;
 import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "REC-A")
-@XmlRootElement(name = "recA", namespace = "")
+@XmlRootElement(name = "recA")
 @XmlType (propOrder={"recAHeader", "recAData"})
 public class RecA {
 

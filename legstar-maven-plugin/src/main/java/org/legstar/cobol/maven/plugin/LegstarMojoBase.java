@@ -5,9 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -164,21 +162,6 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 	public Reader getReader(File cobolFile, String cobolFileEncoding) throws IOException {
 		Charset charset = cobolFileEncoding == null ? Charset.defaultCharset() : Charset.forName(cobolFileEncoding);
 		return new FileReader(cobolFile, charset);
-	}
-
-	/**
-	 * Create a java class in a package.
-	 * 
-	 * @param packageName the package name
-	 * @param className   the java class name
-	 * @param content     the java class code
-	 * @param output      where to place output files
-	 * @throws IOException if writing the java class fails
-	 */
-	public void writeJavaClass(String packageName, String className, String content, File output) throws IOException {
-		Path classPath = output.toPath().resolve(packageName.replace(".", "/"));
-		classPath.toFile().mkdirs();
-		Files.writeString(classPath.resolve(className + ".java"), content, StandardCharsets.UTF_8);
 	}
 
 	/**

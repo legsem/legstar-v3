@@ -7,7 +7,7 @@ import org.legstar.cobol.annotation.*;
 import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "ALLTYPES")
-@XmlRootElement(name = "alltypes", namespace = "")
+@XmlRootElement(name = "alltypes")
 @XmlType (propOrder={"s_String", "s_Binary", "s_Short", "s_Ushort", "s_Int", "s_Uint", "s_Long", "s_Ulong", "s_Pdecimal", "s_Float", "s_Double", "s_Zoned", "s_Uzoned", "s_ZonedSl", "s_ZonedSt", "s_ZonedSls", "s_ZonedSts", "s_UzonedBwz"})
 public class Alltypes {
 

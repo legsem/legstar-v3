@@ -19,7 +19,9 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 		<jaxb.version>4.0.6</jaxb.version>
+		<jte.version>3.2.1</jte.version>
 	</properties>
+
 
 	<issueManagement>
 		<system>Github Issue Tracking</system>

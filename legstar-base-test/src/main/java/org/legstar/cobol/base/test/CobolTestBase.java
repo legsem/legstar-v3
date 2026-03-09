@@ -16,15 +16,15 @@ import org.junit.jupiter.api.TestInfo;
 public abstract class CobolTestBase {
 
 	private static final Path REFERENCES = Paths.get("src/test/ref");
-	
+
 	private static final Path COPYBOOKS = Paths.get("src/test/copybook");
 
 	private Path references;
-	
+
 	private String testName;
 
 	@BeforeEach
-	void setUp(TestInfo testInfo) {
+	public void setUp(TestInfo testInfo) {
 		String s = testInfo.getDisplayName();
 		String testClass = testInfo.getTestClass().get().getSimpleName();
 		testName = s.substring(0, s.indexOf("("));
@@ -36,7 +36,7 @@ public abstract class CobolTestBase {
 		HexFormat hex = HexFormat.of().withUpperCase();
 		return hex.parseHex(s);
 	}
-	
+
 	public void check(String res) {
 		try {
 			Path refPath = references.resolve(testName);
@@ -54,7 +54,7 @@ public abstract class CobolTestBase {
 	public String getTestName() {
 		return testName;
 	}
-	
+
 	public String normalize(String s) {
 		return s.replaceAll("\\r\\n?", "\n");
 	}

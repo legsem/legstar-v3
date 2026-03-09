@@ -2,7 +2,6 @@ package org.legstar.cobol.maven.plugin;
 
 import java.io.File;
 import java.io.Reader;
-import java.io.StringWriter;
 
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -29,17 +28,13 @@ public class BeanGeneratorMojo extends LegstarMojoBase {
 
 		try (Reader reader = getReader(cobolFile, cobolFileEncoding)) {
 
+			String baseName = toBaseName(cobolFile);
 			CobolBeanGeneratorConfig config = new CobolBeanGeneratorConfig() //
 					.setPackageNamePrefix(getPackageNamePrefix()) //
 					.setWithToString(isWithToString()) //
 					.setFreeCodeFormat(isFreeCodeFormat());
 			CobolBeanGenerator gen = new CobolBeanGenerator(config);
-
-			String baseName = toBaseName(cobolFile);
-			StringWriter writer = new StringWriter();
-			CobolBeanGenerator.Result result = gen.generate(baseName, reader, writer);
-
-			writeJavaClass(result.packageName(), result.className(), writer.toString(), output);
+			gen.generateAndWrite(baseName, reader, output);
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);

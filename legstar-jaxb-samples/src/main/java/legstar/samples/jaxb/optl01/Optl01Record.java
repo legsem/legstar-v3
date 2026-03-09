@@ -7,7 +7,7 @@ import org.legstar.cobol.annotation.*;
 import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "OPTL01-RECORD")
-@XmlRootElement(name = "optl01Record", namespace = "")
+@XmlRootElement(name = "optl01Record")
 @XmlType (propOrder={"optlStructInd", "optlItemInd", "optlStruct", "optlItem"})
 public class Optl01Record {
 

@@ -2,6 +2,7 @@ package org.legstar.cobol.jaxb.generator;
 
 import java.util.function.Function;
 
+import org.legstar.cobol.generator.model.RenderingChoice;
 import org.legstar.cobol.generator.model.RenderingGroup;
 import org.legstar.cobol.generator.model.RenderingItem;
 import org.legstar.cobol.generator.model.RenderingModel;
@@ -11,13 +12,14 @@ import org.legstar.cobol.generator.model.RenderingOptions;
  * Inject JAXB annotations as additional rendering options.
  */
 public class CobolJaxbRenderingOptions implements RenderingOptions {
-	
+
 	private static final String NL = System.getProperty("line.separator");
 
 	private final CobolJaxbBeanGeneratorConfig config;
-	
+
 	/**
-	 * Create the additional JAXD rendering options. 
+	 * Create the additional JAXB rendering options.
+	 * 
 	 * @param config configuration parameters
 	 */
 	public CobolJaxbRenderingOptions(CobolJaxbBeanGeneratorConfig config) {
@@ -59,6 +61,16 @@ public class CobolJaxbRenderingOptions implements RenderingOptions {
 	}
 
 	@Override
+	public boolean hasMoreChoiceAnnotations() {
+		return false;
+	}
+
+	@Override
+	public Function<RenderingChoice, String> moreChoiceAnnotations() {
+		return null;
+	}
+
+	@Override
 	public boolean hasMoreRootGroupAnnotations() {
 		return true;
 	}
@@ -69,7 +81,7 @@ public class CobolJaxbRenderingOptions implements RenderingOptions {
 			StringBuilder sb = new StringBuilder();
 			sb.append("@XmlRootElement(name = \"");
 			sb.append(group.fieldName());
-			sb.append("\", namespace = \"\")");
+			sb.append("\")");
 			return sb.toString();
 		};
 	}

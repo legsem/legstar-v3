@@ -9,6 +9,6 @@ module org.legstar.cobol.generator {
 	
 	exports org.legstar.cobol.generator;
 	exports org.legstar.cobol.generator.model;
-	exports gg.jte.generated.precompiled;
+	exports org.legstar.cobol.generator.templates;
 
 }

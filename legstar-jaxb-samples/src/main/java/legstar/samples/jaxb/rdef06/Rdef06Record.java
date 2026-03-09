@@ -7,7 +7,7 @@ import org.legstar.cobol.annotation.*;
 import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "RDEF06-RECORD")
-@XmlRootElement(name = "rdef06Record", namespace = "")
+@XmlRootElement(name = "rdef06Record")
 @XmlType (propOrder={"optlStructInd", "optlItemChoice"})
 public class Rdef06Record {
 

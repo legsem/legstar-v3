@@ -109,6 +109,10 @@ public class CobolJaxbConverterFromHostTest extends CobolTestBase {
 		check(convert("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F", Flat01Record.class, null, true));
 	}
 
+	@Test
+	public void testFlat01Xmlns() {
+		check(convert("F0F0F1F0F4F3D5C1D4C5F0F0F0F0F4F3404040404040404040400215000F", legstar.samples.jaxb.xmlns.flat01.Flat01Record.class, null, true));
+	}
 
 	@Test
 	public void testFlat02() {

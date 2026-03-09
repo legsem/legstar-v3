@@ -60,6 +60,17 @@ public class JaxbGeneratorMojoTest {
 		assertTrue(new File("target/generated-sources/legstar/samples/flat01/Flat01Record.java").exists());
 	}
 
+	@Test
+	@InjectMojo(goal = "generate-jaxb")
+	@MojoParameter(name = "packageNamePrefix", value = "legstar.samples")
+	@MojoParameter(name = "source", value = "src/test/cobol/FLAT01")
+	@MojoParameter(name = "rootXmlNamespace", value = "http://org.legstar/flat01")
+	public void testRootXmlNamespace(JaxbGeneratorMojo mojo) throws Exception {
+		mojo.execute();
+		assertTrue(new File("target/generated-sources/legstar/samples/flat01/Flat01Record.java").exists());
+		assertTrue(new File("target/generated-sources/legstar/samples/flat01/package-info.java").exists());
+	}
+
 	private void clear(File dir) {
 		if (dir.exists()) {
 			try (Stream<Path> pathStream = Files.walk(dir.toPath())) {

@@ -48,6 +48,13 @@ public class CobolJaxbBeanGeneratorTest extends CobolTestBase {
 	}
 
 	@Test
+	public void testFlat01WithXmlns() {
+		check(generate("FLAT01", getDefaultConfig() //
+				.setRootXmlNamespace("http://org.legstar/flat01") //
+				.setPackageNamePrefix("legstar.samples.jaxb.xmlns")));
+	}
+
+	@Test
 	public void testFlat02() {
 		check(generate("FLAT02"));
 	}
@@ -117,7 +124,7 @@ public class CobolJaxbBeanGeneratorTest extends CobolTestBase {
 		return generate(source, getDefaultConfig());
 	}
 
-	private CobolJaxbBeanGeneratorConfig getDefaultConfig() {
+	public static CobolJaxbBeanGeneratorConfig getDefaultConfig() {
 		return new CobolJaxbBeanGeneratorConfig() //
 				.setPackageNamePrefix("legstar.samples.jaxb") //
 				.setWithToString(true);

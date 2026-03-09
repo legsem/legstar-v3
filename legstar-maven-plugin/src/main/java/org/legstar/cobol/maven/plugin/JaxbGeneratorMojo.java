@@ -3,10 +3,10 @@ package org.legstar.cobol.maven.plugin;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.StringWriter;
 
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.legstar.cobol.jaxb.generator.CobolJaxbBeanGenerator;
 import org.legstar.cobol.jaxb.generator.CobolJaxbBeanGeneratorConfig;
 
@@ -16,6 +16,13 @@ import org.legstar.cobol.jaxb.generator.CobolJaxbBeanGeneratorConfig;
  */
 @Mojo(name = "generate-jaxb", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class JaxbGeneratorMojo extends LegstarMojoBase {
+
+	/**
+	 * Include an XML namespace (xmlns attribute) on the root element (null if no
+	 * namespace to be included).
+	 */
+	@Parameter(property = "rootXmlNamespace")
+	private String rootXmlNamespace;
 
 	/**
 	 * Create generate-jaxb goal.
@@ -29,21 +36,27 @@ public class JaxbGeneratorMojo extends LegstarMojoBase {
 
 		try (Reader reader = getReader(cobolFile, cobolFileEncoding)) {
 
+			String baseName = toBaseName(cobolFile);
 			CobolJaxbBeanGeneratorConfig config = new CobolJaxbBeanGeneratorConfig() //
 					.setPackageNamePrefix(getPackageNamePrefix()) //
 					.setWithToString(isWithToString()) //
-					.setFreeCodeFormat(isFreeCodeFormat());
+					.setFreeCodeFormat(isFreeCodeFormat())
+					.setRootXmlNamespace(getRootXmlNamespace());
 			CobolJaxbBeanGenerator gen = new CobolJaxbBeanGenerator(config);
-
-			String baseName = toBaseName(cobolFile);
-			StringWriter writer = new StringWriter();
-			CobolJaxbBeanGenerator.Result result = gen.generate(baseName, reader, writer);
-
-			writeJavaClass(result.packageName(), result.className(), writer.toString(), output);
+			gen.generateAndWrite(baseName, reader, output);
 
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * XML namespace (xmlns attribute) to include on root element
+	 * 
+	 * @return the XML namespace (xmlns attribute) to include on root element
+	 */
+	public String getRootXmlNamespace() {
+		return rootXmlNamespace;
 	}
 
 }

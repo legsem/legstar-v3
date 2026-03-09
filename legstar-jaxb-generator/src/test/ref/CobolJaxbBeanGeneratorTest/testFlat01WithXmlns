@@ -1,4 +1,4 @@
-package legstar.samples.jaxb.flat02;
+package legstar.samples.jaxb.xmlns.flat01;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -6,10 +6,10 @@ import java.util.Arrays;
 import org.legstar.cobol.annotation.*;
 import jakarta.xml.bind.annotation.*;
 
-@CobolGroup(cobolName = "FLAT02-RECORD")
-@XmlRootElement(name = "flat02Record")
-@XmlType (propOrder={"comNumber", "comName", "comAmount", "comArray"})
-public class Flat02Record {
+@CobolGroup(cobolName = "FLAT01-RECORD")
+@XmlRootElement(name = "flat01Record")
+@XmlType (propOrder={"comNumber", "comName", "comAmount"})
+public class Flat01Record {
 
     @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
     private BigDecimal comNumber;
@@ -19,10 +19,6 @@ public class Flat02Record {
 
     @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
     private BigDecimal comAmount;
-
-    @CobolArray(minOccurs=5, maxOccurs=5)
-    @CobolBinaryNumber(cobolName = "COM-ARRAY", signed = true, totalDigits = 4)
-    private Short[] comArray;
 
     public BigDecimal getComNumber() {
         return comNumber;
@@ -48,14 +44,6 @@ public class Flat02Record {
         this.comAmount = comAmount;
     }
 
-    public Short[] getComArray() {
-        return comArray;
-    }
-
-    public void setComArray(Short[] comArray) {
-        this.comArray = comArray;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -63,7 +51,6 @@ public class Flat02Record {
             .append("comNumber=").append(comNumber)
             .append(", comName=").append(comName)
             .append(", comAmount=").append(comAmount)
-            .append(", comArray=").append(Arrays.toString(comArray))
             .append("}");
         return sb.toString();
     }

@@ -7,7 +7,7 @@ import org.legstar.cobol.annotation.*;
 import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "ARDO01-RECORD")
-@XmlRootElement(name = "ardo01Record", namespace = "")
+@XmlRootElement(name = "ardo01Record")
 @XmlType (propOrder={"comNumber", "comName", "comNbr", "comArray"})
 public class Ardo01Record {
 

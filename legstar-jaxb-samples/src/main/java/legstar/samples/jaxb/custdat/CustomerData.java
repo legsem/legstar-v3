@@ -7,7 +7,7 @@ import org.legstar.cobol.annotation.*;
 import jakarta.xml.bind.annotation.*;
 
 @CobolGroup(cobolName = "CUSTOMER-DATA")
-@XmlRootElement(name = "customerData", namespace = "")
+@XmlRootElement(name = "customerData")
 @XmlType (propOrder={"customerId", "personalData", "transactions"})
 public class CustomerData {
 

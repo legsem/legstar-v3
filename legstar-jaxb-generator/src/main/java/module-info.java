@@ -8,7 +8,9 @@ module org.legstar.cobol.jaxb.generator {
 	
 	requires transitive jakarta.xml.bind;
 	requires transitive org.glassfish.jaxb.runtime;
+	requires gg.jte.runtime;
 	
 	exports org.legstar.cobol.jaxb.generator;
+	exports org.legstar.cobol.jaxb.generator.templates;
 	
 }

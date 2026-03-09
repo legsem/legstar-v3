@@ -1,5 +1,7 @@
 package org.legstar.cobol.generator;
 
+import java.io.IOException;
+
 /**
  * Denotes a generation exception.
  */
@@ -14,6 +16,15 @@ public class CobolBeanGeneratorException extends RuntimeException {
 	 */
 	public CobolBeanGeneratorException(String message) {
 		super(message);
+	}
+
+	/**
+	 * Build an exception.
+	 * 
+	 * @param e the original cause
+	 */
+	public CobolBeanGeneratorException(IOException e) {
+		super(e);
 	}
 
 }

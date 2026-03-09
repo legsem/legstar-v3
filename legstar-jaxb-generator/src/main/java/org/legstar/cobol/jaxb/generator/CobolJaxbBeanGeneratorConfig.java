@@ -17,12 +17,17 @@ public class CobolJaxbBeanGeneratorConfig extends CobolBeanGeneratorConfigBase<C
 	 * Add the @XmlAccessorType(XmlAccessType.FIELD) annotation
 	 */
 	private boolean xmlAccessTypeField = false;
-	
+
+	/**
+	 * Include an xmlns on the root element (null if no namespace to be included).
+	 */
+	private String rootXmlNamespace;
+
 	/**
 	 * Create a mutable set of parameters.
 	 */
 	public CobolJaxbBeanGeneratorConfig() {
-		
+
 	}
 
 	/**
@@ -66,6 +71,26 @@ public class CobolJaxbBeanGeneratorConfig extends CobolBeanGeneratorConfigBase<C
 	 */
 	public CobolJaxbBeanGeneratorConfig setXmlAccessTypeField(boolean xmlAccessTypeField) {
 		this.xmlAccessTypeField = xmlAccessTypeField;
+		return self();
+	}
+
+	/**
+	 * xmlns property for the root element
+	 * 
+	 * @return xmlns property for the root element
+	 */
+	public String getRootXmlNamespace() {
+		return rootXmlNamespace;
+	}
+
+	/**
+	 * xmlns property for the root element
+	 * 
+	 * @param rootXmlNamespace xmlns property for the root element
+	 * @return this
+	 */
+	public CobolJaxbBeanGeneratorConfig setRootXmlNamespace(String rootXmlNamespace) {
+		this.rootXmlNamespace = rootXmlNamespace;
 		return self();
 	}
 

@@ -1,7 +1,13 @@
 package org.legstar.cobol.generator;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Reader;
+import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +37,11 @@ import gg.jte.TemplateOutput;
  */
 public abstract class CobolBeanGeneratorBase {
 
+	/**
+	 * JTE package name for precompiled template classes.
+	 */
+	private static final String JTE_PACKAGE_NAME_PRECOMPILED = "org.legstar.cobol.generator.templates";
+
 	private final CobolBeanGeneratorConfigBase<?> config;
 
 	private final CopybookParser parser;
@@ -43,6 +54,22 @@ public abstract class CobolBeanGeneratorBase {
 	public CobolBeanGeneratorBase(CobolBeanGeneratorConfigBase<?> config) {
 		this.config = config;
 		parser = new CopybookParser(config);
+	}
+
+	/**
+	 * Generate a java bean class using a cobol copybook source and write it in the
+	 * output folder provided.
+	 * 
+	 * @param inputSource  an identifier for the source
+	 * @param reader       reads the cobol copybook
+	 * @param outputFolder the output folder
+	 * @return the class and package name used for the generated java bean class
+	 */
+	public Result generateAndWrite(String inputSource, Reader reader, File outputFolder) {
+		StringWriter writer = new StringWriter();
+		Result result = generate(inputSource, reader, writer);
+		writeJavaClass(result.packageName(), result.className(), writer.toString(), outputFolder);
+		return result;
 	}
 
 	/**
@@ -60,6 +87,25 @@ public abstract class CobolBeanGeneratorBase {
 						renderingOptions());
 		generate(renderingModel, writer);
 		return new Result(renderingModel.package_name(), renderingModel.root_item().className());
+	}
+
+	/**
+	 * Create a java class in a package.
+	 * 
+	 * @param packageName  the package name
+	 * @param className    the java class name
+	 * @param content      the java class code
+	 * @param outputFolder where to place output file
+	 * @throws IOException if writing the java class fails
+	 */
+	public void writeJavaClass(String packageName, String className, String content, File outputFolder) {
+		try {
+			Path classPath = outputFolder.toPath().resolve(packageName.replace(".", "/"));
+			classPath.toFile().mkdirs();
+			Files.writeString(classPath.resolve(className + ".java"), content, StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			throw new CobolBeanGeneratorException(e);
+		}
 	}
 
 	/**
@@ -92,7 +138,8 @@ public abstract class CobolBeanGeneratorBase {
 	 * @param writer         the writer to produce output
 	 */
 	private void generate(RenderingModel renderingModel, Writer writer) {
-		TemplateEngine templateEngine = TemplateEngine.createPrecompiled(ContentType.Plain);
+		TemplateEngine templateEngine = TemplateEngine.createPrecompiled(null, ContentType.Plain, null,
+				JTE_PACKAGE_NAME_PRECOMPILED);
 		TemplateOutput output = new BeanIndentWriterOutput(writer);
 		templateEngine.render("bean_class.jte", renderingModel, output);
 	}
