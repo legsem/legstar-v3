@@ -19,6 +19,7 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 		<jaxb.version>4.0.6</jaxb.version>
+		<jackson.version>2.21.1</jackson.version>
 		<jte.version>3.2.1</jte.version>
 	</properties>
 
@@ -87,6 +88,7 @@
 		<module>legstar-jaxb-generator</module>
 		<module>legstar-jaxb-converter</module>
 		<module>legstar-jaxb-samples</module>
+		<module>legstar-json-samples</module>
 		<module>legstar-maven-plugin</module>
 	</modules>
 
@@ -148,6 +150,20 @@
 				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-maven-plugin</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+
+			<!-- Third party dependencies -->
+			<dependency>
+				<groupId>org.glassfish.jaxb</groupId>
+				<artifactId>jaxb-runtime</artifactId>
+				<version>${jaxb.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson</groupId>
+				<artifactId>jackson-bom</artifactId>
+				<version>${jackson.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
 			<!-- Tests -->

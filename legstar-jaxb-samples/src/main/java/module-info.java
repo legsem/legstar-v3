@@ -23,5 +23,6 @@ module org.legstar.cobol.jaxb.samples {
 	exports legstar.samples.jaxb.rdef07;
 	exports legstar.samples.jaxb.stru01;
 	exports legstar.samples.jaxb.stru03;
+	exports legstar.samples.jaxb.xmlns.flat01;
 
 }
