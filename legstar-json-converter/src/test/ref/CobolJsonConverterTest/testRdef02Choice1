@@ -1,0 +1,14 @@
+{
+  "rdef02Key" : {
+    "rdef02Item1Choice" : {
+      "rdef02Item2" : "JOHN S"
+    },
+    "comSelect" : 1
+  },
+  "comDetail1Choice" : {
+    "comDetail1" : {
+      "comName" : "CAMBRIDGE "
+    }
+  },
+  "comItem3" : 2500.00
+}

@@ -111,7 +111,7 @@ public class CobolBeanConverter<T> {
 	 * @param config    the converter's parameters
 	 * @param beanClass target bean class
 	 */
-	public CobolBeanConverter(CobolBeanConverterConfig config, Class<T> beanClass) {
+	public CobolBeanConverter(CobolConverterConfig config, Class<T> beanClass) {
 		this(config, beanClass, null);
 	}
 
@@ -123,7 +123,7 @@ public class CobolBeanConverter<T> {
 	 * @param choiceStrategy strategy to select alternatives in choices. If null,
 	 *                       the default strategy is applied
 	 */
-	public CobolBeanConverter(CobolBeanConverterConfig config, Class<T> beanClass,
+	public CobolBeanConverter(CobolConverterConfig config, Class<T> beanClass,
 			CobolChoiceStrategy<T> choiceStrategy) {
 		this.beanClass = beanClass;
 		this.choiceStrategy = choiceStrategy == null ? new CobolConverterDefaultChoiceStrategy() : choiceStrategy;

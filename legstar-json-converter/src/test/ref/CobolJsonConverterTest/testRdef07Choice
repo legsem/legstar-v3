@@ -1,0 +1,12 @@
+{
+  "comCounter" : 2,
+  "comStruct" : [ {
+    "comAlt1Choice" : {
+      "comAlt1" : 52
+    }
+  }, {
+    "comAlt1Choice" : {
+      "comAlt2" : "AB"
+    }
+  } ]
+}

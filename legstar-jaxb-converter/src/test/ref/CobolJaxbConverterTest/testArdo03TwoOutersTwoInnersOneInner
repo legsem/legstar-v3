@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ardo03Record>
+    <odoCounter>2</odoCounter>
+    <odoArray>
+        <odoSubCounter>2</odoSubCounter>
+        <odoSubArray>
+            <filler>ABCD</filler>
+        </odoSubArray>
+        <odoSubArray>
+            <filler>EFGH</filler>
+        </odoSubArray>
+    </odoArray>
+    <odoArray>
+        <odoSubCounter>1</odoSubCounter>
+        <odoSubArray>
+            <filler>IJKL</filler>
+        </odoSubArray>
+    </odoArray>
+</ardo03Record>

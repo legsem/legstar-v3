@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rdef05Record>
+    <choice1Alt1Choice>
+        <choice1Alt1>1234</choice1Alt1>
+    </choice1Alt1Choice>
+    <choice2Alt1Choice>
+        <choice2Alt1>5678</choice2Alt1>
+    </choice2Alt1Choice>
+</rdef05Record>

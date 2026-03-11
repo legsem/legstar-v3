@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rdef03Record>
+    <comSelect>2</comSelect>
+    <comDetail1Choice>
+        <comDetail3>
+            <comNumber>12345</comNumber>
+        </comDetail3>
+    </comDetail1Choice>
+</rdef03Record>

@@ -89,6 +89,7 @@
 		<module>legstar-jaxb-converter</module>
 		<module>legstar-jaxb-samples</module>
 		<module>legstar-json-samples</module>
+		<module>legstar-json-converter</module>
 		<module>legstar-maven-plugin</module>
 	</modules>
 
@@ -142,6 +143,19 @@
 			<dependency>
 				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-jaxb-samples</artifactId>
+				<version>${project.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-json-converter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-json-samples</artifactId>
 				<version>${project.version}</version>
 				<scope>test</scope>
 			</dependency>

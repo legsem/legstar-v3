@@ -1,0 +1,10 @@
+{
+  "outerRedefinesLongChoice" : {
+    "outerRedefinesShort" : {
+      "innerRedefinesLongChoice" : {
+        "innerRedefinesShort" : "CAM"
+      }
+    }
+  },
+  "footer" : "A"
+}

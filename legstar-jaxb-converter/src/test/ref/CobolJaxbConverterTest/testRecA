@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<recA>
+    <recAHeader>
+        <fld01>PPPP</fld01>
+        <fld02>00</fld02>
+        <fld03>CAMBRIDG</fld03>
+        <fld04>111</fld04>
+        <fld05>678912</fld05>
+        <fld06>A</fld06>
+        <fld07>54321</fld07>
+        <fld08>BB</fld08>
+        <fld09RecType>C</fld09RecType>
+    </recAHeader>
+    <recAData>
+        <fld10>D                                 D</fld10>
+        <fld11>E</fld11>
+    </recAData>
+</recA>

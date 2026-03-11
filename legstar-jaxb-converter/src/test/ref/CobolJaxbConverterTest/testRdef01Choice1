@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rdef01Record>
+    <comSelect>1</comSelect>
+    <comDetail1Choice>
+        <comDetail1>
+            <comName>JOHN SMITH</comName>
+        </comDetail1>
+    </comDetail1Choice>
+</rdef01Record>

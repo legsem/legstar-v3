@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rdef06Record>
+    <optlStructInd>1</optlStructInd>
+    <optlItemChoice>
+        <optlStruct>
+            <optlStructField1>CAMBRIDGE CAMBRIDG</optlStructField1>
+            <optlStructField2>E    </optlStructField2>
+        </optlStruct>
+    </optlItemChoice>
+</rdef06Record>

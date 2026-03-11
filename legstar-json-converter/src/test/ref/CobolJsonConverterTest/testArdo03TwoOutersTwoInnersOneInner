@@ -1,0 +1,16 @@
+{
+  "odoCounter" : 2,
+  "odoArray" : [ {
+    "odoSubCounter" : 2,
+    "odoSubArray" : [ {
+      "filler" : "ABCD"
+    }, {
+      "filler" : "EFGH"
+    } ]
+  }, {
+    "odoSubCounter" : 1,
+    "odoSubArray" : [ {
+      "filler" : "IJKL"
+    } ]
+  } ]
+}
