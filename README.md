@@ -1,7 +1,7 @@
 Legstar V3
 ==========
-[![Commits](https://img.shields.io/github/commit-activity/y/legsem/legstar-v3)
-[![License](https://img.shields.io/github/license/legsem/legstar-v3?style=for-the-badge&logo=apache&color=brightgreen)](https://www.apache.org/licenses/LICENSE-2.0)
+![Commits](https://img.shields.io/github/commit-activity/m/legsem/legstar-v3)
+[![License](https://img.shields.io/github/license/legsem/legstar-v3)](https://www.apache.org/licenses/LICENSE-2.0)
 
 This project provides a toolset for Cobol to Java, Xml and JSON data conversion.
 
