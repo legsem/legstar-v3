@@ -1,6 +1,6 @@
 Legstar V3
 ==========
-[![Supported JVM Versions](https://img.shields.io/badge/JVM-17--25-brightgreen.svg?style=for-the-badge&logo=openjdk)]
+![Supported JVM Versions](https://img.shields.io/badge/JVM-17--25-green?logo=openjdk)
 [![License](https://img.shields.io/github/license/legsem/legstar-v3)](https://www.apache.org/licenses/LICENSE-2.0)
 
 This project provides a toolset for Cobol to Java, Xml and JSON data conversion.
