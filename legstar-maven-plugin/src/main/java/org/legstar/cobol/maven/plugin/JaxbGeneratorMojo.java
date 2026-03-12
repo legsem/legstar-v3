@@ -7,8 +7,9 @@ import java.io.Reader;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.legstar.cobol.jaxb.generator.CobolJaxbBeanGenerator;
-import org.legstar.cobol.jaxb.generator.CobolJaxbBeanGeneratorConfig;
+import org.legstar.cobol.copybook.parser.CopybookParserConfig;
+import org.legstar.cobol.jaxb.generator.CobolJaxbGenerator;
+import org.legstar.cobol.jaxb.generator.CobolJaxbGeneratorConfig;
 
 /**
  * Goal generates a java bean source code with cobol and jaxb annotations from a
@@ -37,12 +38,13 @@ public class JaxbGeneratorMojo extends LegstarMojoBase {
 		try (Reader reader = getReader(cobolFile, cobolFileEncoding)) {
 
 			String baseName = toBaseName(cobolFile);
-			CobolJaxbBeanGeneratorConfig config = new CobolJaxbBeanGeneratorConfig() //
+			CopybookParserConfig parserConfig = new CopybookParserConfig() //
+					.setFreeCodeFormat(isFreeCodeFormat());
+			CobolJaxbGeneratorConfig config = new CobolJaxbGeneratorConfig(parserConfig) //
 					.setPackageNamePrefix(getPackageNamePrefix()) //
 					.setWithToString(isWithToString()) //
-					.setFreeCodeFormat(isFreeCodeFormat())
 					.setRootXmlNamespace(getRootXmlNamespace());
-			CobolJaxbBeanGenerator gen = new CobolJaxbBeanGenerator(config);
+			CobolJaxbGenerator gen = new CobolJaxbGenerator(config);
 			gen.generateAndWrite(baseName, reader, output);
 
 		} catch (IOException e) {

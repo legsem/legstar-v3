@@ -27,7 +27,6 @@
 		<dependency>
 			<groupId>gg.jte</groupId>
 			<artifactId>jte</artifactId>
-			<version>${jte.version}</version>
 		</dependency>
 
 		<dependency>
@@ -47,7 +46,6 @@
 			<plugin>
 				<groupId>gg.jte</groupId>
 				<artifactId>jte-maven-plugin</artifactId>
-				<version>${jte.version}</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -62,7 +60,7 @@
 					<targetDirectory>
 						${project.build.directory}/generated-sources</targetDirectory>
 					<contentType>Plain</contentType>
-					<packageName>org.legstar.cobol.generator.templates</packageName>
+					<packageName>org.legstar.cobol.bean.generator.templates</packageName>
 					<trimControlStructures>true</trimControlStructures>
 				</configuration>
 			</plugin>
@@ -90,7 +88,7 @@
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
-					<excludePackageNames>org.legstar.cobol.generator.templates</excludePackageNames>
+					<excludePackageNames>org.legstar.cobol.bean.generator.templates</excludePackageNames>
 				</configuration>
 			</plugin>
 

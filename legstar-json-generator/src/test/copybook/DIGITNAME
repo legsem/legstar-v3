@@ -1,0 +1,3 @@
+        01  5500-REC-01.                                                
+          05 5500-REC-TYPE      PIC X(01).
+          05 5500-PLAN-NUM      PIC X(06).                            

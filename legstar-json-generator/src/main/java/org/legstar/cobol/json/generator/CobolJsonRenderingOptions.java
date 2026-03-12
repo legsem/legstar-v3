@@ -1,4 +1,4 @@
-package org.legstar.cobol.jaxb.generator;
+package org.legstar.cobol.json.generator;
 
 import java.util.function.Function;
 
@@ -9,20 +9,18 @@ import org.legstar.cobol.generator.model.RenderingModel;
 import org.legstar.cobol.generator.model.RenderingOptions;
 
 /**
- * Inject JAXB annotations as additional rendering options.
+ * Inject JSON annotations as additional rendering options.
  */
-public class CobolJaxbRenderingOptions implements RenderingOptions {
+public class CobolJsonRenderingOptions implements RenderingOptions {
 
-	private static final String NL = System.getProperty("line.separator");
-
-	private final CobolJaxbGeneratorConfig config;
+	private final CobolJsonGeneratorConfig config;
 
 	/**
-	 * Create the additional JAXB rendering options.
+	 * Create the additional JSON rendering options.
 	 * 
 	 * @param config configuration parameters
 	 */
-	public CobolJaxbRenderingOptions(CobolJaxbGeneratorConfig config) {
+	public CobolJsonRenderingOptions(CobolJsonGeneratorConfig config) {
 		this.config = config;
 	}
 
@@ -33,26 +31,20 @@ public class CobolJaxbRenderingOptions implements RenderingOptions {
 
 	@Override
 	public Function<RenderingModel, String> moreImports() {
-		return model -> "import jakarta.xml.bind.annotation.*;";
+		return model -> "import com.fasterxml.jackson.annotation.*;";
 	}
 
 	@Override
 	public boolean hasMoreGroupAnnotations() {
-		return config.isKeepPropertiesOrder() || config.isXmlAccessTypeField();
+		return config.isKeepPropertiesOrder();
 	}
 
 	@Override
 	public Function<RenderingGroup, String> moreGroupAnnotations() {
 		return group -> {
 			StringBuilder sb = new StringBuilder();
-			if (config.isXmlAccessTypeField()) {
-				sb.append("@XmlAccessorType(XmlAccessType.FIELD)");
-				if (config.isKeepPropertiesOrder()) {
-					sb.append(NL);
-				}
-			}
 			if (config.isKeepPropertiesOrder()) {
-				sb.append("@XmlType (propOrder={\"");
+				sb.append("@JsonPropertyOrder ({\"");
 				sb.append(String.join("\", \"", group.fields().stream().map(RenderingItem::fieldName).toList()));
 				sb.append("\"})");
 			}
@@ -72,18 +64,12 @@ public class CobolJaxbRenderingOptions implements RenderingOptions {
 
 	@Override
 	public boolean hasMoreRootGroupAnnotations() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public Function<RenderingGroup, String> moreRootGroupAnnotations() {
-		return group -> {
-			StringBuilder sb = new StringBuilder();
-			sb.append("@XmlRootElement(name = \"");
-			sb.append(group.fieldName());
-			sb.append("\")");
-			return sb.toString();
-		};
+		return null;
 	}
 
 }

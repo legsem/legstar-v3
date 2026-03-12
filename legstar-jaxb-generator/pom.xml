@@ -18,14 +18,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.legsem.legstar</groupId>
-			<artifactId>legstar-base</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.legsem.legstar</groupId>
-			<artifactId>legstar-parser</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.legsem.legstar</groupId>
 			<artifactId>legstar-generator</artifactId>
 		</dependency>
 		<dependency>
@@ -50,7 +42,6 @@
 			<plugin>
 				<groupId>gg.jte</groupId>
 				<artifactId>jte-maven-plugin</artifactId>
-				<version>${jte.version}</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>

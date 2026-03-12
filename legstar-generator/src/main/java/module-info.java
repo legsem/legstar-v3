@@ -8,7 +8,8 @@ module org.legstar.cobol.generator {
 	requires transitive gg.jte.runtime;
 	
 	exports org.legstar.cobol.generator;
+	exports org.legstar.cobol.bean.generator;
 	exports org.legstar.cobol.generator.model;
-	exports org.legstar.cobol.generator.templates;
+	exports org.legstar.cobol.bean.generator.templates;
 
 }

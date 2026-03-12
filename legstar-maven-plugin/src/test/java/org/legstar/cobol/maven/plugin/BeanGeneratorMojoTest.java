@@ -5,11 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Comparator;
-import java.util.stream.Stream;
 
 import org.apache.maven.api.plugin.testing.InjectMojo;
 import org.apache.maven.api.plugin.testing.MojoParameter;
@@ -20,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MojoTest
-public class BeanGeneratorMojoTest {
+public class BeanGeneratorMojoTest extends GeneratorMojoBaseTest {
 
 	@BeforeEach
 	public void setUp() {
@@ -58,17 +53,6 @@ public class BeanGeneratorMojoTest {
 	public void testMojoFile(BeanGeneratorMojo mojo) throws Exception {
 		mojo.execute();
 		assertTrue(new File("target/generated-sources/legstar/samples/flat01/Flat01Record.java").exists());
-	}
-
-	private void clear(File dir) {
-		if (dir.exists()) {
-			try (Stream<Path> pathStream = Files.walk(dir.toPath())) {
-				pathStream.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			dir.delete();
-		}
 	}
 
 }

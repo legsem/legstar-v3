@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MojoTest
-public class JaxbGeneratorMojoTest extends GeneratorMojoBaseTest {
+public class JsonGeneratorMojoTest extends GeneratorMojoBaseTest {
 
 	@BeforeEach
 	public void setUp() {
@@ -24,9 +24,9 @@ public class JaxbGeneratorMojoTest extends GeneratorMojoBaseTest {
 	}
 
 	@Test
-	@InjectMojo(goal = "generate-jaxb")
+	@InjectMojo(goal = "generate-json")
 	@MojoParameter(name = "packageNamePrefix", value = "legstar.samples")
-	public void testMojoNoSource(JaxbGeneratorMojo mojo) throws Exception {
+	public void testMojoNoSource(JsonGeneratorMojo mojo) throws Exception {
 		try {
 			mojo.execute();
 			fail();
@@ -38,32 +38,21 @@ public class JaxbGeneratorMojoTest extends GeneratorMojoBaseTest {
 	}
 
 	@Test
-	@InjectMojo(goal = "generate-jaxb")
+	@InjectMojo(goal = "generate-json")
 	@MojoParameter(name = "packageNamePrefix", value = "legstar.samples")
 	@MojoParameter(name = "source", value = "src/test/cobol")
-	public void testMojoDirectory(JaxbGeneratorMojo mojo) throws Exception {
+	public void testMojoDirectory(JsonGeneratorMojo mojo) throws Exception {
 		mojo.execute();
 		assertTrue(new File("target/generated-sources/legstar/samples/flat01/Flat01Record.java").exists());
 	}
 
 	@Test
-	@InjectMojo(goal = "generate-jaxb")
+	@InjectMojo(goal = "generate-json")
 	@MojoParameter(name = "packageNamePrefix", value = "legstar.samples")
 	@MojoParameter(name = "source", value = "src/test/cobol/FLAT01")
-	public void testMojoFile(JaxbGeneratorMojo mojo) throws Exception {
+	public void testMojoFile(JsonGeneratorMojo mojo) throws Exception {
 		mojo.execute();
 		assertTrue(new File("target/generated-sources/legstar/samples/flat01/Flat01Record.java").exists());
-	}
-
-	@Test
-	@InjectMojo(goal = "generate-jaxb")
-	@MojoParameter(name = "packageNamePrefix", value = "legstar.samples")
-	@MojoParameter(name = "source", value = "src/test/cobol/FLAT01")
-	@MojoParameter(name = "rootXmlNamespace", value = "http://org.legstar/flat01")
-	public void testRootXmlNamespace(JaxbGeneratorMojo mojo) throws Exception {
-		mojo.execute();
-		assertTrue(new File("target/generated-sources/legstar/samples/flat01/Flat01Record.java").exists());
-		assertTrue(new File("target/generated-sources/legstar/samples/flat01/package-info.java").exists());
 	}
 
 }

@@ -52,6 +52,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.legsem.legstar</groupId>
+			<artifactId>legstar-json-generator</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<scope>test</scope>

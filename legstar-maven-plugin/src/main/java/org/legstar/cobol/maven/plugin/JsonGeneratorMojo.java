@@ -1,29 +1,29 @@
 package org.legstar.cobol.maven.plugin;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Reader;
 
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.legstar.cobol.bean.generator.CobolBeanGenerator;
-import org.legstar.cobol.bean.generator.CobolBeanGeneratorConfig;
 import org.legstar.cobol.copybook.parser.CopybookParserConfig;
+import org.legstar.cobol.json.generator.CobolJsonGenerator;
+import org.legstar.cobol.json.generator.CobolJsonGeneratorConfig;
 
 /**
- * Goal generates a java bean source code with cobol annotations from a COBOL copybook.
- * 
+ * Goal generates a java bean source code with cobol and JSON annotations from a
+ * COBOL copybook.
  */
-@Mojo(name = "generate-bean", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-public class BeanGeneratorMojo extends LegstarMojoBase {
+@Mojo(name = "generate-json", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
+public class JsonGeneratorMojo extends LegstarMojoBase {
 
 	/**
-	 * Create generate-bean goal.
+	 * Create generate-json goal.
 	 */
-	public BeanGeneratorMojo() {
+	public JsonGeneratorMojo() {
 		super();
 	}
 
-	@Override
 	public void execute(File cobolFile, String cobolFileEncoding, File output) {
 		getLog().info("Processing COBOL file " + cobolFile);
 
@@ -32,13 +32,13 @@ public class BeanGeneratorMojo extends LegstarMojoBase {
 			String baseName = toBaseName(cobolFile);
 			CopybookParserConfig parserConfig = new CopybookParserConfig() //
 					.setFreeCodeFormat(isFreeCodeFormat());
-			CobolBeanGeneratorConfig config = new CobolBeanGeneratorConfig(parserConfig) //
+			CobolJsonGeneratorConfig config = new CobolJsonGeneratorConfig(parserConfig) //
 					.setPackageNamePrefix(getPackageNamePrefix()) //
 					.setWithToString(isWithToString());
-			CobolBeanGenerator gen = new CobolBeanGenerator(config);
+			CobolJsonGenerator gen = new CobolJsonGenerator(config);
 			gen.generateAndWrite(baseName, reader, output);
 
-		} catch (Exception e) {
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}

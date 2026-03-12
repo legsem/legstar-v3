@@ -88,6 +88,7 @@
 		<module>legstar-jaxb-generator</module>
 		<module>legstar-jaxb-converter</module>
 		<module>legstar-jaxb-samples</module>
+		<module>legstar-json-generator</module>
 		<module>legstar-json-samples</module>
 		<module>legstar-json-converter</module>
 		<module>legstar-maven-plugin</module>
@@ -149,6 +150,12 @@
 
 			<dependency>
 				<groupId>com.legsem.legstar</groupId>
+				<artifactId>legstar-json-generator</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.legsem.legstar</groupId>
 				<artifactId>legstar-json-converter</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -168,10 +175,17 @@
 
 			<!-- Third party dependencies -->
 			<dependency>
+				<groupId>gg.jte</groupId>
+				<artifactId>jte</artifactId>
+				<version>${jte.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>org.glassfish.jaxb</groupId>
 				<artifactId>jaxb-runtime</artifactId>
 				<version>${jaxb.version}</version>
 			</dependency>
+
 			<dependency>
 				<groupId>com.fasterxml.jackson</groupId>
 				<artifactId>jackson-bom</artifactId>
@@ -210,6 +224,12 @@
 		<pluginManagement>
 
 			<plugins>
+
+				<plugin>
+					<groupId>gg.jte</groupId>
+					<artifactId>jte-maven-plugin</artifactId>
+					<version>${jte.version}</version>
+				</plugin>
 
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>

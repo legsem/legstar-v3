@@ -1,0 +1,29 @@
+01 REC-A.	
+	03 REC-A-HEADER.	
+		05 FLD-01 PIC X(04).	
+            	05 FLD-02 PIC X(02).
+            	05 FLD-03 PIC X(08).
+            	05 FLD-04 PIC X(03).	
+            	05 FLD-05 PIC 9(06).
+            	05 FLD-06 PIC X.
+            	05 FLD-07 PIC 9(05).
+            	05 FLD-08 PIC X(02).
+        	05 FLD-09-REC-TYPE PIC X.
+	03 REC-A-DATA. 
+		05 FLD-10 PIC X(35).
+		05 FLD-11 PIC X.
+
+01 REC-B.	
+	03 REC-B-HEADER.	
+		05 FLD-01 PIC X(04).	
+            	05 FLD-02 PIC X(02).
+            	05 FLD-03 PIC X(08).
+            	05 FLD-04 PIC X(03).	
+            	05 FLD-05 PIC 9(06).
+            	05 FLD-06 PIC X.
+            	05 FLD-07 PIC 9(05).
+            	05 FLD-08 PIC X(02).
+        	05 FLD-09-REC-TYPE PIC X.
+	03 REC-B-DATA. 
+		05 FLD-10 PIC X(30).
+		05 FLD-11 PIC X.
