@@ -1,9 +1,9 @@
-How to convert cobol data to XML
-================================
+How to convert cobol data to JSON
+=================================
 
 Objective:
 ---------
-Starting from the cobol copybook [CUSTDAT.cpy](../samples/CUSTDAT.cpy), and corresponding cobol data [CUSTDAT.bin](../samples/CUSTDAT.bin), convert the cobol binary data to XML.
+Starting from the cobol copybook [CUSTDAT.cpy](../samples/CUSTDAT.cpy), and corresponding cobol data [CUSTDAT.bin](../samples/CUSTDAT.bin), convert the cobol binary data to JSON.
 
 Pre-requisites:
 --------------
@@ -12,10 +12,10 @@ Pre-requisites:
 
 This is a 2 steps process:
 --------------------------
-1. Step 1: Generate a java bean class with cobol and JAXB annotations using cobol copybook CUSTDAT.cpy
-2. Step 2: Execute legstar-jaxb-converter to produce an XML instance using cobol data CUSTDAT.bin
+1. Step 1: Generate a java bean class with cobol and JSON annotations using cobol copybook CUSTDAT.cpy
+2. Step 2: Execute legstar-json-converter to produce a JSON instance using cobol data CUSTDAT.bin
 
-Step 1 - Generate a java bean class with cobol and JAXB annotations using CUSTDAT.cpy
+Step 1 - Generate a java bean class with cobol and JSON annotations using CUSTDAT.cpy
 -------------------------------------------------------------------------------------
 
 1. Create a maven project 
@@ -25,7 +25,7 @@ Step 1 - Generate a java bean class with cobol and JAXB annotations using CUSTDA
 ```xml
     <dependency>
       <groupId>com.legsem.legstar</groupId>
-      <artifactId>legstar-jaxb-converter</artifactId>
+      <artifactId>legstar-json-converter</artifactId>
       <version>${legstar.version}</version>
     </dependency>
 ```
@@ -33,7 +33,7 @@ Step 1 - Generate a java bean class with cobol and JAXB annotations using CUSTDA
 4. Add the following plugins to your pom.xml build/plugins section:
 
 ```xml
-      <!-- Parses copybooks from src/main/cobol and generate JAXB beans in target/generated-sources  -->
+      <!-- Parses copybooks from src/main/cobol and generate JSON beans in target/generated-sources  -->
       <plugin>
         <groupId>com.legsem.legstar</groupId>
         <artifactId>legstar-maven-plugin</artifactId>
@@ -41,7 +41,7 @@ Step 1 - Generate a java bean class with cobol and JAXB annotations using CUSTDA
         <executions>
           <execution>
             <goals>
-              <goal>generate-jaxb</goal>
+              <goal>generate-json</goal>
             </goals>
             <configuration>
               <withToString>true</withToString>
@@ -76,7 +76,7 @@ Step 1 - Generate a java bean class with cobol and JAXB annotations using CUSTDA
 * This command should generate the CustomerData java class in folder target/generated-sources.
 * The default package name is `custdat`.
 
-Step 2: Execute legstar-jaxb-converter to produce an XML instance using CUSTDAT.bin
+Step 2: Execute legstar-json-converter to produce a JSON instance using CUSTDAT.bin
 -----------------------------------------------------------------------------------
 
 1. Create a folder src/test/data and copy [CUSTDAT.bin](../samples/CUSTDAT.bin) to that folder
@@ -87,7 +87,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.legstar.cobol.converter.CobolInputStream;
-import org.legstar.cobol.jaxb.converter.CobolJaxbConverter;
+import org.legstar.cobol.json.converter.CobolJsonConverter;
 
 import custdat.CustomerData;
 
@@ -96,7 +96,7 @@ public class CustomerDataConvert {
   public static void main(String[] args) {
     try (FileInputStream fis = new FileInputStream("src/test/data/CUSTDAT.bin");
         CobolInputStream cis = new CobolInputStream(fis);) {
-      CobolJaxbConverter<CustomerData> converter = new CobolJaxbConverter<>(CustomerData.class);
+      CobolJsonConverter<CustomerData> converter = new CobolJsonConverter<>(CustomerData.class);
       converter.convert(cis, System.out);
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -138,4 +138,4 @@ After you execute a `mvn clean package`, you should be able to execute your prog
 ```
 java -jar ./target/{myproject}-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
-You should get a print out of the XML instance produced.
+You should get a print out of the JSON instance produced.

@@ -10,3 +10,4 @@ Cobol data, as it originates from mainframes, is binary. Legstar uses a cobol co
 Guides:
 * [Convert cobol data to a java instance](docs/HOWTO-COBOL-TO-JAVA.md)
 * [Convert cobol data to XML](docs/HOWTO-COBOL-TO-XML.md)
+* [Convert cobol data to JSON](docs/HOWTO-COBOL-TO-JSON.md)

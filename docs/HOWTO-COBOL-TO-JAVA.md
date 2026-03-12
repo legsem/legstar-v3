@@ -19,7 +19,7 @@ Step 1 - Generate a java bean class with cobol annotations using CUSTDAT.cpy
 ----------------------------------------------------------------------------
 
 1. Create a maven project 
-2. Create a folder src/main/cobol and copy CUSTDAT.cpy to that folder
+2. Create a folder src/main/cobol and copy [CUSTDAT.cpy](../samples/CUSTDAT.cpy) to that folder
 3. Add the following dependency to your pom.xml dependencies section:
 
 ```xml
@@ -40,7 +40,6 @@ Step 1 - Generate a java bean class with cobol annotations using CUSTDAT.cpy
         <version>${legstar.version}</version>
         <executions>
           <execution>
-            <phase>generate-sources</phase>
             <goals>
               <goal>generate-bean</goal>
             </goals>
@@ -58,7 +57,6 @@ Step 1 - Generate a java bean class with cobol annotations using CUSTDAT.cpy
         <version>3.6.1</version>
         <executions>
           <execution>
-            <phase>generate-sources</phase>
             <goals>
               <goal>add-source</goal>
             </goals>
@@ -73,14 +71,14 @@ Step 1 - Generate a java bean class with cobol annotations using CUSTDAT.cpy
       </plugin>
 ```
 
-5. run `mvn clean compile`
+5. run `mvn clean generate-sources`
 * This command should generate the CustomerData java class in folder target/generated-sources.
-* The default package name is `custdat` and compile it.
+* The default package name is `custdat`.
 
 Step 2: Execute legstar-converter to produce a java bean instance using CUSTDAT.bin
 -----------------------------------------------------------------------------------
 
-1. Create a folder src/test/data and copy CUSTDAT.bin to that folder
+1. Create a folder src/test/data and copy [CUSTDAT.bin](../samples/CUSTDAT.bin) to that folder
 2. Create a new java class named CustomerDataConvert in some package. Type the following code:
 
 ```java
@@ -140,4 +138,5 @@ After you execute a `mvn clean package`, you should be able to execute your prog
 ```
 java -jar ./target/{myproject}-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
+You should get a print out of the java class instance produced.
 
