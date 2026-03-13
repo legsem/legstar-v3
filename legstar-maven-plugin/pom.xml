@@ -95,8 +95,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Automatic-Module-Name>
-								org.legstar.cobol.maven.plugin</Automatic-Module-Name>
+							<Automatic-Module-Name>org.legstar.cobol.maven.plugin</Automatic-Module-Name>
 						</manifestEntries>
 					</archive>
 				</configuration>

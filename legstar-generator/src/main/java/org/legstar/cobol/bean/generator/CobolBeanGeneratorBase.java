@@ -97,7 +97,6 @@ public abstract class CobolBeanGeneratorBase {
 	 * @param className    the java class name
 	 * @param content      the java class code
 	 * @param outputFolder where to place output file
-	 * @throws IOException if writing the java class fails
 	 */
 	public void writeJavaClass(String packageName, String className, String content, File outputFolder) {
 		try {

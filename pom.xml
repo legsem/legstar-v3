@@ -8,7 +8,7 @@
 	<version>3.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>legstar-parent</name>
+	<name>legstar</name>
 	<description>Translates COBOL structures to a java model. Converts Mainframe
 		data to Java objects.</description>
 	<url>https://github.com/legsem/legstar-v3</url>
@@ -284,6 +284,9 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</reporting>

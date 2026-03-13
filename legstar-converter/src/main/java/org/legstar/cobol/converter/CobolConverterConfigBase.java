@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Set of parameters for the cobol converter.
+ * 
+ * @param <T> configuration class type
  */
 public abstract class CobolConverterConfigBase<T extends CobolConverterConfigBase<T>> implements CobolConverterConfig {
 
@@ -160,9 +162,10 @@ public abstract class CobolConverterConfigBase<T extends CobolConverterConfigBas
 	}
 
 	/**
-	 * Fluent interface. 
+	 * Fluent interface.
+	 * 
 	 * @return the actual instance
 	 */
 	public abstract T self();
-	
+
 }

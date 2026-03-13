@@ -2,6 +2,9 @@ package org.legstar.cobol.generator;
 
 import org.legstar.cobol.copybook.parser.CopybookParserConfig;
 
+/**
+ * All generators share common configuration parameters.
+ */
 public interface CobolGeneratorConfig {
 
 	/**
