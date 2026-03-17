@@ -65,7 +65,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- Add generated java classes common folder as source folder -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -91,8 +90,18 @@
 					<excludePackageNames>org.legstar.cobol.bean.generator.templates</excludePackageNames>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<excludePackageNames>org.legstar.cobol.bean.generator.templates</excludePackageNames>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 </project>

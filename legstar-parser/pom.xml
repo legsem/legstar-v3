@@ -84,4 +84,16 @@
 
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<excludePackageNames>*.ccparser:*.ccparser.*</excludePackageNames>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
 </project>

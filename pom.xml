@@ -248,6 +248,11 @@
 				</plugin>
 
 				<plugin>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>3.3.1</version>
+				</plugin>
+
+				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
 					<version>3.21.0</version>
 				</plugin>
@@ -287,6 +292,24 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<id>default</id>
+						<reports>
+							<report>javadoc</report>
+						</reports>
+					</reportSet>
+					<reportSet>
+						<id>aggregate</id>
+						<inherited>false</inherited>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+						<reports>
+							<report>aggregate</report>
+						</reports>
+					</reportSet>
+				</reportSets>
 			</plugin>
 		</plugins>
 	</reporting>
@@ -313,9 +336,6 @@
 								<goals>
 									<goal>jar</goal>
 								</goals>
-								<configuration>
-									<failOnError>false</failOnError>
-								</configuration>
 							</execution>
 						</executions>
 					</plugin>
