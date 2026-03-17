@@ -278,6 +278,14 @@
 		<plugins>
 
 			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<releaseProfiles>release</releaseProfiles>
+				</configuration>
+			</plugin>
+
+			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
 			</plugin>
 
