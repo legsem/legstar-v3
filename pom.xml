@@ -271,6 +271,13 @@
 					<artifactId>maven-gpg-plugin</artifactId>
 					<version>3.2.8</version>
 				</plugin>
+
+                <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>0.10.0</version>
+                </plugin>
+
 			</plugins>
 
 		</pluginManagement>
@@ -284,6 +291,17 @@
 					<releaseProfiles>release</releaseProfiles>
 				</configuration>
 			</plugin>
+
+            <!-- Staging plugin for Central Nexus Repository -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                </configuration>
+            </plugin>
 
 			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
