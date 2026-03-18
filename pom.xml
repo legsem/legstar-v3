@@ -3,7 +3,7 @@
 
 	<groupId>com.legsem.legstar</groupId>
 	<artifactId>legstar-parent</artifactId>
-	<version>3.0.1</version>
+	<version>3.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>legstar</name>
@@ -32,7 +32,7 @@
 		<developerConnection>
 			scm:git:https://legsem@github.com/legsem/legstar-v3.git</developerConnection>
 		<url>https://github.com/legsem/legstar-v3.git</url>
-		<tag>legstar-parent-3.0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<distributionManagement>
