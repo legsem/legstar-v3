@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.legstar.cobol.base.test.CobolTestBase;
 
 public class CobolJaxbGeneratorWriteTest extends CobolTestBase {
+	
+	@TempDir
+	File outputDirectory;
 	
 	@Test
 	public void generateAndWriteCustdat() throws IOException {
@@ -27,7 +30,6 @@ public class CobolJaxbGeneratorWriteTest extends CobolTestBase {
 	}
 	
 	private File generateAndWrite(String source, CobolJaxbGeneratorConfig config) throws IOException {
-		File outputDirectory = Files.createTempDirectory(getTestName()).toFile();
 		CobolJaxbGenerator gen = new CobolJaxbGenerator(config);
 		gen.generateAndWrite(source, getReader(source), outputDirectory);
 		return outputDirectory;
