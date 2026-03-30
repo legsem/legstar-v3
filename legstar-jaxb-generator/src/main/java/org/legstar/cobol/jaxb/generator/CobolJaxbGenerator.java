@@ -35,6 +35,13 @@ public class CobolJaxbGenerator extends CobolBeanGeneratorBase {
 	private final String rootXmlNamespace;
 
 	/**
+	 * Build the generator with default configuration parameters.
+	 */
+	public CobolJaxbGenerator() {
+		this(new CobolJaxbGeneratorConfig());
+	}
+
+	/**
 	 * Build the generator.
 	 * 
 	 * @param config generator parameters

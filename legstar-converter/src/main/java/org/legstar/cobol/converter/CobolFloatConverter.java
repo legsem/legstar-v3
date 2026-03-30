@@ -3,6 +3,7 @@ package org.legstar.cobol.converter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import org.legstar.cobol.io.CobolInputStream;
 import org.legstar.cobol.utils.BytesLenUtils;
 
 /**

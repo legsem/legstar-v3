@@ -3,6 +3,7 @@ package org.legstar.cobol.converter;
 import java.io.ByteArrayInputStream;
 
 import org.legstar.cobol.base.test.CobolTestBase;
+import org.legstar.cobol.io.CobolInputStream;
 
 public abstract class CobolConverterTestBase extends CobolTestBase {
 

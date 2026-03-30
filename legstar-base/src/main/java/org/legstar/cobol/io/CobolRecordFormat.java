@@ -1,4 +1,4 @@
-package org.legstar.cobol.converter;
+package org.legstar.cobol.io;
 
 /**
  * RECFM formats that we support {@link #FB} {@link #V} {@link #VB}

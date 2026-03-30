@@ -3,6 +3,8 @@ package org.legstar.cobol.converter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import org.legstar.cobol.io.CobolInputStream;
+
 /**
  * Converts between a Cobol alphanumeric literal and a java String.
  */

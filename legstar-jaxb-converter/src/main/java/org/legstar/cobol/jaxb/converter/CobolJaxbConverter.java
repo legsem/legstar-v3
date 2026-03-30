@@ -8,7 +8,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.legstar.cobol.converter.CobolBeanConverter;
 import org.legstar.cobol.converter.CobolChoiceStrategy;
-import org.legstar.cobol.converter.CobolInputStream;
+import org.legstar.cobol.io.CobolInputStream;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;

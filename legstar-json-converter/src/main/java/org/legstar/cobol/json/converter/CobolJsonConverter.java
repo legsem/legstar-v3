@@ -6,7 +6,7 @@ import java.io.Writer;
 
 import org.legstar.cobol.converter.CobolBeanConverter;
 import org.legstar.cobol.converter.CobolChoiceStrategy;
-import org.legstar.cobol.converter.CobolInputStream;
+import org.legstar.cobol.io.CobolInputStream;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;

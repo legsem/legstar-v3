@@ -8,6 +8,8 @@ import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 import org.legstar.cobol.base.test.CobolTestBase;
+import org.legstar.cobol.io.CobolInputStream;
+import org.legstar.cobol.io.CobolRecordFormat;
 
 import legstar.samples.custdat.CustomerData;
 

@@ -1,12 +1,9 @@
-package org.legstar.cobol.converter;
+package org.legstar.cobol.io;
 
 import java.io.BufferedInputStream;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.legstar.cobol.io.RecfmVBInputStream;
-import org.legstar.cobol.io.RecfmVInputStream;
 
 /**
  * A proxy on an input stream to read cobol data.

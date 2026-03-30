@@ -16,6 +16,13 @@ public class CobolJsonGenerator extends CobolBeanGeneratorBase {
 	private final CobolJsonRenderingOptions renderingOptions;
 
 	/**
+	 * Build the generator with default configuration parameters.
+	 */
+	public CobolJsonGenerator() {
+		this(new CobolJsonGeneratorConfig());
+	}
+
+	/**
 	 * Build the generator.
 	 * 
 	 * @param config generator parameters

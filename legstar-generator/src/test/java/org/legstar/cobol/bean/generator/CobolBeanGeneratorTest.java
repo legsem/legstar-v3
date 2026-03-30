@@ -108,7 +108,7 @@ public class CobolBeanGeneratorTest extends CobolTestBase {
 	}
 
 	private CobolBeanGeneratorConfig getDefaultConfig() {
-		return new CobolBeanGeneratorConfig(new CopybookParserConfig()) //
+		return new CobolBeanGeneratorConfig() //
 				.setPackageNamePrefix("legstar.samples") //
 				.setWithToString(true);
 	}

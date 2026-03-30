@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 import org.junit.jupiter.api.Test;
 import org.legstar.cobol.base.test.CobolTestBase;
 import org.legstar.cobol.converter.CobolChoiceStrategy;
-import org.legstar.cobol.converter.CobolInputStream;
+import org.legstar.cobol.io.CobolInputStream;
 
 import legstar.samples.jaxb.alltypes.Alltypes;
 import legstar.samples.jaxb.ardo01.Ardo01Record;

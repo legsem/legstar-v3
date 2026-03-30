@@ -28,6 +28,7 @@ import org.legstar.cobol.annotation.CobolItemType;
 import org.legstar.cobol.annotation.CobolPackedDecimal;
 import org.legstar.cobol.annotation.CobolString;
 import org.legstar.cobol.annotation.CobolZonedDecimal;
+import org.legstar.cobol.io.CobolInputStream;
 
 /**
  * Converts cobol data to a java T instance.

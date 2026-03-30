@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
+import org.legstar.cobol.io.CobolInputStream;
+import org.legstar.cobol.io.CobolRecordFormat;
 
 import legstar.samples.custdat.CustomerData;
 import legstar.samples.flat01.Flat01Record;
