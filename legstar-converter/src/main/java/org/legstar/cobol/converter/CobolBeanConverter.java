@@ -85,8 +85,9 @@ public class CobolBeanConverter<T> {
 	/**
 	 * Fast access to bean methods.
 	 * <p>
-	 * Here we cache Annotations, Constructors and setValue methods so that we don't
-	 * have to rebuild them every time we visit the same field or class.
+	 * Here we cache Annotations, Constructors, declared fields and setValue methods
+	 * so that we don't have to rebuild them every time we visit the same field or
+	 * class.
 	 * <p>
 	 * This should not pose a risk of memory leak as we are limited to the fields
 	 * and classes in a specific immutable beanClass.
@@ -94,6 +95,8 @@ public class CobolBeanConverter<T> {
 	private final Map<Field, Annotation> annotationCache = new ConcurrentHashMap<>();
 
 	private final Map<Class<?>, Constructor<?>> constructorCache = new ConcurrentHashMap<>();
+
+	private final Map<Class<?>, Field[]> declaredFieldsCache = new ConcurrentHashMap<>();
 
 	private final Map<Field, Method> setValueCache = new ConcurrentHashMap<>();
 
@@ -241,7 +244,7 @@ public class CobolBeanConverter<T> {
 	private <Z> Z convertGroup(Context context, CobolGroup cobolGroup, Class<Z> groupClass) {
 		Z group = newInstance(groupClass);
 		context.pushGroup(group);
-		Field[] fields = groupClass.getDeclaredFields();
+		Field[] fields = getDeclaredFields(groupClass);
 		for (Field field : fields) {
 			Object value = convertField(context, field);
 			setFieldValue(field, group, value);
@@ -304,7 +307,7 @@ public class CobolBeanConverter<T> {
 	private <Z> Z convertChoice(Context context, CobolChoice cobolChoice, Class<Z> choiceClass) {
 		try {
 			Z choice = newInstance(choiceClass);
-			Field[] fields = choiceClass.getDeclaredFields();
+			Field[] fields = getDeclaredFields(choiceClass);
 			long start = context.getBytesRead();
 			for (Field alternative : fields) {
 				if (choiceStrategy.choose(context.getRoot(), choice, alternative)) {
@@ -649,6 +652,18 @@ public class CobolBeanConverter<T> {
 		} catch (Throwable e) {
 			throw new CobolBeanConverterException(e);
 		}
+	}
+	
+	/**
+	 * Retrieve a class fields from cache if available.
+	 * 
+	 * @param clazz the class
+	 * @return a list of fields
+	 */
+	private Field[] getDeclaredFields(Class<?> clazz) {
+		return declaredFieldsCache.computeIfAbsent(clazz, c -> {
+			return c.getDeclaredFields();
+		});
 	}
 
 	/**
