@@ -3,12 +3,16 @@ package org.legstar.cobol.converter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.HexFormat;
+
 import org.junit.jupiter.api.Test;
 
 public class CobolBinaryNumberConverterTest extends CobolConverterTestBase {
 
 	CobolBinaryNumberConverter converter = new CobolBinaryNumberConverter();
 
+	private final HexFormat hex = HexFormat.of().withUpperCase();
+	
 	@Test
 	public void testNoHostData() {
 		try {
@@ -90,4 +94,80 @@ public class CobolBinaryNumberConverterTest extends CobolConverterTestBase {
 		assertEquals(17179869183l, converter.toLong(inputStreamFrom("00000003ffffffff"), true, 18));
 		assertEquals(9223372036854775807l, converter.toLong(inputStreamFrom("7fffffffffffffff"), true, 18));
 	}
+
+	@Test
+	public void testToCobolShort() {
+		assertEquals("0000", hex.formatHex((converter.toCobol((short) 0, 2))));
+		assertEquals("0001", hex.formatHex((converter.toCobol((short) 1, 2))));
+		assertEquals("004A", hex.formatHex((converter.toCobol((short) 74, 2))));
+		assertEquals("7FFF", hex.formatHex((converter.toCobol((short) 32767, 2))));
+		assertEquals("FFFF", hex.formatHex((converter.toCobol((short) -1, 2))));
+		assertEquals("FFB6", hex.formatHex((converter.toCobol((short) -74, 2))));
+		assertEquals("8000", hex.formatHex((converter.toCobol((short) -32768, 2))));
+		assertEquals("00000000", hex.formatHex((converter.toCobol((short) 0, 5))));
+		assertEquals("00000001", hex.formatHex((converter.toCobol((short) 1, 5))));
+		assertEquals("0000004A", hex.formatHex((converter.toCobol((short) 74, 5))));
+		assertEquals("00007FFF", hex.formatHex((converter.toCobol((short) 32767, 5))));
+		assertEquals("FFFFFFFF", hex.formatHex((converter.toCobol((short) -1, 5))));
+		assertEquals("FFFFFFB6", hex.formatHex((converter.toCobol((short) -74, 5))));
+		assertEquals("FFFF8000", hex.formatHex((converter.toCobol((short) -32768, 5))));
+		assertEquals("0000000000000000", hex.formatHex((converter.toCobol((short) 0, 10))));
+		assertEquals("0000000000000001", hex.formatHex((converter.toCobol((short) 1, 10))));
+		assertEquals("000000000000004A", hex.formatHex((converter.toCobol((short) 74, 10))));
+		assertEquals("0000000000007FFF", hex.formatHex((converter.toCobol((short) 32767, 10))));
+		assertEquals("FFFFFFFFFFFFFFFF", hex.formatHex((converter.toCobol((short) -1, 10))));
+		assertEquals("FFFFFFFFFFFFFFB6", hex.formatHex((converter.toCobol((short) -74, 10))));
+		assertEquals("FFFFFFFFFFFF8000", hex.formatHex((converter.toCobol((short) -32768, 10))));
+	}
+
+	@Test
+	public void testToCobolInteger() {
+		assertEquals("0000", hex.formatHex((converter.toCobol(0, 2))));
+		assertEquals("0001", hex.formatHex((converter.toCobol(1, 2))));
+		assertEquals("004A", hex.formatHex((converter.toCobol(74, 2))));
+		assertEquals("FFFF", hex.formatHex((converter.toCobol(2147483647, 2))));
+		assertEquals("FFFF", hex.formatHex((converter.toCobol(-1, 2))));
+		assertEquals("FFB6", hex.formatHex((converter.toCobol(-74, 2))));
+		assertEquals("0000", hex.formatHex((converter.toCobol(-2147483648, 2))));
+		assertEquals("00000000", hex.formatHex((converter.toCobol(0, 5))));
+		assertEquals("00000001", hex.formatHex((converter.toCobol(1, 5))));
+		assertEquals("0000004A", hex.formatHex((converter.toCobol(74, 5))));
+		assertEquals("7FFFFFFF", hex.formatHex((converter.toCobol(2147483647, 5))));
+		assertEquals("FFFFFFFF", hex.formatHex((converter.toCobol(-1, 5))));
+		assertEquals("FFFFFFB6", hex.formatHex((converter.toCobol(-74, 5))));
+		assertEquals("80000000", hex.formatHex((converter.toCobol(-2147483648, 5))));
+		assertEquals("0000000000000000", hex.formatHex((converter.toCobol(0, 10))));
+		assertEquals("0000000000000001", hex.formatHex((converter.toCobol(1, 10))));
+		assertEquals("000000000000004A", hex.formatHex((converter.toCobol(74, 10))));
+		assertEquals("000000007FFFFFFF", hex.formatHex((converter.toCobol(2147483647, 10))));
+		assertEquals("FFFFFFFFFFFFFFFF", hex.formatHex((converter.toCobol(-1, 10))));
+		assertEquals("FFFFFFFFFFFFFFB6", hex.formatHex((converter.toCobol(-74, 10))));
+		assertEquals("FFFFFFFF80000000", hex.formatHex((converter.toCobol(-2147483648, 10))));
+	}
+
+	@Test
+	public void testToCobolLong() {
+		assertEquals("0000", hex.formatHex((converter.toCobol(0l, 2))));
+		assertEquals("0001", hex.formatHex((converter.toCobol(1l, 2))));
+		assertEquals("004A", hex.formatHex((converter.toCobol(74l, 2))));
+		assertEquals("FFFF", hex.formatHex((converter.toCobol(9223372036854775807l, 2))));
+		assertEquals("FFFF", hex.formatHex((converter.toCobol(-1l, 2))));
+		assertEquals("FFB6", hex.formatHex((converter.toCobol(-74l, 2))));
+		assertEquals("0000", hex.formatHex((converter.toCobol(-9223372036854775808l, 2))));
+		assertEquals("00000000", hex.formatHex((converter.toCobol(0l, 5))));
+		assertEquals("00000001", hex.formatHex((converter.toCobol(1l, 5))));
+		assertEquals("0000004A", hex.formatHex((converter.toCobol(74l, 5))));
+		assertEquals("FFFFFFFF", hex.formatHex((converter.toCobol(9223372036854775807l, 5))));
+		assertEquals("FFFFFFFF", hex.formatHex((converter.toCobol(-1l, 5))));
+		assertEquals("FFFFFFB6", hex.formatHex((converter.toCobol(-74l, 5))));
+		assertEquals("00000000", hex.formatHex((converter.toCobol(-9223372036854775808l, 5))));
+		assertEquals("0000000000000000", hex.formatHex((converter.toCobol(0l, 10))));
+		assertEquals("0000000000000001", hex.formatHex((converter.toCobol(1l, 10))));
+		assertEquals("000000000000004A", hex.formatHex((converter.toCobol(74l, 10))));
+		assertEquals("7FFFFFFFFFFFFFFF", hex.formatHex((converter.toCobol(9223372036854775807l, 10))));
+		assertEquals("FFFFFFFFFFFFFFFF", hex.formatHex((converter.toCobol(-1l, 10))));
+		assertEquals("FFFFFFFFFFFFFFB6", hex.formatHex((converter.toCobol(-74l, 10))));
+		assertEquals("8000000000000000", hex.formatHex((converter.toCobol(-9223372036854775808l, 10))));
+	}
+
 }

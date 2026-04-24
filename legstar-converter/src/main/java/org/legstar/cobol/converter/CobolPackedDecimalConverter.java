@@ -2,6 +2,7 @@ package org.legstar.cobol.converter;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.legstar.cobol.io.CobolInputStream;
 import org.legstar.cobol.utils.BytesLenUtils;
@@ -136,6 +137,44 @@ public class CobolPackedDecimalConverter {
 			throw new CobolBeanConverterException(e);
 		}
 
+	}
+
+	/**
+	 * Convert a java decimal to a COBOL packed decimal (COMP-3)
+	 * <p>
+	 * Each digit from the java decimal becomes a 4 bit nibble.
+	 * <p>
+	 * The last nibble represents the sign. We start by filling this one then
+	 * continue right to left, filling all other nibbles.
+	 * <p>
+	 * Decimal separators are not materialized for packed decimals.
+	 * 
+	 * @param decimal        the java decimal
+	 * @param signed         a signed decimal
+	 * @param totalDigits    total number of digits (including fraction digits)
+	 * @param fractionDigits scale
+	 * @return a COBOL packed decimal
+	 */
+	public byte[] toCobol(BigDecimal decimal, boolean signed, int totalDigits, int fractionDigits) {
+		String s = decimal.setScale(fractionDigits, RoundingMode.DOWN).unscaledValue().abs().toString();
+		int bytesLen = BytesLenUtils.packedDecimalByteLen(totalDigits);
+		byte[] buffer = new byte[bytesLen];
+		int j = bytesLen - 1;
+		buffer[j] = (byte) (decimal.signum() == -1 ? negativeSignNibbleValue
+				: (signed ? positiveSignNibbleValue : unspecifiedSignNibbleValue));
+		boolean high = true;
+		for (int i = s.length() - 1; i >= 0 && j >= 0; i--) {
+			int nibble = lowNibble(s.charAt(i));
+			if (high) {
+				buffer[j] |= nibble << 4;
+				high = false;
+				j--;
+			} else {
+				buffer[j] = (byte) nibble;
+				high = true;
+			}
+		}
+		return buffer;
 	}
 
 	/**

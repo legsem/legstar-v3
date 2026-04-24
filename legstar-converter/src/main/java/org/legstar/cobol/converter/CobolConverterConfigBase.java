@@ -61,6 +61,17 @@ public abstract class CobolConverterConfigBase<T extends CobolConverterConfigBas
 	private boolean truncateHostStringsTrailingSpaces;
 
 	/**
+	 * Should cobol alphanumerics be right padded with spaces up to the cobol item
+	 * size.
+	 * <p>
+	 * When this option is false, cobol alphanumerics are right padded with low
+	 * values.
+	 * 
+	 * @return true if cobol alphanumerics should be right padded with spaces.
+	 */
+	private boolean rightPadCobolAlphanumWithSpaces;
+
+	/**
 	 * A set of parameters for the cobol converter.
 	 * 
 	 * @param hostCharsetName the cobol character set
@@ -158,6 +169,31 @@ public abstract class CobolConverterConfigBase<T extends CobolConverterConfigBas
 	 */
 	public T setTruncateHostStringsTrailingSpaces(boolean truncateHostStringsTrailingSpaces) {
 		this.truncateHostStringsTrailingSpaces = truncateHostStringsTrailingSpaces;
+		return self();
+	}
+
+	/**
+	 * Should cobol alphanumerics be right padded with spaces up to the cobol item
+	 * size
+	 * 
+	 * @return true if cobol alphanumerics be right padded with spaces up to the
+	 *         cobol item size
+	 */
+	public boolean rightPadCobolAlphanumWithSpaces() {
+		return rightPadCobolAlphanumWithSpaces;
+	}
+
+	/**
+	 * Should cobol alphanumerics be right padded with spaces up to the cobol item
+	 * size
+	 * 
+	 * @param rightPadCobolAlphanumWithSpaces true if cobol alphanumerics be right
+	 *                                        padded with spaces up to the cobol
+	 *                                        item size
+	 * @return this
+	 */
+	public T setRightPadCobolAlphanumWithSpaces(boolean rightPadCobolAlphanumWithSpaces) {
+		this.rightPadCobolAlphanumWithSpaces = rightPadCobolAlphanumWithSpaces;
 		return self();
 	}
 

@@ -133,6 +133,29 @@ public class CobolBinaryNumberConverter {
 	}
 
 	/**
+	 * Convert a java Number to a COBOL binary number (COMP, COMP-5).
+	 * <p>
+	 * If the java value would overflow the fixed size COBOL binary number, this
+	 * silently truncates exceeding left bytes.
+	 * 
+	 * @param n           the java Number
+	 * @param totalDigits the total number of digits
+	 * @return the binary value for the resulting computational item
+	 */
+	public byte[] toCobol(Number n, int totalDigits) {
+		int byteLen = BytesLenUtils.binaryNumberByteLen(totalDigits);
+		ByteBuffer bb = ByteBuffer.allocate(byteLen);
+		if (byteLen == 2) {
+			bb.putShort(n.shortValue());
+		} else if (byteLen == 4) {
+			bb.putInt(n.intValue());
+		} else {
+			bb.putLong(n.longValue());
+		}
+		return bb.array();
+	}
+
+	/**
 	 * Read the requested number of digits from the input stream.
 	 * 
 	 * @param is          cobol input data

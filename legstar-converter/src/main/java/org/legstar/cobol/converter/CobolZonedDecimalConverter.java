@@ -2,6 +2,7 @@ package org.legstar.cobol.converter;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.legstar.cobol.io.CobolInputStream;
 import org.legstar.cobol.utils.BytesLenUtils;
@@ -13,21 +14,30 @@ public class CobolZonedDecimalConverter {
 
 	private final int hostMinusSign;
 
+	private final int hostPlusSign;
+
 	private final int positiveSignNibbleValue;
 
 	private final int negativeSignNibbleValue;
 
+	private final int unspecifiedSignNibbleValue;
+
 	/**
 	 * Build a cobol zoned converter.
 	 * 
-	 * @param hostMinusSign           the minus sign cobol character encoding
-	 * @param positiveSignNibbleValue positive sign nibble value
-	 * @param negativeSignNibbleValue negative sign nibble value
+	 * @param hostMinusSign              the minus sign cobol character encoding
+	 * @param hostPlusSign               the plus sign cobol character encoding
+	 * @param positiveSignNibbleValue    positive sign nibble value
+	 * @param negativeSignNibbleValue    negative sign nibble value
+	 * @param unspecifiedSignNibbleValue unspecified sign nibble value
 	 */
-	public CobolZonedDecimalConverter(int hostMinusSign, int positiveSignNibbleValue, int negativeSignNibbleValue) {
+	public CobolZonedDecimalConverter(int hostMinusSign, int hostPlusSign, int positiveSignNibbleValue,
+			int negativeSignNibbleValue, int unspecifiedSignNibbleValue) {
 		this.hostMinusSign = hostMinusSign;
+		this.hostPlusSign = hostPlusSign;
 		this.positiveSignNibbleValue = positiveSignNibbleValue;
 		this.negativeSignNibbleValue = negativeSignNibbleValue;
+		this.unspecifiedSignNibbleValue = unspecifiedSignNibbleValue;
 	}
 
 	/**
@@ -123,6 +133,73 @@ public class CobolZonedDecimalConverter {
 		} catch (IOException | NumberFormatException e) {
 			throw new CobolBeanConverterException(e);
 		}
+
+	}
+
+	/**
+	 * Convert a java decimal to a COBOL zoned decimal (PIC 9 without editing)
+	 * <p>
+	 * Each digit from the java decimal becomes a COBOL digit.
+	 * <p>
+	 * The sign can be separate or overpunched. Furthermore the sign can be leading
+	 * or trailing.
+	 * <p>
+	 * The low nibble of a java digit (in ASCII) is the same as the low nibble of
+	 * the COBOL digit (in EBCDIC).
+	 * <p>
+	 * The high nibble is different though. In COBOL it is either F or C/D for
+	 * overpunched signs (affects first or last byte when sign is not separate)
+	 * <p>
+	 * If there are not enough digits in the java decimal we left pad with zeroes.
+	 * <p>
+	 * If there are more digits in the java decimal then expected by COBOL, we
+	 * silently truncate the most significant digits.
+	 * <p>
+	 * Decimal separators are not materialized for zoned decimals.
+	 * 
+	 * @param decimal        the java decimal value
+	 * @param signed         is the zoned decimal signed
+	 * @param totalDigits    total number of digits (including fraction digits)
+	 * @param fractionDigits scale
+	 * @param signLeading    true if sign is leading (otherwise sign is trailing)
+	 * @param signSeparate   true if sign is separate (otherwise it is overpunched
+	 *                       as the high nibble of the leading or trailing byte)
+	 * @return a COBOL zoned decimal
+	 */
+	public byte[] toCobol(BigDecimal decimal, boolean signed, int totalDigits, int fractionDigits, boolean signLeading,
+			boolean signSeparate) {
+
+		String s = decimal.setScale(fractionDigits, RoundingMode.DOWN).unscaledValue().abs().toString();
+
+		if (s.length() < totalDigits) {
+			s = "0".repeat(totalDigits - s.length()) + s;
+		} else if (s.length() > totalDigits) {
+			s = s.substring(s.length() - totalDigits);
+		}
+
+		int hostSign = decimal.signum() == -1 ? hostMinusSign : hostPlusSign;
+		int signNibble = decimal.signum() == -1 ? negativeSignNibbleValue
+				: (signed ? positiveSignNibbleValue : unspecifiedSignNibbleValue);
+
+		int bytesLen = BytesLenUtils.zonedDecimalByteLen(totalDigits, signSeparate);
+		byte[] buffer = new byte[bytesLen];
+		int j = bytesLen - 1;
+		if (signSeparate && !signLeading) {
+			buffer[j] = (byte) hostSign;
+			j--;
+		}
+		for (int i = s.length() - 1; i >= 0; i--) {
+			int highNibble = !signSeparate && ((i == s.length() - 1 && !signLeading) || (i == 0 && signLeading))
+					? signNibble
+					: unspecifiedSignNibbleValue;
+			buffer[j] = (byte) (highNibble << 4 | s.charAt(i) & 0x0f);
+			j--;
+		}
+		if (signSeparate && signLeading) {
+			buffer[j] = (byte) hostSign;
+			j--;
+		}
+		return buffer;
 
 	}
 

@@ -2,6 +2,7 @@ package org.legstar.cobol.converter;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 
 import org.legstar.cobol.io.CobolInputStream;
 
@@ -14,16 +15,28 @@ public class CobolStringConverter {
 
 	private final boolean truncateHostStringsTrailingSpaces;
 
+	private final boolean rightPadCobolAlphanumWithSpaces;
+
+	private final int hostSpaceCharCode;
+
 	/**
 	 * Build a cobol string converter.
 	 * 
 	 * @param hostCharsetName                   the cobol character set
 	 * @param truncateHostStringsTrailingSpaces true if strings should be right
 	 *                                          truncated
+	 * @param rightPadCobolAlphanumWithSpaces   Should cobol alphanumerics be right
+	 *                                          padded with spaces up to the cobol
+	 *                                          item size
+	 * @param hostSpaceCharCode                 Space character in the cobol
+	 *                                          character set
 	 */
-	public CobolStringConverter(String hostCharsetName, boolean truncateHostStringsTrailingSpaces) {
+	public CobolStringConverter(String hostCharsetName, boolean truncateHostStringsTrailingSpaces,
+			boolean rightPadCobolAlphanumWithSpaces, int hostSpaceCharCode) {
 		this.hostCharsetName = hostCharsetName;
 		this.truncateHostStringsTrailingSpaces = truncateHostStringsTrailingSpaces;
+		this.rightPadCobolAlphanumWithSpaces = rightPadCobolAlphanumWithSpaces;
+		this.hostSpaceCharCode = hostSpaceCharCode;
 	}
 
 	/**
@@ -81,6 +94,28 @@ public class CobolStringConverter {
 		} catch (IOException e) {
 			throw new CobolBeanConverterException(e);
 		}
+	}
+
+	/**
+	 * Convert a java String to a cobol alphanumeric.
+	 * 
+	 * @param s       the java string
+	 * @param charNum the cobol alphanumeric size
+	 * @return the binary value for the resulting alphanumeric
+	 */
+	public byte[] toCobol(String s, int charNum) {
+		try {
+			byte[] target = new byte[charNum];
+			byte[] source = s.getBytes(hostCharsetName);
+			System.arraycopy(source, 0, target, 0, Math.min(charNum, source.length));
+			if (charNum > source.length && rightPadCobolAlphanumWithSpaces) {
+				Arrays.fill(target, source.length, charNum, (byte) hostSpaceCharCode);
+			}
+			return target;
+		} catch (UnsupportedEncodingException e) {
+			throw new CobolBeanConverterException(e);
+		}
+
 	}
 
 }

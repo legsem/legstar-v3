@@ -127,17 +127,22 @@ public class CobolBeanConverter<T> {
 	 * @param choiceStrategy strategy to select alternatives in choices. If null,
 	 *                       the default strategy is applied
 	 */
-	public CobolBeanConverter(CobolConverterConfig config, Class<T> beanClass,
-			CobolChoiceStrategy<T> choiceStrategy) {
+	public CobolBeanConverter(CobolConverterConfig config, Class<T> beanClass, CobolChoiceStrategy<T> choiceStrategy) {
 		this.beanClass = beanClass;
 		this.choiceStrategy = choiceStrategy == null ? new CobolConverterDefaultChoiceStrategy() : choiceStrategy;
-		stringConverter = new CobolStringConverter(config.hostCharsetName(),
-				config.truncateHostStringsTrailingSpaces());
+		stringConverter = new CobolStringConverter(config.hostCharsetName(), //
+				config.truncateHostStringsTrailingSpaces(), //
+				config.rightPadCobolAlphanumWithSpaces(), //
+				config.hostSpaceCharCode());
 		binaryNumberConverter = new CobolBinaryNumberConverter();
-		zonedDecimalConverter = new CobolZonedDecimalConverter(config.hostMinusSign(), config.positiveSignNibbleValue(),
-				config.negativeSignNibbleValue());
-		packedDecimalConverter = new CobolPackedDecimalConverter(config.hostSpaceCharCode(),
-				config.positiveSignNibbleValue(), config.negativeSignNibbleValue(),
+		zonedDecimalConverter = new CobolZonedDecimalConverter(config.hostMinusSign(),  //
+				config.hostPlusSign(),  //
+				config.positiveSignNibbleValue(), //
+				config.negativeSignNibbleValue(), //
+				config.unspecifiedSignNibbleValue());
+		packedDecimalConverter = new CobolPackedDecimalConverter(config.hostSpaceCharCode(), //
+				config.positiveSignNibbleValue(),  //
+				config.negativeSignNibbleValue(), //
 				config.unspecifiedSignNibbleValue());
 		floatConverter = new CobolFloatConverter();
 		doubleConverter = new CobolDoubleConverter();
@@ -653,7 +658,7 @@ public class CobolBeanConverter<T> {
 			throw new CobolBeanConverterException(e);
 		}
 	}
-	
+
 	/**
 	 * Retrieve a class fields from cache if available.
 	 * 
