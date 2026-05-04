@@ -11,6 +11,12 @@ import org.legstar.cobol.utils.BytesLenUtils;
  */
 public class CobolFloatConverter {
 
+	private static final int SIGN_BIT_MASK = 0x80000000; // bit 31 is the sign
+	private static final int EXP_IEEE_MASK = 0x7f800000; // bits 30 to 23 is the encoded binary exponent
+	private static final int MAN_IEEE_MASK = 0x007fffff; // bits 22 to 0 is the encoded mantissa
+	private static final int EXP_COMP_1_MASK = 0x7f000000; // bits 30 to 24 is the encoded hexadecimal exponent
+	private static final int MAN_COMP_1_MASK = 0x00ffffff; // bits 23 to 0 is the mantissa
+
 	/**
 	 * Build a COBOL float converter
 	 */
@@ -63,17 +69,10 @@ public class CobolFloatConverter {
 			}
 			ByteBuffer bb = ByteBuffer.wrap(buffer);
 			int hostIntBits = bb.getInt();
-			int sign = (hostIntBits & 0x80000000) >>> 31;
 
-			/*
-			 * Bits 30-24 (7 bits) represents the exponent offset by 64, this number is
-			 * called excess so you get the exponent as E= excess - 64
-			 */
-			int excess = (hostIntBits & 0x7f000000) >>> 24;
-			int exponent = excess == 0 ? 0 : (excess - 64);
-
-			/* Bits 23-0 (24 bits) represents the getMantissa(). */
-			int mantissa = hostIntBits & 0x00ffffff;
+			int sign = sign(hostIntBits);
+			int exponent = comp_1Exponent(hostIntBits);
+			int mantissa = comp_1Mantissa(hostIntBits);
 
 			/* Java Floats are in IEEE 754 floating-point bit layout. */
 			/*
@@ -105,5 +104,107 @@ public class CobolFloatConverter {
 			throw new CobolBeanConverterException(e);
 		}
 	}
+
+	/**
+	 * Convert a java float to a COBOL floating point (COMP-1)
+	 * <p>
+	 * https://en.wikipedia.org/wiki/Double-precision_floating-point_format
+	 * <p>
+	 * https://en.wikipedia.org/wiki/IBM_hexadecimal_floating-point
+	 * <p>
+	 * Java float is in IEEE 724 format where the exponent in a binary exponent. The
+	 * layout is like this:
+	 * 
+	 * <pre>
+	 * 00111110011000001010000000000000
+	 * -                                 sign
+	 *  --------                         exponent
+	 *          -----------------------  significand
+	 * </pre>
+	 * 
+	 * <p>
+	 * Otherwise a difficulty is to convert the java binary exponent into a COMP-1
+	 * hexadecimal component (An hexadecimal digit is 4 bits).
+	 * <p>
+	 * In the normal case, there is an implicit initial 1 bit for the java fraction.
+	 * This needs to be accounted for for both the exponent and the mantissa.
+	 * <p>
+	 * The subnormal case is not supported.
+	 * 
+	 * @param value the java float
+	 * @return a COBOL floating point
+	 */
+	public byte[] toCobol(float value) {
+
+		if (Float.isNaN(value) || Float.isInfinite(value)) {
+			throw new CobolBeanConverterException("Unsupported float " + value);
+		}
+		if (value == 0.0f || value == -0.0f) {
+			return new byte[4];
+		}
+
+		int bitsIeee = Float.floatToIntBits(value);
+		int sign = sign(bitsIeee);
+		int expIeee = ((bitsIeee & EXP_IEEE_MASK) >> 23) - 127; // remove bias
+		int manIeee = bitsIeee & MAN_IEEE_MASK;
+
+		if (expIeee == -127 && manIeee != 0) {
+			throw new CobolBeanConverterException("Subnormal floats are not supported");
+		}
+		/* IEEE exponent + implied first bit 1 may not be a multiple of 4 */
+		int rest = (expIeee + 1) % 4;
+		/* Calculate shift to apply on mantissa to accommodate a hex component */
+		int shift = rest <= 0 ? -1 * rest : 4 - rest;
+		/* Calculate the biased hex exponent for COMP-1 */
+		int expComp_1 = (((expIeee + 1 + shift) / 4)) + 64;
+		if (expComp_1 < 0 || expComp_1 > 127) {
+			throw new CobolBeanConverterException(
+					"Hexadecimal biased exponent " + expComp_1 + " outside supported range (0-127)");
+		}
+		/* COMP-1 mantissa must include implicit first bit 1 */
+		int manComp_1 = (1 << 23) | manIeee;
+		/* shift mantissa to account for hex exponent */
+		manComp_1 = manComp_1 >> shift;
+
+		int bitsComp_1 = sign << 31;
+		bitsComp_1 |= ((expComp_1 << 24) & EXP_COMP_1_MASK);
+		bitsComp_1 |= manComp_1 & MAN_COMP_1_MASK;
+		ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES);
+		buffer.putInt(bitsComp_1);
+		return buffer.array();
+	}
+
+	/**
+	 * Sign is the leftmost bit in IEEE and COMP-1
+	 * 
+	 * @param bits the COMP-1 or IEEE 32 bits
+	 * @return 0 if positive, 1 if negative
+	 */
+	public static int sign(int bits) {
+		return (bits & SIGN_BIT_MASK) >>> 31;
+	}
+
+	/**
+	 * For COMP-1, bits 30-24 (7 bits) represents the exponent offset by 64, this
+	 * number is called excess so you get the exponent as E= excess - 64
+	 * 
+	 * @param bits the COMP-1 32 bits
+	 * @return the hexadecimal exponent
+	 */
+	public static int comp_1Exponent(int bits) {
+		int excess = (bits & EXP_COMP_1_MASK) >>> 56;
+		return excess == 0 ? 0 : (excess - 64);
+	}
+
+	/**
+	 * For COMP-1 the mantissa is the trailing 24 bits.
+	 * 
+	 * @param bits the COMP-1 32 bits
+	 * @return the mantissa
+	 */
+	public static int comp_1Mantissa(int bits) {
+		return bits & MAN_COMP_1_MASK;
+	}
+
 
 }

@@ -63,7 +63,7 @@ public class CobolDoubleConverterTest extends CobolConverterTestBase {
 		toHostError(Double.POSITIVE_INFINITY, "Unsupported double Infinity");
 		toHostError(Double.MAX_VALUE, "Hexadecimal biased exponent 320 outside supported range (0-127)");
 		toHostError(Double.MIN_NORMAL, "Hexadecimal biased exponent -191 outside supported range (0-127)");
-		toHostError(Double.MIN_VALUE, "Hexadecimal biased exponent -191 outside supported range (0-127)");
+		toHostError(Double.MIN_VALUE, "Subnormal doubles are not supported");
 		toHostError(1E-99, "Hexadecimal biased exponent -18 outside supported range (0-127)");
 	}
 

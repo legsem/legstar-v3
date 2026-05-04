@@ -155,7 +155,7 @@ public class CobolDoubleConverter {
 		long expIeee = ((bitsIeee & EXP_IEEE_MASK) >> 52) - 1023; // remove bias
 		long manIeee = bitsIeee & MAN_IEEE_MASK;
 
-		if (expIeee == 0 && manIeee != 0) {
+		if (expIeee == -1023 && manIeee != 0) {
 			throw new CobolBeanConverterException("Subnormal doubles are not supported");
 		}
 		/* IEEE exponent + implied first bit 1 may not be a multiple of 4 */
