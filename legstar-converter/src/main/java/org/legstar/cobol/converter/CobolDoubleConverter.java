@@ -126,7 +126,7 @@ public class CobolDoubleConverter {
 	 * 0100000001100000101000000000000000000000000000000000000000000000
 	 * -                                                                 sign
 	 *  -----------                                                      exponent
-	 *             ----------------------------------------------------  significand
+	 *             ----------------------------------------------------  mantissa
 	 * </pre>
 	 * 
 	 * <p>
@@ -136,7 +136,8 @@ public class CobolDoubleConverter {
 	 * In the normal case, there is an implicit initial 1 bit for the java fraction.
 	 * This needs to be accounted for for both the exponent and the mantissa.
 	 * <p>
-	 * The subnormal case is not supported.
+	 * In the subnormal case there is an implicit initial 0 bit. COMP-1 requires
+	 * that the first hex digit is non zero so we have to remove leading zeroes.
 	 * 
 	 * @param value the java double
 	 * @return a COBOL long floating point
@@ -152,28 +153,40 @@ public class CobolDoubleConverter {
 
 		long bitsIeee = Double.doubleToLongBits(value);
 		long sign = sign(bitsIeee);
-		long expIeee = ((bitsIeee & EXP_IEEE_MASK) >> 52) - 1023; // remove bias
+		long expIeee = (bitsIeee & EXP_IEEE_MASK) >> 52;
 		long manIeee = bitsIeee & MAN_IEEE_MASK;
-
-		if (expIeee == -1023 && manIeee != 0) {
-			throw new CobolBeanConverterException("Subnormal doubles are not supported");
+		
+		/* Remove IEEE bias from exponent  */
+		long expComp_2 =  expIeee - 1022;
+		long manComp_2 = manIeee;
+		if (expIeee == 0 && manIeee > 0) {
+			/* Subnormal case. Remove leading zeroes */
+			long n = Long.numberOfLeadingZeros(manComp_2) - 11 - 1;
+			expComp_2 = expComp_2 - n;
+			manComp_2 = manComp_2 << (n + 1);
+			/* Convert binary exponent to hexadecimal */
+			long shift = Math.abs(expComp_2 % 4);
+			expComp_2 = expComp_2 / 4;
+			/* Shift mantissa to accomodate hex component */
+			manComp_2 = manComp_2 >>> shift;
+		} else {
+			/* Normal case. Add implied leading 1 bit */
+			manComp_2 = manComp_2 | 0x0010000000000000L;
+			/* Convert binary exponent to hexadecimal */
+			long rest = expComp_2 % 4;
+			long shift = rest <= 0 ? Math.abs(rest) : 4 - rest;
+			expComp_2 = (expComp_2 + shift) / 4;
+			/* Shift mantissa to accomodate hex component */
+			manComp_2 = manComp_2 >>> shift;
+			/* Compensate for extra 3 bits introduced by adding implicit first bit */
+		    manComp_2 = manComp_2 << 3;
 		}
-		/* IEEE exponent + implied first bit 1 may not be a multiple of 4 */
-		long rest = (expIeee + 1) % 4; 
-		/* Calculate shift to apply on mantissa to accommodate a hex component */
-		long shift = rest <= 0 ? -1 * rest : 4 - rest;
-		/* Calculate the biased hex exponent for COMP-2 */
-		long expComp_2 = (((expIeee + 1 + shift) / 4)) + 64; 
+		/* Add COMP-2 bias to exponent  */
+		expComp_2 = expComp_2 + 64;
 		if (expComp_2 < 0 || expComp_2 > 127) {
 			throw new CobolBeanConverterException(
 					"Hexadecimal biased exponent " + expComp_2 + " outside supported range (0-127)");
 		}
-		/* COMP-2 mantissa must include implicit first bit 1 */
-		long manComp_2 = (1l << 52) | manIeee;
-		/* shift mantissa to account for hex exponent */
-		manComp_2 = manComp_2 >> shift; 
-		/* Compensate for extra 3 bits introduced by adding implicit first bit */
-		manComp_2 = manComp_2 << 3; 
 
 		long bitsComp_2 = sign << 63;
 		bitsComp_2 |= ((expComp_2 << 56) & EXP_COMP_2_MASK);

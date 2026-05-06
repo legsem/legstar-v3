@@ -44,6 +44,8 @@ public class CobolDoubleConverterTest extends CobolConverterTestBase {
 	@Test
 	public void testToHostDouble() {
 		assertEquals(-118.625d, toHost(-118.625));
+		assertEquals(25431.121d, toHost(25431.121));
+		assertEquals(345006.56d, toHost(345006.56), 0.0000000001);
 		assertEquals(128d, toHost(128));
 		assertEquals(-128d, toHost(-128));
 		assertEquals(0d, toHost(0));
@@ -63,7 +65,7 @@ public class CobolDoubleConverterTest extends CobolConverterTestBase {
 		toHostError(Double.POSITIVE_INFINITY, "Unsupported double Infinity");
 		toHostError(Double.MAX_VALUE, "Hexadecimal biased exponent 320 outside supported range (0-127)");
 		toHostError(Double.MIN_NORMAL, "Hexadecimal biased exponent -191 outside supported range (0-127)");
-		toHostError(Double.MIN_VALUE, "Subnormal doubles are not supported");
+		toHostError(Double.MIN_VALUE, "Hexadecimal biased exponent -204 outside supported range (0-127)");
 		toHostError(1E-99, "Hexadecimal biased exponent -18 outside supported range (0-127)");
 	}
 
@@ -98,7 +100,7 @@ public class CobolDoubleConverterTest extends CobolConverterTestBase {
 		long mantissa = CobolDoubleConverter.comp_2Mantissa(bitsComp_2);
 		double fraction = 0d;
 		int i = 8;
-		for (int p = -1; p > -14; p--) {
+		for (int p = -1; p > -15; p--) {
 			long left = mantissa << i;
 			long right = left >>> 60;
 			fraction += right * Math.pow(16, p);
