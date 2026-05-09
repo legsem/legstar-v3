@@ -558,7 +558,7 @@ public class CobolBeanConverter<T> {
 	}
 
 	/**
-	 * Retrieve the cobol array annotation fro a grou child.
+	 * Retrieve the cobol array annotation from a group child.
 	 * 
 	 * @param field the group child
 	 * @return the cobol array annotation or null if not found
