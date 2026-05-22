@@ -1,11 +1,15 @@
 package org.legstar.cobol.converter;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
+import org.legstar.cobol.annotation.CobolArray;
+import org.legstar.cobol.annotation.CobolChoice;
 import org.legstar.cobol.annotation.CobolItemType;
 
 /**
@@ -16,27 +20,154 @@ import org.legstar.cobol.annotation.CobolItemType;
  */
 public class CobolClassInfoReflect implements CobolClassInfo {
 
-	private final Map<Integer, FieldInfo[]> fieldInfos = new ConcurrentHashMap<>();
+	private final Map<Integer, CobolFieldInfo[]> fieldInfos = new ConcurrentHashMap<>();
+
+	private final Map<Class<?>, Constructor<?>> constructorCache = new ConcurrentHashMap<>();
 
 	@Override
-	public FieldInfo[] fieldInfos(Class<?> clazz) {
+	public CobolFieldInfo[] fieldInfos(Class<?> clazz) {
 		return fieldInfos.computeIfAbsent(clazz.hashCode(), k -> {
 			return Stream.of(clazz.getDeclaredFields()) //
+					.filter(this::isCobolField) //
 					.map(this::toFieldInfo) //
-					.toArray(FieldInfo[]::new);
+					.toArray(CobolFieldInfo[]::new);
 		});
 	}
 
-	private FieldInfo toFieldInfo(Field f) {
-		return new FieldInfo(f.getName(), //
-				getMethod(f.getDeclaringClass(), getterName(f)), //
-				Stream.of(f.getAnnotations()) //
-						.filter(a -> a.annotationType().isAnnotationPresent(CobolItemType.class)) //
-						.findFirst() //
-						.orElse(null), //
-				f.getType());
+	/**
+	 * Create a new instance of a class.
+	 * <p>
+	 * Class is assumed to have a no arg constructor.
+	 * <p>
+	 * Since this is expensive, we cache the constructor method.
+	 * 
+	 * @param <Z>   the target instance class type
+	 * @param clazz the target instance class
+	 * @return a new instance
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public <Z> Z newInstance(Class<Z> clazz) {
+		try {
+			return (Z) constructorCache.computeIfAbsent(clazz, c -> {
+				try {
+					return clazz.getConstructor();
+				} catch (Throwable e) {
+					throw new CobolBeanConverterException(e);
+				}
+			}).newInstance();
+		} catch (Throwable e) {
+			throw new CobolBeanConverterException(e);
+		}
 	}
 
+	/**
+	 * A Cobol field either have a Cobol annotation or references an inner class.
+	 * <p>
+	 * In the case of arrays, the inner class would be that of an item.
+	 * 
+	 * @param field the field to check
+	 * @return true if this is a Cobol field
+	 */
+	private boolean isCobolField(Field field) {
+		return getCobolItemType(field) != null //
+				|| isInnerClass(field.getDeclaringClass(), field.getType()) //
+				|| (field.getType().isArray() //
+						&& isInnerClass(field.getDeclaringClass(), field.getType().getComponentType()));
+	}
+
+	/**
+	 * Is the child class an inner class of the parent class.
+	 * 
+	 * @param parent the parent class
+	 * @param child  the child class
+	 * @return true if the child class an inner class of the parent class
+	 */
+	private boolean isInnerClass(Class<?> parent, Class<?> child) {
+		return parent.equals(child.getEnclosingClass());
+	}
+
+	/**
+	 * Collect useful field information for the purpose of converting to and from
+	 * Cobol.
+	 * 
+	 * @param field the field
+	 * @return useful field information
+	 */
+	private CobolFieldInfo toFieldInfo(Field field) {
+		return new CobolFieldInfo(field.getName(), //
+				getMethod(field.getDeclaringClass(), getterName(field)), //
+				getCobolArray(field), //
+				getCobolItemType(field), //
+				field.getType(), //
+				isAlternative(field));
+	}
+
+	/**
+	 * If this an alternative in choice.
+	 * 
+	 * @param field the field to check
+	 * @return true if the field's parent is a Cobol choice
+	 */
+	private boolean isAlternative(Field field) {
+		Class<?> parent = field.getDeclaringClass();
+		Annotation cobolAnnotation = getCobolItemType(parent);
+		return cobolAnnotation instanceof CobolChoice;
+	}
+
+	/**
+	 * Retrieve a field Cobol annotation.
+	 * 
+	 * @param field the field
+	 * @return the Cobol annotation on that field or null if not found
+	 */
+	private Annotation getCobolItemType(Field field) {
+		return getCobolItemType(field.getAnnotations());
+	}
+
+	/**
+	 * Retrieve the cobol array annotation.
+	 * 
+	 * @param field the child
+	 * @return the cobol array annotation or null if not found
+	 */
+	private CobolArray getCobolArray(Field field) {
+		return field.getDeclaredAnnotation(CobolArray.class);
+	}
+
+	/**
+	 * Retrieve a vlass Cobol annotation.
+	 * 
+	 * @param clazz the class
+	 * @return the Cobol annotation on that class or null if not found
+	 */
+	private Annotation getCobolItemType(Class<?> clazz) {
+		return getCobolItemType(clazz.getAnnotations());
+	}
+
+	/**
+	 * Retrieve the cobol annotation among all annotations.
+	 * 
+	 * @param annotations a collection of annotations
+	 * @return the Cobol annotation or null if not found
+	 */
+	private Annotation getCobolItemType(Annotation[] annotations) {
+		return Stream.of(annotations) //
+				.filter(a -> a.annotationType().isAnnotationPresent(CobolItemType.class)) //
+				.findFirst() //
+				.orElse(null);
+	}
+
+	/**
+	 * Method corresponding to method name.
+	 * <p>
+	 * The method name must exist in the parameter class.
+	 * 
+	 * @param clazz      the class implementing the requested method
+	 * @param methodName the requested method name
+	 * @return the method or throws a runtime exception if the method does not exist
+	 *         or cannot be accessed
+	 */
 	private Method getMethod(Class<?> clazz, String methodName) {
 		try {
 			return clazz.getMethod(methodName);
@@ -45,6 +176,15 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 		}
 	}
 
+	/**
+	 * Getter method name for the given field.
+	 * <p>
+	 * This assumes the bean was generated by legstar and therefore the getter name
+	 * follows a strict set of rules.
+	 * 
+	 * @param f the field
+	 * @return the getter method name for that field
+	 */
 	private String getterName(Field f) {
 		String name = f.getName();
 		return "get" + name.substring(0, 1).toUpperCase() + name.substring(1);

@@ -57,6 +57,7 @@ public abstract class CobolPrimitiveConverter {
 		binaryNumberConverter = new CobolBinaryNumberConverter();
 		zonedDecimalConverter = new CobolZonedDecimalConverter(config.hostMinusSign(), //
 				config.hostPlusSign(), //
+				config.hostSpaceCharCode(), //
 				config.positiveSignNibbleValue(), //
 				config.negativeSignNibbleValue(), //
 				config.unspecifiedSignNibbleValue());
@@ -83,8 +84,9 @@ public abstract class CobolPrimitiveConverter {
 	public byte[] convertZonedDecimal(CobolZonedDecimal cobolZonedDecimal, Object value) {
 		if (value instanceof BigDecimal) {
 			return zonedDecimalConverter.toCobol((BigDecimal) value, cobolZonedDecimal.signed(),
-					cobolZonedDecimal.totalDigits(), cobolZonedDecimal.fractionDigits(), cobolZonedDecimal.signLeading(),
-					cobolZonedDecimal.signSeparate());
+					cobolZonedDecimal.totalDigits(), cobolZonedDecimal.fractionDigits(),
+					cobolZonedDecimal.signLeading(), cobolZonedDecimal.signSeparate(),
+					cobolZonedDecimal.blankWhenZero());
 		} else {
 			return convertZonedDecimal(cobolZonedDecimal, new BigDecimal(value.toString()));
 		}

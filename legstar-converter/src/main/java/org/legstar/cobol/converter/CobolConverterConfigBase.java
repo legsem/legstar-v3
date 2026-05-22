@@ -69,7 +69,7 @@ public abstract class CobolConverterConfigBase<T extends CobolConverterConfigBas
 	 * 
 	 * @return true if cobol alphanumerics should be right padded with spaces.
 	 */
-	private boolean rightPadCobolAlphanumWithSpaces;
+	private boolean rightPadCobolAlphanumWithSpaces = true;
 
 	/**
 	 * A set of parameters for the cobol converter.

@@ -16,6 +16,8 @@ public class CobolZonedDecimalConverter {
 
 	private final int hostPlusSign;
 
+	private final int hostSpaceCharCode;
+
 	private final int positiveSignNibbleValue;
 
 	private final int negativeSignNibbleValue;
@@ -27,14 +29,16 @@ public class CobolZonedDecimalConverter {
 	 * 
 	 * @param hostMinusSign              the minus sign cobol character encoding
 	 * @param hostPlusSign               the plus sign cobol character encoding
+	 * @param hostSpaceCharCode          the plus space cobol character encoding
 	 * @param positiveSignNibbleValue    positive sign nibble value
 	 * @param negativeSignNibbleValue    negative sign nibble value
 	 * @param unspecifiedSignNibbleValue unspecified sign nibble value
 	 */
-	public CobolZonedDecimalConverter(int hostMinusSign, int hostPlusSign, int positiveSignNibbleValue,
-			int negativeSignNibbleValue, int unspecifiedSignNibbleValue) {
+	public CobolZonedDecimalConverter(int hostMinusSign, int hostPlusSign, int hostSpaceCharCode,
+			int positiveSignNibbleValue, int negativeSignNibbleValue, int unspecifiedSignNibbleValue) {
 		this.hostMinusSign = hostMinusSign;
 		this.hostPlusSign = hostPlusSign;
+		this.hostSpaceCharCode = hostSpaceCharCode;
 		this.positiveSignNibbleValue = positiveSignNibbleValue;
 		this.negativeSignNibbleValue = negativeSignNibbleValue;
 		this.unspecifiedSignNibbleValue = unspecifiedSignNibbleValue;
@@ -164,10 +168,21 @@ public class CobolZonedDecimalConverter {
 	 * @param signLeading    true if sign is leading (otherwise sign is trailing)
 	 * @param signSeparate   true if sign is separate (otherwise it is overpunched
 	 *                       as the high nibble of the leading or trailing byte)
+	 * @param blankWhenZero  true if all zeroes should be replaced with spaces
 	 * @return a COBOL zoned decimal
 	 */
 	public byte[] toCobol(BigDecimal decimal, boolean signed, int totalDigits, int fractionDigits, boolean signLeading,
-			boolean signSeparate) {
+			boolean signSeparate, boolean blankWhenZero) {
+
+		int bytesLen = BytesLenUtils.zonedDecimalByteLen(totalDigits, signSeparate);
+		byte[] buffer = new byte[bytesLen];
+
+		if (blankWhenZero && BigDecimal.ZERO.equals(decimal)) {
+			for (int i = 0; i < bytesLen; i++) {
+				buffer[i] = (byte) hostSpaceCharCode;
+			}
+			return buffer;
+		}
 
 		String s = decimal.setScale(fractionDigits, RoundingMode.DOWN).unscaledValue().abs().toString();
 
@@ -181,8 +196,6 @@ public class CobolZonedDecimalConverter {
 		int signNibble = decimal.signum() == -1 ? negativeSignNibbleValue
 				: (signed ? positiveSignNibbleValue : unspecifiedSignNibbleValue);
 
-		int bytesLen = BytesLenUtils.zonedDecimalByteLen(totalDigits, signSeparate);
-		byte[] buffer = new byte[bytesLen];
 		int j = bytesLen - 1;
 		if (signSeparate && !signLeading) {
 			buffer[j] = (byte) hostSign;

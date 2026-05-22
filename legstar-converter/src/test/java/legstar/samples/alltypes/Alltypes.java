@@ -41,22 +41,22 @@ public class Alltypes {
     @CobolDouble(cobolName = "S-DOUBLE")
     private Double s_Double;
 
-    @CobolZonedDecimal(cobolName = "S-ZONED", totalDigits = 5, fractionDigits = 2)
+    @CobolZonedDecimal(cobolName = "S-ZONED", signed = true, totalDigits = 5, fractionDigits = 2)
     private BigDecimal s_Zoned;
 
     @CobolZonedDecimal(cobolName = "S-UZONED", totalDigits = 5, fractionDigits = 2)
     private BigDecimal s_Uzoned;
 
-    @CobolZonedDecimal(cobolName = "S-ZONED-SL", totalDigits = 3, signLeading = true)
+    @CobolZonedDecimal(cobolName = "S-ZONED-SL", signed = true, totalDigits = 3, signLeading = true)
     private BigDecimal s_ZonedSl;
 
-    @CobolZonedDecimal(cobolName = "S-ZONED-ST", totalDigits = 2)
+    @CobolZonedDecimal(cobolName = "S-ZONED-ST", signed = true, totalDigits = 2)
     private BigDecimal s_ZonedSt;
 
-    @CobolZonedDecimal(cobolName = "S-ZONED-SLS", totalDigits = 1, signLeading = true, signSeparate = true)
+    @CobolZonedDecimal(cobolName = "S-ZONED-SLS", signed = true, totalDigits = 1, signLeading = true, signSeparate = true)
     private BigDecimal s_ZonedSls;
 
-    @CobolZonedDecimal(cobolName = "S-ZONED-STS", totalDigits = 2, signSeparate = true)
+    @CobolZonedDecimal(cobolName = "S-ZONED-STS", signed = true, totalDigits = 2, signSeparate = true)
     private BigDecimal s_ZonedSts;
 
     @CobolZonedDecimal(cobolName = "S-UZONED-BWZ", totalDigits = 5, fractionDigits = 2, blankWhenZero = true)

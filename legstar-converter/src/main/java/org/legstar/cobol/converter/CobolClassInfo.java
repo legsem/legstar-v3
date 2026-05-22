@@ -1,26 +1,26 @@
 package org.legstar.cobol.converter;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-
 /**
  * Information about a generated Cobol annotated bean class.
  */
 public interface CobolClassInfo {
 
 	/**
-	 * Returns field informations of null if this class has no fields.
+	 * Returns field informations for a cobol annotated class.
 	 * 
 	 * @param clazz the class to introspect
-	 * @return the field informations of null if this class has no fields
+	 * @return the field informations
 	 */
-	FieldInfo[] fieldInfos(Class<?> clazz);
-
+	CobolFieldInfo[] fieldInfos(Class<?> clazz);
+	
 	/**
-	 * Information about a generated Cobol annotated bean field.
+	 * Create a new instance of a cobol-annotated class.
+	 * 
+	 * @param <Z> the class type
+	 * @param clazz the cobol-annotated class
+	 * @return a new instance
 	 */
-	record FieldInfo(String name, Method getter, Annotation cobolItemType, Class<?> javaType) {
-	}
+	<Z> Z newInstance(Class<Z> clazz);
 
 
 }

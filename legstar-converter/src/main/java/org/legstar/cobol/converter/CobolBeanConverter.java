@@ -135,13 +135,14 @@ public class CobolBeanConverter<T> {
 				config.rightPadCobolAlphanumWithSpaces(), //
 				config.hostSpaceCharCode());
 		binaryNumberConverter = new CobolBinaryNumberConverter();
-		zonedDecimalConverter = new CobolZonedDecimalConverter(config.hostMinusSign(),  //
-				config.hostPlusSign(),  //
+		zonedDecimalConverter = new CobolZonedDecimalConverter(config.hostMinusSign(), //
+				config.hostPlusSign(), //
+				config.hostSpaceCharCode(), //
 				config.positiveSignNibbleValue(), //
 				config.negativeSignNibbleValue(), //
 				config.unspecifiedSignNibbleValue());
 		packedDecimalConverter = new CobolPackedDecimalConverter(config.hostSpaceCharCode(), //
-				config.positiveSignNibbleValue(),  //
+				config.positiveSignNibbleValue(), //
 				config.negativeSignNibbleValue(), //
 				config.unspecifiedSignNibbleValue());
 		floatConverter = new CobolFloatConverter();

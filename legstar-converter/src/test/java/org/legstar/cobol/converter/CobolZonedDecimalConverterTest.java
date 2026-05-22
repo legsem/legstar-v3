@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 public class CobolZonedDecimalConverterTest extends CobolConverterTestBase {
 
-	CobolZonedDecimalConverter converter = new CobolZonedDecimalConverter(0x60, 0x4E, 0x0c, 0x0d, 0x0f);
+	CobolZonedDecimalConverter converter = new CobolZonedDecimalConverter(0x60, 0x4E, 0x40, 0x0c, 0x0d, 0x0f);
 
 	private final HexFormat hex = HexFormat.of().withUpperCase();
 
@@ -88,17 +88,17 @@ public class CobolZonedDecimalConverterTest extends CobolConverterTestBase {
 	public void scale2() {
 		assertEquals("12.34", fromHost("F1F2F3C4", 4, 2, false, false));
 	}
-	
+
 	@Test
 	public void scale4() {
 		assertEquals("0.1234", fromHost("F1F2F3C4", 4, 4, false, false));
 	}
-	
+
 	@Test
 	public void scale5() {
 		assertEquals("0.01234", fromHost("F1F2F3C4", 4, 5, false, false));
 	}
-	
+
 	@Test
 	public void toCobolSignum() {
 		assertEquals("F0F0", toHost("0", false, 2, 0, false, false));
@@ -151,6 +151,12 @@ public class CobolZonedDecimalConverterTest extends CobolConverterTestBase {
 		assertEquals("F0F0F1F2F3F4F5", toHost("123.4567", false, 7, 2, false, false));
 	}
 
+	@Test
+	public void toCobolBlankWhenZero() {
+		assertEquals("F1F2F3F4F5F6F7", toHost("12345670", false, 7, -1, false, false, true));
+		assertEquals("40404040404040", toHost("0", false, 7, -1, false, false, true));
+	}
+	
 	private String fromHost(String payload, int totalDigits, int fractionDigits, boolean signLeading,
 			boolean signSeparate) {
 		return converter.toString(inputStreamFrom(payload), totalDigits, fractionDigits, signLeading, signSeparate);
@@ -158,6 +164,12 @@ public class CobolZonedDecimalConverterTest extends CobolConverterTestBase {
 
 	private String toHost(String decimal, boolean signed, int totalDigits, int fractionDigits, boolean signLeading,
 			boolean signSeparate) {
-		return hex.formatHex(converter.toCobol(new BigDecimal(decimal), signed, totalDigits, fractionDigits, signLeading, signSeparate));
+		return toHost(decimal, signed, totalDigits, fractionDigits, signLeading, signSeparate, false);
+	}
+
+	private String toHost(String decimal, boolean signed, int totalDigits, int fractionDigits, boolean signLeading,
+			boolean signSeparate, boolean blankWhenZero) {
+		return hex.formatHex(converter.toCobol(new BigDecimal(decimal), signed, totalDigits, fractionDigits,
+				signLeading, signSeparate, blankWhenZero));
 	}
 }
