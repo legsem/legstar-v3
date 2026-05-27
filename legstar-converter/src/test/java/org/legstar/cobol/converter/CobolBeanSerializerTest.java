@@ -1,6 +1,8 @@
 package org.legstar.cobol.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
@@ -8,9 +10,14 @@ import java.util.HexFormat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.legstar.cobol.annotation.CobolGroup;
+import org.legstar.cobol.annotation.CobolString;
+import org.legstar.cobol.annotation.CobolZonedDecimal;
 import org.legstar.cobol.io.CobolOutputStream;
 
 import legstar.samples.alltypes.Alltypes;
+import legstar.samples.ardo01.Ardo01Record;
+import legstar.samples.ardo04.Ardo04Record;
 import legstar.samples.custdat.CustomerData;
 import legstar.samples.flat01.Flat01Record;
 import legstar.samples.flat02.Flat02Record;
@@ -139,6 +146,48 @@ public class CobolBeanSerializerTest extends CobolConverterTestBase {
 		Alltypes bean = new Alltypes();
 		assertEquals("404040404040404000000000000000000000000000000000000000000000000000000000000000000f000000000000000000000000f0f0f0f0c0f0f0f0f0f0c0f0f0f0c04ef0f0f04e4040404040", serialize(bean));
 	}
+
+	
+	@Test
+	public void testArdo01() {
+		Ardo01Record bean = new Ardo01Record();
+		bean.setComName("Antonio Bustello");
+		bean.setComNumber(new BigDecimal(8956));
+		bean.setComNbr((short) 2);
+		bean.setComArray(new BigDecimal[] {new BigDecimal("265.23"), new BigDecimal("-36.45")});
+		assertEquals("f0f0f8f9f5f6c195a39695899640c2a4a2a385939396404040400002000000000026523c000000000003645d", serialize(bean));
+	}
+
+	@Test
+	public void testArdo01Empty() {
+		Ardo01Record bean = new Ardo01Record();
+		assertEquals("f0f0f0f0f0f040404040404040404040404040404040404040400000", serialize(bean));
+	}
+
+	@Test
+	public void testArdo04() {
+		Ardo04Record bean = new Ardo04Record();
+		bean.setC_ItemsNumber((short) 3);
+		Ardo04Record.C_Array i1 = new Ardo04Record.C_Array();
+		i1.setC_Item1("I1");
+		i1.setC_Item2((short) 1);
+		Ardo04Record.C_Array i2 = new Ardo04Record.C_Array();
+		i2.setC_Item1("I2");
+		i2.setC_Item2((short) 2);
+		Ardo04Record.C_Array i3 = new Ardo04Record.C_Array();
+		i3.setC_Item1("I3");
+		i3.setC_Item2((short) 3);
+		bean.setC_Array(new Ardo04Record.C_Array[] {i1, i2, i3});
+		assertEquals("0003c9f14040400001c9f24040400002c9f34040400003", serialize(bean));
+	}
+
+	@Test
+	public void testArdo04Empty() {
+		Ardo04Record bean = new Ardo04Record();
+		assertEquals("000040404040400000", serialize(bean));
+	}
+
+
 	@Test
 	public void testCustomerData() {
 		CustomerData bean = new CustomerData();
@@ -146,10 +195,50 @@ public class CobolBeanSerializerTest extends CobolConverterTestBase {
 		assertEquals("f0f0f0f0f7f240404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404000000000", serialize(bean));
 	}
 	
+	@Test
+	public void testInvalidField() {
+		try {
+			InvalidFieldClass bean = new InvalidFieldClass();
+			bean.setProlog("123");
+			bean.setCustomerId("AB");
+			serialize(bean);
+			fail();
+		} catch (Exception e) {
+			String message = e.getMessage();
+			assertTrue(message.contains("java.lang.NumberFormatException"));
+			assertTrue(message.contains("{Cobol item: 'INVALID-FIELD.CUSTOMER-ID', @offset: 3}"));
+			}
+	}
+	
 	private String serialize(Object bean) {
-		CobolBeanSerializer serializer = new CobolBeanSerializer();
-		serializer.serialize(cos, bean);
+		CobolBeanSerializer serializer = new CobolBeanSerializer(cos, new CobolPrimitiveConverter(), new CobolClassInfoReflect());
+		serializer.serialize(bean);
 		return HexFormat.of().formatHex(baos.toByteArray());
+	}
+
+	@CobolGroup(cobolName = "INVALID-FIELD")
+	class InvalidFieldClass {
+		@CobolString(cobolName = "PROLOG", charNum = 3)
+		private String prolog;
+
+		@CobolZonedDecimal(cobolName = "CUSTOMER-ID", totalDigits = 6)
+		private String customerId;
+
+		public String getCustomerId() {
+			return customerId;
+		}
+
+		public void setCustomerId(String customerId) {
+			this.customerId = customerId;
+		}
+
+		public String getProlog() {
+			return prolog;
+		}
+
+		public void setProlog(String prolog) {
+			this.prolog = prolog;
+		}
 	}
 
 }

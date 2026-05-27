@@ -22,7 +22,9 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 
 	private final Map<Integer, CobolFieldInfo[]> fieldInfos = new ConcurrentHashMap<>();
 
-	private final Map<Class<?>, Constructor<?>> constructorCache = new ConcurrentHashMap<>();
+	private final Map<Integer, Constructor<?>> constructorCache = new ConcurrentHashMap<>();
+
+	private final Map<Integer, Annotation> cobolItemTypeCache = new ConcurrentHashMap<>();
 
 	@Override
 	public CobolFieldInfo[] fieldInfos(Class<?> clazz) {
@@ -49,7 +51,7 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 	@SuppressWarnings("unchecked")
 	public <Z> Z newInstance(Class<Z> clazz) {
 		try {
-			return (Z) constructorCache.computeIfAbsent(clazz, c -> {
+			return (Z) constructorCache.computeIfAbsent(clazz.hashCode(), c -> {
 				try {
 					return clazz.getConstructor();
 				} catch (Throwable e) {
@@ -59,6 +61,19 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 		} catch (Throwable e) {
 			throw new CobolBeanConverterException(e);
 		}
+	}
+
+	/**
+	 * Retrieve a class Cobol annotation.
+	 * 
+	 * @param clazz the class
+	 * @return the Cobol annotation on that class or null if not found
+	 */
+	@Override
+	public Annotation getCobolItemType(Class<?> clazz) {
+		return cobolItemTypeCache.computeIfAbsent(clazz.hashCode(), c -> {
+			return getCobolItemType(clazz.getAnnotations());
+		});
 	}
 
 	/**
@@ -95,10 +110,11 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 	 * @return useful field information
 	 */
 	private CobolFieldInfo toFieldInfo(Field field) {
+		Annotation cobolItemType = getCobolItemType(field);
 		return new CobolFieldInfo(field.getName(), //
 				getMethod(field.getDeclaringClass(), getterName(field)), //
 				getCobolArray(field), //
-				getCobolItemType(field), //
+				cobolItemType, //
 				field.getType(), //
 				isAlternative(field));
 	}
@@ -122,7 +138,16 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 	 * @return the Cobol annotation on that field or null if not found
 	 */
 	private Annotation getCobolItemType(Field field) {
-		return getCobolItemType(field.getAnnotations());
+		Annotation annotation = getCobolItemType(field.getAnnotations());
+		if (annotation == null) {
+			if (field.getType().isArray()) {
+				return getCobolItemType(field.getType().componentType());
+			} else {
+				return getCobolItemType(field.getType());
+			}
+		} else {
+			return annotation;
+		}
 	}
 
 	/**
@@ -133,16 +158,6 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 	 */
 	private CobolArray getCobolArray(Field field) {
 		return field.getDeclaredAnnotation(CobolArray.class);
-	}
-
-	/**
-	 * Retrieve a vlass Cobol annotation.
-	 * 
-	 * @param clazz the class
-	 * @return the Cobol annotation on that class or null if not found
-	 */
-	private Annotation getCobolItemType(Class<?> clazz) {
-		return getCobolItemType(clazz.getAnnotations());
 	}
 
 	/**
@@ -189,5 +204,6 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 		String name = f.getName();
 		return "get" + name.substring(0, 1).toUpperCase() + name.substring(1);
 	}
+	
 
 }

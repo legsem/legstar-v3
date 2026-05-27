@@ -145,7 +145,7 @@ public class CobolDoubleConverter {
 	public byte[] toCobol(double value) {
 
 		if (Double.isNaN(value) || Double.isInfinite(value)) {
-			throw new CobolBeanConverterException("Unsupported double " + value);
+			throw new CobolPrimitiveConverterException("Unsupported double " + value);
 		}
 		if (value == 0.0d || value == -0.0d) {
 			return new byte[8];
@@ -184,7 +184,7 @@ public class CobolDoubleConverter {
 		/* Add COMP-2 bias to exponent  */
 		expComp_2 = expComp_2 + 64;
 		if (expComp_2 < 0 || expComp_2 > 127) {
-			throw new CobolBeanConverterException(
+			throw new CobolPrimitiveConverterException(
 					"Hexadecimal biased exponent " + expComp_2 + " outside supported range (0-127)");
 		}
 

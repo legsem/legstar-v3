@@ -10,9 +10,9 @@ import org.legstar.cobol.annotation.CobolString;
 import org.legstar.cobol.annotation.CobolZonedDecimal;
 
 /**
- * Provides conversion methods to and from Cobol for primitive types.
+ * Convert primitive types.
  */
-public abstract class CobolPrimitiveConverter {
+public class CobolPrimitiveConverter {
 
 	/**
 	 * Converts cobol PIC X to String
@@ -44,11 +44,10 @@ public abstract class CobolPrimitiveConverter {
 	 */
 	private final CobolDoubleConverter doubleConverter;
 
-	/**
-	 * Build a primitive types converter.
-	 * 
-	 * @param config the converter's parameters
-	 */
+	public CobolPrimitiveConverter() {
+		this(CobolBeanConverterConfig.ebcdic());
+	}
+
 	public CobolPrimitiveConverter(CobolConverterConfig config) {
 		stringConverter = new CobolStringConverter(config.hostCharsetName(), //
 				config.truncateHostStringsTrailingSpaces(), //
@@ -69,52 +68,51 @@ public abstract class CobolPrimitiveConverter {
 		doubleConverter = new CobolDoubleConverter();
 	}
 
-	public byte[] convertString(CobolString cobolString, Object value) {
+	public byte[] toAlphanum(CobolString cobolString, Object value) {
 		return stringConverter.toCobol(value.toString(), cobolString.charNum());
 	}
 
-	public byte[] convertBinary(CobolBinaryNumber cobolBinaryNumber, Object value) {
+	public byte[] toBinaryNumber(CobolBinaryNumber cobolBinaryNumber, Object value) {
 		if (value instanceof Number) {
 			return binaryNumberConverter.toCobol((Number) value, cobolBinaryNumber.totalDigits());
 		} else {
-			throw new CobolPrimitiveConverterException("Unsupported source class " + value.getClass());
+			throw new CobolPrimitiveConverterException("Unsupported input type " + value.getClass().getName());
 		}
 	}
 
-	public byte[] convertZonedDecimal(CobolZonedDecimal cobolZonedDecimal, Object value) {
+	public byte[] toZonedDecimal(CobolZonedDecimal cobolZonedDecimal, Object value) {
 		if (value instanceof BigDecimal) {
 			return zonedDecimalConverter.toCobol((BigDecimal) value, cobolZonedDecimal.signed(),
 					cobolZonedDecimal.totalDigits(), cobolZonedDecimal.fractionDigits(),
 					cobolZonedDecimal.signLeading(), cobolZonedDecimal.signSeparate(),
 					cobolZonedDecimal.blankWhenZero());
 		} else {
-			return convertZonedDecimal(cobolZonedDecimal, new BigDecimal(value.toString()));
+			return toZonedDecimal(cobolZonedDecimal, new BigDecimal(value.toString()));
 		}
 	}
 
-	public byte[] convertPackedDecimal(CobolPackedDecimal cobolPackedDecimal, Object value) {
+	public byte[] toPackedDecimal(CobolPackedDecimal cobolPackedDecimal, Object value) {
 		if (value instanceof BigDecimal) {
 			return packedDecimalConverter.toCobol((BigDecimal) value, cobolPackedDecimal.signed(),
 					cobolPackedDecimal.totalDigits(), cobolPackedDecimal.fractionDigits());
 		} else {
-			return convertPackedDecimal(cobolPackedDecimal, new BigDecimal(value.toString()));
+			return toPackedDecimal(cobolPackedDecimal, new BigDecimal(value.toString()));
 		}
 	}
 
-	public byte[] convertFloat(CobolFloat cobolFloat, Object value) {
+	public byte[] toComp_1(CobolFloat cobolFloat, Object value) {
 		if (value instanceof Number) {
 			return floatConverter.toCobol(((Number) value).floatValue());
 		} else {
-			throw new CobolPrimitiveConverterException("Unsupported source class " + value.getClass());
+			throw new CobolPrimitiveConverterException("Unsupported input type " + value.getClass().getName());
 		}
 	}
 
-	public byte[] convertDouble(CobolDouble cobolDouble, Object value) {
+	public byte[] toComp_2(CobolDouble cobolDouble, Object value) {
 		if (value instanceof Number) {
 			return doubleConverter.toCobol(((Number) value).doubleValue());
 		} else {
-			throw new CobolPrimitiveConverterException("Unsupported source class " + value.getClass());
+			throw new CobolPrimitiveConverterException("Unsupported input type " + value.getClass().getName());
 		}
 	}
-
 }

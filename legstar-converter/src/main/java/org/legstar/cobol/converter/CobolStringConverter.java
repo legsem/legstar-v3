@@ -113,7 +113,7 @@ public class CobolStringConverter {
 			}
 			return target;
 		} catch (UnsupportedEncodingException e) {
-			throw new CobolBeanConverterException(e);
+			throw new CobolPrimitiveConverterException(e);
 		}
 
 	}

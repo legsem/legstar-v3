@@ -138,7 +138,7 @@ public class CobolFloatConverter {
 	public byte[] toCobol(float value) {
 
 		if (Float.isNaN(value) || Float.isInfinite(value)) {
-			throw new CobolBeanConverterException("Unsupported float " + value);
+			throw new CobolPrimitiveConverterException("Unsupported float " + value);
 		}
 		if (value == 0.0f || value == -0.0f) {
 			return new byte[4];

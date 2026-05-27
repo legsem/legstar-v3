@@ -1,7 +1,6 @@
 package org.legstar.cobol.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
@@ -47,7 +46,7 @@ public class CobolClassInfoReflectTest extends CobolTestBase {
 		CobolFieldInfo[] cfi = classInfo.fieldInfos(OneComplexFieldClass.class);
 		assertEquals(1, cfi.length);
 		assertEquals("personalData", cfi[0].name());
-		assertNull(cfi[0].cobolItemType());
+		assertEquals("@org.legstar.cobol.annotation.CobolGroup(cobolName=\"PERSONAL-DATA\")", cfi[0].cobolItemType().toString());
 		assertEquals("org.legstar.cobol.converter.CobolClassInfoReflectTest$OneComplexFieldClass$PersonalData",
 				cfi[0].javaType().getName());
 		assertEquals("getPersonalData", cfi[0].getter().getName());
@@ -59,7 +58,7 @@ public class CobolClassInfoReflectTest extends CobolTestBase {
 		CobolFieldInfo[] cfi = classInfo.fieldInfos(ArrayFieldsClass.class);
 		assertEquals(2, cfi.length);
 		assertEquals("optlStruct", cfi[0].name());
-		assertNull(cfi[0].cobolItemType());
+		assertEquals("@org.legstar.cobol.annotation.CobolGroup(cobolName=\"OPTL-STRUCT\")", cfi[0].cobolItemType().toString());
 		assertEquals("[Lorg.legstar.cobol.converter.CobolClassInfoReflectTest$ArrayFieldsClass$OptlStruct;",
 				cfi[0].javaType().getName());
 		assertEquals("getOptlStruct", cfi[0].getter().getName());

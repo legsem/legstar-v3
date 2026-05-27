@@ -1,53 +1,117 @@
 package org.legstar.cobol.converter;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 
+import org.legstar.cobol.annotation.CobolBinaryNumber;
+import org.legstar.cobol.annotation.CobolChoice;
+import org.legstar.cobol.annotation.CobolDouble;
+import org.legstar.cobol.annotation.CobolFloat;
+import org.legstar.cobol.annotation.CobolGroup;
+import org.legstar.cobol.annotation.CobolPackedDecimal;
+import org.legstar.cobol.annotation.CobolString;
+import org.legstar.cobol.annotation.CobolZonedDecimal;
 import org.legstar.cobol.io.CobolOutputStream;
 
 /**
  * Serializes a Cobol-annotated java bean into a cobol output stream.
+ * <p>
+ * Lightweight but not thread safe.
  */
-public class CobolBeanSerializer extends CobolPrimitiveSerializer {
+public class CobolBeanSerializer {
 
-	private final CobolClassInfo classInfo = new CobolClassInfoReflect();
+	/**
+	 * Converter for primitive types.
+	 */
+	private final CobolPrimitiveConverter primitiveConverter;
 
-	public CobolBeanSerializer() {
-		this(CobolBeanConverterConfig.ebcdic());
+	/**
+	 * Class/Field cache
+	 */
+	private final CobolClassInfo classInfo;
+
+	/**
+	 * Mutable serialization context.
+	 */
+	private final CobolBeanSerializerContext context;
+
+	public CobolBeanSerializer(CobolOutputStream cobolOutputStream, CobolPrimitiveConverter primitiveConverter,
+			CobolClassInfo classInfo) {
+		this.primitiveConverter = primitiveConverter;
+		this.classInfo = classInfo;
+		this.context = new CobolBeanSerializerContext(cobolOutputStream);
 	}
 
-	public CobolBeanSerializer(CobolConverterConfig config) {
-		super(config);
+	public void serialize(Object bean) {
+		Annotation annotation = classInfo.getCobolItemType(bean.getClass());
+		serialize(annotation, bean);
 	}
 
-	public void serialize(CobolOutputStream cos, Object bean) {
-		CobolFieldInfo[] fieldInfos = classInfo.fieldInfos(bean.getClass());
+	private void serialize(Annotation annotation, Object bean) {
+		context.pushCobolItemType(annotation);
+		if (annotation instanceof CobolGroup) {
+			serializeGroup(annotation, bean);
+		} else if (annotation instanceof CobolChoice) {
+			serializeGroup(annotation, bean);
+		} else {
+			serializePrimitive(annotation, bean);
+		}
+		context.popCobolItemType();
+	}
+
+	private void serializeGroup(Annotation annotation, Object group) {
+		CobolFieldInfo[] fieldInfos = classInfo.fieldInfos(group.getClass());
 		for (CobolFieldInfo fieldInfo : fieldInfos) {
-			Object value = getValue(bean, fieldInfo);
+			Object value = getValue(group, fieldInfo);
 			if (value == null) {
 				continue;
 			}
 			Class<?> fieldType = fieldInfo.javaType();
 			if (fieldType.isMemberClass()) {
-				serialize(cos, value);
+				serialize(fieldInfo.cobolItemType(), value);
 			} else if (fieldType.isArray()) {
 				int len = Array.getLength(value);
 				Class<?> itemType = fieldType.getComponentType();
 				for (int i = 0; i < len; i++) {
 					Object itemValue = Array.get(value, i);
 					if (itemType.isMemberClass()) {
-						serialize(cos, itemValue);
+						serialize(fieldInfo.cobolItemType(), itemValue);
 					} else if (itemType.isArray()) {
-						// TODO process sub items
+						throw new CobolBeanSerializerException(context, "Multidimensial java arrays are not supported");
 					} else {
-						serialize(cos, fieldInfo.cobolItemType(), itemValue);
+						serialize(fieldInfo.cobolItemType(), itemValue);
 					}
-					// TODO if len < minOccurs, fill with default values
 				}
 			} else {
-				serialize(cos, fieldInfo.cobolItemType(), value);
+				serialize(fieldInfo.cobolItemType(), value);
 			}
+		}
+	}
+
+	private void serializePrimitive(Annotation annotation, Object value) {
+		try {
+			byte[] buffer = null;
+			if (annotation instanceof CobolString) {
+				buffer = primitiveConverter.toAlphanum((CobolString) annotation, value);
+			} else if (annotation instanceof CobolBinaryNumber) {
+				buffer = primitiveConverter.toBinaryNumber((CobolBinaryNumber) annotation, value);
+			} else if (annotation instanceof CobolZonedDecimal) {
+				buffer = primitiveConverter.toZonedDecimal((CobolZonedDecimal) annotation, value);
+			} else if (annotation instanceof CobolPackedDecimal) {
+				buffer = primitiveConverter.toPackedDecimal((CobolPackedDecimal) annotation, value);
+			} else if (annotation instanceof CobolFloat) {
+				buffer = primitiveConverter.toComp_1((CobolFloat) annotation, value);
+			} else if (annotation instanceof CobolDouble) {
+				buffer = primitiveConverter.toComp_2((CobolDouble) annotation, value);
+			} else {
+				throw new CobolBeanSerializerException(context, "Unsupported Cobol annotation " + annotation);
+			}
+			context.cobolOutputStream().write(buffer);
+		} catch (IOException | NumberFormatException | CobolPrimitiveConverterException e) {
+			throw new CobolBeanSerializerException(context, e);
 		}
 	}
 
@@ -92,7 +156,7 @@ public class CobolBeanSerializer extends CobolPrimitiveSerializer {
 			}
 			return value;
 		} catch (ReflectiveOperationException e) {
-			throw new RuntimeException(e);
+			throw new CobolBeanSerializerException(context, e);
 		}
 
 	}
@@ -100,14 +164,15 @@ public class CobolBeanSerializer extends CobolPrimitiveSerializer {
 	/**
 	 * Given a java type return a default value.
 	 * <p>
-	 * javaType must not be an array (can't allocate an array without a length)
+	 * javaType must not be an array. It must be either an inner class or a
+	 * primitive.
 	 * 
 	 * @param javaType the java type
 	 * @return a default value
 	 */
 	private Object defaultValue(Class<?> javaType) {
 		if (javaType.isArray()) {
-			return null;
+			throw new CobolBeanSerializerException(context, "Multidimensial java arrays are not supported");
 		} else if (javaType.isMemberClass()) {
 			return classInfo.newInstance(javaType);
 		} else {

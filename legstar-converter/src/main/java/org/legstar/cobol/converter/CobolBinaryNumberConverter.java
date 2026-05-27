@@ -47,7 +47,7 @@ public class CobolBinaryNumberConverter {
 		} else if (targetClass.equals(Long.class) || targetClass.equals(long.class)) {
 			return (T) toLong(is, signed, totalDigits);
 		} else {
-			throw new CobolBeanConverterException("Unsupported target class " + targetClass);
+			throw new CobolPrimitiveConverterException("Unsupported target class " + targetClass);
 		}
 	}
 
