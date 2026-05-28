@@ -1,7 +1,6 @@
 package org.legstar.cobol.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 
@@ -81,9 +80,7 @@ public class CobolClassInfoReflectTest extends CobolTestBase {
 		CobolFieldInfo[] cfi = classInfo.fieldInfos(ChoiceClass.class);
 		assertEquals(2, cfi.length);
 		assertEquals("choice1Alt1", cfi[0].name());
-		assertTrue(cfi[0].isAlternative());
 		assertEquals("choice1Alt2", cfi[1].name());
-		assertTrue(cfi[1].isAlternative());
 	}
 	
 	@Test

@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 import org.legstar.cobol.annotation.CobolArray;
-import org.legstar.cobol.annotation.CobolChoice;
 import org.legstar.cobol.annotation.CobolItemType;
 
 /**
@@ -20,15 +19,15 @@ import org.legstar.cobol.annotation.CobolItemType;
  */
 public class CobolClassInfoReflect implements CobolClassInfo {
 
-	private final Map<Integer, CobolFieldInfo[]> fieldInfos = new ConcurrentHashMap<>();
+	private final Map<String, CobolFieldInfo[]> fieldInfos = new ConcurrentHashMap<>();
 
-	private final Map<Integer, Constructor<?>> constructorCache = new ConcurrentHashMap<>();
+	private final Map<String, Constructor<?>> constructorCache = new ConcurrentHashMap<>();
 
-	private final Map<Integer, Annotation> cobolItemTypeCache = new ConcurrentHashMap<>();
+	private final Map<String, Annotation> cobolItemTypeCache = new ConcurrentHashMap<>();
 
 	@Override
 	public CobolFieldInfo[] fieldInfos(Class<?> clazz) {
-		return fieldInfos.computeIfAbsent(clazz.hashCode(), k -> {
+		return fieldInfos.computeIfAbsent(clazz.getName(), k -> {
 			return Stream.of(clazz.getDeclaredFields()) //
 					.filter(this::isCobolField) //
 					.map(this::toFieldInfo) //
@@ -51,7 +50,7 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 	@SuppressWarnings("unchecked")
 	public <Z> Z newInstance(Class<Z> clazz) {
 		try {
-			return (Z) constructorCache.computeIfAbsent(clazz.hashCode(), c -> {
+			return (Z) constructorCache.computeIfAbsent(clazz.getName(), c -> {
 				try {
 					return clazz.getConstructor();
 				} catch (Throwable e) {
@@ -71,7 +70,7 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 	 */
 	@Override
 	public Annotation getCobolItemType(Class<?> clazz) {
-		return cobolItemTypeCache.computeIfAbsent(clazz.hashCode(), c -> {
+		return cobolItemTypeCache.computeIfAbsent(clazz.getName(), c -> {
 			return getCobolItemType(clazz.getAnnotations());
 		});
 	}
@@ -115,20 +114,7 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 				getMethod(field.getDeclaringClass(), getterName(field)), //
 				getCobolArray(field), //
 				cobolItemType, //
-				field.getType(), //
-				isAlternative(field));
-	}
-
-	/**
-	 * If this an alternative in choice.
-	 * 
-	 * @param field the field to check
-	 * @return true if the field's parent is a Cobol choice
-	 */
-	private boolean isAlternative(Field field) {
-		Class<?> parent = field.getDeclaringClass();
-		Annotation cobolAnnotation = getCobolItemType(parent);
-		return cobolAnnotation instanceof CobolChoice;
+				field.getType());
 	}
 
 	/**

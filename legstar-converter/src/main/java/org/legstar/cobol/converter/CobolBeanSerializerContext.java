@@ -31,6 +31,11 @@ public class CobolBeanSerializerContext {
 	 */
 	private final Stack<Annotation> cobolItemTypeStack = new Stack<>();
 	
+	/**
+	 * Additional bytes that need to be output as low values before anymore bytes are written.
+	 */
+	private long leftover;
+	
 	public CobolBeanSerializerContext(CobolOutputStream cobolOutputStream) {
 		this.cobolOutputStream = cobolOutputStream;
 	}
@@ -78,6 +83,14 @@ public class CobolBeanSerializerContext {
 		return cobolOutputStream.getBytesWritten();
 	}
 	
+	public long getLeftover() {
+		return leftover;
+	}
+
+	public void setLeftover(long leftover) {
+		this.leftover = leftover;
+	}
+	
 	/**
 	 * Given a cobol annotation, retrieve the cobol item's name.
 	 * 
@@ -103,5 +116,5 @@ public class CobolBeanSerializerContext {
 			return null;
 		}
 	}
-	
+
 }

@@ -22,10 +22,9 @@ public class CobolOutputStream extends FilterOutputStream {
 	}
 
 	@Override
-	public void write(byte[] b) throws IOException {
+	public void write(int b) throws IOException {
 		super.write(b);
-		bytesWritten += b.length;
+		bytesWritten += 1;
 	}
-
 
 }
