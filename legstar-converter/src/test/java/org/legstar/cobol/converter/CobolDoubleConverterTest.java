@@ -16,7 +16,7 @@ public class CobolDoubleConverterTest extends CobolConverterTestBase {
 		try {
 			converter.toDouble(inputStreamFrom(""));
 			fail();
-		} catch (CobolBeanConverterEOFException e) {
+		} catch (CobolPrimitiveConverterEOFException e) {
 			assertEquals("Not enough cobol input data available", e.getMessage());
 		}
 	}

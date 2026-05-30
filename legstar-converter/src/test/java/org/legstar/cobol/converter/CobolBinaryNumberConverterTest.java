@@ -18,7 +18,7 @@ public class CobolBinaryNumberConverterTest extends CobolConverterTestBase {
 		try {
 			converter.toShort(inputStreamFrom(""), true, 2);
 			fail();
-		} catch (CobolBeanConverterEOFException e) {
+		} catch (CobolPrimitiveConverterEOFException e) {
 			assertEquals("Not enough cobol input data available", e.getMessage());
 		}
 	}
@@ -28,7 +28,7 @@ public class CobolBinaryNumberConverterTest extends CobolConverterTestBase {
 		try {
 			converter.toShort(inputStreamFrom("12"), true, 1);
 			fail();
-		} catch (CobolBeanConverterEOFException e) {
+		} catch (CobolPrimitiveConverterEOFException e) {
 			assertEquals("Not enough cobol input data available", e.getMessage());
 		}
 	}

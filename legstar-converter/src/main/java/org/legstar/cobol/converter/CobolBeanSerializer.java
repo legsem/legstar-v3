@@ -144,7 +144,7 @@ public class CobolBeanSerializer {
 			break;
 		}
 		long end = context.bytesCounter();
-		context.setLeftover(choiceLen - (end - start));
+		context.setPendingLowValues(choiceLen - (end - start));
 	}
 
 	/**
@@ -231,11 +231,11 @@ public class CobolBeanSerializer {
 	 */
 	private void write(byte[] buffer) {
 		try {
-			if (context.getLeftover() > 0) {
-				for (long l = 0; l < context.getLeftover(); l++) {
+			if (context.getPendingLowValues() > 0) {
+				for (long l = 0; l < context.getPendingLowValues(); l++) {
 					context.cobolOutputStream().write(0);
 				}
-				context.setLeftover(0);
+				context.setPendingLowValues(0);
 			}
 			context.cobolOutputStream().write(buffer);
 		} catch (IOException e) {

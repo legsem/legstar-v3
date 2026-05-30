@@ -1,7 +1,7 @@
 module org.legstar.cobol.jaxb.samples {
 	
 	requires org.legstar.cobol.base;
-	requires org.legstar.cobol.converter;
+	requires transitive org.legstar.cobol.converter;
 	requires transitive jakarta.xml.bind;
 	
 	exports legstar.samples.jaxb.alltypes;

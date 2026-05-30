@@ -140,7 +140,7 @@ public class CobolJsonConverter<T> {
 	 * @param generator the JSON generator
 	 */
 	public void convert(CobolInputStream cis, JsonGenerator generator) {
-		T bean = beanConverter.convert(cis);
+		T bean = beanConverter.toJava(cis);
 		toJson(bean, generator);
 	}
 
@@ -151,7 +151,7 @@ public class CobolJsonConverter<T> {
 	 * @param generator the JSON generator
 	 */
 	public void convertAll(CobolInputStream cis, JsonGenerator generator) {
-		beanConverter.convertAll(cis).forEach(b -> toJson(b, generator));
+		beanConverter.toJavaAll(cis).forEach(b -> toJson(b, generator));
 	}
 
 	/**

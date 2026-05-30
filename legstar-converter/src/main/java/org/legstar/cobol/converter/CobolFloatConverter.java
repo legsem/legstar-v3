@@ -1,9 +1,9 @@
 package org.legstar.cobol.converter;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-import org.legstar.cobol.io.CobolInputStream;
 import org.legstar.cobol.utils.BytesLenUtils;
 
 /**
@@ -28,16 +28,16 @@ public class CobolFloatConverter {
 	 * Convert a COBOL float (COMP-1).
 	 * 
 	 * @param <T>         the target java type
-	 * @param is          the cobol input data
+	 * @param is          the Cobol input data
 	 * @param targetClass the target java class
 	 * @return the converted java value
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T convert(CobolInputStream is, Class<T> targetClass) {
+	public <T> T toJava(InputStream is, Class<T> targetClass) {
 		if (targetClass.equals(Float.class)) {
 			return (T) toFloat(is);
 		} else {
-			throw new CobolBeanConverterException("Unsupported target class " + targetClass);
+			throw new CobolPrimitiveConverterException("Unsupported target class " + targetClass);
 		}
 	}
 
@@ -59,13 +59,13 @@ public class CobolFloatConverter {
 	 * @param is the host bytes
 	 * @return a Float
 	 */
-	public Float toFloat(CobolInputStream is) {
+	public Float toFloat(InputStream is) {
 		try {
 			int bytesLen = BytesLenUtils.floatByteLen();
 			byte[] buffer = new byte[bytesLen];
 			int count = is.read(buffer);
 			if (count < bytesLen) {
-				throw new CobolBeanConverterEOFException();
+				throw new CobolPrimitiveConverterEOFException();
 			}
 			ByteBuffer bb = ByteBuffer.wrap(buffer);
 			int hostIntBits = bb.getInt();
@@ -101,7 +101,7 @@ public class CobolFloatConverter {
 			}
 			return result;
 		} catch (IOException e) {
-			throw new CobolBeanConverterException(e);
+			throw new CobolPrimitiveConverterException(e);
 		}
 	}
 

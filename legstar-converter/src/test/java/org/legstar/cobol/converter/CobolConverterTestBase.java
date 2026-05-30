@@ -10,5 +10,5 @@ public abstract class CobolConverterTestBase extends CobolTestBase {
 	public CobolInputStream inputStreamFrom(String hex) {
 		return new CobolInputStream(new ByteArrayInputStream(hexToBytes(hex)));
 	}
- 
+	
 }

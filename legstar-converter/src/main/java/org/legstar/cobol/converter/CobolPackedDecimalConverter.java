@@ -1,10 +1,10 @@
 package org.legstar.cobol.converter;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import org.legstar.cobol.io.CobolInputStream;
 import org.legstar.cobol.utils.BytesLenUtils;
 
 /**
@@ -48,14 +48,14 @@ public class CobolPackedDecimalConverter {
 	 * @return the converted java value
 	 */
 	@SuppressWarnings(value = "unchecked")
-	public <T> T convert(CobolInputStream is, boolean signed, int totalDigits, int fractionDigits,
+	public <T> T toJava(InputStream is, boolean signed, int totalDigits, int fractionDigits,
 			Class<T> targetClass) {
 		if (targetClass.equals(String.class)) {
 			return (T) toString(is, signed, totalDigits, fractionDigits);
 		} else if (targetClass.equals(BigDecimal.class)) {
 			return (T) toBigDecimal(is, signed, totalDigits, fractionDigits);
 		} else {
-			throw new CobolBeanConverterException("Unsupported target class " + targetClass);
+			throw new CobolPrimitiveConverterException("Unsupported target class " + targetClass);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class CobolPackedDecimalConverter {
 	 * @param fractionDigits scale
 	 * @return a string representation of the decimal
 	 */
-	public String toString(CobolInputStream is, boolean signed, int totalDigits, int fractionDigits) {
+	public String toString(InputStream is, boolean signed, int totalDigits, int fractionDigits) {
 		BigDecimal dec = toBigDecimal(is, signed, totalDigits, fractionDigits);
 		return dec == null ? null : dec.toPlainString();
 	}
@@ -92,7 +92,7 @@ public class CobolPackedDecimalConverter {
 	 * @param fractionDigits scale
 	 * @return a BigDecimal
 	 */
-	public BigDecimal toBigDecimal(CobolInputStream is, boolean signed, int totalDigits, int fractionDigits) {
+	public BigDecimal toBigDecimal(InputStream is, boolean signed, int totalDigits, int fractionDigits) {
 
 		try {
 			StringBuilder sb = new StringBuilder();
@@ -100,11 +100,11 @@ public class CobolPackedDecimalConverter {
 			for (int i = 0; i < bytesLen; i++) {
 				int c = is.read();
 				if (c == -1) {
-					throw new CobolBeanConverterEOFException();
+					throw new CobolPrimitiveConverterEOFException();
 				}
 				int hn = highNibble(c);
 				if (hn < 0 || hn > 9) {
-					throw new CobolBeanConverterException("High nibble " + hn + " at byte position " + i
+					throw new CobolPrimitiveConverterException("High nibble " + hn + " at byte position " + i
 							+ " is invalid for a BigDecimal. Not in [0-9] range.");
 				}
 				sb.append(hn);
@@ -115,11 +115,11 @@ public class CobolPackedDecimalConverter {
 						if (ln == negativeSignNibbleValue) {
 							sb.insert(0, "-");
 						} else if (ln != positiveSignNibbleValue && ln != unspecifiedSignNibbleValue) {
-							throw new CobolBeanConverterException("Low nibble " + ln + " at byte position " + i
+							throw new CobolPrimitiveConverterException("Low nibble " + ln + " at byte position " + i
 									+ " is invalid for a BigDecimal. Not a sign indicator.");
 						}
 					} else {
-						throw new CobolBeanConverterException("Low nibble " + ln + " at byte position " + i
+						throw new CobolPrimitiveConverterException("Low nibble " + ln + " at byte position " + i
 								+ " is invalid for a BigDecimal. Not in [0-9] range.");
 					}
 				} else {
@@ -134,7 +134,7 @@ public class CobolPackedDecimalConverter {
 				return new BigDecimal(s).scaleByPowerOfTen(-fractionDigits);
 			}
 		} catch (IOException | NumberFormatException e) {
-			throw new CobolBeanConverterException(e);
+			throw new CobolPrimitiveConverterException(e);
 		}
 
 	}

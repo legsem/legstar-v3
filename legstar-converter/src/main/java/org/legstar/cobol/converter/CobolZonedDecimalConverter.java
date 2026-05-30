@@ -1,10 +1,10 @@
 package org.legstar.cobol.converter;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import org.legstar.cobol.io.CobolInputStream;
 import org.legstar.cobol.utils.BytesLenUtils;
 
 /**
@@ -25,11 +25,11 @@ public class CobolZonedDecimalConverter {
 	private final int unspecifiedSignNibbleValue;
 
 	/**
-	 * Build a cobol zoned converter.
+	 * Build a Cobol zoned converter.
 	 * 
-	 * @param hostMinusSign              the minus sign cobol character encoding
-	 * @param hostPlusSign               the plus sign cobol character encoding
-	 * @param hostSpaceCharCode          the plus space cobol character encoding
+	 * @param hostMinusSign              the minus sign Cobol character encoding
+	 * @param hostPlusSign               the plus sign Cobol character encoding
+	 * @param hostSpaceCharCode          the plus space Cobol character encoding
 	 * @param positiveSignNibbleValue    positive sign nibble value
 	 * @param negativeSignNibbleValue    negative sign nibble value
 	 * @param unspecifiedSignNibbleValue unspecified sign nibble value
@@ -48,7 +48,7 @@ public class CobolZonedDecimalConverter {
 	 * Convert a COBOL zoned decimal.
 	 * 
 	 * @param <T>            the target java type
-	 * @param is             the cobol input data
+	 * @param is             the Cobol input data
 	 * @param totalDigits    the total number of digits
 	 * @param fractionDigits the number of fraction digits
 	 * @param signLeading    whether the sign is leading (trailing otherwise)
@@ -57,14 +57,14 @@ public class CobolZonedDecimalConverter {
 	 * @return the converted java value
 	 */
 	@SuppressWarnings(value = "unchecked")
-	public <T> T convert(CobolInputStream is, int totalDigits, int fractionDigits, boolean signLeading,
+	public <T> T toJava(InputStream is, int totalDigits, int fractionDigits, boolean signLeading,
 			boolean signSeparate, Class<T> targetClass) {
 		if (targetClass.equals(String.class)) {
 			return (T) toString(is, totalDigits, fractionDigits, signLeading, signSeparate);
 		} else if (targetClass.equals(BigDecimal.class)) {
 			return (T) toBigDecimal(is, totalDigits, fractionDigits, signLeading, signSeparate);
 		} else {
-			throw new CobolBeanConverterException("Unsupported target class " + targetClass);
+			throw new CobolPrimitiveConverterException("Unsupported target class " + targetClass);
 		}
 	}
 
@@ -78,7 +78,7 @@ public class CobolZonedDecimalConverter {
 	 * @param signSeparate   whether the sign is separate (overpunched otherwise)
 	 * @return a string representation of the decimal
 	 */
-	public String toString(CobolInputStream is, int totalDigits, int fractionDigits, boolean signLeading,
+	public String toString(InputStream is, int totalDigits, int fractionDigits, boolean signLeading,
 			boolean signSeparate) {
 		BigDecimal dec = toBigDecimal(is, totalDigits, fractionDigits, signLeading, signSeparate);
 		return dec == null ? null : dec.toPlainString();
@@ -101,7 +101,7 @@ public class CobolZonedDecimalConverter {
 	 *                       as the high nibble of the leading or trailing byte)
 	 * @return a BigDecimal
 	 */
-	public BigDecimal toBigDecimal(CobolInputStream is, int totalDigits, int fractionDigits, boolean signLeading,
+	public BigDecimal toBigDecimal(InputStream is, int totalDigits, int fractionDigits, boolean signLeading,
 			boolean signSeparate) {
 
 		try {
@@ -112,7 +112,7 @@ public class CobolZonedDecimalConverter {
 			for (int i = 0; i < bytesLen; i++) {
 				int c = is.read();
 				if (c == -1) {
-					throw new CobolBeanConverterEOFException();
+					throw new CobolPrimitiveConverterEOFException();
 				}
 				if ((i == 0 && signLeading) || (i == (bytesLen - 1) && !signLeading)) {
 					if (signSeparate) {
@@ -135,7 +135,7 @@ public class CobolZonedDecimalConverter {
 			sb.insert(0, signum == -1 ? "-" : "");
 			return new BigDecimal(sb.toString()).scaleByPowerOfTen(-fractionDigits);
 		} catch (IOException | NumberFormatException e) {
-			throw new CobolBeanConverterException(e);
+			throw new CobolPrimitiveConverterException(e);
 		}
 
 	}

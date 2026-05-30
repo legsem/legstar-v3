@@ -1,9 +1,9 @@
 package org.legstar.cobol.converter;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-import org.legstar.cobol.io.CobolInputStream;
 import org.legstar.cobol.utils.BytesLenUtils;
 
 /**
@@ -34,11 +34,11 @@ public class CobolDoubleConverter {
 	 * @return the converted java value
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T convert(CobolInputStream is, Class<T> targetClass) {
+	public <T> T toJava(InputStream is, Class<T> targetClass) {
 		if (targetClass.equals(Double.class)) {
 			return (T) toDouble(is);
 		} else {
-			throw new CobolBeanConverterException("Unsupported target class " + targetClass);
+			throw new CobolPrimitiveConverterException("Unsupported target class " + targetClass);
 		}
 	}
 
@@ -60,13 +60,13 @@ public class CobolDoubleConverter {
 	 * @param is the host bytes
 	 * @return a Double
 	 */
-	public Double toDouble(CobolInputStream is) {
+	public Double toDouble(InputStream is) {
 		try {
 			int bytesLen = BytesLenUtils.doubleByteLen();
 			byte[] buffer = new byte[bytesLen];
 			int count = is.read(buffer);
 			if (count < bytesLen) {
-				throw new CobolBeanConverterEOFException();
+				throw new CobolPrimitiveConverterEOFException();
 			}
 			ByteBuffer bb = ByteBuffer.wrap(buffer);
 			long hostLongBits = bb.getLong();
@@ -109,7 +109,7 @@ public class CobolDoubleConverter {
 
 			return result;
 		} catch (IOException e) {
-			throw new CobolBeanConverterException(e);
+			throw new CobolPrimitiveConverterException(e);
 		}
 	}
 

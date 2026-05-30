@@ -19,7 +19,7 @@ public class CobolPackedDecimalConverterTest extends CobolConverterTestBase {
 		try {
 			fromHost("", false, 2, 0);
 			fail();
-		} catch (CobolBeanConverterEOFException e) {
+		} catch (CobolPrimitiveConverterEOFException e) {
 			assertEquals("Not enough cobol input data available", e.getMessage());
 		}
 	}

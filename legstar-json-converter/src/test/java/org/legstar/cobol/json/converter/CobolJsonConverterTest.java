@@ -1,15 +1,15 @@
 package org.legstar.cobol.json.converter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
-import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.Test;
 import org.legstar.cobol.base.test.CobolTestBase;
 import org.legstar.cobol.converter.CobolChoiceStrategy;
+import org.legstar.cobol.converter.CobolFieldInfo;
 import org.legstar.cobol.io.CobolInputStream;
 
 import legstar.samples.json.alltypes.Alltypes;
@@ -173,16 +173,15 @@ public class CobolJsonConverterTest extends CobolTestBase {
 			check(convert("C3C1D4C2D9C9C4C7C540C1", Rdef04Record.class, new CobolChoiceStrategy<Rdef04Record>() {
 
 				@Override
-				public boolean choose(Rdef04Record root, Object choice, Field alternative) {
+				public boolean choose(Rdef04Record root, Object choice, CobolFieldInfo alternative) {
 					return false;
 				}
 
 			}));
 			fail();
 		} catch (Exception e) {
-			assertEquals("org.legstar.cobol.converter.CobolBeanConverterException:"
-					+ " None of the 2 alternatives matched the data"
-					+ " {Cobol item: 'RDEF04-RECORD.OUTER-REDEFINES-LONG', @offset: 0}", e.getMessage());
+			assertTrue(e.getMessage().contains("None of the 2 alternatives matched the data"
+					+ " {Cobol item: 'RDEF04-RECORD.OUTER-REDEFINES-LONG', @offset: 0}"));
 		}
 	}
 

@@ -1,17 +1,16 @@
 package legstar.samples.json.rdef03;
 
-import java.lang.reflect.Field;
-
 import org.legstar.cobol.converter.CobolChoiceStrategy;
+import org.legstar.cobol.converter.CobolFieldInfo;
 
 import legstar.samples.json.rdef03.Rdef03Record.ComDetail1Choice;
 
 public class Rdef03RecordChoiceStrategy implements CobolChoiceStrategy<Rdef03Record> {
 
 	@Override
-	public boolean choose(Rdef03Record rdef03Record, Object choice, Field alternative) {
+	public boolean choose(Rdef03Record rdef03Record, Object choice, CobolFieldInfo alternative) {
 		if (choice instanceof ComDetail1Choice) {
-			switch (alternative.getName()) {
+			switch (alternative.name()) {
 			case "comDetail1":
 				return rdef03Record.getComSelect() == 0;
 			case "comDetail2":

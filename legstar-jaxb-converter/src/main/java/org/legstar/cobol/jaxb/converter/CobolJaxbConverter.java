@@ -122,7 +122,7 @@ public class CobolJaxbConverter<T> {
 	 * @param result the output XML
 	 */
 	public void convert(CobolInputStream cis, Result result) {
-		T bean = beanConverter.convert(cis);
+		T bean = beanConverter.toJava(cis);
 		toXml(bean, result);
 	}
 
@@ -133,7 +133,7 @@ public class CobolJaxbConverter<T> {
 	 * @param result the output XML
 	 */
 	public void convertAll(CobolInputStream cis, Result result) {
-		beanConverter.convertAll(cis).forEach(b -> toXml(b, result));
+		beanConverter.toJavaAll(cis).forEach(b -> toXml(b, result));
 	}
 
 	/**
