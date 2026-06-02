@@ -18,7 +18,7 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 /**
- * Converts cobol data to and from XML using JAXB.
+ * Converts Cobol data to and from XML using JAXB.
  * <p>
  * Involves an intermediary java bean which holds both Cobol and JAXB
  * annotations as produced by legstar-jaxb-generator.
