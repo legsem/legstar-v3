@@ -59,6 +59,8 @@ public class CobolBeanSerializer {
 	/**
 	 * Serialize a bean as Cobol data.
 	 * <p>
+	 * From a Cobol perspective, each bean is a Record.
+	 * <p>
 	 * Bean must not be an array. Arrays are only treated as fields later in this
 	 * code.
 	 * <p>
@@ -72,6 +74,7 @@ public class CobolBeanSerializer {
 		context = new CobolBeanSerializerContext(cobolOutputStream);
 		Annotation cobolItemType = classInfo.getCobolItemType(bean.getClass());
 		serialize(cobolItemType, bean);
+		endRecord();
 	}
 
 	/**
@@ -238,6 +241,20 @@ public class CobolBeanSerializer {
 				context.setPendingLowValues(0);
 			}
 			context.cobolOutputStream().write(buffer);
+		} catch (IOException e) {
+			throw new CobolBeanSerializerException(context, e);
+		}
+	}
+	
+	/**
+	 * One record has been produced.
+	 * <p>
+	 * Flush outstanding outputs.
+	 */
+	private void endRecord() {
+		try {
+			context.cobolOutputStream().endRecord();
+			context.cobolOutputStream().flush();
 		} catch (IOException e) {
 			throw new CobolBeanSerializerException(context, e);
 		}

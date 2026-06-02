@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HexFormat;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.legstar.cobol.annotation.CobolGroup;
 import org.legstar.cobol.annotation.CobolString;
@@ -32,16 +32,6 @@ import legstar.samples.stru01.Stru01Record;
 import legstar.samples.stru03.Stru03Record;
 
 public class CobolBeanSerializerTest extends CobolConverterTestBase {
-
-	CobolOutputStream cos;
-
-	ByteArrayOutputStream baos;
-
-	@BeforeEach
-	private void setUp() {
-		baos = new ByteArrayOutputStream();
-		cos = new CobolOutputStream(baos);
-	}
 
 	@Test
 	public void testFlat01() {
@@ -479,10 +469,15 @@ public class CobolBeanSerializerTest extends CobolConverterTestBase {
 	}
 
 	private String serialize(Object bean) {
-		CobolBeanSerializer serializer = new CobolBeanSerializer(new CobolPrimitiveConverter(),
-				new CobolClassInfoReflect());
-		serializer.serialize(cos, bean);
-		return HexFormat.of().formatHex(baos.toByteArray());
+		try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				CobolOutputStream cos = new CobolOutputStream(baos)) {
+			CobolBeanSerializer serializer = new CobolBeanSerializer(new CobolPrimitiveConverter(),
+					new CobolClassInfoReflect());
+			serializer.serialize(cos, bean);
+			return HexFormat.of().formatHex(baos.toByteArray());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@CobolGroup(cobolName = "INVALID-FIELD")

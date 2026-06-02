@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 
 import org.legstar.cobol.base.test.CobolTestBase;
 import org.legstar.cobol.io.CobolInputStream;
+import org.legstar.cobol.io.CobolRecordFormat;
 
 public abstract class CobolConverterTestBase extends CobolTestBase {
 
@@ -11,4 +12,7 @@ public abstract class CobolConverterTestBase extends CobolTestBase {
 		return new CobolInputStream(new ByteArrayInputStream(hexToBytes(hex)));
 	}
 	
+	public CobolInputStream inputStreamFrom(String hex, CobolRecordFormat recfm) {
+		return new CobolInputStream(new ByteArrayInputStream(hexToBytes(hex)), recfm);
+	}
 }
