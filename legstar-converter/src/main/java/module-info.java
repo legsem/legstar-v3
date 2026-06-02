@@ -12,7 +12,7 @@
  * 
  * <pre>
  * try (FileInputStream fis = new FileInputStream("src/test/data/CUSTDAT.bin"); // Cobol binary data
- * 		CobolInputStream cis = new CobolInputStream(fis);) {
+ * 		CobolInputStream cis = new CobolInputStream(fis)) {
  * 	CobolBeanConverter&lt;CustomerData&gt; converter = new CobolBeanConverter&lt;&gt;(CustomerData.class);
  * 	CustomerData bean = converter.toJava(cis); // Produce a converted Java bean instance
  * }

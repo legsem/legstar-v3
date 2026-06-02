@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rdef07Record>
+    <comCounter>2</comCounter>
+    <comStruct>
+        <comAlt1Choice>
+            <comAlt1>52</comAlt1>
+        </comAlt1Choice>
+    </comStruct>
+    <comStruct>
+        <comAlt1Choice>
+            <comAlt2>AB</comAlt2>
+        </comAlt1Choice>
+    </comStruct>
+</rdef07Record>

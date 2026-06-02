@@ -177,7 +177,7 @@ public class CobolZonedDecimalConverter {
 		int bytesLen = BytesLenUtils.zonedDecimalByteLen(totalDigits, signSeparate);
 		byte[] buffer = new byte[bytesLen];
 
-		if (blankWhenZero && BigDecimal.ZERO.equals(decimal)) {
+		if (blankWhenZero && BigDecimal.ZERO.compareTo(decimal) == 0) {
 			for (int i = 0; i < bytesLen; i++) {
 				buffer[i] = (byte) hostSpaceCharCode;
 			}
