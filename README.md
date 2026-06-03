@@ -3,7 +3,7 @@ Legstar V3
 ![Supported JVM Versions](https://img.shields.io/badge/JVM-17--25-green?logo=openjdk)
 [![License](https://img.shields.io/github/license/legsem/legstar-v3)](https://www.apache.org/licenses/LICENSE-2.0)
 
-This project provides a toolset for Cobol to Java, Xml and JSON data conversion.
+This project provides a toolset for Cobol to Java, Xml and JSON data bi-directional conversion.
 
 Cobol data, as it originates from mainframes, is binary. Legstar uses a cobol copybook (metadata describing the cobol data) to figure out how to convert that binary data into a format that is usable in the Java ecosystem.
 
@@ -11,9 +11,9 @@ Guides:
 * [Convert cobol data to a java instance](docs/HOWTO-COBOL-TO-JAVA.md)
 * [Convert cobol data to XML](docs/HOWTO-COBOL-TO-XML.md)
 * [Convert cobol data to JSON](docs/HOWTO-COBOL-TO-JSON.md)
-* [Convert a java instance to cobol data](docs/HOWTO-JAVA-TO-COBOLJAVA.md)
+* [Convert a java instance to cobol data](docs/HOWTO-JAVA-TO-COBOL.md)
 * [Convert XML to cobol data](docs/HOWTO-XML-TO-COBOL.md)
-* [Convert JSON to cobol data](docs/HOWTO-JSON-TO-XML.md)
+* [Convert JSON to cobol data](docs/HOWTO-JSON-TO-COBOL.md)
 
 ---
 In the long term, legstar-v3 is meant to replace [legstar-core2](https://github.com/legsem/legstar-core2).
