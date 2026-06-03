@@ -1,0 +1,13 @@
+{
+  "c_ItemsNumber" : 3,
+  "c_Array" : [ {
+    "c_Item1" : "A    ",
+    "c_Item2" : 1
+  }, {
+    "c_Item1" : "B    ",
+    "c_Item2" : 2
+  }, {
+    "c_Item1" : "C    ",
+    "c_Item2" : 3
+  } ]
+}
