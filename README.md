@@ -25,3 +25,13 @@ The major differences between legstar-v3 and legstar-core2 are:
 * For XML support, [legstar-jaxb-generator](https://legsem.github.io/legstar-v3/maven-docs/legstar-jaxb-generator/site/legstar-jaxb-generator/apidocs/org.legstar.cobol.jaxb.generator/module-summary.html) injects JAXB Annotations alongside the cobol annotations in the generated java classes. At runtime [legstar-jaxb-converter](https://legsem.github.io/legstar-v3/maven-docs/legstar-jaxb-converter/site/legstar-jaxb-converter/apidocs/org.legstar.cobol.jaxb.converter/module-summary.html) uses these annotations to produce an XML instance.
 * legstar-v3 offers JSON support. For this, [legstar-json-generator](https://legsem.github.io/legstar-v3/maven-docs/legstar-json-generator/site/legstar-json-generator/apidocs/org.legstar.cobol.json.generator/module-summary.html) injects JACKSON annotations alongside the cobol annotations in the generated java classes. At runtime [legstar-json-converter](https://legsem.github.io/legstar-v3/maven-docs/legstar-json-converter/site/legstar-json-converter/apidocs/org.legstar.cobol.json.converter/module-summary.html) uses these annotations to produce a JSON instance.
 * legstar-v3 provides java/XML/JSON conversion to Cobol binary data
+
+---
+
+Migrating from 3.0.1:
+--------------------
+If you have been using the previous 3.0.1 release, you will need to change the following:
+* `CobolInputStream` has moved to the `org.legstar.cobol.io` package
+* The method `convert` in `CobolBeanConverter` is renamed toJava
+* The method `convert` in `CobolJaxbConverter` is renamed toXml
+* The method `convert` in `CobolJsonConverter` is renamed toJson
