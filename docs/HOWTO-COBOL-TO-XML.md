@@ -80,28 +80,28 @@ Step 2: Execute legstar-jaxb-converter to produce an XML instance using CUSTDAT.
 -----------------------------------------------------------------------------------
 
 1. Create a folder src/test/data and copy [CUSTDAT.bin](../samples/CUSTDAT.bin) to that folder
-2. Create a new java class named CustomerDataConvert in some package. Type the following code:
+2. Create a new java class named CustomerDataCobolToXml in some package. Type the following code:
 
 ```java
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.legstar.cobol.converter.CobolInputStream;
+import org.legstar.cobol.io.CobolInputStream;
 import org.legstar.cobol.jaxb.converter.CobolJaxbConverter;
 
 import custdat.CustomerData;
 
-public class CustomerDataConvert {
+public class CustomerDataCobolToXml {
 
-  public static void main(String[] args) {
-    try (FileInputStream fis = new FileInputStream("src/test/data/CUSTDAT.bin");
-        CobolInputStream cis = new CobolInputStream(fis);) {
-      CobolJaxbConverter<CustomerData> converter = new CobolJaxbConverter<>(CustomerData.class);
-      converter.convert(cis, System.out);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    public static void main(String[] args) {
+        try (FileInputStream fis = new FileInputStream("src/test/data/CUSTDAT.bin");
+                CobolInputStream cis = new CobolInputStream(fis)) {
+            CobolJaxbConverter<CustomerData> converter = new CobolJaxbConverter<>(CustomerData.class);
+            converter.toXml(cis, System.out);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-  }
 }
 ```
 To execute this java class the easiest thing to do is to add an assembly plugin to your pom.xml build section like so:
@@ -118,7 +118,7 @@ To execute this java class the easiest thing to do is to add an assembly plugin 
           <archive>
             <manifest>
               <mainClass>
-                {mypackage}.CustomerDataConvert</mainClass> <!-- Change {mypackage} as needed -->
+                {mypackage}.CustomerDataCobolToXml</mainClass> <!-- Change {mypackage} as needed -->
             </manifest>
           </archive>
         </configuration>

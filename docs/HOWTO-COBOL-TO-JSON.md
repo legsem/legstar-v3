@@ -80,28 +80,28 @@ Step 2: Execute legstar-json-converter to produce a JSON instance using CUSTDAT.
 -----------------------------------------------------------------------------------
 
 1. Create a folder src/test/data and copy [CUSTDAT.bin](../samples/CUSTDAT.bin) to that folder
-2. Create a new java class named CustomerDataConvert in some package. Type the following code:
+2. Create a new java class named CustomerDataCobolToJson in some package. Type the following code:
 
 ```java
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.legstar.cobol.converter.CobolInputStream;
+import org.legstar.cobol.io.CobolInputStream;
 import org.legstar.cobol.json.converter.CobolJsonConverter;
 
 import custdat.CustomerData;
 
-public class CustomerDataConvert {
+public class CustomerDataCobolToJson {
 
-  public static void main(String[] args) {
-    try (FileInputStream fis = new FileInputStream("src/test/data/CUSTDAT.bin");
-        CobolInputStream cis = new CobolInputStream(fis);) {
-      CobolJsonConverter<CustomerData> converter = new CobolJsonConverter<>(CustomerData.class);
-      converter.convert(cis, System.out);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    public static void main(String[] args) {
+        try (FileInputStream fis = new FileInputStream("src/test/data/CUSTDAT.bin");
+                CobolInputStream cis = new CobolInputStream(fis)) {
+            CobolJsonConverter<CustomerData> converter = new CobolJsonConverter<>(CustomerData.class);
+            converter.toJson(cis, System.out);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-  }
 }
 ```
 To execute this java class the easiest thing to do is to add an assembly plugin to your pom.xml build section like so:
@@ -118,7 +118,7 @@ To execute this java class the easiest thing to do is to add an assembly plugin 
           <archive>
             <manifest>
               <mainClass>
-                {mypackage}.CustomerDataConvert</mainClass> <!-- Change {mypackage} as needed -->
+                {mypackage}.CustomerDataCobolToJson</mainClass> <!-- Change {mypackage} as needed -->
             </manifest>
           </archive>
         </configuration>

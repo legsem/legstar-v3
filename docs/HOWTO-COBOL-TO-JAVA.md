@@ -79,29 +79,29 @@ Step 2: Execute legstar-converter to produce a java bean instance using CUSTDAT.
 -----------------------------------------------------------------------------------
 
 1. Create a folder src/test/data and copy [CUSTDAT.bin](../samples/CUSTDAT.bin) to that folder
-2. Create a new java class named CustomerDataConvert in some package. Type the following code:
+2. Create a new java class named CustomerDataCobolToJava in some package. Type the following code:
 
 ```java
 import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.legstar.cobol.converter.CobolBeanConverter;
-import org.legstar.cobol.converter.CobolInputStream;
+import org.legstar.cobol.io.CobolInputStream;
 
 import custdat.CustomerData;
 
-public class CustomerDataConvert {
+public class CustomerDataCobolToJava {
 
-  public static void main(String[] args) {
-    try (FileInputStream fis = new FileInputStream("src/test/data/CUSTDAT.bin");
-        CobolInputStream cis = new CobolInputStream(fis);) {
-      CobolBeanConverter<CustomerData> converter = new CobolBeanConverter<>(CustomerData.class);
-      CustomerData bean = converter.convert(cis);
-      System.out.println(bean);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    public static void main(String[] args) {
+        try (FileInputStream fis = new FileInputStream("src/test/data/CUSTDAT.bin"); // Cobol binary data
+                CobolInputStream cis = new CobolInputStream(fis)) {
+            CobolBeanConverter<CustomerData> converter = new CobolBeanConverter<>(CustomerData.class);
+            CustomerData bean = converter.toJava(cis); // Produce a converted Java bean instance
+            System.out.println(bean);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-  }
 }
 ```
 To execute this java class the easiest thing to do is to add an assembly plugin to your pom.xml build section like so:
@@ -118,7 +118,7 @@ To execute this java class the easiest thing to do is to add an assembly plugin 
           <archive>
             <manifest>
               <mainClass>
-                {mypackage}.CustomerDataConvert</mainClass> <!-- Change {mypackage} as needed -->
+                {mypackage}.CustomerDataCobolToJava</mainClass> <!-- Change {mypackage} as needed -->
             </manifest>
           </archive>
         </configuration>
