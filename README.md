@@ -32,6 +32,6 @@ Migrating from 3.0.1:
 --------------------
 If you have been using the previous 3.0.1 release, you will need to change the following:
 * `CobolInputStream` has moved to the `org.legstar.cobol.io` package
-* The method `convert` in `CobolBeanConverter` is renamed toJava
-* The method `convert` in `CobolJaxbConverter` is renamed toXml
-* The method `convert` in `CobolJsonConverter` is renamed toJson
+* The method `convert` in `CobolBeanConverter` is renamed `toJava`
+* The method `convert` in `CobolJaxbConverter` is renamed `toXml`
+* The method `convert` in `CobolJsonConverter` is renamed `toJson`
