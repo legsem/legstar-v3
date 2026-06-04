@@ -1,11 +1,9 @@
 package org.legstar.cobol.json.converter;
 
-import org.legstar.cobol.converter.CobolBeanConverterException;
-
 /**
  * Signals a conversion error.
  */
-public class CobolJsonConverterException extends CobolBeanConverterException {
+public class CobolJsonConverterException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

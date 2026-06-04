@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ardo04Record>
+    <c_ItemsNumber>3</c_ItemsNumber>
+    <c_Array>
+        <c_Item1>A    </c_Item1>
+        <c_Item2>1</c_Item2>
+    </c_Array>
+    <c_Array>
+        <c_Item1>B    </c_Item1>
+        <c_Item2>2</c_Item2>
+    </c_Array>
+    <c_Array>
+        <c_Item1>C    </c_Item1>
+        <c_Item2>3</c_Item2>
+    </c_Array>
+</ardo04Record>

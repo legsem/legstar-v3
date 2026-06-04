@@ -35,6 +35,13 @@ public @interface CobolZonedDecimal {
 	int fractionDigits() default 0;
 
 	/**
+	 * Signed or unsigned.
+	 * 
+	 * @return true if signed (false if unsigned)
+	 */
+	boolean signed() default false;
+
+	/**
 	 * Is the sign leading (trailing otherwise)
 	 * 
 	 * @return true if the sign is leading

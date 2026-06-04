@@ -20,13 +20,13 @@ public class CobolBeanConverterRecfmVTest extends CobolTestBase {
 		Path filePath = Paths.get("src/test/data/ZOS.FCUSTDAT.RDW.bin");
 		FileInputStream fis = new FileInputStream(filePath.toFile());
 		CobolInputStream cis = new CobolInputStream(fis, CobolRecordFormat.V);
-		CobolBeanConverter<CustomerData> fromHost = new CobolBeanConverter<>(CustomerData.class);
+		CobolBeanConverter<CustomerData> converter = new CobolBeanConverter<>(CustomerData.class);
 		CustomerData output = null;
 		boolean eof = false;
 		while (!eof) {
 			try {
-				output = fromHost.convert(cis);
-			} catch (CobolBeanConverterEOFException e) {
+				output = converter.toJava(cis);
+			} catch (CobolPrimitiveConverterEOFException e) {
 				eof = true;
 			}
 		}

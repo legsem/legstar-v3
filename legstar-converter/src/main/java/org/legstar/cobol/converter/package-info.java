@@ -1,4 +1,4 @@
 /**
- * Converter for Cobol binary data to Java bean instance.
+ * Converter for Cobol binary data to and from Java bean instance.
  */
 package org.legstar.cobol.converter;

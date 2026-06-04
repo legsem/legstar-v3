@@ -55,10 +55,19 @@ public interface CobolConverterConfig {
 	int hostSpaceCharCode();
 
 	/**
-	 * Should strings be right trimmed
+	 * Should host strings be right trimmed when converted to java.
 	 * 
 	 * @return true if strings should be right trimmed
 	 */
 	boolean truncateHostStringsTrailingSpaces();
+	
+	/**
+	 * Should cobol alphanumerics be right padded with spaces up to the cobol item size.
+	 * <p>
+	 * When this option is false, cobol alphanumerics are right padded with low values.
+	 * 
+	 * @return true if cobol alphanumerics should be right padded with spaces.
+	 */
+	boolean rightPadCobolAlphanumWithSpaces();
 
 }

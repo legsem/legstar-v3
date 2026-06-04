@@ -26,7 +26,8 @@ public class RecfmVBInputStream extends RecfmVInputStream {
 
 	/**
 	 * Build a RECFM=VB input stream
-	 * @param in th filtered input stream
+	 * 
+	 * @param in the filtered input stream
 	 */
 	public RecfmVBInputStream(InputStream in) {
 		super(in);

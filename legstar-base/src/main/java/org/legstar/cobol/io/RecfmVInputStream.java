@@ -30,18 +30,12 @@ public class RecfmVInputStream extends FilterInputStream {
 	private long pos;
 
 	/**
-	 * The input stream to be filtered.
-	 */
-	protected volatile InputStream in;
-
-	/**
 	 * Build a RECFM=V input stream.
 	 * 
 	 * @param in the input stream
 	 */
 	public RecfmVInputStream(InputStream in) {
 		super(in);
-		this.in = in;
 	}
 
 	/**
@@ -73,13 +67,13 @@ public class RecfmVInputStream extends FilterInputStream {
 	}
 
 	/**
-	 * Read the requested number of bytes from with a record (No DW expected within
+	 * Read the requested number of bytes from a record (No DW expected within
 	 * the data we read here).
 	 * 
 	 * @param b   where to place the bytes read
-	 * @param off offset to start plaing bytes read in b
+	 * @param off offset to start placing bytes read in b
 	 * @param len how many bytes should be read
-	 * @return the number of bytes read. if this is smaller than len we are an end
+	 * @return the number of bytes read. if this is smaller than len we are at end
 	 *         of file
 	 * @throws IOException
 	 */
@@ -153,17 +147,17 @@ public class RecfmVInputStream extends FilterInputStream {
 	 * @throws IOException if unable to read DW length
 	 */
 	protected int dwLen() throws IOException {
-		byte[] bdw = in.readNBytes(4);
-		if (bdw.length < 4) {
+		byte[] dw = in.readNBytes(4);
+		if (dw.length < 4) {
 			return -1;
 		}
-		pos += bdw.length;
-		ByteBuffer bb = ByteBuffer.wrap(bdw);
+		pos += dw.length;
+		ByteBuffer bb = ByteBuffer.wrap(dw);
 		int len = bb.getShort();
 		if (len < 4 || len > 32760 || bb.getShort() != 0) {
 			throw new IOException("Descriptor word at offset " + pos + " is invalid");
 		}
-		return ByteBuffer.wrap(bdw).getShort() - bdw.length;
+		return ByteBuffer.wrap(dw).getShort() - dw.length;
 	}
 
 	/**

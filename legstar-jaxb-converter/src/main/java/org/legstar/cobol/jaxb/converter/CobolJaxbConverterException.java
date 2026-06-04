@@ -1,11 +1,9 @@
 package org.legstar.cobol.jaxb.converter;
 
-import org.legstar.cobol.converter.CobolBeanConverterException;
-
 /**
- * Signals a conversion error.
+ * Signals a Cobol to XML error.
  */
-public class CobolJaxbConverterException extends CobolBeanConverterException {
+public class CobolJaxbConverterException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

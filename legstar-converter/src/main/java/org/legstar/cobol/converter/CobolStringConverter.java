@@ -1,9 +1,9 @@
 package org.legstar.cobol.converter;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-
-import org.legstar.cobol.io.CobolInputStream;
+import java.util.Arrays;
 
 /**
  * Converts between a Cobol alphanumeric literal and a java String.
@@ -14,33 +14,45 @@ public class CobolStringConverter {
 
 	private final boolean truncateHostStringsTrailingSpaces;
 
+	private final boolean rightPadCobolAlphanumWithSpaces;
+
+	private final int hostSpaceCharCode;
+
 	/**
-	 * Build a cobol string converter.
+	 * Build a Cobol string converter.
 	 * 
-	 * @param hostCharsetName                   the cobol character set
+	 * @param hostCharsetName                   the Cobol character set
 	 * @param truncateHostStringsTrailingSpaces true if strings should be right
 	 *                                          truncated
+	 * @param rightPadCobolAlphanumWithSpaces   Should Cobol alphanumerics be right
+	 *                                          padded with spaces up to the Cobol
+	 *                                          item size
+	 * @param hostSpaceCharCode                 Space character in the Cobol
+	 *                                          character set
 	 */
-	public CobolStringConverter(String hostCharsetName, boolean truncateHostStringsTrailingSpaces) {
+	public CobolStringConverter(String hostCharsetName, boolean truncateHostStringsTrailingSpaces,
+			boolean rightPadCobolAlphanumWithSpaces, int hostSpaceCharCode) {
 		this.hostCharsetName = hostCharsetName;
 		this.truncateHostStringsTrailingSpaces = truncateHostStringsTrailingSpaces;
+		this.rightPadCobolAlphanumWithSpaces = rightPadCobolAlphanumWithSpaces;
+		this.hostSpaceCharCode = hostSpaceCharCode;
 	}
 
 	/**
 	 * Convert a COBOL alphanumeric.
 	 * 
 	 * @param <T>         the target java type
-	 * @param is          the cobol input data
+	 * @param is          the Cobol input data
 	 * @param charNum     the number of characters
 	 * @param targetClass the target java class
 	 * @return the converted java value
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T convert(CobolInputStream is, int charNum, Class<T> targetClass) {
+	public <T> T toJava(InputStream is, int charNum, Class<T> targetClass) {
 		if (targetClass.equals(String.class)) {
 			return (T) toString(is, charNum);
 		} else {
-			throw new CobolBeanConverterException("Unsupported target class " + targetClass);
+			throw new CobolPrimitiveConverterException("Unsupported target class " + targetClass);
 		}
 	}
 
@@ -56,7 +68,7 @@ public class CobolStringConverter {
 	 * @param charNum the maximum number of characters for the result string
 	 * @return a string
 	 */
-	public String toString(CobolInputStream is, int charNum) {
+	public String toString(InputStream is, int charNum) {
 		try {
 			byte[] buffer = new byte[charNum];
 			int j = 0;
@@ -64,7 +76,7 @@ public class CobolStringConverter {
 				int c = is.read();
 				if (c == -1) {
 					if (i == 0) {
-						throw new CobolBeanConverterEOFException();
+						throw new CobolPrimitiveConverterEOFException();
 					} else {
 						break;
 					}
@@ -77,10 +89,32 @@ public class CobolStringConverter {
 			String res = new String(buffer, 0, j, hostCharsetName);
 			return truncateHostStringsTrailingSpaces ? res.stripTrailing() : res;
 		} catch (UnsupportedEncodingException e) {
-			throw new CobolBeanConverterException(e);
+			throw new CobolPrimitiveConverterException(e);
 		} catch (IOException e) {
-			throw new CobolBeanConverterException(e);
+			throw new CobolPrimitiveConverterException(e);
 		}
+	}
+
+	/**
+	 * Convert a java String to a Cobol alphanumeric.
+	 * 
+	 * @param s       the java string
+	 * @param charNum the Cobol alphanumeric size
+	 * @return the binary value for the resulting alphanumeric
+	 */
+	public byte[] toCobol(String s, int charNum) {
+		try {
+			byte[] target = new byte[charNum];
+			byte[] source = s.getBytes(hostCharsetName);
+			System.arraycopy(source, 0, target, 0, Math.min(charNum, source.length));
+			if (charNum > source.length && rightPadCobolAlphanumWithSpaces) {
+				Arrays.fill(target, source.length, charNum, (byte) hostSpaceCharCode);
+			}
+			return target;
+		} catch (UnsupportedEncodingException e) {
+			throw new CobolPrimitiveConverterException(e);
+		}
+
 	}
 
 }

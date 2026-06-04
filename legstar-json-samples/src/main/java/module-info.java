@@ -1,7 +1,7 @@
 module org.legstar.cobol.json.samples {
 	
 	requires org.legstar.cobol.base;
-	requires org.legstar.cobol.converter;
+	requires transitive org.legstar.cobol.converter;
 	requires com.fasterxml.jackson.annotation;
 	
 	exports legstar.samples.json.alltypes;

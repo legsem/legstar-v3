@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rdef02Record>
+    <rdef02Key>
+        <rdef02Item1Choice>
+            <rdef02Item2>JOHN S</rdef02Item2>
+        </rdef02Item1Choice>
+        <comSelect>1</comSelect>
+    </rdef02Key>
+    <comDetail1Choice>
+        <comDetail1>
+            <comName>CAMBRIDGE </comName>
+        </comDetail1>
+    </comDetail1Choice>
+    <comItem3>2500.00</comItem3>
+</rdef02Record>
