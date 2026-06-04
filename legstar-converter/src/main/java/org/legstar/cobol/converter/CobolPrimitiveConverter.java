@@ -84,6 +84,7 @@ public class CobolPrimitiveConverter {
 	 * Convert a COBOL alphanumeric to java String.
 	 * 
 	 * @param <Z>         the target java type
+	 * @param is          cobol data stream
 	 * @param cobolString cobol string annotation
 	 * @param objectClass the target java class
 	 * @return the converted java value
@@ -96,6 +97,7 @@ public class CobolPrimitiveConverter {
 	 * Convert a COBOL binary number (COMP, COMP-5).
 	 * 
 	 * @param <Z>         the target java type
+	 * @param is          cobol data stream
 	 * @param cobolBinary cobol binary number annotation
 	 * @param objectClass the target java class
 	 * @return the converted java value
@@ -108,20 +110,21 @@ public class CobolPrimitiveConverter {
 	 * Convert a COBOL zoned decimal.
 	 * 
 	 * @param <Z>               the target java type
+	 * @param is                cobol data stream
 	 * @param cobolZonedDecimal cobol zoned decimal annotation
 	 * @param objectClass       the target java class
 	 * @return the converted java value
 	 */
 	public <Z> Z toJava(InputStream is, CobolZonedDecimal cobolZonedDecimal, Class<Z> objectClass) {
-		return (Z) zonedDecimalConverter.toJava(is, cobolZonedDecimal.totalDigits(),
-				cobolZonedDecimal.fractionDigits(), cobolZonedDecimal.signLeading(), cobolZonedDecimal.signSeparate(),
-				objectClass);
+		return (Z) zonedDecimalConverter.toJava(is, cobolZonedDecimal.totalDigits(), cobolZonedDecimal.fractionDigits(),
+				cobolZonedDecimal.signLeading(), cobolZonedDecimal.signSeparate(), objectClass);
 	}
 
 	/**
 	 * Convert a COBOL packed decimal (COMP-3).
 	 * 
 	 * @param <Z>                the target java type
+	 * @param is                 cobol data stream
 	 * @param cobolPackedDecimal cobol packed decimal annotation
 	 * @param objectClass        the target java class
 	 * @return the converted java value
@@ -135,6 +138,7 @@ public class CobolPrimitiveConverter {
 	 * Convert a COBOL float (COMP-1).
 	 * 
 	 * @param <Z>         the target java type
+	 * @param is          cobol data stream
 	 * @param cobolFloat  cobol float annotation
 	 * @param objectClass the target java class
 	 * @return the converted java value
@@ -147,6 +151,7 @@ public class CobolPrimitiveConverter {
 	 * Convert a COBOL double (COMP-2).
 	 * 
 	 * @param <Z>         the target java type
+	 * @param is          cobol data stream
 	 * @param cobolDouble cobol double annotation
 	 * @param objectClass the target java class
 	 * @return the converted java value
@@ -188,7 +193,7 @@ public class CobolPrimitiveConverter {
 	/**
 	 * Convert a java object to a Cobol zoned decimal.
 	 * 
-	 * @param cobolBinaryNumber the Cobol item description
+	 * @param cobolZonedDecimal the Cobol item description
 	 * @param value             the java object
 	 * @return a byte array with Cobol data
 	 * @throws NumberFormatException if string is passed which is not a valid

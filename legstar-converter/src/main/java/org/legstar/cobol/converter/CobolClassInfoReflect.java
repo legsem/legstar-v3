@@ -19,11 +19,20 @@ import org.legstar.cobol.annotation.CobolItemType;
  */
 public class CobolClassInfoReflect implements CobolClassInfo {
 
-	private final Map<String, CobolFieldInfo[]> fieldInfos = new ConcurrentHashMap<>();
+	private final Map<String, CobolFieldInfo[]> fieldInfos;
 
-	private final Map<String, Constructor<?>> constructorCache = new ConcurrentHashMap<>();
+	private final Map<String, Constructor<?>> constructorCache;
 
-	private final Map<String, Annotation> cobolItemTypeCache = new ConcurrentHashMap<>();
+	private final Map<String, Annotation> cobolItemTypeCache;
+
+	/**
+	 * Create a cache system for Class and Fields.
+	 */
+	public CobolClassInfoReflect() {
+		fieldInfos = new ConcurrentHashMap<>();
+		constructorCache = new ConcurrentHashMap<>();
+		cobolItemTypeCache = new ConcurrentHashMap<>();
+	}
 
 	@Override
 	public CobolFieldInfo[] fieldInfos(Class<?> clazz) {

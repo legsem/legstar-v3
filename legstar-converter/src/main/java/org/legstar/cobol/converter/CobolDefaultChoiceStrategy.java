@@ -7,6 +7,13 @@ package org.legstar.cobol.converter;
  */
 public class CobolDefaultChoiceStrategy<T> implements CobolChoiceStrategy<T> {
 
+	/**
+	 * Create a default choice strategy.
+	 */
+	public CobolDefaultChoiceStrategy() {
+		super();
+	}
+
 	@Override
 	public boolean choose(T root, Object choice, CobolFieldInfo alternative) {
 		return true;

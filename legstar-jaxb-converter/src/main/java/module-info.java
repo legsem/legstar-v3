@@ -7,9 +7,8 @@
  * Assuming the generator produced a CustomerData.java class, the
  * {@link org.legstar.cobol.jaxb.converter.CobolJaxbConverter
  * CobolJaxbConverter} can be used like so:
- * 
- * <h3>From Cobol to XML:</h3>
- * 
+ * <p> 
+ * <b>From Cobol to XML:</b>
  * <pre>
  * try (FileInputStream fis = new FileInputStream("src/test/data/CUSTDAT.bin"); // Cobol binary data
  * 		CobolInputStream cis = new CobolInputStream(fis)) {
@@ -18,9 +17,7 @@
  * 	converter.toXml(cis, writer); // Writer will contain the XML produced
  * }
  * </pre>
- * 
- * <h3>From XML to Cobol:</h3>
- * 
+ * <b>From XML to Cobol:</b>
  * <pre>
  * try (FileOutputStream fos = new FileOutputStream("target/CUSTDAT.bin"); // Cobol binary data
  *         CobolOutputStream cos = new CobolOutputStream(fos)) {

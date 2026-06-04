@@ -13,7 +13,7 @@ public class RecfmFBOutputStream extends RecordOutputStream {
 	/**
 	 * Build a RECFM=FB output stream
 	 * 
-	 * @param in the underlying output stream
+	 * @param out the underlying output stream
 	 */
 	public RecfmFBOutputStream(OutputStream out) {
 		super(out);

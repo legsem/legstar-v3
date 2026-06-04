@@ -7,9 +7,8 @@
  * Assuming the legstar-generator produced a CustomerData.java class, the
  * {@link org.legstar.cobol.converter.CobolBeanConverter CobolBeanConverter} can
  * be used like so:
- * 
- * <h3>From Cobol to Java:</h3>
- * 
+ * <p>
+ * <b>From Cobol to Java:</b>
  * <pre>
  * try (FileInputStream fis = new FileInputStream("src/test/data/CUSTDAT.bin"); // Cobol binary data
  * 		CobolInputStream cis = new CobolInputStream(fis)) {
@@ -17,9 +16,7 @@
  * 	CustomerData bean = converter.toJava(cis); // Produce a converted Java bean instance
  * }
  * </pre>
- * 
- * <h3>From Java to Cobol:</h3>
- * 
+ * <b>From Java to Cobol:</b>
  * <pre>
  * try (FileOutputStream fos = new FileOutputStream("target/CUSTDAT.bin"); // Cobol binary data
  * 		CobolOutputStream cos = new CobolOutputStream(fos);) {

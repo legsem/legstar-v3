@@ -19,8 +19,15 @@ public abstract class CobolBeanConverterContextBase {
 	/**
 	 * The Cobol annotation hierarchy that is traversed
 	 */
-	private final Stack<Annotation> cobolItemTypeStack = new Stack<>();
-	
+	private final Stack<Annotation> cobolItemTypeStack;
+
+	/**
+	 * Create a bean converter context.
+	 */
+	public CobolBeanConverterContextBase() {
+		cobolItemTypeStack = new Stack<>();
+	}
+
 	/**
 	 * Push a Cobol annotation on the stack.
 	 * 
@@ -39,9 +46,11 @@ public abstract class CobolBeanConverterContextBase {
 
 	/**
 	 * Number of Cobol bytes already converted.
+	 * 
+	 * @return the number of Cobol bytes already converted
 	 */
 	public abstract long bytesCounter();
-	
+
 	/**
 	 * Create a qualified cobol name.
 	 * 

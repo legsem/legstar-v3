@@ -11,6 +11,11 @@ import java.io.OutputStream;
  */
 public abstract class RecordOutputStream extends FilterOutputStream {
 
+	/**
+	 * Build a record-aware output stream
+	 * 
+	 * @param out the underlying output stream
+	 */
 	public RecordOutputStream(OutputStream out) {
 		super(out);
 	}
